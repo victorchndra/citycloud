@@ -4,9 +4,9 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Penduduk</h4>
+                <h4 class="card-title">Data RW</h4>
                 <p class="card-description">
-                    Data Penduduk Kelurahan Lembah Sari
+                    Data RW Kelurahan Lembah Sari
                 </p>
                 <a href="/rw" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/rw/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
@@ -16,12 +16,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>UUID</th>
                                 <th>Name</th>
                                 <th>Created By</th>
                                 <th>Update By</th>
                                 <th>Deleted By</th>
-                                <th>Ditambahkan</th>
+                                <th>Created At</th>
+                                <th>Update At</th>
+                                <th>Delete At</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -29,9 +30,12 @@
                         @foreach($datas as $key => $data)
                             <tr>
                                 <td>{{ $data->id }} </td>
-                                <td>{{ $data->uuid }} </td>
                                 <td>{{ $data->name}} </td>
                                 <td>{{ $data->created_by}}</td>
+                                <td>{{ $data->update_by}}</td>
+                                <td>{{ $data->deleted_by}}</td>
+                                <td>{{ $data->created_at, 'H:i:s'}}</td>
+                                <td>{{ $data->created_at, 'H:i:s'}}</td>
                                 <td>{{$data->created_at, 'H:i:s'}}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">

@@ -3,31 +3,28 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Basic form elements</h4>
+        <h4 class="card-title">Input Data RW</h4>
         <p class="card-description">
-          Basic form elements
+          Input Data RW
         </p>
-        <form class="forms-sample">
+        <form class="forms-sample" action="/masters/rw/form">
           <div class="form-group">
-            <label for="exampleInputName1">Name</label>
+            <label for="exampleInputName1">UUID</label>
             <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail3">Email address</label>
+            <label for="exampleInputEmail3">Nama RW</label>
             <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword4">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
-          </div>
-          <div class="form-group">
+         
+          {{-- <div class="form-group">
             <label for="exampleSelectGender">Gender</label>
               <select class="form-control" id="exampleSelectGender">
                 <option>Male</option>
                 <option>Female</option>
               </select>
-            </div>
-          <div class="form-group">
+            </div> --}}
+          {{-- <div class="form-group">
             <label>File upload</label>
             <input type="file" name="img[]" class="file-upload-default">
             <div class="input-group col-xs-12">
@@ -44,7 +41,7 @@
           <div class="form-group">
             <label for="exampleTextarea1">Textarea</label>
             <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
-          </div>
+          </div> --}}
           <button type="submit" class="btn btn-primary me-2">Submit</button>
           <button class="btn btn-light">Cancel</button>
         </form>
