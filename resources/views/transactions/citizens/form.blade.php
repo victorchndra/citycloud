@@ -16,7 +16,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">NIK</label>
                             <div class="col-sm-9">
-                                <input type="number" name="nik" class="form-control" placeholder="Nomor Induk Kependudukan"/>
+                                <input type="number" name="nik" class="form-control @error('nik') is-invalid @enderror" placeholder="Nomor Induk Kependudukan" autofocus value="{{ old('nik') }}"/>
+                                @error('nik')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -24,7 +29,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">KK</label>
                             <div class="col-sm-9">
-                                <input type="number" name="kk" class="form-control" placeholder="Kartu Keluarga" />
+                                <input type="number" name="kk" class="form-control @error('kk') is-invalid @enderror" placeholder="Kartu Keluarga" value="{{ old('kk') }}"/>
+                                @error('kk')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -34,7 +44,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nama Lengkap</label>
                             <div class="col-sm-9">
-                                <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" />
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" required value="{{ old('name') }}"/>
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -42,7 +57,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" name="date_birth" class="form-control" placeholder="dd/mm/yyyy" />
+                                <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" required value="{{ old('date_birth') }}"/>
+                                @error('date_birth')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -63,7 +83,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tempat Lahir</label>
                             <div class="col-sm-9">
-                                <input type="text" name="place_birth" class="form-control" placeholder="Tempat Lahir" />
+                                <input type="text" name="place_birth" class="form-control @error('place_birth') is-invalid @enderror" placeholder="Tempat Lahir" required value="{{ old('place_birth') }}"/>
+                                @error('place_birth')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -115,7 +140,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pekerjaan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="Pekerjaan" name="job"/>
+                                <input type="text" class="form-control @error('job') is-invalid @enderror" placeholder="Pekerjaan" name="job" required value="{{ old('job') }}"/>
+                                @error('job')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -125,7 +155,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" placeholder="Nomor Telepon" name="phone">
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" required value="{{ old('phone') }}">
+                                @error('phone')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -150,7 +185,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" name="rt"/>
+                                <input type="number" class="form-control @error('rt') is-invalid @enderror" name="rt" required value="{{ old('rt') }}"/>
+                                @error('rt')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -158,7 +198,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RW</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" name="rw"/>
+                                <input type="number" class="form-control @error('rw') is-invalid @enderror" name="rw" required value="{{ old('rw') }}"/>
+                                @error('rw')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -168,7 +213,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Desa</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="village"/>
+                                <input type="text" class="form-control @error('village') is-invalid @enderror" name="village" required value="{{ old('village') }}"/>
+                                @error('village')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -176,7 +226,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="sub_districts"/>
+                                <input type="text" class="form-control @error('sub_districts') is-invalid @enderror" name="sub_districts" required value="{{ old('sub_districts') }}"/>
+                                @error('sub_districts')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -186,7 +241,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kecamatan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="districts"/>
+                                <input type="text" class="form-control @error('districts') is-invalid @enderror" name="districts" required value="{{ old('districts') }}"/>
+                                @error('districts')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -194,7 +254,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Provinsi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="province"/>
+                                <input type="text" class="form-control @error('province') is-invalid @enderror" name="province" required value="{{ old('province') }}"/>
+                                @error('province')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -208,7 +273,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Pindah</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="move_date"/>
+                                <input type="date" class="form-control @error('move_date') is-invalid @enderror" name="move_date" value="{{ old('move_date') }}"/>
+                                @error('move_date')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -216,7 +286,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Meninggal</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="death_date"/>
+                                <input type="date" class="form-control @error('death_date') is-invalid @enderror" name="death_date" value="{{ old('death_date') }}"/>
+                                @error('death_date')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -261,7 +336,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center my-4">
-                    <button class="btn btn-primary">Tambah Data Kependudukan</button>
+                    <button type="submit" class="btn btn-primary">Tambah Data Kependudukan</button>
                 </div>
             </form>
         </div>
