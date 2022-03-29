@@ -23,3 +23,6 @@ Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController
 
 //jika penggunaan resource, path harus lengkap
 Route::resource("users", "App\Http\Controllers\UserController");
+
+//jika penggunaan resource, path harus lengkap
+Route::resource("assistance", "App\Http\Controllers\AssistanceController");
