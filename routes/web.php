@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RWController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +20,12 @@ Route::get('/', function () {
 
 //jika penggunaan resource, path harus lengkap
 Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController");
-
+Route::resource("rw", "App\Http\Controllers\RWController");
 //jika penggunaan resource, path harus lengkap
 Route::resource("users", "App\Http\Controllers\UserController");
 
 //jika penggunaan resource, path harus lengkap
+Route::resource("rt", "App\Http\Controllers\RTController");
+
 Route::resource("assistance", "App\Http\Controllers\AssistanceController");
+
