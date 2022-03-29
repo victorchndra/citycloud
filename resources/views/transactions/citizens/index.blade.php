@@ -53,7 +53,11 @@
                                             <div class="dropdown-menu">
                                             <a class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item">Hapus</a>
+                                            <form action="/citizens/{{ $data->uuid }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="dropdown-item" type="submit" onclick="return confirm('Are you sure?')">Hapus</button>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>
