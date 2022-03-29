@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RW;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 
 class RWController extends Controller
@@ -39,6 +40,15 @@ class RWController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedate = $request->validate([
+            'name' => 'required|max:255',
+            'uuid' => Uuid::uuid4()->getHex()
+        ]);
+        
+        RW::create($validatedate);
+        dd('uuid');
+        return redirect('/masters/rw')->with('success', 'Data berhasil di tambah');
+
     }
 
     /**
@@ -84,5 +94,7 @@ class RWController extends Controller
     public function destroy(RW $rW)
     {
         //
+        RW::destroy($rW->id);
+        return redirect('/masters/rw')->with('success', 'Post terhapus');
     }
 }
