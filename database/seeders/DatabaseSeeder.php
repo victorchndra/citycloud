@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         //panggil semua table seeder di database seeder ini.
         $this->call(CitizenTableSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(RTSeeder::class);
     }
 }
