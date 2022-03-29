@@ -136,6 +136,6 @@ class CitizenController extends Controller
         // return redirect()->route('transactions.citizens.index');
         // return redirect('transactions.citizens.index');
         Citizens::destroy($data);
-        return redirect('/citizens');
+        return redirect('/citizens')->with('success','Data berhasil dihapus!');
     }
 }

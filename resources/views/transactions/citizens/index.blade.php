@@ -56,7 +56,7 @@
                                             <form action="/citizens/{{ $data->uuid }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="dropdown-item" type="submit" onclick="return confirm('Are you sure?')">Hapus</button>
+                                                <button class="dropdown-item" type="submit" onclick="return confirm('Hapus data?')">Hapus</button>
                                             </form>
                                             </div>
                                         </div>
