@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CitizenTableSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(RTSeeder::class);
+        $this->call(DatarwSeeder::class);
     }
 }
