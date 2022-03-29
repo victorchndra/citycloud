@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RW;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class RWController extends Controller
@@ -42,12 +43,11 @@ class RWController extends Controller
         //
         $validatedate = $request->validate([
             'name' => 'required|max:255',
-            'uuid' => Uuid::uuid4()->getHex()
+            
         ]);
-        
+        $validatedate['uuid'] = Uuid::uuid4()->getHex();
         RW::create($validatedate);
-        dd('uuid');
-        return redirect('/masters/rw')->with('success', 'Data berhasil di tambah');
+        return redirect('/rw')->with('success', 'Data berhasil di tambah');
 
     }
 
@@ -71,6 +71,7 @@ class RWController extends Controller
     public function edit(RW $rW)
     {
         //
+        // return view('masters.rw.edit');
     }
 
     /**
@@ -83,6 +84,12 @@ class RWController extends Controller
     public function update(Request $request, RW $rW)
     {
         //
+        $rules = [
+            'name' => 'required|max:255',
+        ];
+        $validatedData = $request->validate($rules);
+        RW::where('id', $rW->id)->update($validatedData);
+        return redirect('/rw')->with('success', 'Post has been update');
     }
 
     /**
@@ -91,10 +98,11 @@ class RWController extends Controller
      * @param  \App\Models\RW  $rW
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RW $rW)
+    public function destroy(RW $rW, $uuid)
     {
-        //
-        RW::destroy($rW->id);
-        return redirect('/masters/rw')->with('success', 'Post terhapus');
+        $data = RW::get()->where('uuid', $uuid);
+        // RW::destroy($rW->id);
+        $rW::destroy($data);
+        return redirect('/rw')->with('success', 'Post terhapus');
     }
 }
