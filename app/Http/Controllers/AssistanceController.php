@@ -29,7 +29,7 @@ class AssistanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('masters.assistance.form');
     }
 
     /**

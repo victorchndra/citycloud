@@ -4,12 +4,12 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Penduduk</h4>
+                <h4 class="card-title">Data Master</h4>
                 <p class="card-description">
-                    Data Penduduk Kelurahan Lembah Sari
+                    Data Bantuan Sosial
                 </p>
-                <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
+                <a href="/assistance" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                <a href="/assistance/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <a href="#" class="btn btn-sm btn-primary btn-fw float-right"><i class="mdi mdi-account-search text-white"></i> Cari Data</a>
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
