@@ -7,14 +7,18 @@
         <p class="card-description">
           Input Data RW
         </p>
-        <form class="forms-sample" action="/masters/rw/form">
+        <form class="forms-sample" action="/rw" method="post" enctype="multipart/form-data">
+          @csrf
+          
           <div class="form-group">
-            <label for="exampleInputName1">UUID</label>
-            <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail3">Nama RW</label>
-            <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+            <label for="name">Nama RW</label>
+            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="name"
+            required autofocus value="{{old('name')}}">
+            @error('name')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
           </div>
          
           {{-- <div class="form-group">

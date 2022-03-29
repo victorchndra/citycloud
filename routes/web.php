@@ -22,7 +22,6 @@ Route::get('/', function () {
 Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController");
 
 Route::resource("rw", "App\Http\Controllers\RWController");
-
 //jika penggunaan resource, path harus lengkap
 Route::resource("users", "App\Http\Controllers\UserController");
 
