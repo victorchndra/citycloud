@@ -4,10 +4,11 @@
 namespace App\Http\Controllers\Transactions;
 
 //wajib menggunakan use App\Http\Controllers\Controller untuk di controller
-use App\Http\Controllers\Controller;
+use Ramsey\Uuid\Uuid;
 
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Uuid;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
 
 
@@ -29,7 +30,7 @@ class CitizenController extends Controller
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.index', compact('datas'));
-    
+
 
     }
 
@@ -40,7 +41,7 @@ class CitizenController extends Controller
      */
     public function create()
     {
-        //
+        return view('transactions.citizens.form');
     }
 
     /**
