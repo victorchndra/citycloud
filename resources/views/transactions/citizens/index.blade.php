@@ -31,7 +31,7 @@
                         <tbody>
                         @foreach($datas as $key => $data)
                             <tr>
-                                <td>{{ $data->id }} </td>
+                                <td>{{ $loop->iteration }} </td>
                                 <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b></td>
                                 <td>
                                     <b>NIK:</b> {{ $data->nik }}<br>
