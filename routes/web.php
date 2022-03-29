@@ -28,5 +28,3 @@ Route::resource("users", "App\Http\Controllers\UserController");
 
 //jika penggunaan resource, path harus lengkap
 Route::resource("rt", "App\Http\Controllers\RTController");
-
-Route::resource("assitance", "App\Http\Controllers\AssitanceController");

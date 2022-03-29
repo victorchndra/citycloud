@@ -19,6 +19,8 @@
                                 <th>UUID</th>
                                 <th>Name</th>
                                 <th>Created By</th>
+                                <th>Update By</th>
+                                <th>Deleted By</th>
                                 <th>Ditambahkan</th>
                                 <th>Aksi</th>
                             </tr>

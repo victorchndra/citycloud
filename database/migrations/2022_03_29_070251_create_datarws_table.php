@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('datarws', function (Blueprint $table) {
+        Schema::create('r_w_s', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('name')->nullable();
