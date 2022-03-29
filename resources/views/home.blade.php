@@ -7,7 +7,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-title">Website Audience Metrics Asuu</p>
+                        <p class="card-title">Website Audience Metrics</p>
                         <p class="text-muted">25% more traffic than previous week</p>
                         <div class="row mb-3">
                             <div class="col-md-7">
