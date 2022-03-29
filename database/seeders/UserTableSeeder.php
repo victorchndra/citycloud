@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use Ramsey\Uuid\Uuid;
+
 use Illuminate\Database\Seeder;
 
-use App\Models\User;
-
 //panggil library uuidnya ramsey
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserTableSeeder extends Seeder
 {
@@ -23,7 +24,7 @@ class UserTableSeeder extends Seeder
         $user->uuid = Uuid::uuid4()->getHex();
         $user->username = "support";
         $user->name = "support";
-        $user->password = \Hash::make("123456");
+        $user->password = Hash::make("123456");
         $user->created_by = 1;
         $user->save();
 

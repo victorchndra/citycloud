@@ -67,9 +67,15 @@
           </a>
           <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
+<<<<<<< HEAD
+              <li class="nav-item"> <a class="nav-link" href="#"> Data RT </a></li>
+              <li class="nav-item"> <a class="nav-link" href="rw"> Data RW </a></li>
+              <li class="nav-item"> <a class="nav-link" href="#"> Data Bantuan Sosial </a></li>
+=======
               <li class="nav-item"> <a class="nav-link" href="rt"> Data RT </a></li>
               <li class="nav-item"> <a class="nav-link" href="#"> Data RW </a></li>
-              <li class="nav-item"> <a class="nav-link" href="#"> Data Bantuan Sosial </a></li>
+              <li class="nav-item"> <a class="nav-link" href="assistance"> Data Bantuan Sosial </a></li>
+>>>>>>> 0e4b8d3288530e135d5898a118c00a990cf0589e
               <li class="nav-item"> <a class="nav-link" href="users"> Data Pengguna </a></li>
               <li class="nav-item"> <a class="nav-link" href="#"> Data Informasi </a></li>
             </ul>
