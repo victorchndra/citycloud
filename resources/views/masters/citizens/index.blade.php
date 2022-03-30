@@ -12,10 +12,13 @@
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <a href="#" class="btn btn-sm btn-primary btn-fw float-right"><i class="mdi mdi-account-search text-white"></i> Cari Data</a>
                 @if (session()->has('success'))
+               
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                     {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
+               
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -53,11 +56,20 @@
                                             <div class="dropdown-menu">
                                             <a href="/citizens/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
+                                            
                                             <form action="/citizens/{{ $data->uuid }}" method="post">
-                                                @method('delete')
+                                                @method('delete ')
                                                 @csrf
                                                 <button class="dropdown-item" type="submit" onclick="return confirm('Hapus data?')">Hapus</button>
                                             </form>
+
+                                              
+                                            <form class="d-none invisible" action="/citizens/destroy/{{$data->uuid}}" method="POST">
+                                            @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                <button class="dropdown-item" type="submit" onclick="return confirm('Hapus data?')">Hapus</button>
+                                            </form>
+
                                             </div>
                                         </div>
                                     </div>

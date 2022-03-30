@@ -80,6 +80,7 @@ class CitizenController extends Controller
             'province' => 'nullable',
         ]);
 
+        $validatedData['created_by'] = Auth::user()->id;
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
 
         Citizens::create($validatedData);
@@ -130,15 +131,12 @@ class CitizenController extends Controller
      */
     public function destroy($uuid)
     {
-        $data = Citizens::get()->where('uuid', $uuid);
-        // $data = Citizens::where('id', $id)->firstOrFail();
-        // $data->deleted_by = Auth::user()->id;
-        // $data->save();
-        // $data->delete();
+        $data = Citizens::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $data->delete();
 
-        // return redirect()->route('transactions.citizens.index');
-        // return redirect('transactions.citizens.index');
-        Citizens::destroy($data);
-        return redirect('/citizens')->with('success','Data berhasil dihapus!');
+        return redirect()->route('citizens.index')->with('success', 'Data berhasil dihapus!');
+
     }
 }

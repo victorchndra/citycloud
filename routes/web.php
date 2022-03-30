@@ -21,7 +21,6 @@ Route::get('/', function () {
 
 Route::get('/',[CitizenController::class, 'index'])->middleware('auth');
 
-
 //jika penggunaan resource, path harus lengkap
 Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController");
 
