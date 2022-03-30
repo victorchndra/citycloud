@@ -51,7 +51,7 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                            <a class="dropdown-item">Edit</a>
+                                            <a href="/citizens/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
                                             <form action="/citizens/{{ $data->uuid }}" method="post">
                                                 @method('delete')

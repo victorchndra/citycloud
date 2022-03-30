@@ -11,6 +11,13 @@
                 <a href="/assistance" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/assistance/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <a href="#" class="btn btn-sm btn-primary btn-fw float-right"><i class="mdi mdi-account-search text-white"></i> Cari Data</a>
+
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -36,7 +43,11 @@
                                             <div class="dropdown-menu">
                                             <a class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item">Hapus</a>
+                                                <form action="/assistance/{{ $data->uuid }}" method="post" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="dropdown-item">Hapus</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
