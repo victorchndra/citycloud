@@ -29,7 +29,7 @@ class CitizenController extends Controller
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.citizens.index', compact('datas'));
+        return view('masters.citizens.index', compact('datas'));
 
 
     }
@@ -41,7 +41,9 @@ class CitizenController extends Controller
      */
     public function create()
     {
-        return view('transactions.citizens.form');
+        return view('masters.citizens.form', [
+            'page' => 'create',
+        ]);
     }
 
     /**
@@ -102,9 +104,10 @@ class CitizenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $data['citizens'] = Citizens::find($uuid);
+        return view('masters.citizens.edit');
     }
 
     /**
