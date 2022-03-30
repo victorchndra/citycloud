@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+//wajib menggunakan use App\Http\Controllers\Controller untuk di controller
+use Ramsey\Uuid\Uuid;
+
 use App\Models\Assistance;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AssistanceController;
 
 class AssistanceController extends Controller
 {
@@ -40,7 +44,17 @@ class AssistanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'nominal' => 'numeric|min:10'
+        ]);
+
+        $validatedData['uuid'] = Uuid::uuid4()->getHex();
+
+        Assistance::create($validatedData);
+
+        return redirect('/assistance')->with('success','Data Bantuan Sosial berhasil ditambah!');
     }
 
     /**
@@ -83,8 +97,11 @@ class AssistanceController extends Controller
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assistance $assistance)
+    public function destroy(Assistance $assistance, $uuid)
     {
-        //
+        $data = Assistance::get()->where('uuid', $uuid);
+        // RW::destroy($rW->id);
+        $assistance::destroy($data);
+        return redirect('/assistance')->with('success', 'Bansos terhapus');
     }
 }

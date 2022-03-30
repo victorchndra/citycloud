@@ -96,8 +96,11 @@ class RTController extends Controller
      * @param  \App\Models\RT  $rT
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RT $rT)
+    public function destroy(RT $rT, $uuid)
     {
-        //
+        $data = RT::get()->where('uuid', $uuid);
+        // RW::destroy($rW->id);
+        $rT::destroy($data);
+        return redirect('/rt')->with('success', 'Post terhapus');
     }
 }

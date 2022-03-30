@@ -1,5 +1,12 @@
 @extends("layouts.app")
 @section('content')
+
+@if(session()->has('success'))
+<div class="alert alert-success col-lg-10" role="alert">
+  {{ session('success')}}
+</div>
+@endif
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -34,7 +41,11 @@
                                             <div class="dropdown-menu">
                                             <a class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item">Hapus</a>
+                                            <form action="/rt/{{ $data->uuid }}" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="dropdown-item">Hapus</button>
+                                            </form>
                                             </div>                          
                                         </div>
                                     </div>
