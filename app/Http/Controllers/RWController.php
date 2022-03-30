@@ -80,6 +80,7 @@ class RWController extends Controller
         // ]);
         
         $rw = RW::where('uuid', $uuid)->get();
+
         return view('masters.rw.edit',compact(['rw']));
     }
 
@@ -100,9 +101,11 @@ class RWController extends Controller
     
     //     RW::where('id',$id->id)->update($validatedData);
 
-    $rw = RW::find($uuid);
-    $input = $request->all();
-    $rw->update($input);
+    // $rw = RW::where('uuid', $uuid)->get();
+    // $input = $request->all();
+    // $rw->update($input);
+
+    RW::where('uuid',$uuid)->first()->update($request->all());
     
         return redirect('/rw')->with('success', 'Data has been updated successfully');
 
