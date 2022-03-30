@@ -1,5 +1,12 @@
 @extends("layouts.app")
 @section('content')
+
+@if(session()->has('success'))
+<div class="alert alert-success col-lg-10" role="alert">
+  {{ session('success')}}
+</div>
+@endif
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
