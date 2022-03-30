@@ -75,7 +75,9 @@ class RTController extends Controller
      */
     public function edit(RT $rT)
     {
-        //
+        $datas = RT::first();
+        
+        return view('masters.rt.edit', compact('datas'));
     }
 
     /**
@@ -85,9 +87,14 @@ class RTController extends Controller
      * @param  \App\Models\RT  $rT
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RT $rT)
+    public function update(Request $request, $uuid)
     {
-        //
+        $rules = [
+            'name' => 'required|max:255',
+        ];
+        $validatedData = $request->validate($rules);
+        RT::where('uuid', $uuid)->update($validatedData);
+        return redirect('/rt')->with('success', 'RT Berhasil Diupdate');
     }
 
     /**
