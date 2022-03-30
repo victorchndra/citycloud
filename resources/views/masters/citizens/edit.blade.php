@@ -427,7 +427,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center my-4">
-                    <button type="submit" class="btn btn-primary">Tambah Data Kependudukan</button>
+                    <button type="submit" class="btn btn-primary">Edit Data Kependudukan</button>
                 </div>
             </form>
             @endforeach

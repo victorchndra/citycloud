@@ -146,6 +146,8 @@ class CitizenController extends Controller
             'province' => 'nullable',
         ]);
 
+        $validatedData['updated_by'] = Auth::user()->id;
+
         Citizens::where('uuid', $uuid)->first()->update($validatedData);
 
         return redirect('/citizens')->with('success','Data berhasil diperbarui!');
