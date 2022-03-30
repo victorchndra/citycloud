@@ -7,6 +7,8 @@ use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class RWController extends Controller
 {
     /**
@@ -45,7 +47,9 @@ class RWController extends Controller
             'name' => 'required|max:255',
             
         ]);
+        $validatedate['created_by'] = Auth::user()->id;
         $validatedate['uuid'] = Uuid::uuid4()->getHex();
+        
         RW::create($validatedate);
         return redirect('/rw')->with('success', 'Data berhasil di tambah');
 
@@ -104,9 +108,16 @@ class RWController extends Controller
     // $rw = RW::where('uuid', $uuid)->get();
     // $input = $request->all();
     // $rw->update($input);
+    //
+    $validatedate = $request->validate([
+        'name' => 'required|max:255',
+        
+    ]);
+    $validatedate['updated_by'] = Auth::user()->id;
+    $validatedate['uuid'] = Uuid::uuid4()->getHex();
 
-    RW::where('uuid',$uuid)->first()->update($request->all());
-    
+    RW::where('uuid',$uuid)->first()->update($validatedate);
+
         return redirect('/rw')->with('success', 'Data has been updated successfully');
 
     }
@@ -119,9 +130,14 @@ class RWController extends Controller
      */
     public function destroy(RW $rW, $uuid)
     {
-        $data = RW::get()->where('uuid', $uuid);
-        // RW::destroy($rW->id);
-        $rW::destroy($data);
+        // $data = RW::get()->where('uuid', $uuid);
+        // // RW::destroy($rW->id);
+        // $rW::destroy($data);
+        $data = RW::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $data->delete();
+
         return redirect('/rw')->with('success', 'Post terhapus');
     }
 }
