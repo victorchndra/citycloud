@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Ramsey\Uuid\Uuid;
 use App\Models\RT;
 use Illuminate\Http\Request;
+
 
 class RTController extends Controller
 {
@@ -19,7 +21,7 @@ class RTController extends Controller
 
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-         return view('masters.rt.index', compact('datas'));
+        return view('masters.rt.index', compact('datas'));
     }
 
     /**
@@ -29,7 +31,9 @@ class RTController extends Controller
      */
     public function create()
     {
-        //
+        $datas = RT::first();
+
+        return view('masters.rt.form', compact('datas'));
     }
 
     /**
@@ -39,8 +43,17 @@ class RTController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        $validatedData = $request->validate([
+            'name' => 'string|required|max:255'
+            
+        ]);
+
+        $validatedData['uuid'] = Uuid::uuid4()->getHex();
+
+        RT::create($validatedData);
+
+        return redirect('/rt')->with('success','Data RT berhasil ditambah!');
     }
 
     /**

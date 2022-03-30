@@ -125,13 +125,17 @@ class CitizenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        $data = Citizens::where('id', $id)->firstOrFail();
-        $data->deleted_by = Auth::user()->id;
-        $data->save();
-        $data->delete();
+        $data = Citizens::get()->where('uuid', $uuid);
+        // $data = Citizens::where('id', $id)->firstOrFail();
+        // $data->deleted_by = Auth::user()->id;
+        // $data->save();
+        // $data->delete();
 
-        return redirect()->route('transactions.citizens.index');
+        // return redirect()->route('transactions.citizens.index');
+        // return redirect('transactions.citizens.index');
+        Citizens::destroy($data);
+        return redirect('/citizens')->with('success','Data berhasil dihapus!');
     }
 }
