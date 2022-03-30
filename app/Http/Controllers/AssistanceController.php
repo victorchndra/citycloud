@@ -7,6 +7,7 @@ use Ramsey\Uuid\Uuid;
 
 use App\Models\Assistance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AssistanceController;
 
 class AssistanceController extends Controller
@@ -50,6 +51,7 @@ class AssistanceController extends Controller
             'nominal' => 'numeric|min:10'
         ]);
 
+        $validatedData['created_by'] = Auth::user()->id;
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
 
         Assistance::create($validatedData);
@@ -90,6 +92,7 @@ class AssistanceController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+        $validatedData['updated_by'] = Auth::user()->id;
         Assistance::where('uuid',$uuid)->first()->update($request->all());
         
         return redirect('/assistance')->with('success', 'Data has been updated successfully');
@@ -103,13 +106,18 @@ class AssistanceController extends Controller
      */
     public function destroy($uuid)
     {
-        // $data = Assistance::get()->where('uuid', $uuid);
-        // $assistance::destroy($data);
-        // return redirect('/assistance')->with('success', 'Bansos terhapus');
-
-        $data = Assistance::get()->where('uuid', $uuid);
         
-        Assistance::destroy($data);
-        return redirect('/assistance')->with('success','Data berhasil dihapus!');
+        // $data->deleted_by = Auth::user()->id;
+        // $data = Assistance::get()->where('uuid', $uuid);
+        
+        // Assistance::destroy($data);
+        // return redirect('/assistance')->with('success','Data berhasil dihapus!');
+        
+        $data = Assistance::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $data->delete();
+        
+        return redirect()->route('assistance.index')->with('success', 'Data berhasil dihapus!');
     }
 }
