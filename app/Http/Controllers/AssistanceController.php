@@ -97,11 +97,15 @@ class AssistanceController extends Controller
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assistance $assistance, $uuid)
+    public function destroy($uuid)
     {
+        // $data = Assistance::get()->where('uuid', $uuid);
+        // $assistance::destroy($data);
+        // return redirect('/assistance')->with('success', 'Bansos terhapus');
+
         $data = Assistance::get()->where('uuid', $uuid);
-        // RW::destroy($rW->id);
-        $assistance::destroy($data);
-        return redirect('/assistance')->with('success', 'Bansos terhapus');
+        
+        Assistance::destroy($data);
+        return redirect('/assistance')->with('success','Data berhasil dihapus!');
     }
 }
