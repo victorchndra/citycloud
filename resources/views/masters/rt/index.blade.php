@@ -48,7 +48,7 @@
                                                         data-bs-toggle="dropdown">Aksi</button>
                                                     <div class="dropdown-menu">
 
-                                                        <a href="/rt/edit" class="dropdown-item">Edit</a>
+                                                        <a href="/rt/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
 
                                                         <div class="dropdown-divider"></div>
 

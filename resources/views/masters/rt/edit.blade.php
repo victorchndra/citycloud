@@ -4,7 +4,9 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Ubah Data RT</h4>
-                <form class="forms-sample" action="/rt" method="POST">
+                @foreach($datas as $key => $data)
+                <form class="forms-sample" action="/rt/{{ $data->uuid}}" method="POST">
+                    @method('put')
                     @csrf
                     <p class="card-description">
                         Ubah Data RT
@@ -22,7 +24,8 @@
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
                 </form>
-            </div>
+                @endforeach
+            </div>  
         </div>
     </div>
 @endsection
