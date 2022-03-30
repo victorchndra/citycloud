@@ -15,22 +15,32 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Nama Bantuan Sosial</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control" placeholder="Nama Bantuan Sosial"/>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Bantuan Sosial"/>
                         </div>
+                        @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Nominal Bantuan</label>
                         <div class="col-sm-9">
-                            <input type="number" name="nominal" class="form-control" placeholder="Nominal Bantuan"/>
+                            <input type="number" name="nominal" class="form-control @error('nominal') is-invalid @enderror" placeholder="Nominal Bantuan"/>
                         </div>
+                        @error('nominal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 
                 
                 <div class="d-flex justify-content-center my-4">
-                    <button class="btn btn-primary">Tambah Data Bantuan Sosial</button>
+                    <button type="submit" class="btn btn-primary">Tambah Data Bantuan Sosial</button>
                 </div>
             </form>
         </div>
