@@ -7,6 +7,12 @@
 </div>
 @endif
 
+@if(session()->has('delete'))
+<div class="alert alert-danger col-lg-12" role="alert">
+  {{ session('delete')}}
+</div>
+@endif
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">

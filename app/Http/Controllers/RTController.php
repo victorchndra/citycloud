@@ -53,7 +53,7 @@ class RTController extends Controller
 
         RT::create($validatedData);
 
-        return redirect('/rt')->with('success','Data RT berhasil ditambah!');
+        return redirect('/rt')->with('success','Data RT Berhasil Ditambah!!');
     }
 
     /**
@@ -101,6 +101,6 @@ class RTController extends Controller
         $data = RT::get()->where('uuid', $uuid);
         // RW::destroy($rW->id);
         $rT::destroy($data);
-        return redirect('/rt')->with('success', 'Post terhapus');
+        return redirect('/rt')->with('delete', 'Data RT Berhasil Dihapus !!');
     }
 }
