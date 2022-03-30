@@ -54,7 +54,7 @@ class AssistanceController extends Controller
 
         Assistance::create($validatedData);
 
-        return redirect('/asssistance')->with('success','Data Bantuan Sosial berhasil ditambah!');
+        return redirect('/assistance')->with('success','Data Bantuan Sosial berhasil ditambah!');
     }
 
     /**
