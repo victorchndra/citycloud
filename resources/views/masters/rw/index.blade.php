@@ -49,7 +49,7 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                            <a href="/rw/edit" class="dropdown-item">Edit</a>
+                                            <a href="/rw/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
                                                 <form action="/rw/{{ $data->uuid }}" method="post" class="d-inline">
                                                     @method('delete')
