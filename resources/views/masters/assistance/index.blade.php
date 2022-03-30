@@ -41,10 +41,10 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                            <a class="dropdown-item">Edit</a>
+                                            <a href="/assistance/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
                                             <form action="/assistance/{{ $data->uuid }}" method="post">
-                                                @method('delete');
+                                                @method('delete')
                                                 @csrf
                                                 <button class="dropdown-item" type="submit" onclick="return confirm('Hapus data?')">Hapus</button>
                                             </form>

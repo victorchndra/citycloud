@@ -74,9 +74,11 @@ class AssistanceController extends Controller
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Assistance $assistance)
+    public function edit($uuid)
     {
-        //
+        $assistance = Assistance::where('uuid', $uuid)->get();
+
+        return view('masters.assistance.edit',compact(['assistance']));
     }
 
     /**
@@ -86,9 +88,11 @@ class AssistanceController extends Controller
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Assistance $assistance)
+    public function update(Request $request, $uuid)
     {
-        //
+        Assistance::where('uuid',$uuid)->first()->update($request->all());
+        
+        return redirect('/assistance')->with('success', 'Data has been updated successfully');
     }
 
     /**
