@@ -56,7 +56,7 @@ class AssistanceController extends Controller
 
         Assistance::create($validatedData);
 
-        return redirect('/assistance')->with('success','Data Bantuan Sosial berhasil ditambah!');
+        return redirect('/assistance')->with('success','Data has been created successfully');
     }
 
     /**
@@ -118,6 +118,6 @@ class AssistanceController extends Controller
         $data->save();
         $data->delete();
         
-        return redirect()->route('assistance.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('assistance.index')->with('success', 'Data has been deleted successfully');
     }
 }
