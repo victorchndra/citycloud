@@ -7,13 +7,17 @@
         <p class="card-description">
           Input Data RW
         </p>
-        <form class="forms-sample" action="/rw" method="post" enctype="multipart/form-data">
+        {{-- @if (is_array($data) || is_object($data)) --}}
+       @foreach($rw as $key => $j)
+      
+        <form class="forms-sample" action="/rw/{{ $j->uuid}}" method="post" enctype="multipart/form-data">
+          @method('put')
           @csrf
-          
+         
           <div class="form-group">
             <label for="name">Nama RW</label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="name"
-            required autofocus value="{{old('name',$data->name)}}">
+            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" 
+            required autofocus value="{{old('name',$j->name)}}">
             @error('name')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -21,6 +25,17 @@
             @enderror
           </div>
          
+          <button type="submit" class="btn btn-primary me-2">Ubah</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+        @endforeach
+        
+      </div>
+    </div>
+  </div>
+
+
+@endsection
           {{-- <div class="form-group">
             <label for="exampleSelectGender">Gender</label>
               <select class="form-control" id="exampleSelectGender">
@@ -46,12 +61,3 @@
             <label for="exampleTextarea1">Textarea</label>
             <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
           </div> --}}
-          <button type="submit" class="btn btn-primary me-2">Submit</button>
-          <button class="btn btn-light">Cancel</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-@endsection

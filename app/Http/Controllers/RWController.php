@@ -6,7 +6,7 @@ use App\Models\RW;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class RWController extends Controller
 {
     /**
@@ -68,10 +68,19 @@ class RWController extends Controller
      * @param  \App\Models\RW  $rW
      * @return \Illuminate\Http\Response
      */
-    public function edit(RW $rW)
+    public function edit($uuid)
     {
         //
-        // return view('masters.rw.edit');
+        
+        // $data = RW::where('id', $id)->first();
+        // return view('masters.rw.edit',compact('data'));
+        // return view('masters.rw.edit',[
+        //     'rw' => $rW,
+        //     'data' => RW::where('id',$rW->id)->first()
+        // ]);
+        
+        $rw = RW::where('uuid', $uuid)->get();
+        return view('masters.rw.edit',compact(['rw']));
     }
 
     /**
@@ -81,15 +90,22 @@ class RWController extends Controller
      * @param  \App\Models\RW  $rW
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RW $rW)
+    public function update(Request $request, RW $rW,$uuid)
     {
-        //
-        $rules = [
-            'name' => 'required|max:255',
-        ];
-        $validatedData = $request->validate($rules);
-        RW::where('id', $rW->id)->update($validatedData);
-        return redirect('/rw')->with('success', 'Post has been update');
+    // $rules = [
+    //     'name' => 'required|max:255',      
+    // ];
+    
+    // $validatedData = $request->validate($rules);
+    
+    //     RW::where('id',$id->id)->update($validatedData);
+
+    $rw = RW::find($uuid);
+    $input = $request->all();
+    $rw->update($input);
+    
+        return redirect('/rw')->with('success', 'Data has been updated successfully');
+
     }
 
     /**
