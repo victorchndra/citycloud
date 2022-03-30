@@ -53,7 +53,7 @@ class RTController extends Controller
 
         RT::create($validatedData);
 
-        return redirect('/rt')->with('success','Data RT berhasil ditambah!');
+        return redirect('/rt')->with('success','Data RT Berhasil Ditambah!!');
     }
 
     /**
@@ -73,9 +73,11 @@ class RTController extends Controller
      * @param  \App\Models\RT  $rT
      * @return \Illuminate\Http\Response
      */
-    public function edit(RT $rT)
+    public function edit(RT $rT, $uuid)
     {
-        //
+        $datas = RT::where('uuid', $uuid)->get();
+
+        return view('masters.rt.edit', compact('datas'));
     }
 
     /**
@@ -85,9 +87,11 @@ class RTController extends Controller
      * @param  \App\Models\RT  $rT
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RT $rT)
+    public function update(Request $request, $uuid)
     {
-        //
+        RT::where('uuid',$uuid)->first()->update($request->all());
+    
+        return redirect('/rt')->with('success', 'Data RT Berhasil Diupdate !!');
     }
 
     /**
@@ -101,6 +105,6 @@ class RTController extends Controller
         $data = RT::get()->where('uuid', $uuid);
         // RW::destroy($rW->id);
         $rT::destroy($data);
-        return redirect('/rt')->with('success', 'Post terhapus');
+        return redirect('/rt')->with('delete', 'Data RT Berhasil Dihapus !!');
     }
 }

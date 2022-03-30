@@ -5,6 +5,7 @@ namespace App\Models\Transactions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 
 // mau nulis acessor dan mutator di laravel 9? pake ini
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,7 +13,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Citizens extends Model
 {
     use HasFactory;
+    use SoftDeletes;//add soft delete
+    
     protected $guarded = [];
+    protected $dates = ['deleted_at'];
    
     
     //ACESSOR

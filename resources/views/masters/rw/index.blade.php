@@ -39,7 +39,7 @@
                                 <td>{{ $data->id }} </td>
                                 <td>{{ $data->name}} </td>
                                 <td>{{ $data->created_by}}</td>
-                                <td>{{ $data->update_by}}</td>
+                                <td>{{ $data->updated_by}}</td>
                                 <td>{{ $data->deleted_by}}</td>
                                 <td>{{ $data->created_at, 'H:i:s'}}</td>
                                 <td>{{ $data->created_at, 'H:i:s'}}</td>
