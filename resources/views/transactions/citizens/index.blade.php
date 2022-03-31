@@ -18,7 +18,7 @@
                 <div class="modal" id="myModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            {{-- <form class="form-sample" action=""> --}}
+                            <form class="form-sample" action="">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Cari Data Kependudukan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -67,16 +67,14 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Nama Lengkap</label>
                                                 <div class="col-sm-9">
-                                                    <form action="/citizens">
                                                     <input type="text" name="name"
                                                         class="form-control @error('name') is-invalid @enderror"
                                                         placeholder="Nama Lengkap" value="{{ old('name') }}" />
-                                                        @error('name')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </form>
+                                                    @error('name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -403,7 +401,7 @@
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Cari Data</button>
                                 </div>
-                            {{-- </form> --}}
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -417,6 +415,7 @@
                 </div>
                 @endif
 
+                @if ($datas->count())
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -486,8 +485,13 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-3">
                     {{ $datas->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
+                @else
+                <h3 class="d-flex justify-content-start my-4 text-muted">Pencarian data tidak ditemukan</h3>
+                @endif
             </div>
         </div>
     </div>
