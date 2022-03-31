@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Transactions\CitizenController;
 
 /*
@@ -27,12 +27,12 @@ Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController
 //jika penggunaan resource, path harus lengkap
 Route::resource("users", "App\Http\Controllers\UserController");
 
-Route::resource("rw", "App\Http\Controllers\RWController");
+Route::resource("rw", "App\Http\Controllers\Masters\RWController");
 
 //jika penggunaan resource, path harus lengkap
-Route::resource("rt", "App\Http\Controllers\RTController");
+Route::resource("rt", "App\Http\Controllers\Masters\RTController");
 
-Route::resource("assistance", "App\Http\Controllers\AssistanceController");
+Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController");
 
 Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::class, 'authenticate']);

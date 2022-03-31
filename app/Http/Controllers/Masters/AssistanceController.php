@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+//check name space ketika membuat controller dengan --resource, pastikan mengarah ke folder yang tepat.
+namespace App\Http\Controllers\Masters;
+use App\Http\Controllers\Controller;
+
 
 //wajib menggunakan use App\Http\Controllers\Controller untuk di controller
 use Ramsey\Uuid\Uuid;
 
-use App\Models\Assistance;
+use App\Models\Masters\Assistance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AssistanceController;
+
 
 class AssistanceController extends Controller
 {
