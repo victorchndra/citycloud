@@ -20,7 +20,7 @@ class AssistanceController extends Controller
     public function index()
     {
         //get data dari table citizen dengan urutan ascending 10 pertama
-        $datas = Assistance::first()->paginate(10);
+        $datas = Assistance::first()->cari(request(['search']))->paginate(10);
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php

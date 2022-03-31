@@ -13,4 +13,10 @@ class Assistance extends Model
 
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
+
+    public function scopeCari($query, array $filters){
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where('name','LIKE','%'.$search.'%');
+        });
+    }
 }
