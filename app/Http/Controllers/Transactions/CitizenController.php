@@ -25,7 +25,7 @@ class CitizenController extends Controller
     {
 
        //get data dari table citizen dengan urutan ascending 10 pertama
-        $datas = Citizens::latest()->paginate(10);
+        $datas = Citizens::latest()->filter(request(['name']))->paginate(10);
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
