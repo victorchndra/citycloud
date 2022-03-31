@@ -257,7 +257,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Desa</label>
+                                                <label class="col-sm-3 col-form-label">Kelurahan / Desa</label>
                                                 <div class="col-sm-9">
                                                     <input type="text"
                                                         class="form-control @error('village') is-invalid @enderror"
@@ -272,13 +272,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
+                                                <label class="col-sm-3 col-form-label">Kecamatan</label>
                                                 <div class="col-sm-9">
                                                     <input type="text"
-                                                        class="form-control @error('sub_districts') is-invalid @enderror"
-                                                        name="sub_districts"
-                                                        value="{{ old('sub_districts') }}" />
-                                                    @error('sub_districts')
+                                                        class="form-control @error('districts') is-invalid @enderror"
+                                                        name="districts" value="{{ old('districts') }}" />
+                                                    @error('districts')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -290,12 +289,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Kecamatan</label>
+                                                <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
                                                 <div class="col-sm-9">
                                                     <input type="text"
-                                                        class="form-control @error('districts') is-invalid @enderror"
-                                                        name="districts" value="{{ old('districts') }}" />
-                                                    @error('districts')
+                                                        class="form-control @error('sub_districts') is-invalid @enderror"
+                                                        name="sub_districts"
+                                                        value="{{ old('sub_districts') }}" />
+                                                    @error('sub_districts')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
