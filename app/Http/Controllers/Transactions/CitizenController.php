@@ -2,15 +2,13 @@
 
 //check name space ketika membuat controller dengan --resource, pastikan mengarah ke folder yang tepat.
 namespace App\Http\Controllers\Transactions;
-
-//wajib menggunakan use App\Http\Controllers\Controller untuk di controller
-use Ramsey\Uuid\Uuid;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
 
+use Ramsey\Uuid\Uuid;
 
 class CitizenController extends Controller
 {
@@ -29,7 +27,7 @@ class CitizenController extends Controller
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('masters.citizens.index', compact('datas'));
+        return view('transactions.citizens.index', compact('datas'));
 
 
     }
@@ -41,7 +39,7 @@ class CitizenController extends Controller
      */
     public function create()
     {
-        return view('masters.citizens.form', [
+        return view('transactions.citizens.form', [
             'page' => 'create',
         ]);
     }
@@ -108,7 +106,7 @@ class CitizenController extends Controller
     public function edit($uuid)
     {
         $citizen = Citizens::where('uuid', $uuid)->get();
-        return view('masters.citizens.edit', compact('citizen'));
+        return view('transactions.citizens.edit', compact('citizen'));
     }
 
     /**

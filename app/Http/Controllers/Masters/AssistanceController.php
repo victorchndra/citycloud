@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+//check name space ketika membuat controller dengan --resource, pastikan mengarah ke folder yang tepat.
+namespace App\Http\Controllers\Masters;
+use App\Http\Controllers\Controller;
+
 
 //wajib menggunakan use App\Http\Controllers\Controller untuk di controller
 use Ramsey\Uuid\Uuid;
 
-use App\Models\Assistance;
+use App\Models\Masters\Assistance;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AssistanceController;
+use Illuminate\Support\Facades\Auth;
+
 
 class AssistanceController extends Controller
 {
@@ -19,7 +23,7 @@ class AssistanceController extends Controller
     public function index()
     {
         //get data dari table citizen dengan urutan ascending 10 pertama
-        $datas = Assistance::first()->paginate(10);
+        $datas = Assistance::first()->cari(request(['search']))->paginate(10);
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
@@ -50,11 +54,12 @@ class AssistanceController extends Controller
             'nominal' => 'numeric|min:10'
         ]);
 
+        $validatedData['created_by'] = Auth::user()->id;
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
 
         Assistance::create($validatedData);
 
-        return redirect('/assistance')->with('success','Data Bantuan Sosial berhasil ditambah!');
+        return redirect('/assistance')->with('success','Data has been created successfully');
     }
 
     /**
@@ -74,9 +79,11 @@ class AssistanceController extends Controller
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Assistance $assistance)
+    public function edit($uuid)
     {
-        //
+        $assistance = Assistance::where('uuid', $uuid)->get();
+
+        return view('masters.assistance.edit',compact(['assistance']));
     }
 
     /**
@@ -86,22 +93,37 @@ class AssistanceController extends Controller
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Assistance $assistance)
+    public function update(Request $request, $uuid)
     {
-        //
+        $validatedData['updated_by'] = Auth::user()->id;
+        
+        Assistance::where('uuid', $uuid)->first()->update($validatedData);
+        // Assistance::where('uuid',$uuid)->first()->update($request->all());
+
+        return redirect('/assistance')->with('success', 'Data has been updated successfully');
     }
 
-    /**
+    /**     
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assistance $assistance, $uuid)
+    public function destroy($uuid)
     {
-        $data = Assistance::get()->where('uuid', $uuid);
-        // RW::destroy($rW->id);
-        $assistance::destroy($data);
-        return redirect('/assistance')->with('success', 'Bansos terhapus');
+        
+        // $data->deleted_by = Auth::user()->id;
+        // $data = Assistance::get()->where('uuid', $uuid);
+        
+        // Assistance::destroy($data);
+        // return redirect('/assistance')->with('success','Data berhasil dihapus!');
+        
+        $data = Assistance::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $data->delete();
+        
+        return redirect()->route('assistance.index')->with('success', 'Data has been deleted successfully');
     }
+
 }

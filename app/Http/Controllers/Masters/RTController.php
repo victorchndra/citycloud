@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Masters;
+use App\Http\Controllers\Controller;
 
 use Ramsey\Uuid\Uuid;
-use App\Models\RT;
+use App\Models\Masters\RT;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class RTController extends Controller
@@ -50,8 +52,9 @@ class RTController extends Controller
         ]);
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
+        $validatedData['created_by'] = Auth::user()->id;
         RT::create($validatedData);
+        
 
         return redirect('/rt')->with('success','Data RT Berhasil Ditambah!!');
     }
@@ -90,6 +93,12 @@ class RTController extends Controller
     public function update(Request $request, $uuid)
     {
         RT::where('uuid',$uuid)->first()->update($request->all());
+
+        $validatedData = $request->validate([
+            'name' => 'string|required|max:255'
+            
+        ]);
+        $validatedData['updated_by'] = Auth::user()->id;
     
         return redirect('/rt')->with('success', 'Data RT Berhasil Diupdate !!');
     }
@@ -102,9 +111,11 @@ class RTController extends Controller
      */
     public function destroy(RT $rT, $uuid)
     {
-        $data = RT::get()->where('uuid', $uuid);
-        // RW::destroy($rW->id);
-        $rT::destroy($data);
-        return redirect('/rt')->with('delete', 'Data RT Berhasil Dihapus !!');
+        $data = RT::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $data->delete();
+
+        return redirect()->route('rt.index')->with('success', 'Data berhasil dihapus!');
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Masters;
+use App\Http\Controllers\Controller;
 
-use App\Models\RW;
+use App\Models\Masters\RW;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -16,11 +17,15 @@ class RWController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $datas = RW::first()->paginate(10);
+       
+
+        $datas = RW::first()->cari(request(['search']))->paginate(10);
         return view('masters.rw.index', compact('datas'));
+
+
     }
 
     /**
@@ -32,6 +37,8 @@ class RWController extends Controller
     {
         //
         return view('masters.rw.form');
+
+       
     }
 
     /**
@@ -140,4 +147,17 @@ class RWController extends Controller
 
         return redirect('/rw')->with('success', 'Post terhapus');
     }
+
+    // public function view(Request $request){
+    //    $search = $request['search'] ?? "";
+    //    if($search != ""){
+    //        //method where
+    //        $rw = RW::where('name','LIKE',"%$search%")->get();
+    //    }else{
+    //        $rw = RW::all();
+    //    }
+       
+    //    return view('layouts.app', compact('rw','search'));
+    // }
+   
 }
