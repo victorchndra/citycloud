@@ -93,12 +93,14 @@ class AssistanceController extends Controller
     public function update(Request $request, $uuid)
     {
         $validatedData['updated_by'] = Auth::user()->id;
-        Assistance::where('uuid',$uuid)->first()->update($request->all());
         
+        Assistance::where('uuid', $uuid)->first()->update($validatedData);
+        // Assistance::where('uuid',$uuid)->first()->update($request->all());
+
         return redirect('/assistance')->with('success', 'Data has been updated successfully');
     }
 
-    /**
+    /**     
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Assistance  $assistance
@@ -120,4 +122,5 @@ class AssistanceController extends Controller
         
         return redirect()->route('assistance.index')->with('success', 'Data has been deleted successfully');
     }
+
 }
