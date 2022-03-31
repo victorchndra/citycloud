@@ -6,9 +6,19 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Transactions\Citizens;
+
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Ramsey\Uuid\Uuid;
+
+
+use App\Models\Transactions\Citizens;
+use App\Exports\CitizenExport;
+
+
+
+
 
 class CitizenController extends Controller
 {
@@ -167,4 +177,10 @@ class CitizenController extends Controller
         return redirect()->route('citizens.index')->with('success', 'Data berhasil dihapus!');
 
     }
+
+    public function export() 
+        {
+            return Excel::download(new CitizenExport, 'citizens.xlsx');
+    }
+
 }

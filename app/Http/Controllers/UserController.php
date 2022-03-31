@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -89,5 +92,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export() 
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

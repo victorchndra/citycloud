@@ -28,9 +28,13 @@ return new class extends Migration
             $table->string('job')->nullable();
             $table->string('phone')->nullable();
             $table->string('marriage')->nullable();
+            $table->string('last_education')->nullable();
             $table->string('vaccine_1')->nullable();
             $table->string('vaccine_2')->nullable();
             $table->string('vaccine_3')->nullable();
+            $table->string('health_assurance')->nullable();
+            $table->string('poor')->nullable();
+            $table->string('move_to')->nullable();
             $table->date('move_date')->nullable();
             $table->date('death_date')->nullable();
             $table->string('rt')->nullable();
