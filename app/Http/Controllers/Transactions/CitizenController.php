@@ -33,7 +33,8 @@ class CitizenController extends Controller
     {
 
        //get data dari table citizen dengan urutan ascending 10 pertama
-        $datas = Citizens::latest()->paginate(10);
+        $datas = Citizens::latest()->filter(request(['name','nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province']))->paginate(10)->withQueryString();
+        // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
