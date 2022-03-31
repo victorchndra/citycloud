@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Masters;
+use App\Http\Controllers\Controller;
 
 use Ramsey\Uuid\Uuid;
-use App\Models\RT;
+use App\Models\Masters\RT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

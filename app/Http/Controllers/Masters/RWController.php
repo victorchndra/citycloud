@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Masters;
+use App\Http\Controllers\Controller;
 
-use App\Models\RW;
+use App\Models\Masters\RW;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
