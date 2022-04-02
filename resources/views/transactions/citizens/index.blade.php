@@ -412,6 +412,36 @@
                 </div>
                 {{-- End Seach Modal --}}
                 
+
+
+                @if($datas->isEmpty())
+                <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
+                    data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
+
+          
+
+                <div class="modal" id="importModal">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                        <form action="{{ route('citizens.import') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>PILIH FILE</label>
+                                        <input type="file" name="file" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">IMPORT</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+
+
                 
                 @if (session()->has('success'))
 
@@ -511,28 +541,4 @@
     })
 </script> --}}
 
-<script>
-$(document).on('click', '.cetakLaporan', function (e) {
-    // let record_id = $(this).data('record_id');
-    let start = $('#start').val();
-    let until = $('#until').val();
-    let keyword = $('#keyword').val();
-    let poly = $('#poly').val();
-    let paramedic = $('#paramedic').val();
-    let package = $('#package').val();
-    let room = $('#room').val();
-
-    let status = $('#status').val();
-    
-    spinner.show();
-    $.get("{{ url('api/printKeuangan') }}", { start: start, until:until, keyword:keyword, poly:poly, paramedic:paramedic,
-                                                 package:package, room:room,status:status }, function(res) {
-        spinner.hide();
-        console.log('Result > ', res);
-        $('<iframe>', { name: 'myiframe', class: 'printFrame' }).appendTo('body')
-        .contents().find('body').append(res);
-        setTimeout(() => { $(".printFrame").remove(); }, 1000);
-    });
-});
-    </script>
 @endsection

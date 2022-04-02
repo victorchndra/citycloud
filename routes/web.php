@@ -42,6 +42,10 @@ Route::controller(UserController::class)->group(function(){
     Route::post('users-import', 'import')->name('users.import');
 });
 
+//export route
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportCitizen", "App\Http\Controllers\Transactions\CitizenController@exportCitizen")->name('exportCitizen');
 });
+
+//import route
+Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
