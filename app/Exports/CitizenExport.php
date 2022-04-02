@@ -1,39 +1,75 @@
 <?php
-  
+
 namespace App\Exports;
-  
-use App\Models\Transactions\Citizens;
+
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-  
-class CitizenExport implements FromCollection, WithHeadings
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Support\Facades\DB;
+
+
+class CitizenExport implements FromView
 {
+    public $datas;
+    public $nik;
+    public $kk;
+    public $name;
+    public $genderSelected;
+    public $place_birth;
+    public $religion;
+    public $familyStatusSelected;
+    public $bloodSelected;
+    public $job;
+    public $phone;
+    public $vaccine1Selected;
+    public $vaccine2Selected;
+    public $vaccine3Selected;
+
+
+    function __construct($datas,$nik,$kk,$name,$genderSelected,$place_birth,$religion,$familyStatusSelected,$bloodSelected,$job,$phone,$vaccine1Selected,
+    $vaccine2Selected,$vaccine3Selected) {
+
+        $this->datas = $datas;
+        $this->nik = $nik;
+        $this->kk = $kk;
+        $this->name = $name;
+        $this->genderSelected = $genderSelected;
+        $this->place_birth = $place_birth;
+        $this->religion = $religion;
+        $this->familyStatusSelected = $familyStatusSelected;
+        $this->bloodSelected = $bloodSelected;
+        $this->job = $job;
+        $this->phone = $phone;
+        $this->vaccine1Selected = $vaccine1Selected;
+        $this->vaccine2Selected = $vaccine2Selected;
+        $this->vaccine3Selected = $vaccine3Selected;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
-    {
-        return Citizens::select("nik", "kk", "name","gender","date_birth","place_birth","religion",
-        "family_status","blood","job","phone","marriage","vaccine_1","vaccine_2","vaccine_3","rt","rw",
-        "village","sub_districts","districts","province")->get();
-    }
-  
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
 
-    public function actions(Request $request)
+
+
+    public function view(): View
     {
-        return [
-            (new DownloadExcel)->allFields(),
-        ];
-    }
+        return view('transactions.citizens.export', [
+            'datas' => $this->datas,
+            'nik' => $this->nik,
+            'kk' => $this->kk,
+            'name' => $this->name,
+            'genderSelected' => $this->genderSelected,
+            'place_birth' => $this->place_birth,
+            'religion' => $this->religion,
+            'familyStatusSelected' => $this->familyStatusSelected,
+            'bloodSelected' => $this->bloodSelected,
+            'job' => $this->job,
+            'phone' => $this->phone,
+            'vaccine1Selected' => $this->vaccine1Selected,
+            'vaccine2Selected' => $this->vaccine2Selected,
+            'vaccine3Selected' => $this->vaccine3Selected,
+            
+        ]);
         
-    public function headings(): array
-    {
-        return ["NIK", "KK", "NAMA", "JENIS KELAMIN","TANGGAL LAHIR","TEMPAT LAHIR","AGAMA","STATUS","GOL_DARAH","PEKERJAAN","TELP","STATUS_NIKAH","VAKSIN_1",
-        "VAKSIN_2","VAKSIN_3","RT","RW","KELURAHAN","KECAMATAN","KOTA","PROVINSI"];
     }
 }

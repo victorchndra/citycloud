@@ -10,14 +10,13 @@
                 </p>
                 <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
-                <a href="#" class="btn btn-sm btn-primary btn-fw float-right"><i class="mdi mdi-account-search text-white"></i> Cari Data</a>
-                <a href="/citizens/export" class="btn btn-sm btn-primary btn-fw float-right"><i class="mdi mdi-account-search text-white"></i> Export Data</a>
-                <a href="{{url('/citizens/export')}}" class="btn bg-primary btn-block text-white cetak" title="Export Excel"><i class="mdi mdi-printer m-0"></i> Cetak Laporan</a>
-            
-                <a class="btn btn-warning float-end" href="{{ route('citizens.export') }}">Export User Data</a> 
-                <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i
-                        class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
-
+                <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
+                <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+                    $place_birth.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
+                    $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
+                    
+                    <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
+               
                 {{-- Search Modal --}}
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#myModal"><i class="mdi mdi-account-search text-white"></i> Cari Data</button>
@@ -107,9 +106,9 @@
                                                 <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="gender">
-                                                        <option value="">-- Pilih jenis kelamin --</option>
-                                                        <option value="l">Laki-laki</option>
-                                                        <option value="p">Perempuan</option>
+                                                    <option value="">-- Pilih jenis kelamin --</option>
+                                    <option value="l">Laki Laki</option>
+                                    <option value="p">Perempuan</option>          
                                                     </select>
                                                 </div>
                                             </div>
@@ -412,7 +411,8 @@
                     </div>
                 </div>
                 {{-- End Seach Modal --}}
-
+                
+                
                 @if (session()->has('success'))
 
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -421,7 +421,7 @@
                 </div>
                 @endif
 
-                @if ($datas->count())
+             
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -436,6 +436,7 @@
                         </thead>
                         <tbody>
                             @foreach($datas as $key => $data)
+                        
                             <tr>
                                 <td>{{ $loop->iteration }} </td>
                                 <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b></td>
@@ -488,16 +489,14 @@
                                     </div>
                                 </td>
                             </tr>
-                            @endforeach
+                          @endforeach
                         </tbody>
                     </table>
                     <div class="mt-3">
                     {{ $datas->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
-                @else
-                <h3 class="d-flex justify-content-start my-4 text-muted">Pencarian data tidak ditemukan</h3>
-                @endif
+                
             </div>
         </div>
     </div>
@@ -511,4 +510,29 @@
     myInput.focus()
     })
 </script> --}}
+
+<script>
+$(document).on('click', '.cetakLaporan', function (e) {
+    // let record_id = $(this).data('record_id');
+    let start = $('#start').val();
+    let until = $('#until').val();
+    let keyword = $('#keyword').val();
+    let poly = $('#poly').val();
+    let paramedic = $('#paramedic').val();
+    let package = $('#package').val();
+    let room = $('#room').val();
+
+    let status = $('#status').val();
+    
+    spinner.show();
+    $.get("{{ url('api/printKeuangan') }}", { start: start, until:until, keyword:keyword, poly:poly, paramedic:paramedic,
+                                                 package:package, room:room,status:status }, function(res) {
+        spinner.hide();
+        console.log('Result > ', res);
+        $('<iframe>', { name: 'myiframe', class: 'printFrame' }).appendTo('body')
+        .contents().find('body').append(res);
+        setTimeout(() => { $(".printFrame").remove(); }, 1000);
+    });
+});
+    </script>
 @endsection
