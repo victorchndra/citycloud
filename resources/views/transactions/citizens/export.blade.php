@@ -23,6 +23,7 @@
                 <th>Jenis Kelamin</th>
                 <th>Tempat Lahir</th>
                 <th>Tanggal Lahir</th>
+                <th>Alamat</th>
                 <th>Pekerjaan</th>
                 <th>No. Telp</th>
                 <th>Agama</th>
@@ -58,6 +59,7 @@
                 <td>{{ $data->gender }}</td>
                 <td>{{ $data->place_birth }}</td>
                 <td>{{ $data->date_birth }}</td>
+                <td>{{ $data->address }}</td>
                 <td>{{ $data->job }}</td>
                 <td>{{ $data->phone }}</td>
                 <td>{{ $data->religion }}</td>
@@ -65,11 +67,11 @@
                 <td>{{ $data->family_status }}</td>
                 <td>{{ $data->marriage }}</td>
                 <td>{{ $data->last_Education }}</td>
+                <td>{{ $data->health_assurance }}</td>
                 <td>{{ $data->dtks }}</td>
                 <td>{{ $data->vaccine_1 }}</td>
                 <td>{{ $data->vaccine_2 }}</td>
                 <td>{{ $data->vaccine_3 }}</td>
-                <td>{{ $data->health_assurance }}</td>
                 <td>{{ $data->move_to }}</td>
                 <td>{{ $data->move_date }}</td>
                 <td>{{ $data->death_date }}</td>

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('place_birth')->nullable();
             $table->date('date_birth')->nullable();
+            $table->string('address')->nullable();
             $table->string('job')->nullable();
             $table->string('phone')->nullable();
             $table->string('religion')->nullable();
@@ -30,10 +31,10 @@ return new class extends Migration
             $table->string('marriage')->nullable();
             $table->string('last_education')->nullable();
             $table->string('health_assurance')->nullable();
+            $table->string('dtks')->nullable();
             $table->string('vaccine_1')->nullable();
             $table->string('vaccine_2')->nullable();
             $table->string('vaccine_3')->nullable();
-            $table->string('dtks')->nullable();
             $table->string('move_to')->nullable();
             $table->date('move_date')->nullable();
             $table->date('death_date')->nullable();
