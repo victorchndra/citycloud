@@ -152,7 +152,6 @@
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search" name="search" id="search"
                 value="{{ request()->search }}">
-                
               </div>
             </form>
             
