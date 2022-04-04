@@ -17,17 +17,14 @@
                 </p>
                 <a href="/rw" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/rw/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
-                <a href="#" class="btn btn-sm btn-primary btn-fw float-right"><i class="mdi mdi-account-search text-white"></i> Cari Data</a>
+                
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>               
-                                <th>Di ubah</th>                                                  
-                                <th>Created At</th>
-                                <th>Update At</th>
-                                <th>Delete At</th>
+                                <th>Ditambahkan</th>                                                  
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -35,16 +32,8 @@
                         @foreach($datas as $key => $data)
                             <tr>
                                 <td>{{ $data->id }} </td>
-                                <td>{{ $data->name}} </td>
-                                
-                                <td><b>Created : {{ $data->created_by}}<br/>
-                                    updated : {{ $data->updated_by}}<br/>
-                                    deleted : {{ $data->deleted_by}}</b></td>
-                                
-                                                          
+                                <td>{{ $data->name}} </td>                                                      
                                 <td>{{ $data->created_at, 'H:i:s'}}</td>
-                                <td>{{ $data->created_at, 'H:i:s'}}</td>
-                                <td>{{$data->created_at, 'H:i:s'}}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
@@ -52,10 +41,10 @@
                                             <div class="dropdown-menu">
                                             <a href="/rw/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
-                                                <form action="/rw/{{ $data->uuid }}" method="post" class="d-inline">
+                                                <form action="/rw/{{ $data->uuid }}"  method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="dropdown-item">Hapus</button>
+                                                    <button type="submit" onclick="return confirm('Hapus data?')" class="dropdown-item">Hapus</button>
                                                 </form>
                                             </div>
                                         </div>
