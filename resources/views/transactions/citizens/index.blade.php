@@ -12,13 +12,19 @@
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+<<<<<<< HEAD
+                    $place_birth.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
+                    $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
+
+=======
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
                     .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&lastEducation='.$lastEducationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
                     
+>>>>>>> d99fe0080088ed7649fb294ecaeae4fae423b9bf
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
-               
+
                 {{-- Search Modal --}}
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#myModal"><i class="mdi mdi-account-search text-white"></i> Cari Data</button>
@@ -110,7 +116,7 @@
                                                     <select class="form-control" name="gender">
                                                     <option value="">-- Pilih jenis kelamin --</option>
                                     <option value="l">Laki Laki</option>
-                                    <option value="p">Perempuan</option>          
+                                    <option value="p">Perempuan</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -413,14 +419,14 @@
                     </div>
                 </div>
                 {{-- End Seach Modal --}}
-                
+
 
 
                 @if($datas->isEmpty())
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
 
-          
+
 
                 <div class="modal" id="importModal">
                     <div class="modal-dialog modal-xl">
@@ -444,7 +450,7 @@
 
 
 
-                
+
                 @if (session()->has('success'))
 
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -453,7 +459,7 @@
                 </div>
                 @endif
 
-             
+
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -468,7 +474,7 @@
                         </thead>
                         <tbody>
                             @foreach($datas as $key => $data)
-                        
+
                             <tr>
                                 <td>{{ $loop->iteration }} </td>
                                 <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b><br>  
@@ -534,7 +540,7 @@
                                                 <div class="dropdown-divider"></div>
 
                                                 <form action="/citizens/{{ $data->uuid }}" method="post">
-                                                    @method('delete ')
+                                                    @method('delete')
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
                                                         onclick="return confirm('Hapus data?')">Hapus</button>
@@ -561,7 +567,7 @@
                     {{ $datas->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

@@ -15,10 +15,10 @@ use App\Models\Transactions\Citizens;
 //use export class
 use App\Exports\CitizenExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 //use import class dan storage nya utk simpan data
 use App\Imports\CitizenImport;
-use Illuminate\Support\Facades\Storage;
 
 
 
@@ -33,7 +33,7 @@ class CitizenController extends Controller
     // tempat nampilin data
     public function index(Request $request)
     {
-           
+
          // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
         $datas = Citizens::latest()->filter(request(['name','nik','kk','gender','date_birth','address','place_birth','religion','family_status','blood',
         'job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date',
@@ -65,38 +65,38 @@ class CitizenController extends Controller
         $lastEducationSelected =  $request->get('last_education');
 
 
-        if ($request->has('gender')) {      
-            if (!empty($genderSelected))      
+        if ($request->has('gender')) {
+            if (!empty($genderSelected))
                 $datas->where('gender',$genderSelected);
         }
-        
-        if ($request->has('religion')) {      
-            if (!empty($religion))      
+
+        if ($request->has('religion')) {
+            if (!empty($religion))
                 $datas->where('religion',$religion);
         }
 
-        if ($request->has('family_status')) {      
-            if (!empty($familyStatusSelected))      
+        if ($request->has('family_status')) {
+            if (!empty($familyStatusSelected))
                 $datas->where('family_status',$familyStatusSelected);
         }
 
-        if ($request->has('blood')) {      
-            if (!empty($bloodSelected))      
+        if ($request->has('blood')) {
+            if (!empty($bloodSelected))
                 $datas->where('blood',$bloodSelected);
         }
 
-        if ($request->has('vaccine_1')) {      
-            if (!empty($vaccine1Selected))      
+        if ($request->has('vaccine_1')) {
+            if (!empty($vaccine1Selected))
                 $datas->where('vaccine_1',$vaccine1Selected);
         }
 
-        if ($request->has('vaccine_2')) {      
-            if (!empty($vaccine2Selected))      
+        if ($request->has('vaccine_2')) {
+            if (!empty($vaccine2Selected))
                 $datas->where('vaccine_2',$vaccine2Selected);
         }
 
-        if ($request->has('vaccine_3')) {      
-            if (!empty($vaccine3Selected))      
+        if ($request->has('vaccine_3')) {
+            if (!empty($vaccine3Selected))
                 $datas->where('vaccine_3',$vaccine3Selected);
         }
 
@@ -322,38 +322,38 @@ class CitizenController extends Controller
         $health_assuranceSelected =  $request->get('health_assurance');
         $lastEducationSelected =  $request->get('last_education');
 
-        if ($request->has('gender')) {      
-            if (!empty($genderSelected))      
+        if ($request->has('gender')) {
+            if (!empty($genderSelected))
                 $data->where('gender',$genderSelected);
         }
-        
-        if ($request->has('religion')) {      
-            if (!empty($religionSelected))      
+
+        if ($request->has('religion')) {
+            if (!empty($religionSelected))
                 $data->where('religion',$religionSelected);
         }
 
-        if ($request->has('family_status')) {      
-            if (!empty($familyStatusSelected))      
+        if ($request->has('family_status')) {
+            if (!empty($familyStatusSelected))
                 $data->where('family_status',$familyStatusSelected);
         }
 
-        if ($request->has('blood')) {      
-            if (!empty($bloodSelected))      
+        if ($request->has('blood')) {
+            if (!empty($bloodSelected))
                 $data->where('blood',$bloodSelected);
         }
 
-        if ($request->has('vaccine_1')) {      
-            if (!empty($vaccine1Selected))      
+        if ($request->has('vaccine_1')) {
+            if (!empty($vaccine1Selected))
                 $data->where('vaccine_1',$vaccine1Selected);
         }
 
-        if ($request->has('vaccine_2')) {      
-            if (!empty($vaccine2Selected))      
+        if ($request->has('vaccine_2')) {
+            if (!empty($vaccine2Selected))
                 $data->where('vaccine_2',$vaccine2Selected);
         }
 
-        if ($request->has('vaccine_3')) {      
-            if (!empty($vaccine3Selected))      
+        if ($request->has('vaccine_3')) {
+            if (!empty($vaccine3Selected))
                 $data->where('vaccine_3',$vaccine3Selected);
         }
 
