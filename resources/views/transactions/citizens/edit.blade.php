@@ -382,7 +382,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 1</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_1">
-                                    @if (old('vaccine_1',$c->vaccine_1))
+                                    @if (old('vaccine_1','') ==$c->vaccine_1 )
                                     <option value="" selected>Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
                                     @elseif (old('vaccine_1', 'Sudah Vaksin') == $c->vaccine_1)
@@ -398,7 +398,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 2</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_2">
-                                    @if (old('vaccine_2', $c->vaccine_2))
+                                    @if (old('vaccine_2', '')==$c->vaccine_2)
                                     <option value="" selected>Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
                                     @elseif (old('vaccine_2', 'Sudah Vaksin') == $c->vaccine_2)
@@ -414,7 +414,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 3</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_3">
-                                    @if (old('vaccine_3',$c->vaccine_3))
+                                    @if (old('vaccine_3','')==$c->vaccine_3)
                                     <option value="" selected>Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
                                     @elseif (old('vaccine_3', 'Sudah Vaksin') == $c->vaccine_3)
