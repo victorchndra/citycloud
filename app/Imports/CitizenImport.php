@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 
 use App\Models\Transactions\Citizens;
@@ -17,6 +18,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 
 //generate uuid pas ngimport
 use Ramsey\Uuid\Uuid;
+use Carbon\Carbon;
 
 
 
@@ -30,6 +32,7 @@ class CitizenImport implements ToModel
     public function model(array $row)
     {
         
+      
             $newData                    = new Citizens;           
             $newData->uuid              = Uuid::uuid4()->getHex();
             $newData->nik               = $row[1];
@@ -61,7 +64,9 @@ class CitizenImport implements ToModel
             $newData->districts         = $row[27];
             $newData->province          = $row[28];
             $newData->created_by        = \Auth::user()->id;
+            
             $newData->save();
+
     }
 
     public function rules(): array
