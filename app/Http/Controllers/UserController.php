@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
          //get data dari table citizen dengan urutan ascending 10 pertama
-         $datas = User::first()->paginate(10);
+         $datas = User::first()->first()->cari(request(['search']))->paginate(10);
 
 
          //render view dengan variable yang ada menggunakan 'compact', method bawaan php

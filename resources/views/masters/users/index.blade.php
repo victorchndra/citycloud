@@ -28,7 +28,7 @@
                         <tbody>
                         @foreach($datas as $key => $data)
                             <tr>
-                                <td>{{ $data->id }} </td>
+                                <td>{{ $loop->iteration }} </td>
                                 <td>{{ $data->name }} </b></td>
                                 <td>{{ $data->username }}</td>
                                 <td>
