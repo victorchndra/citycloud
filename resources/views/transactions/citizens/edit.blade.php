@@ -158,15 +158,15 @@
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="family_status">
-                                    @if (old('family_status', 'head') == $c->family_status)
+                                    @if (old('family_status',$c->family_status))
                                     <option value="head" selected>Kepala keluarga</option>
                                     <option value="wife">Istri</option>
                                     <option value="child">Anak</option>
-                                    @elseif (old('family_status', 'wife') == $c->family_status)
+                                    @elseif (old('family_status', $c->family_status))
                                     <option value="head">Kepala keluarga</option>
                                     <option value="wife" selected>Istri</option>
                                     <option value="child">Anak</option>
-                                    @elseif (old('family_status', 'child') == $c->family_status)
+                                    @elseif (old('family_status', $c->family_status))
                                     <option value="head">Kepala keluarga</option>
                                     <option value="wife">Istri</option>
                                     <option value="child" selected>Anak</option>
@@ -240,10 +240,10 @@
                             <label class="col-sm-3 col-form-label">Status Pernikahan</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="marriage">
-                                    @if (old('marriage', 'Belum Kawen') == $c->marriage)
+                                    @if (old('marriage', $c->marriage))
                                     <option value="Belum Kawen" selected>Belum Menikah</option>
                                     <option value="Kawin Tercatat">Sudah Menikah</option>
-                                    @elseif (old('marriage', 'Kawin Tercatat') == $c->marriage)
+                                    @elseif (old('marriage', $c->marriage))
                                     <option value="Belum Kawen">Belum Menikah</option>
                                     <option value="Kawin Tercatat" selected>Sudah Menikah</option>
                                     @endif
@@ -382,7 +382,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 1</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_1">
-                                    @if (old('vaccine_1', '') == $c->vaccine_1)
+                                    @if (old('vaccine_1',$c->vaccine_1))
                                     <option value="" selected>Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
                                     @elseif (old('vaccine_1', 'Sudah Vaksin') == $c->vaccine_1)
@@ -398,7 +398,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 2</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_2">
-                                    @if (old('vaccine_2', '') == $c->vaccine_2)
+                                    @if (old('vaccine_2', $c->vaccine_2))
                                     <option value="" selected>Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
                                     @elseif (old('vaccine_2', 'Sudah Vaksin') == $c->vaccine_2)
@@ -414,7 +414,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 3</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_3">
-                                    @if (old('vaccine_3', '') == $c->vaccine_3)
+                                    @if (old('vaccine_3',$c->vaccine_3))
                                     <option value="" selected>Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
                                     @elseif (old('vaccine_3', 'Sudah Vaksin') == $c->vaccine_3)

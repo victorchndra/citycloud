@@ -41,10 +41,10 @@
                                             <div class="dropdown-menu">
                                             <a href="/rw/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
                                             <div class="dropdown-divider"></div>
-                                                <form action="/rw/{{ $data->uuid }}" method="post" class="d-inline">
+                                                <form action="/rw/{{ $data->uuid }}"  method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="dropdown-item">Hapus</button>
+                                                    <button type="submit" onclick="return confirm('Hapus data?')" class="dropdown-item">Hapus</button>
                                                 </form>
                                             </div>
                                         </div>
