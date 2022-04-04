@@ -23,10 +23,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Created By</th>
-                                <th>Update By</th>
-                                <th>Deleted By</th>
+                                <th>Name</th>               
+                                <th>Di ubah</th>                                                  
                                 <th>Created At</th>
                                 <th>Update At</th>
                                 <th>Delete At</th>
@@ -38,9 +36,12 @@
                             <tr>
                                 <td>{{ $data->id }} </td>
                                 <td>{{ $data->name}} </td>
-                                <td>{{ $data->created_by}}</td>
-                                <td>{{ $data->updated_by}}</td>
-                                <td>{{ $data->deleted_by}}</td>
+                                
+                                <td><b>Created : {{ $data->created_by}}<br/>
+                                    updated : {{ $data->updated_by}}<br/>
+                                    deleted : {{ $data->deleted_by}}</b></td>
+                                
+                                                          
                                 <td>{{ $data->created_at, 'H:i:s'}}</td>
                                 <td>{{ $data->created_at, 'H:i:s'}}</td>
                                 <td>{{$data->created_at, 'H:i:s'}}</td>
