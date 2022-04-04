@@ -12,17 +12,11 @@
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
-<<<<<<< HEAD
-                    $place_birth.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
-                    $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
-
-=======
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
                     .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&lastEducation='.$lastEducationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
                     
->>>>>>> d99fe0080088ed7649fb294ecaeae4fae423b9bf
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
 
                 {{-- Search Modal --}}
@@ -425,8 +419,6 @@
                 @if($datas->isEmpty())
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
-
-
 
                 <div class="modal" id="importModal">
                     <div class="modal-dialog modal-xl">
