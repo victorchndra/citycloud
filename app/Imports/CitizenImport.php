@@ -22,7 +22,7 @@ use Ramsey\Uuid\Uuid;
 
 
 
-class CitizenImport implements ToModel, WithValidation
+class CitizenImport implements ToModel
 {
     /**
     * @param array $row
@@ -31,8 +31,8 @@ class CitizenImport implements ToModel, WithValidation
     */
     public function model(array $row)
     {
-        
-            $newData                    = new Citizens;           
+
+            $newData                    = new Citizens;
             $newData->uuid              = Uuid::uuid4()->getHex();
             $newData->nik               = $row[1];
             $newData->kk                = $row[2];

@@ -37,7 +37,7 @@ Route::post('/logout',[LoginController::class, 'logout']);
 Route::get('citizens-export', [CitizenController::class, 'export'])->name('citizens.export');
 
 Route::controller(UserController::class)->group(function(){
-    Route::get('users', 'index');
+    Route::get('users', 'index')->name('users.index');
     Route::get('users-export', 'export')->name('users.export');
     Route::post('users-import', 'import')->name('users.import');
 });
