@@ -33,6 +33,7 @@ class CitizenTableSeeder extends Seeder
             $marriage = ["Belum Kawin","Kawin","Cerai Hidup","Cerai Mati"];
             $rt = ["001","002","003","004","005","006","007","008","009"];
             $rw = ["001","002","003"];
+            $dtks = ["y","t"];
             $last_education = ["TAMAT SD / SEDERAJAT","TIDAK / BELUM SEKOLAH","SLTA / SEDERAJAT","SLTP/SEDERAJAT","BELUM TAMAT SD/SEDERAJAT","DIPLOMA IV/ STRATA I","	DIPLOMA I / II","AKADEMI/ DIPLOMA III/S. MUDA","STRATA II","STRATA III"];
             $health_assurance = ["bpjs","kis","askes","-"];
 
@@ -52,6 +53,7 @@ class CitizenTableSeeder extends Seeder
             'vaccine_1' => $faker->randomElement($vaccine_1),
             'vaccine_2' => $faker->randomElement($vaccine_2),
             'vaccine_3' => $faker->randomElement($vaccine_3),
+            'dtks' => $faker->randomElement($dtks),
             'last_education' => $faker->randomElement($last_education),
             'health_assurance' => $faker->randomElement($health_assurance),
             'marriage' => $faker->unique()->randomElement($marriage),
