@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Masters;
+
 use App\Http\Controllers\Controller;
 
 use Ramsey\Uuid\Uuid;
@@ -19,8 +20,8 @@ class RTController extends Controller
     public function index()
     {
         //get data dari table citizen dengan urutan ascending 10 pertama
-        $datas = RT::first()->paginate(10);
-
+        // $datas = RT::first()->paginate(10);
+        $datas = RT::first()->cari(request(['search']))->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('masters.rt.index', compact('datas'));
@@ -45,18 +46,18 @@ class RTController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         $validatedData = $request->validate([
             'name' => 'string|required|max:255'
-            
+
         ]);
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
         RT::create($validatedData);
-        
 
-        return redirect('/rt')->with('success','Data RT Berhasil Ditambah!!');
+
+        return redirect('/rt')->with('success', 'Data RT Berhasil Ditambah!!');
     }
 
     /**
@@ -92,14 +93,16 @@ class RTController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-        RT::where('uuid',$uuid)->first()->update($request->all());
+
 
         $validatedData = $request->validate([
             'name' => 'string|required|max:255'
-            
+
         ]);
         $validatedData['updated_by'] = Auth::user()->id;
-    
+
+        RT::where('uuid', $uuid)->first()->update($validatedData);
+
         return redirect('/rt')->with('success', 'Data RT Berhasil Diupdate !!');
     }
 
