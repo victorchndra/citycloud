@@ -95,10 +95,12 @@ class AssistanceController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'nominal' => 'numeric|min:10'
+        ]);
         $validatedData['updated_by'] = Auth::user()->id;
-        
-        // Assistance::where('uuid', $uuid)->first()->update($validatedData);
-        Assistance::where('uuid',$uuid)->first()->update($request->all());
+        Assistance::where('uuid', $uuid)->first()->update($validatedData);
 
         return redirect('/assistance')->with('success', 'Data has been updated successfully');
     }

@@ -12,9 +12,17 @@
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+<<<<<<< HEAD
                     $place_birth.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
+=======
+                    $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
+                    $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
+                    '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
+                    .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&lastEducation='.$lastEducationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
+                    
+>>>>>>> d99fe0080088ed7649fb294ecaeae4fae423b9bf
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
 
                 {{-- Search Modal --}}
@@ -459,7 +467,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>NIK/KK</th>
-                                <th>Informasi</th>
+                                <th colspan="2"><center>Informasi</center></th>
                                 <th>Ditambahkan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -469,23 +477,56 @@
 
                             <tr>
                                 <td>{{ $loop->iteration }} </td>
-                                <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b></td>
+                                <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b><br>  
+                      
+                                @if($data->vaccine_1 == 'Sudah Vaksin')
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 1</span>
+                                @endif
+
+                                @if($data->vaccine_2 == 'Sudah Vaksin')
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 2</span>
+                                @endif
+
+                                @if($data->vaccine_3 == 'Sudah Vaksin')
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 3</span>    
+                                @endif
+                                
+
                                 <td>
                                     <b>NIK:</b> {{ $data->nik }}<br>
                                     <b>KK :</b> {{ $data->kk }}
+
+                                  
                                 </td>
+
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
                                             {{$data->date_birth}}</span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
-                                    <span class="d-block mb-1"><b>RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
-                                        {{ $data->rw ?? '-' }}</></span>
+                                        <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b>RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
+                                        {{ $data->rw ?? '-' }}</span></span>
+                           
                                     <span class="d-block mb-1"><b>Pekerjaan : </b>
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
+                                    
+                                </td>
+
+                                <td>
+
+                                  
+                                    <span class="d-block mb-1"><b>Gol.Darah : </b>
+                                        <span>{{ $data->blood ?? '-' }}</span></span>
+                                    <span class="d-block mb-1"><b>Status Pernikahan : </b>{{ $data->marriage ?? '-' }}</span>
+                                    <span class="d-block mb-1"><b>Status Keluarga : </b>
+                                        <span>{{ $data->family_status ?? '-' }}</span></span>
+                                    <span class="d-block mb-1"><b>Pendidikan Terakhir : </b>
+                                        <span>{{ $data->last_education ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
+                                        <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
                                 <td>{{$data->created_at, 'H:i:s'}}</td>
                                 <td>
