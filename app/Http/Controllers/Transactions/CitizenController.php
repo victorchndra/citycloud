@@ -315,7 +315,7 @@ class CitizenController extends Controller
     }
 
 
-    public function exportCitizen(Request $request)
+    public function moveCitizens(Request $request)
     {
 
 
@@ -326,7 +326,7 @@ class CitizenController extends Controller
                 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
             ])
-        )->whereNull('death_date')->whereNull('move_date');
+        )->whereNull('death_date')->whereNotNull('move_date');
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
@@ -489,6 +489,152 @@ class CitizenController extends Controller
             //redirect
             return redirect()->route('citizens.index')->with(['error' => 'Data Gagal Diimport!']);
         }
+    }
+
+    public function exportCitizen(Request $request)
+    {
+
+
+        // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
+        $data = Citizens::latest()->filter(
+            request([
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
+                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
+            ])
+        )->whereNull('death_date')->whereNull('move_date');
+
+        $nik =  $request->get('nik');
+        $kk =  $request->get('kk');
+        $name =  $request->get('name');
+        $genderSelected =  $request->get('gender');
+        $place_birth =  $request->get('place_birth');
+        $address =  $request->get('address');
+        $religionSelected =  $request->get('religion');
+        $familyStatusSelected =  $request->get('family_status');
+        $bloodSelected =  $request->get('blood');
+        $job =  $request->get('job');
+        $phone =  $request->get('phone');
+        $vaccine1Selected =  $request->get('vaccine_1');
+        $vaccine2Selected =  $request->get('vaccine_2');
+        $vaccine3Selected =  $request->get('vaccine_3');
+        $dtks =  $request->get('dtks');
+        $rtSelected =  $request->get('rt');
+        $rwSelected =  $request->get('rw');
+        $villageSelected =  $request->get('village');
+        $sub_districsSelected =  $request->get('sub_district');
+        $districtSelected =  $request->get('district');
+        $provinceSelected =  $request->get('province');
+        $health_assuranceSelected =  $request->get('health_assurance');
+        $lastEducationSelected =  $request->get('last_education');
+
+        if ($request->has('gender')) {
+            if (!empty($genderSelected))
+                $data->where('gender', $genderSelected);
+        }
+
+        if ($request->has('religion')) {
+            if (!empty($religionSelected))
+                $data->where('religion', $religionSelected);
+        }
+
+        if ($request->has('family_status')) {
+            if (!empty($familyStatusSelected))
+                $data->where('family_status', $familyStatusSelected);
+        }
+
+        if ($request->has('blood')) {
+            if (!empty($bloodSelected))
+                $data->where('blood', $bloodSelected);
+        }
+
+        if ($request->has('vaccine_1')) {
+            if (!empty($vaccine1Selected))
+                $data->where('vaccine_1', $vaccine1Selected);
+        }
+
+        if ($request->has('vaccine_2')) {
+            if (!empty($vaccine2Selected))
+                $data->where('vaccine_2', $vaccine2Selected);
+        }
+
+        if ($request->has('vaccine_3')) {
+            if (!empty($vaccine3Selected))
+                $data->where('vaccine_3', $vaccine3Selected);
+        }
+
+        if ($request->has('rt')) {
+            if (!empty($rtSelected))
+                $data->where('rt', $rtSelected);
+        }
+
+        if ($request->has('rw')) {
+            if (!empty($rwSelected))
+                $data->where('rw', $rwSelected);
+        }
+
+        if ($request->has('village')) {
+            if (!empty($villageSelected))
+                $data->where('village', $villageSelected);
+        }
+
+        if ($request->has('sub_district')) {
+            if (!empty($sub_districsSelected))
+                $data->where('sub_district', $sub_districsSelected);
+        }
+
+        if ($request->has('district')) {
+            if (!empty($districtSelected))
+                $data->where('district', $districtSelected);
+        }
+
+
+        if ($request->has('province')) {
+            if (!empty($provinceSelected))
+                $data->where('province', $provinceSelected);
+        }
+
+        if ($request->has('health_assurance')) {
+            if (!empty($health_assuranceSelected))
+                $data->where('health_assurance', $health_assuranceSelected);
+        }
+
+        if ($request->has('lastEducation')) {
+            if (!empty($lastEducationSelected))
+                $data->where('lastEducation', $lastEducationSelected);
+        }
+
+
+
+        $datas = $data->get();
+
+
+
+        return Excel::download(new CitizenExport(
+            $datas,
+            $nik,
+            $kk,
+            $name,
+            $genderSelected,
+            $place_birth,
+            $religionSelected,
+            $address,
+            $familyStatusSelected,
+            $bloodSelected,
+            $job,
+            $phone,
+            $vaccine1Selected,
+            $vaccine2Selected,
+            $vaccine3Selected,
+            $rtSelected,
+            $rwSelected,
+            $villageSelected,
+            $sub_districsSelected,
+            $districtSelected,
+            $provinceSelected,
+            $health_assuranceSelected,
+            $lastEducationSelected
+        ), 'Laporan Penduduk.xls');
     }
 
     public function citizendtks(Request $request)
