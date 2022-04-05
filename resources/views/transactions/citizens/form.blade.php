@@ -175,6 +175,32 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pendidikan</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="last_education">                         
+                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
+                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
+                                    <option value="STRATA III">STRATA III</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Asuransi Kesehatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" required/>
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <p class="card-description my-3 text-muted">
                     Alamat
@@ -330,6 +356,24 @@
                                 <select class="form-control" name="vaccine_3">
                                     <option value="">Belum Vaksin</option>
                                     <option value="Sudah Vaksin">Sudah Vaksin</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <p class="card-description my-3 text-muted">
+                    Status DTKS
+                </p>
+                <hr class="text-muted">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Status DTKS</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="dtks">
+                                    <option value="ya" selected>Ya</option>
+                                    <option value="tidak">Tidak</option>                            
                                 </select>
                             </div>
                         </div>

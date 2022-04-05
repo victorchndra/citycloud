@@ -158,18 +158,18 @@
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="family_status">
-                                    @if (old('family_status', 'head') == $c->family_status)
-                                    <option value="head" selected>Kepala keluarga</option>
-                                    <option value="wife">Istri</option>
-                                    <option value="child">Anak</option>
+                                    @if (old('family_status', 'Kepala keluarga') == $c->family_status)
+                                    <option value="Kepala keluarga" selected>Kepala keluarga</option>
+                                    <option value="Istri">Istri</option>
+                                    <option value="Anak">Anak</option>
                                     @elseif (old('family_status', 'wife') == $c->family_status)
-                                    <option value="head">Kepala keluarga</option>
-                                    <option value="wife" selected>Istri</option>
-                                    <option value="child">Anak</option>
+                                    <option value="Kepala keluarga">Kepala keluarga</option>
+                                    <option value="Istri" selected>Istri</option>
+                                    <option value="Anak">Anak</option>
                                     @elseif (old('family_status', 'child') == $c->family_status)
-                                    <option value="head">Kepala keluarga</option>
-                                    <option value="wife">Istri</option>
-                                    <option value="child" selected>Anak</option>
+                                    <option value="Kepala keluarga">Kepala keluarga</option>
+                                    <option value="Istri">Istri</option>
+                                    <option value="Anak" selected>Anak</option>
                                     @endif
                                 </select>
                             </div>
@@ -240,7 +240,7 @@
                             <label class="col-sm-3 col-form-label">Status Pernikahan</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="marriage">
-                                    @if (old('marriage', 'Belum Kawen') == $c->marriage)
+                                    @if (old('marriage', 'Belum Kawin') == $c->marriage)
                                     <option value="Belum Kawen" selected>Belum Menikah</option>
                                     <option value="Kawin Tercatat">Sudah Menikah</option>
                                     @elseif (old('marriage', 'Kawin Tercatat') == $c->marriage)
@@ -251,11 +251,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pendidikan</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="last_education">
+                                    @if (old('last_education', $c->id) == $c->last_education)
+                                    <option value="{{$c->last_education}}" selected>{{$c->last_education}}</option>
+                                    @else 
+                                    
+                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
+                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
+                                    <option value="STRATA III">STRATA III</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Asuransi Kesehatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" required value="{{ old('health_assurance', $c->health_assurance) }}"/>
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>                  
                 </div>
                 <p class="card-description my-3 text-muted">
                     Alamat
                 </p>
                 <hr class="text-muted">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row ">
+                            <label class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                            <input class="form-control @error('address') is-invalid @enderror" name="address" id="address" required value="{{ old('address', $c->address) }}"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -421,6 +461,28 @@
                                     <option value="">Belum Vaksin</option>
                                     <option value="Sudah Vaksin" selected>Sudah Vaksin</option>
                                     @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="card-description my-3 text-muted">
+                    Status DTKS
+                </p>
+                <hr class="text-muted">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Status DTKS</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="dtks">
+                                    {{-- @if (old('ya', $c->dtks) ) --}}
+                                    <option value="ya" selected>Ya</option>
+                                    <option value="tidak">Tidak</option>
+                                    {{-- @elseif (old('tidak', $c->dtks)) --}}
+                                    <option value="ya">Ya</option>
+                                    <option value="tidak" selected>Tidak</option>
+                                    {{-- @endif --}}
                                 </select>
                             </div>
                         </div>
