@@ -48,10 +48,10 @@ Route::prefix('export')->name('export.')->group(function () {
 });
 
 Route::prefix('export')->name('export.')->group(function () {
-    Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');
+    Route::get("exportMoveCitizen", "App\Http\Controllers\Transactions\CitizenController@exportMoveCitizen")->name('exportMoveCitizen');
 });
 
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
 
-Route::get('/citizendtks',[CitizenController::class, 'citizendtks'])->middleware('auth');
+Route::get('/move',[CitizenController::class, 'moveCitizens'])->middleware('auth');
