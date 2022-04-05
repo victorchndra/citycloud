@@ -52,6 +52,10 @@ Route::prefix('export')->name('export.')->group(function () {
 });
 
 Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportDeathCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDeathCitizen")->name('exportDeathCitizen');
+});
+
+Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');
 });
 
@@ -61,5 +65,7 @@ Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenContro
 Route::get('/move',[CitizenController::class, 'moveCitizens'])->middleware('auth');
 
 Route::get('/citizendtks',[CitizenController::class, 'citizendtks'])->middleware('auth');
+
+Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
 
 

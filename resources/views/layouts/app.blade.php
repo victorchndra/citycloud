@@ -50,7 +50,7 @@
               <li class="nav-item"> <a class="nav-link" href="#">Kartu Keluarga</a></li>
               <li class="nav-item"> <a class="nav-link" href="/citizendtks">Penduduk DTKS</a></li>
               <li class="nav-item"> <a class="nav-link" href="/move">Penduduk Pindah</a></li>
-              <li class="nav-item"> <a class="nav-link" href="#">Penduduk Meninggal</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/death">Penduduk Meninggal</a></li>
             </ul>
           </div>
         </li>
@@ -148,15 +148,15 @@
         <div class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center">
           <ul class="navbar-nav mr-lg-2">
             <li class="nav-item nav-search d-none d-lg-block">
-              
+
               <form action="" method="GET">
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search" name="search" id="search"
                 value="{{ request()->search }}">
               </div>
             </form>
-            
-            
+
+
             </li>
           </ul>
           <ul class="navbar-nav navbar-nav-right">
