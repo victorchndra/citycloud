@@ -47,5 +47,11 @@ Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportCitizen", "App\Http\Controllers\Transactions\CitizenController@exportCitizen")->name('exportCitizen');
 });
 
+Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');
+});
+
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
+
+Route::get('/citizendtks',[CitizenController::class, 'citizendtks'])->middleware('auth');
