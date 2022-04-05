@@ -39,13 +39,13 @@ class CitizenController extends Controller
     {
 
         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $datas = Citizens::latest()->filter(
+        $datas = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
                 'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
                 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
             ])
-        )->whereNull('death_date')->whereNull('move_date')->paginate(10)->withQueryString();
+        )->paginate(10)->withQueryString();
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
@@ -148,9 +148,6 @@ class CitizenController extends Controller
             if (!empty($lastEducationSelected))
                 $datas->where('lastEducation', $lastEducationSelected);
         }
-
-
-
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.index', compact(
