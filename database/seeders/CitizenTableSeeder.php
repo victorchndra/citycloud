@@ -11,6 +11,9 @@ use App\Models\Transactions\Citizens;
 //jangan lupa import ini jika pakai faker
 use Faker\Factory as Faker;
 
+//uuidgenerate ramsey
+use Ramsey\Uuid\Uuid;
+
 class CitizenTableSeeder extends Seeder
 {
     /**
@@ -40,7 +43,7 @@ class CitizenTableSeeder extends Seeder
             Citizens::create([
             'nik' => $faker->nik(),
             'kk' => $faker->numerify('10##############'),
-            'uuid' => $faker->uuid(),
+            'uuid' => Uuid::uuid4()->getHex(),
             'name' => $faker->name(),
             'gender' => $faker->unique()->randomElement($gender),
             'date_birth' => $faker->date(),

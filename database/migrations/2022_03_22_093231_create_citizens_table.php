@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 return new class extends Migration
 {
     /**
@@ -16,8 +17,8 @@ return new class extends Migration
         Schema::create('citizens', function (Blueprint $table) {
             $table->id();
             $table->string("uuid")->unique();
-            $table->string('nik',16)->nullable();
-            $table->string('kk',16)->nullable();
+            $table->string('nik')->nullable();
+            $table->string('kk')->nullable();
             $table->string('name')->nullable();
             $table->string('gender')->nullable();
             $table->string('place_birth')->nullable();

@@ -31,9 +31,9 @@ class CitizenImport implements ToModel
     */
     public function model(array $row)
     {
-        
-      
-            $newData                    = new Citizens;           
+
+
+            $newData                    = new Citizens;
             $newData->uuid              = Uuid::uuid4()->getHex();
             $newData->nik               = $row[1];
             $newData->kk                = $row[2];
@@ -64,7 +64,7 @@ class CitizenImport implements ToModel
             $newData->districts         = $row[27];
             $newData->province          = $row[28];
             $newData->created_by        = \Auth::user()->id;
-            
+
             $newData->save();
 
     }
