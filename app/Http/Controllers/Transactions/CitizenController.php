@@ -195,6 +195,10 @@ class CitizenController extends Controller
             'sub_districts' => 'nullable',
             'districts' => 'nullable',
             'province' => 'nullable',
+            'address'=> 'required|max:255',
+            'dtks'=>'required',
+            'last_education' => 'required',
+            'health_assurance' => 'required|max:255'
         ]);
 
         $validatedData['created_by'] = Auth::user()->id;
@@ -261,6 +265,10 @@ class CitizenController extends Controller
             'sub_districts' => 'nullable',
             'districts' => 'nullable',
             'province' => 'nullable',
+            'address'=> 'required|max:255',
+            'dtks'=>'required',
+            'last_education' => 'required',
+            'health_assurance' => 'required|max:255'
         ]);
 
         $validatedData['updated_by'] = Auth::user()->id;
