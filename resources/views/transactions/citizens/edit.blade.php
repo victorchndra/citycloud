@@ -162,11 +162,11 @@
                                     <option value="Kepala keluarga" selected>Kepala keluarga</option>
                                     <option value="Istri">Istri</option>
                                     <option value="Anak">Anak</option>
-                                    @elseif (old('family_status', 'wife') == $c->family_status)
+                                    @elseif (old('family_status', 'Istri') == $c->family_status)
                                     <option value="Kepala keluarga">Kepala keluarga</option>
                                     <option value="Istri" selected>Istri</option>
                                     <option value="Anak">Anak</option>
-                                    @elseif (old('family_status', 'child') == $c->family_status)
+                                    @elseif (old('family_status', 'Anak') == $c->family_status)
                                     <option value="Kepala keluarga">Kepala keluarga</option>
                                     <option value="Istri">Istri</option>
                                     <option value="Anak" selected>Anak</option>
