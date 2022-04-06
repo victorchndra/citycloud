@@ -533,12 +533,11 @@
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="/citizens/{{ $data->uuid }}/edit"
+                                                {{-- <a href="/citizens/{{ $data->uuid }}/edit"
                                                     class="dropdown-item">Edit</a>
-                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-divider"></div> --}}
 
-                                                <form action="/citizens/{{ $data->uuid }}" method="post">
-                                                    @method('delete')
+                                                <form action="/move/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
                                                         onclick="return confirm('Hapus data?')">Hapus</button>
