@@ -14,7 +14,8 @@ class LogController extends Controller
      */
     public function index()
     {
-        return view('transactions.log.index');
+        $datas = Log::latest()->paginate(10);
+        return view('transactions.log.index', compact('datas'));
     }
 
     /**
