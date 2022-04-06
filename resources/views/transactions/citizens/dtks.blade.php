@@ -460,7 +460,7 @@
                                 <th>Nama</th>
                                 <th>NIK/KK</th>
                                 <th colspan="2"><center>Informasi</center></th>
-                                <th>Ditambahkan</th>
+                                <th>DTKS</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -520,22 +520,20 @@
                                         <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
-                                <td>{{$data->created_at, 'H:i:s'}}</td>
+                                
+                                <td>{{ $data->dtks == 'y' ? 'Ya' : 'Tidak'  }}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="/citizens/{{ $data->uuid }}/edit"
-                                                    class="dropdown-item">Edit</a>
-                                                <div class="dropdown-divider"></div>
+                                                
 
-                                                <form action="/citizens/{{ $data->uuid }}" method="post">
-                                                    @method('delete')
+                                                <form action="/citizendtks/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data dari DTKS?')">Hapus</button>
                                                 </form>
 
 
