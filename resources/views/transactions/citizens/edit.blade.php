@@ -480,13 +480,13 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    {{-- @if (old('ya', $c->dtks) ) --}}
+                                    @if (old('dtks', 'ya') == $c->dtks)
                                     <option value="ya" selected>Ya</option>
                                     <option value="tidak">Tidak</option>
-                                    {{-- @elseif (old('tidak', $c->dtks)) --}}
+                                    @elseif (old('dtks', 'tidak')== $c->dtks)
                                     <option value="ya">Ya</option>
                                     <option value="tidak" selected>Tidak</option>
-                                    {{-- @endif --}}
+                                    @endif
                                 </select>
                             </div>
                         </div>
