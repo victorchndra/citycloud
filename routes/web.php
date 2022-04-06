@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Transactions\CitizenController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
+
+Route::resource('log', LogController::class)->middleware('auth');
 
 Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::class, 'authenticate']);

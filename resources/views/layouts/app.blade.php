@@ -34,6 +34,12 @@
             <div class="badge badge-info badge-pill">2</div>
           </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/log">
+                <i class="mdi mdi-history menu-icon"></i>
+                <span class="menu-title">Aktivitas</span>
+            </a>
+        </li>
         <li class="nav-item sidebar-category">
           <p>Menu Utama</p>
           <span></span>
@@ -76,6 +82,13 @@
             </ul>
           </div>
         </li>
+
+        <li class="nav-item sidebar-category">
+            <p>Lanjutan</p>
+            <span></span>
+        </li>
+
+
       </ul>
     </nav>
     <!-- partial -->
