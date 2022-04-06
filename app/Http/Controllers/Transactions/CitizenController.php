@@ -439,6 +439,20 @@ class CitizenController extends Controller
     }
     //End View Move Date
 
+    // Rollback Move Date
+    public function rollBackMoveDate(Request $request, $uuid)
+    {
+        $data = Citizens::get()->where('uuid', $uuid)->whereNotNull('move_date')->firstOrFail();
+        $data->update([
+            'updated_by' =>Auth::user()->id,
+            'move_date' => null,
+            'move_to' => null,
+        ]);
+
+        return redirect('/move')->with('success', 'Data Penduduk Pindah berhasil dihapus!');
+    }
+    // End Rollback Move Date
+
     // Export Move Date
     public function exportMoveCitizen(Request $request)
     {
