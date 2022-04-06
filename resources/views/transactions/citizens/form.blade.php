@@ -179,7 +179,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pendidikan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="pendidikan" class="form-control" placeholder="Isikan Bagian Kosong">
+                                <input type="text" name="last_education" class="form-control" value="{{ old('last_education') }}"/>
                             </div>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Asuransi Kesehatan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" required/>
+                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" required value="{{ old('health_assurance') }}"/>
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -323,11 +323,7 @@
                             <label class="col-sm-3 col-form-label">Pindah Ke</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('move_to') is-invalid @enderror" name="move_to" value="{{ old('move_to') }}"/>
-                                @error('move_to')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                               
                             </div>
                         </div>
                     </div>
