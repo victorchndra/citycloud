@@ -82,13 +82,6 @@
             </ul>
           </div>
         </li>
-
-        <li class="nav-item sidebar-category">
-            <p>Lanjutan</p>
-            <span></span>
-        </li>
-
-
       </ul>
     </nav>
     <!-- partial -->
