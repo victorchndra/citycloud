@@ -791,8 +791,9 @@ class CitizenController extends Controller
 
 
     }
-    //End Export Death Date
+    // End Export Death Date
 
+    // Rollback Death Date
     public function rollBackDeathDate(Request $request, $uuid)
     {
         $data = Citizens::get()->where('uuid', $uuid)->whereNotNull('death_date')->firstOrFail();
@@ -800,12 +801,10 @@ class CitizenController extends Controller
             'updated_by' =>Auth::user()->id,
             'death_date' => null,
         ]);
-        // $data->deleted_by = Auth::user()->id;
-        // $data->save();
-        // $data->delete();
 
         return redirect('/death')->with('success', 'Data meninggal berhasil dihapus!');
     }
+    // End Rollback Death Date
 
     public function importCitizen(Request $request)
     {
