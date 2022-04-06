@@ -1279,5 +1279,21 @@ class CitizenController extends Controller
             $lastEducationSelected
         ), 'Laporan Penduduk DTKS.xls');
     }
+
+    public function rollBackDtks(Request $request, $uuid)
+    {
+
+        $data = Citizens::get()->where('uuid', $uuid)->where('dtks', 'y')->firstOrFail();
+        
+        $data->update([
+            'updated_by' =>Auth::user()->id,
+            'dtks' => 'n',
+        ]);
+        // $data->deleted_by = Auth::user()->id;
+        // $data->save();
+        // $data->delete();
+
+        return redirect('/citizendtks')->with('success', 'Data berhasil dihapus dari data DTKS!');
+    }
 }
 
