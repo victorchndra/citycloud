@@ -114,9 +114,9 @@
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="family_status">
-                                    <option value="head">Kepala keluarga</option>
-                                    <option value="wife">Istri</option>
-                                    <option value="child">Anak</option>
+                                    <option value="Kepala keluarga">Kepala keluarga</option>
+                                    <option value="Istri">Istri</option>
+                                    <option value="Anak">Anak</option>
                                 </select>
                             </div>
                         </div>
@@ -179,12 +179,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pendidikan</label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="last_education">                         
-                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
-                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
-                                    <option value="STRATA III">STRATA III</option>
-                                    
-                                </select>
+                                <input type="text" name="pendidikan" class="form-control" placeholder="Isikan Bagian Kosong">
                             </div>
                         </div>
                     </div>
@@ -206,6 +201,21 @@
                     Alamat
                 </p>
                 <hr class="text-muted">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" required value="{{ old('address') }}"/>
+                                @error('rt')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -310,6 +320,19 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pindah Ke</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('move_to') is-invalid @enderror" name="move_to" value="{{ old('move_to') }}"/>
+                                @error('move_to')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Meninggal</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control @error('death_date') is-invalid @enderror" name="death_date" value="{{ old('death_date') }}"/>
@@ -372,8 +395,8 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    <option value="ya" selected>Ya</option>
-                                    <option value="tidak">Tidak</option>                            
+                                    <option value="ya" >Ya</option>
+                                    <option value="tidak" selected>Tidak</option>                            
                                 </select>
                             </div>
                         </div>

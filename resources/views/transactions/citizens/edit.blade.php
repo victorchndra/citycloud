@@ -240,7 +240,7 @@
                             <label class="col-sm-3 col-form-label">Status Pernikahan</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="marriage">
-                                    @if (old('marriage', 'Belum Kawin') == $c->marriage)
+                                    @if (old('marriage', 'Belum Kawen') == $c->marriage)
                                     <option value="Belum Kawen" selected>Belum Menikah</option>
                                     <option value="Kawin Tercatat">Sudah Menikah</option>
                                     @elseif (old('marriage', 'Kawin Tercatat') == $c->marriage)
@@ -255,16 +255,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pendidikan</label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="last_education">
-                                    @if (old('last_education', $c->id) == $c->last_education)
-                                    <option value="{{$c->last_education}}" selected>{{$c->last_education}}</option>
-                                    @else 
-                                    
-                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
-                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
-                                    <option value="STRATA III">STRATA III</option>
-                                    @endif
-                                </select>
+                                <input type="text" name="last_education" class="form-control @error('health_assurance') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('last_education', $c->last_education) }}">
                             </div>
                         </div>
                     </div>
@@ -391,6 +382,19 @@
                             <div class="col-sm-9">
                                 <input type="date" class="form-control @error('move_date') is-invalid @enderror" name="move_date" value="{{ old('move_date', $c->move_date) }}"/>
                                 @error('move_date')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pindah Ke</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('move_to') is-invalid @enderror" name="move_to" value="{{ old('move_to', $c->move_to) }}"/>
+                                @error('move_to')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

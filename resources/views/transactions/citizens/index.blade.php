@@ -449,7 +449,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="form_submit()">Cari
+                                    <button type="submit" class="btn btn-primary" onclick="form_submit()" data-bs-dismiss="modal">Cari
                                         Data</button>
                                 </div>
                             </form>
