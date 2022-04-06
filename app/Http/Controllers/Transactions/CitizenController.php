@@ -45,7 +45,7 @@ class CitizenController extends Controller
                 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
             ])
-        )->paginate(10)->withQueryString();
+        )->paginate(20)->withQueryString();
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
@@ -206,6 +206,7 @@ class CitizenController extends Controller
             'job' => 'required',
             'phone' => 'numeric|required',
             'marriage' => 'required',
+            'move_to' => 'required',
             'move_date' => 'date|nullable',
             'death_date' => 'date|nullable',
             'gender' => 'required',
@@ -220,6 +221,9 @@ class CitizenController extends Controller
             'sub_districts' => 'nullable',
             'districts' => 'nullable',
             'province' => 'nullable',
+            'address' => 'required',
+            'dtks'=> 'required',
+            'last_education' => 'required'
         ]);
 
         $validatedData['created_by'] = Auth::user()->id;
@@ -286,6 +290,10 @@ class CitizenController extends Controller
             'sub_districts' => 'nullable',
             'districts' => 'nullable',
             'province' => 'nullable',
+            'address' => 'required',
+            'dtks'=> 'required',
+            'last_education' => 'required',
+            'move_to' => 'required'
         ]);
 
         $validatedData['updated_by'] = Auth::user()->id;
