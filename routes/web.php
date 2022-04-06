@@ -67,5 +67,5 @@ Route::get('/move',[CitizenController::class, 'moveCitizens'])->middleware('auth
 Route::get('/citizendtks',[CitizenController::class, 'citizendtks'])->middleware('auth');
 
 Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
-
+Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDate'])->middleware('auth');
 
