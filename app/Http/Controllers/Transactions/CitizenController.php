@@ -206,7 +206,7 @@ class CitizenController extends Controller
             'job' => 'required',
             'phone' => 'numeric|required',
             'marriage' => 'required',
-            'move_to' => 'required',
+            'move_to' => 'nullable',
             'move_date' => 'date|nullable',
             'death_date' => 'date|nullable',
             'gender' => 'required',
@@ -223,7 +223,8 @@ class CitizenController extends Controller
             'province' => 'nullable',
             'address' => 'required',
             'dtks'=> 'required',
-            'last_education' => 'required'
+            'last_education' => 'required',
+            'health_assurance' => 'required'
         ]);
 
         $validatedData['created_by'] = Auth::user()->id;
@@ -293,7 +294,8 @@ class CitizenController extends Controller
             'address' => 'required',
             'dtks'=> 'required',
             'last_education' => 'required',
-            'move_to' => 'required'
+            'move_to' => 'nullable',
+            'health_assurance' => 'required'
         ]);
 
         $validatedData['updated_by'] = Auth::user()->id;
@@ -813,8 +815,9 @@ class CitizenController extends Controller
 
 
     }
-    //End Export Death Date
+    // End Export Death Date
 
+    // Rollback Death Date
     public function rollBackDeathDate(Request $request, $uuid)
     {
         $data = Citizens::get()->where('uuid', $uuid)->whereNotNull('death_date')->firstOrFail();
@@ -822,12 +825,10 @@ class CitizenController extends Controller
             'updated_by' =>Auth::user()->id,
             'death_date' => null,
         ]);
-        // $data->deleted_by = Auth::user()->id;
-        // $data->save();
-        // $data->delete();
 
         return redirect('/death')->with('success', 'Data meninggal berhasil dihapus!');
     }
+    // End Rollback Death Date
 
     public function importCitizen(Request $request)
     {
