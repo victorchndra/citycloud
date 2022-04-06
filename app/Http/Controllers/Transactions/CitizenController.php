@@ -441,6 +441,20 @@ class CitizenController extends Controller
     }
     //End View Move Date
 
+    // Rollback Move Date
+    public function rollBackMoveDate(Request $request, $uuid)
+    {
+        $data = Citizens::get()->where('uuid', $uuid)->whereNotNull('move_date')->firstOrFail();
+        $data->update([
+            'updated_by' =>Auth::user()->id,
+            'move_date' => null,
+            'move_to' => null,
+        ]);
+
+        return redirect('/move')->with('success', 'Data Penduduk Pindah berhasil dihapus!');
+    }
+    // End Rollback Move Date
+
     // Export Move Date
     public function exportMoveCitizen(Request $request)
     {
@@ -1280,6 +1294,22 @@ class CitizenController extends Controller
             $health_assuranceSelected,
             $lastEducationSelected
         ), 'Laporan Penduduk DTKS.xls');
+    }
+
+    public function rollBackDtks(Request $request, $uuid)
+    {
+
+        $data = Citizens::get()->where('uuid', $uuid)->where('dtks', 'y')->firstOrFail();
+        
+        $data->update([
+            'updated_by' =>Auth::user()->id,
+            'dtks' => 'n',
+        ]);
+        // $data->deleted_by = Auth::user()->id;
+        // $data->save();
+        // $data->delete();
+
+        return redirect('/citizendtks')->with('success', 'Data berhasil dihapus dari data DTKS!');
     }
 }
 
