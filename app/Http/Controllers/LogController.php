@@ -16,6 +16,7 @@ class LogController extends Controller
     public function index()
     {
         //
+        return view('transactions.log.index');
     }
 
     /**
