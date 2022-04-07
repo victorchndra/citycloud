@@ -6,12 +6,11 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data RW</h4>
+                <h4 class="card-title">Aktivitas Pengguna</h4>
                 <p class="card-description">
-                    Data RW Kelurahan Lembah Sari
+                    Riwayat aktivitas pengguna
                 </p>
-                <a href="/rw" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                <a href="/rw/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
+                <a href="/log" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
 
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
