@@ -2,14 +2,15 @@
 
 //check name space ketika membuat controller dengan --resource, pastikan mengarah ke folder yang tepat.
 namespace App\Http\Controllers\Masters;
-use App\Http\Controllers\Controller;
+use Ramsey\Uuid\Uuid;
 
 
 //wajib menggunakan use App\Http\Controllers\Controller untuk di controller
-use Ramsey\Uuid\Uuid;
+use Illuminate\Http\Request;
 
 use App\Models\Masters\Assistance;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -57,6 +58,18 @@ class AssistanceController extends Controller
         $validatedData['created_by'] = Auth::user()->id;
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
 
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menambah data Bantuan : ' . $request->name, //name = nama tag di view (file index)
+            'category' => 'Bantuan Sosial',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
         Assistance::create($validatedData);
 
         return redirect('/assistance')->with('success','Data has been created successfully');
@@ -102,6 +115,18 @@ class AssistanceController extends Controller
         $validatedData['updated_by'] = Auth::user()->id;
         Assistance::where('uuid', $uuid)->first()->update($validatedData);
 
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Merubah data Bantuan : ' . $request->name, //name = nama tag di view (file index)
+            'category' => 'Bantuan Sosial',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
         return redirect('/assistance')->with('success', 'Data has been updated successfully');
     }
 
@@ -124,6 +149,18 @@ class AssistanceController extends Controller
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $data->delete();
+
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menghapus data Bantuan : ' . $data->name, //name = nama tag di view (file index)
+            'category' => 'Bantuan Sosial',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
         
         return redirect()->route('assistance.index')->with('success', 'Data has been deleted successfully');
     }
