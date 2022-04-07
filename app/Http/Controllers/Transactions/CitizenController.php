@@ -3,20 +3,21 @@
 //check name space ketika membuat controller dengan --resource, pastikan mengarah ke folder yang tepat.
 namespace App\Http\Controllers\Transactions;
 
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-//panggil uuid library
 use Ramsey\Uuid\Uuid;
 
+use Illuminate\Http\Request;
+use App\Exports\CitizenExport;
+//panggil uuid library
+use App\Exports\CitizenDTKSExport;
+
 //definisikan model
-use App\Models\Transactions\Citizens;
+use Illuminate\Support\Facades\DB;
 
 //use export class
-use App\Exports\CitizenExport;
-use App\Exports\CitizenDTKSExport;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Transactions\Citizens;
 use Illuminate\Support\Facades\Storage;
 
 //use import class dan storage nya utk simpan data
@@ -433,7 +434,6 @@ class CitizenController extends Controller
 
 
 
-
     //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.move', compact('datas','nik','kk','name','genderSelected','place_birth','address',
         'religionSelected','familyStatusSelected','bloodSelected','job','phone','vaccine1Selected','vaccine2Selected','vaccine3Selected',
@@ -450,6 +450,18 @@ class CitizenController extends Controller
             'move_date' => null,
             'move_to' => null,
         ]);
+
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menghapus data dari Penduduk Pindah : ' . $data->name, //name = nama tag di view (file index)
+            'category' => 'Bantuan Sosial',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
 
         return redirect('/move')->with('success', 'Data Penduduk Pindah berhasil dihapus!');
     }
@@ -569,7 +581,17 @@ class CitizenController extends Controller
 
         $datas = $data->get();
 
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Export data Penduduk Pindah', //name = nama tag di view (file index)
+            'category' => 'Bantuan Sosial',
+            'created_at' => now(),
+        ];
 
+        DB::table('logs')->insert($log);
+        // selesai
 
         return Excel::download(new CitizenExport($datas,$nik,$kk,$name,$genderSelected,$place_birth,$religionSelected,$address,
         $familyStatusSelected,$bloodSelected,$job,$phone,$vaccine1Selected,$vaccine2Selected,$vaccine3Selected,$rtSelected,
