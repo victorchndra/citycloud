@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Ramsey\Uuid\Uuid;
 use App\Models\Masters\RT;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +57,18 @@ class RTController extends Controller
         $validatedData['created_by'] = Auth::user()->id;
         RT::create($validatedData);
 
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menambah data RT : ' . $request->name, //name = nama tag di view (file index)
+            'category' => 'Data RT',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
+
 
         return redirect('/rt')->with('success', 'Data RT Berhasil Ditambah!!');
     }
@@ -103,6 +116,17 @@ class RTController extends Controller
 
         RT::where('uuid', $uuid)->first()->update($validatedData);
 
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Merubah data RT : ' . $request->name, //name = nama tag di view (file index)
+            'category' => 'Data RT',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
         return redirect('/rt')->with('success', 'Data RT Berhasil Diupdate !!');
     }
 
@@ -117,6 +141,15 @@ class RTController extends Controller
         $data = RT::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menghapus data RT : ' . $data->name, //name = nama tag di view (file index)
+            'category' => 'Data RT',
+            'created_at' => now(),
+        ];
+    
+        DB::table('logs')->insert($log);
         $data->delete();
 
         return redirect()->route('rt.index')->with('success', 'Data berhasil dihapus!');
