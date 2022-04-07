@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Log;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreLogRequest;
+use App\Http\Requests\UpdateLogRequest;
 
 class LogController extends Controller
 {
@@ -14,9 +15,13 @@ class LogController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         $datas = Log::latest()->paginate(10);
         $data1s = Log::latest()->paginate(12);
         return view('transactions.log.index', compact('datas'));
+=======
+        //
+>>>>>>> b90207148f4710a8b16fd1797a77ff051565decb
     }
 
     /**
@@ -32,10 +37,10 @@ class LogController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreLogRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLogRequest $request)
     {
         //
     }
@@ -65,11 +70,11 @@ class LogController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateLogRequest  $request
      * @param  \App\Models\Log  $log
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Log $log)
+    public function update(UpdateLogRequest $request, Log $log)
     {
         //
     }

@@ -2,6 +2,7 @@
 @section('content')
 {{-- Isi konten --}}
 
+<<<<<<< HEAD
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -60,4 +61,8 @@
         </div>
     </div>
 </div>
+=======
+
+
+>>>>>>> b90207148f4710a8b16fd1797a77ff051565decb
 @endsection

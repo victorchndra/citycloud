@@ -81,7 +81,7 @@
               <li class="nav-item"> <a class="nav-link" href="#"> Data Informasi </a></li>
             </ul>
           </div>
-        </li>
+    </li>
       </ul>
     </nav>
     <!-- partial -->
