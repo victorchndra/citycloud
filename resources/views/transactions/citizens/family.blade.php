@@ -4,18 +4,19 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Penduduk DTKS</h4>
+                <h4 class="card-title">Data Kartu Keluarga</h4>
                 <p class="card-description">
                     Data Penduduk Kelurahan Lembah Sari
                 </p>
-                <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>                
+                <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
-                <a href="{{url('export/exportDTKSCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+                <a href="{{url('export/exportDeathCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
                     .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&lastEducation='.$lastEducationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
-                    
+
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
 
                 {{-- Search Modal --}}
@@ -459,17 +460,17 @@
                                 <th>Nama</th>
                                 <th>NIK/KK</th>
                                 <th colspan="2"><center>Informasi</center></th>
-                                <th>DTKS</th>
+                                <th>Tanggal Meninggal</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($datas as $key => $data)                            
+                            @foreach($datas as $key => $data)
 
                             <tr>
                                 <td>{{ $loop->iteration }} </td>
-                                <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b><br>  
-                      
+                                <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b><br>
+
                                 @if($data->vaccine_1 == 'Sudah Vaksin')
                                 <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 1</span>
                                 @endif
@@ -479,15 +480,15 @@
                                 @endif
 
                                 @if($data->vaccine_3 == 'Sudah Vaksin')
-                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 3</span>    
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 3</span>
                                 @endif
-                                
+
 
                                 <td>
                                     <b>NIK:</b> {{ $data->nik }}<br>
                                     <b>KK :</b> {{ $data->kk }}
 
-                                  
+
                                 </td>
 
                                 <td>
@@ -498,17 +499,17 @@
                                         <span>{{ $data->phone ?? '-' }}</span></span>
                                         <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b>RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
                                         {{ $data->rw ?? '-' }}</span></span>
-                           
+
                                     <span class="d-block mb-1"><b>Pekerjaan : </b>
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
-                                    
+
                                 </td>
 
                                 <td>
 
-                                  
+
                                     <span class="d-block mb-1"><b>Gol.Darah : </b>
                                         <span>{{ $data->blood ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Status Pernikahan : </b>{{ $data->marriage ?? '-' }}</span>
@@ -519,20 +520,21 @@
                                         <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
-                                
-                                <td>{{ $data->dtks == 'y' ? 'Ya' : 'Tidak'  }}</td>
+                                <td>{{$data->death_date, 'H:i:s'}}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                
+                                                {{-- <a href="/citizens/{{ $data->uuid }}/edit"
+                                                    class="dropdown-item">Edit</a> --}}
+                                                {{-- <div class="dropdown-divider"></div> --}}
 
-                                                <form action="/citizendtks/{{ $data->uuid }}">
+                                                <form action="/death/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data DTKS?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
                                                 </form>
 
 
@@ -541,7 +543,7 @@
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data DTKS?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
                                                 </form>
 
                                             </div>
@@ -549,7 +551,7 @@
                                     </div>
                                 </td>
                             </tr>
-                          @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="mt-3">
