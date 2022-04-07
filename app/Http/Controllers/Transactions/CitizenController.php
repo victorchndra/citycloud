@@ -233,6 +233,16 @@ class CitizenController extends Controller
 
         Citizens::create($validatedData);
 
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menambah</em> data penduduk baru <strong>[' . $request->name . ']</strong>',
+            'category' => 'Semua Kependudukan',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
         return redirect('/citizens')->with('success', 'Data kependudukan berhasil ditambah!');
     }
 
@@ -303,6 +313,16 @@ class CitizenController extends Controller
 
         Citizens::where('uuid', $uuid)->first()->update($validatedData);
 
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
+            'category' => 'Semua Kependudukan',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
         return redirect('/citizens')->with('success', 'Data berhasil diperbarui!');
     }
 
@@ -317,6 +337,15 @@ class CitizenController extends Controller
         $data = Citizens::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> data penduduk <strong>[' . $data->name . ']</strong>',
+            'category' => 'Semua Kependudukan',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
         $data->delete();
 
         return redirect()->route('citizens.index')->with('success', 'Data berhasil dihapus!');
@@ -696,7 +725,7 @@ class CitizenController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menghapus data dari Penduduk Pindah : ' . $data->name, //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data dari penduduk pindah <strong>[' . $data->name . ']</strong>',
             'category' => 'Bantuan Sosial',
             'created_at' => now(),
         ];
@@ -826,8 +855,8 @@ class CitizenController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Export data Penduduk Pindah', //name = nama tag di view (file index)
-            'category' => 'Bantuan Sosial',
+            'description' => '<em>Export</em> data penduduk pindah', //name = nama tag di view (file index)
+            'category' => 'Penduduk Pindah',
             'created_at' => now(),
         ];
 
@@ -1071,6 +1100,16 @@ class CitizenController extends Controller
 
         $datas = $data->get();
 
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> data penduduk meninggal',
+            'category' => 'Penduduk Meninggal',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
         return Excel::download(new CitizenExport($datas,$nik,$kk,$name,$genderSelected,$place_birth,$religionSelected,$address,
         $familyStatusSelected,$bloodSelected,$job,$phone,$vaccine1Selected,$vaccine2Selected,$vaccine3Selected,$rtSelected,
         $rwSelected,$villageSelected,$sub_districsSelected,$districtSelected,$provinceSelected,$health_assuranceSelected,
@@ -1088,6 +1127,16 @@ class CitizenController extends Controller
             'updated_by' =>Auth::user()->id,
             'death_date' => null,
         ]);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> data penduduk dari penduduk meninggal <strong>[' . $data->name . ']</strong>',
+            'category' => 'Bantuan Sosial',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
 
         return redirect('/death')->with('success', 'Data meninggal berhasil dihapus!');
     }
@@ -1240,7 +1289,15 @@ class CitizenController extends Controller
 
         $datas = $data->get();
 
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> semua data penduduk', //name = nama tag di view (file index)
+            'category' => 'Semua Kependudukan',
+            'created_at' => now(),
+        ];
 
+        DB::table('logs')->insert($log);
 
         return Excel::download(new CitizenExport(
             $datas,
@@ -1562,14 +1619,21 @@ class CitizenController extends Controller
     {
 
         $data = Citizens::get()->where('uuid', $uuid)->where('dtks', 'y')->firstOrFail();
-        
+
         $data->update([
             'updated_by' =>Auth::user()->id,
             'dtks' => 't    ',
         ]);
-        // $data->deleted_by = Auth::user()->id;
-        // $data->save();
-        // $data->delete();
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> data dari penduduk DTKS <strong>[' . $data->name . ']</strong>',
+            'category' => 'Penduduk DTKS',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
 
         return redirect('/citizendtks')->with('success', 'Data berhasil dihapus dari data DTKS!');
     }
