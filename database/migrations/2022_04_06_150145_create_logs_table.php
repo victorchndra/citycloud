@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('uuid')->unique();
             $table->string('description')->nullable();
             $table->string('category')->nullable();
-            $table->integer('category_by')->nullable();
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }
