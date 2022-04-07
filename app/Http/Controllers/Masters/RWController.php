@@ -139,7 +139,17 @@ class RWController extends Controller
 
     RW::where('uuid',$uuid)->first()->update($validatedate);
 
-        return redirect('/rw')->with('success', 'Data has been updated successfully');
+    $log = [
+        'uuid' => Uuid::uuid4()->getHex(),
+        'user_id' => Auth::user()->id,
+        'description' => 'Mengubah data RW : ' . $request->name, //name = nama tag di view (file index)
+        'category' => 'Data RW',
+        'created_at' => now(),
+    ];
+
+    DB::table('logs')->insert($log);
+
+ return redirect('/rw')->with('success', 'Data has been updated successfully');
 
     }
 
@@ -156,9 +166,20 @@ class RWController extends Controller
         // $rW::destroy($data);
         $data = RW::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
+        
         $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menghapus data RW : ' . $data->name, //name = nama tag di view (file index)
+            'category' => 'Data RW',
+            'created_at' => now(),
+        ];
+    
+        DB::table('logs')->insert($log);
         $data->delete();
 
+        
         return redirect('/rw')->with('success', 'Post terhapus');
     }
 
