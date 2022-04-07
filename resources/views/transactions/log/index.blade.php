@@ -25,6 +25,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
+                        <h1></h1>
                         <tbody>
                             @foreach($datas as $key => $data)
                                 <tr>
