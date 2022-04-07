@@ -64,7 +64,7 @@ class RWController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menambah data RW : ' . $request->name, //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data RW <strong>[' . $request->name . ']</strong>',
             'category' => 'Data RW',
             'created_at' => now(),
         ];
@@ -142,7 +142,7 @@ class RWController extends Controller
     $log = [
         'uuid' => Uuid::uuid4()->getHex(),
         'user_id' => Auth::user()->id,
-        'description' => 'Mengubah data RW : ' . $request->name, //name = nama tag di view (file index)
+        'description' => '<em>Mengubah</em> data RW <strong>[' . $request->name . ']</strong>',, //name = nama tag di view (file index)
         'category' => 'Data RW',
         'created_at' => now(),
     ];
@@ -166,20 +166,20 @@ class RWController extends Controller
         // $rW::destroy($data);
         $data = RW::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
-        
+
         $data->save();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menghapus data RW : ' . $data->name, //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data RW <strong>[' . $data->name . ']</strong>',, //name = nama tag di view (file index)
             'category' => 'Data RW',
             'created_at' => now(),
         ];
-    
+
         DB::table('logs')->insert($log);
         $data->delete();
 
-        
+
         return redirect('/rw')->with('success', 'Post terhapus');
     }
 

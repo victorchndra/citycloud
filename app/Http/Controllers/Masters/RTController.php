@@ -60,7 +60,7 @@ class RTController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menambah data RT : ' . $request->name, //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data RT <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Data RT',
             'created_at' => now(),
         ];
@@ -119,7 +119,7 @@ class RTController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Merubah data RT : ' . $request->name, //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data RT <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Data RT',
             'created_at' => now(),
         ];
@@ -144,11 +144,11 @@ class RTController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menghapus data RT : ' . $data->name, //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data RT <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Data RT',
             'created_at' => now(),
         ];
-    
+
         DB::table('logs')->insert($log);
         $data->delete();
 

@@ -21,7 +21,6 @@
                                 <th>Kategori</th>
                                 <th>Nama pengguna</th>
                                 <th>Tanggal Aktivitas</th>
-                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                         <h1></h1>
@@ -29,31 +28,17 @@
                             @foreach($datas as $key => $data)
                                 <tr>
                                     <td>{{ $loop->iteration }} </td>
-                                    <td>{{ $data->description }}</td>
+                                    <td>{!! $data->description !!}</td>
                                     <td>{{ $data->category }}</td>
                                     <td>{{ $data->user->name }}</td>
                                     <td>{{ $data->created_at}}</td>
-                                    {{-- <td>
-                                        <div class="btn-group-vertical" role="group" aria-label="Basic example">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
-                                                <div class="dropdown-menu">
-                                                <a href="/rw/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
-                                                <div class="dropdown-divider"></div>
-                                                    <form action="/rw/{{ $data->uuid }}"  method="post" class="d-inline">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <button type="submit" onclick="return confirm('Hapus data?')" class="dropdown-item">Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td> --}}
                                 </tr>
                             @endforeach
                             </tbody>
                     </table>
-                    {{-- {{ $datas->links('pagination::bootstrap-5') }} --}}
+                    <div class="mt-3">
+                        {{ $datas->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>

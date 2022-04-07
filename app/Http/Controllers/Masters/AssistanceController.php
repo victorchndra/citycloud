@@ -62,7 +62,7 @@ class AssistanceController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menambah data Bantuan : ' . $request->name, //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data bantuan sosial <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Bantuan Sosial',
             'created_at' => now(),
         ];
@@ -119,7 +119,7 @@ class AssistanceController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Merubah data Bantuan : ' . $request->name, //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data bantuan sosial <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Bantuan Sosial',
             'created_at' => now(),
         ];
@@ -130,7 +130,7 @@ class AssistanceController extends Controller
         return redirect('/assistance')->with('success', 'Data has been updated successfully');
     }
 
-    /**     
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Assistance  $assistance
@@ -138,30 +138,27 @@ class AssistanceController extends Controller
      */
     public function destroy($uuid)
     {
-        
+
         // $data->deleted_by = Auth::user()->id;
         // $data = Assistance::get()->where('uuid', $uuid);
-        
+
         // Assistance::destroy($data);
         // return redirect('/assistance')->with('success','Data berhasil dihapus!');
-        
+
         $data = Assistance::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
-        $data->delete();
-
-        // tambahkan baris kode ini di setiap controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => 'Menghapus data Bantuan : ' . $data->name, //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data bantuan sosial <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Bantuan Sosial',
             'created_at' => now(),
         ];
 
         DB::table('logs')->insert($log);
-        // selesai
-        
+        $data->delete();
+
         return redirect()->route('assistance.index')->with('success', 'Data has been deleted successfully');
     }
 

@@ -7,6 +7,7 @@ use Ramsey\Uuid\Uuid;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -62,6 +63,16 @@ class UserController extends Controller
         $validatedData['created_by'] = Auth::user()->id;
 
         User::create($validatedData);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menambah</em> pengguna baru <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'Semua Kependudukan',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
 
         return redirect('/users')->with('success','Data pengguna berhasil ditambah!');
     }
