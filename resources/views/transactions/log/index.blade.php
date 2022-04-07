@@ -19,10 +19,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>Deskripsi</th>
-                                <th>Category</th>
-                                <th>Dibuat Oleh</th>
+                                <th>Kategori</th>
+                                <th>Nama pengguna</th>
                                 <th>Tanggal Aktivitas</th>
-                                <th>Aksi</th>
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                         <h1></h1>
@@ -34,7 +34,7 @@
                                     <td>{{ $data->category }}</td>
                                     <td>{{ $data->user->name }}</td>
                                     <td>{{ $data->created_at}}</td>
-                                    <td>
+                                    {{-- <td>
                                         <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
@@ -49,7 +49,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                             </tbody>
