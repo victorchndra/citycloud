@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Masters;
-use App\Http\Controllers\Controller;
+use App\Models\Log;
 
-use App\Models\Masters\RW;
 use Ramsey\Uuid\Uuid;
+use App\Models\Masters\RW;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class RWController extends Controller
@@ -20,7 +21,7 @@ class RWController extends Controller
     public function index(Request $request)
     {
         //
-       
+
 
         $datas = RW::first()->cari(request(['search']))->paginate(10);
         return view('masters.rw.index', compact('datas'));
@@ -38,7 +39,7 @@ class RWController extends Controller
         //
         return view('masters.rw.form');
 
-       
+
     }
 
     /**
@@ -52,12 +53,25 @@ class RWController extends Controller
         //
         $validatedate = $request->validate([
             'name' => 'required|max:255',
-            
+
         ]);
         $validatedate['created_by'] = Auth::user()->id;
         $validatedate['uuid'] = Uuid::uuid4()->getHex();
-        
+
         RW::create($validatedate);
+
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => 'Menambah data RW : ' . $request->name, //name = nama tag di view (file index)
+            'category' => 'Data RW',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
         return redirect('/rw')->with('success', 'Data berhasil di tambah');
 
     }
@@ -82,14 +96,14 @@ class RWController extends Controller
     public function edit($uuid)
     {
         //
-        
+
         // $data = RW::where('id', $id)->first();
         // return view('masters.rw.edit',compact('data'));
         // return view('masters.rw.edit',[
         //     'rw' => $rW,
         //     'data' => RW::where('id',$rW->id)->first()
         // ]);
-        
+
         $rw = RW::where('uuid', $uuid)->get();
 
         return view('masters.rw.edit',compact(['rw']));
@@ -105,11 +119,11 @@ class RWController extends Controller
     public function update(Request $request, RW $rW,$uuid)
     {
     // $rules = [
-    //     'name' => 'required|max:255',      
+    //     'name' => 'required|max:255',
     // ];
-    
+
     // $validatedData = $request->validate($rules);
-    
+
     //     RW::where('id',$id->id)->update($validatedData);
 
     // $rw = RW::where('uuid', $uuid)->get();
@@ -118,7 +132,7 @@ class RWController extends Controller
     //
     $validatedate = $request->validate([
         'name' => 'required|max:255',
-        
+
     ]);
     $validatedate['updated_by'] = Auth::user()->id;
     $validatedate['uuid'] = Uuid::uuid4()->getHex();
@@ -156,8 +170,8 @@ class RWController extends Controller
     //    }else{
     //        $rw = RW::all();
     //    }
-       
+
     //    return view('layouts.app', compact('rw','search'));
     // }
-   
+
 }

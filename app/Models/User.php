@@ -63,7 +63,8 @@ class User extends Authenticatable
             return $query->where('name','LIKE','%'.$search.'%');
         });
     }
-    public function log(){
+
+    public function log() {
         return $this->hasMany(Log::class);
     }
 

@@ -12,16 +12,16 @@
                 </p>
                 <a href="/rw" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/rw/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
-                
+
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Deskripsi</th>               
-                                <th>Category</th>    
-                                <th>Dibuat Oleh</th>  
-                                <th>Tanggal Aktivitas</th>                                            
+                                <th>Deskripsi</th>
+                                <th>Category</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Tanggal Aktivitas</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -30,9 +30,9 @@
                             @foreach($datas as $key => $data)
                                 <tr>
                                     <td>{{ $loop->iteration }} </td>
-                                    <td>{{ $data->description }}</td> 
-                                    <td>{{ $data->category }}</td>                                                                         
-                                    <td>{{ $data->created_by }}</td>                                                                        
+                                    <td>{{ $data->description }}</td>
+                                    <td>{{ $data->category }}</td>
+                                    <td>{{ $data->user->name }}</td>
                                     <td>{{ $data->created_at}}</td>
                                     <td>
                                         <div class="btn-group-vertical" role="group" aria-label="Basic example">
