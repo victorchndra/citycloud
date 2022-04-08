@@ -142,7 +142,7 @@ class RWController extends Controller
     $log = [
         'uuid' => Uuid::uuid4()->getHex(),
         'user_id' => Auth::user()->id,
-        'description' => '<em>Mengubah</em> data RW <strong>[' . $request->name . ']</strong>',, //name = nama tag di view (file index)
+        'description' => '<em>Mengubah</em> data RW <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
         'category' => 'Data RW',
         'created_at' => now(),
     ];
@@ -171,7 +171,7 @@ class RWController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> data RW <strong>[' . $data->name . ']</strong>',, //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data RW <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'Data RW',
             'created_at' => now(),
         ];

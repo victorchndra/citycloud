@@ -8,6 +8,7 @@ use Database\Seeders\DatarwSeeder;
 use Illuminate\Support\Facades\Hash;
 use Database\Seeders\UserTableSeeder;
 use Database\Seeders\AssistanceSeeder;
+use Database\Seeders\InformationSeeder;
 use Database\Seeders\CitizenTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -27,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RTSeeder::class);
         $this->call(DatarwSeeder::class);
         $this->call(AssistanceSeeder::class);
+        $this->call(InformationSeeder::class);
     }
 }
