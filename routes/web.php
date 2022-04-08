@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
+use App\Models\Masters\ageRange;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,10 @@ Route::resource('information', "App\Http\Controllers\InformationController")->mi
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
 
 Route::resource('log', LogController::class)->middleware('auth');
+
+Route::resource("ageRange", "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
+// Route::resource('ageRange', AgeRangeController::class)->middleware('auth');
+
 
 Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::class, 'authenticate']);
@@ -88,4 +94,6 @@ Route::get('/move/{citizens:uuid}', [CitizenController::class, 'rollBackMoveDate
 
 Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
 Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDate'])->middleware('auth');
+
+// Route::get('/ageRange',[AgeRangeController::class, 'index'])->middleware('auth');
 
