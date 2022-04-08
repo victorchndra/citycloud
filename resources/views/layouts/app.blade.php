@@ -105,7 +105,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                 <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                <a class="dropdown-item preview-item">
+                {{-- <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-success">
                       <i class="mdi mdi-information mx-0"></i>
@@ -117,21 +117,24 @@
                       Just now
                     </p>
                   </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
-                      <i class="mdi mdi-settings mx-0"></i>
+                </a> --}}
+                @foreach ($datas as $data)
+
+                <a class="dropdown-item preview-item" href="/log">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-settings mx-0"></i>
                     </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      Private message
-                    </p>
-                  </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <h6 class="preview-subject font-weight-normal">Victor baru saja menambah pengguna baru</h6>
+                        <p class="font-weight-light small-text mb-0 text-muted">
+                            {{ $data->created_at->diffForHumans() }}
+                        </p>
+                    </div>
                 </a>
-                <a class="dropdown-item preview-item">
+                @endforeach
+                {{-- <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-info">
                       <i class="mdi mdi-account-box mx-0"></i>
@@ -143,7 +146,7 @@
                       2 days ago
                     </p>
                   </div>
-                </a>
+                </a> --}}
               </div>
             </li>
           </ul>
