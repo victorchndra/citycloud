@@ -83,6 +83,8 @@ Route::get('/dtks/{citizens:uuid}', [CitizenController::class, 'rollBackDtks'])-
 
 Route::get('/move',[CitizenController::class, 'moveCitizens'])->middleware('auth');
 Route::get('/move/{citizens:uuid}', [CitizenController::class, 'rollBackMoveDate'])->middleware('auth');
+// Route::get('/citizens/{citizens:uuid}', [CitizenController::class, 'moveUpdateCitizen'])->name('citizens.moveUpdateCitizen')->middleware('auth');
+// Route::post('/citizens/{citizens:uuid}', 'App\Http\Controllers\Transactions\CitizenController@moveUpdateCitizen')->name('citizens.moveUpdateCitizen');
 
 Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
 Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDate'])->middleware('auth');
