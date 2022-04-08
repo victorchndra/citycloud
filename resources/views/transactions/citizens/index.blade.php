@@ -458,7 +458,28 @@
                 </div>
                 {{-- End Seach Modal --}}
 
-
+                @foreach ($datas as $data)
+                <div class="modal" id="deathModal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <form action="/citizens/{{ $data->uuid }}">
+                                @csrf
+                                <div class="modal-header">
+                                    <label>Tanggal Meninggal</label>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="date" name="death_date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">OK</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
 
                 @if($datas->isEmpty())
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
@@ -539,7 +560,6 @@
 
 
                                 </td>
-
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
@@ -556,7 +576,6 @@
                                         <span>{{ $data->religion ?? '-' }}</span></span>
 
                                 </td>
-
                                 <td>
 
 
@@ -592,13 +611,13 @@
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
                                                 <div class="dropdown-divider"></div>
 
-
                                                 <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-folder-move"></i>  Pindah</a>
+                                                class="dropdown-item"><i class="mdi mdi-folder-move"></i>  Pindah</a>
                                                 <div class="dropdown-divider"></div>
 
-                                                <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-account-minus"></i> Meninggal</a>
+                                                {{-- death --}}
+                                                <button class="dropdown-item" data-bs-toggle="modal"
+                                                data-bs-target="#deathModal"><i class="mdi mdi-account-minus"></i> Meninggal</button>
                                                 <div class="dropdown-divider"></div>
 
 
