@@ -139,12 +139,12 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="religion">
                                                         <option value="">-- Pilih agama --</option>
-                                                        <option value="Islam">Islam</option>
-                                                        <option value="Kristen Katolik">Kristen Katolik</option>
-                                                        <option value="Kristen Protestan">Kristen Protestan</option>
-                                                        <option value="Buddha">Buddha</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Konghucu">Konghucu</option>
+                                                        <option value="islam">Islam</option>
+                                                        <option value="kristen katolik">Kristen Katolik</option>
+                                                        <option value="kristen protestan">Kristen Protestan</option>
+                                                        <option value="buddha">Buddha</option>
+                                                        <option value="hindu">Hindu</option>
+                                                        <option value="konguchu">Konghucu</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -155,9 +155,9 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="family_status">
                                                         <option value="">-- Pilih status keluarga --</option>
-                                                        <option value="head">Kepala keluarga</option>
-                                                        <option value="wife">Istri</option>
-                                                        <option value="child">Anak</option>
+                                                        <option value="kepala keluarga">Kepala keluarga</option>
+                                                        <option value="istri">Istri</option>
+                                                        <option value="anak">Anak</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -170,10 +170,10 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="blood">
                                                         <option value="">-- Pilih golongan darah --</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                        <option value="AB">AB</option>
-                                                        <option value="O">O</option>
+                                                        <option value="a">A</option>
+                                                        <option value="b">B</option>
+                                                        <option value="ab">AB</option>
+                                                        <option value="o">O</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -546,7 +546,7 @@
                                             {{$data->date_birth}}</span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
-                                    <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b>RT :
+                                    <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }} <b>RT :
                                             </b>{{ $data->rt ?? '-' }}<b> RW : </b>
                                             {{ $data->rw ?? '-' }}</span></span>
 
@@ -571,7 +571,13 @@
                                     <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
-                                <td>{{$data->created_at, 'H:i:s'}}</td>
+                                <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
+                                        <span>{{$data->created_at, 'd M Y'}}</span><br>
+                                        @if($data->updated_by)
+                                        <br>
+                                        <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
+                                        <span>{{$data->updated_at, 'd M Y'}}<br>
+                                        @endif
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
@@ -579,14 +585,23 @@
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
                                                 <a href="/citizens/{{ $data->uuid }}/edit"
-                                                    class="dropdown-item">Edit</a>
+                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
+
+                                                <a href="#"
+                                                    class="dropdown-item"><i class="mdi mdi-folder-move"></i>  Pindah</a>
+                                                <div class="dropdown-divider"></div>
+
+                                                <a href="#"
+                                                    class="dropdown-item"><i class="mdi mdi-account-minus"></i> Meninggal</a>
+                                                <div class="dropdown-divider"></div>
+
 
                                                 <form action="/citizens/{{ $data->uuid }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data?')"><i class="mdi mdi-delete-forever"></i>Hapus</button>
                                                 </form>
 
 

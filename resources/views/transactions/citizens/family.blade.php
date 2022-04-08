@@ -11,7 +11,7 @@
                 <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
 
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
-                <a href="{{url('export/exportDeathCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+                <a href="{{url('export/exportFamilyCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
@@ -460,7 +460,7 @@
                                 <th>Nama</th>
                                 <th>NIK/KK</th>
                                 <th colspan="2"><center>Informasi</center></th>
-                                <th>Tanggal Meninggal</th>
+                                <th>Anggota Keluarga</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -497,7 +497,7 @@
                                             {{$data->date_birth}}</span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
-                                        <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b>RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
+                                        <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b> RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
                                         {{ $data->rw ?? '-' }}</span></span>
 
                                     <span class="d-block mb-1"><b>Pekerjaan : </b>
@@ -520,7 +520,13 @@
                                         <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
-                                <td>{{$data->death_date, 'H:i:s'}}</td>
+                                <td>
+                                @if (is_array($data->kk) || is_object($data->kk))
+                                @foreach ($data->kk as $value)
+                                {{$value->family_status}}
+                                @endforeach
+                                @endif
+                                </td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">

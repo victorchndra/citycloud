@@ -520,7 +520,7 @@
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
                                 
-                                <td>{{ $data->dtks == 'y' ? 'Ya' : 'Tidak'  }}</td>
+                                <td>{{ $data->dtks }}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">

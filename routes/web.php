@@ -55,12 +55,17 @@ Route::prefix('export')->name('export.')->group(function () {
 });
 
 Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportFamilyCitizen", "App\Http\Controllers\Transactions\CitizenController@exportFamilyCitizen")->name('exportFamilyCitizen');
+});
+
+Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportMoveCitizen", "App\Http\Controllers\Transactions\CitizenController@exportMoveCitizen")->name('exportMoveCitizen');
 });
 
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDeathCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDeathCitizen")->name('exportDeathCitizen');
 });
+
 
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');

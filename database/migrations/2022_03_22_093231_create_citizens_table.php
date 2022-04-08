@@ -30,9 +30,12 @@ return new class extends Migration
             $table->string('blood')->nullable();
             $table->string('family_status')->nullable();
             $table->string('marriage')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('mother_name')->nullable();
             $table->string('last_education')->nullable();
             $table->string('health_assurance')->nullable();
             $table->string('dtks')->nullable();
+            $table->string('disability')->nullable();
             $table->string('vaccine_1')->nullable();
             $table->string('vaccine_2')->nullable();
             $table->string('vaccine_3')->nullable();
