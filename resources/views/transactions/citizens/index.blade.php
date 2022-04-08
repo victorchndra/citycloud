@@ -589,6 +589,11 @@
                                                 <div class="dropdown-divider"></div>
 
                                                 <a href="#"
+                                                    class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
+                                                <div class="dropdown-divider"></div>
+
+
+                                                <a href="#"
                                                     class="dropdown-item"><i class="mdi mdi-folder-move"></i>  Pindah</a>
                                                 <div class="dropdown-divider"></div>
 
