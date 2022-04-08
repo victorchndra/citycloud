@@ -19,6 +19,10 @@ use App\Http\Controllers\Transactions\CitizenController;
 
 Route::get('/',[CitizenController::class, 'index'])->middleware('auth');
 
+
+//jika penggunaan resource, path harus lengkap
+Route::resource("profiles", "App\Http\Controllers\ProfileController")->middleware('auth');
+
 //jika penggunaan resource, path harus lengkap
 Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController")->middleware('auth');
 
@@ -51,12 +55,17 @@ Route::prefix('export')->name('export.')->group(function () {
 });
 
 Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportFamilyCitizen", "App\Http\Controllers\Transactions\CitizenController@exportFamilyCitizen")->name('exportFamilyCitizen');
+});
+
+Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportMoveCitizen", "App\Http\Controllers\Transactions\CitizenController@exportMoveCitizen")->name('exportMoveCitizen');
 });
 
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDeathCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDeathCitizen")->name('exportDeathCitizen');
 });
+
 
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');
@@ -65,8 +74,12 @@ Route::prefix('export')->name('export.')->group(function () {
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
 
-Route::get('/citizendtks',[CitizenController::class, 'citizendtks'])->middleware('auth');
-Route::get('/citizendtks/{citizens:uuid}', [CitizenController::class, 'rollBackDtks'])->middleware('auth');
+
+Route::get('/family',[CitizenController::class, 'familyCitizens'])->middleware('auth');
+
+
+Route::get('/dtks',[CitizenController::class, 'citizendtks'])->middleware('auth');
+Route::get('/dtks/{citizens:uuid}', [CitizenController::class, 'rollBackDtks'])->middleware('auth');
 
 Route::get('/move',[CitizenController::class, 'moveCitizens'])->middleware('auth');
 Route::get('/move/{citizens:uuid}', [CitizenController::class, 'rollBackMoveDate'])->middleware('auth');

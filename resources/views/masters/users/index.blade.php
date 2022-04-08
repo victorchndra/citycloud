@@ -11,9 +11,19 @@
                 <a href="citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/users/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- wajib pakai route href nya kalo mau export atau nge blank hasilnya -->
-                <a class="btn btn-warning float-end" href="{{ route('users.export') }}">Export User Data</a>
+                <!-- <a class="btn btn-warning float-end" href="{{ route('users.export') }}">Export User Data</a> -->
 
                 <div class="table-responsive pt-3">
+
+                @if (session()->has('success'))
+
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>

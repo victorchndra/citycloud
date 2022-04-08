@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Arr;
 
+use Carbon\Carbon;
+
 class Citizens extends Model
 {
     use HasFactory;
@@ -44,6 +46,9 @@ class Citizens extends Model
     }
 
     // Cara nulis acessor dan mutator di lv9
+    //ingat, jika table menggunakan underscore ex: place_birth, maka cara manggilnya placeBirth();
+    //otherwise,not working cuy.
+
     public function name(): Attribute
     {
         return new Attribute(
@@ -51,6 +56,192 @@ class Citizens extends Model
             set: fn ($value) => strtolower($value),
         );
     }
+
+    public function placeBirth(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+
+    public function dateBirth(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
+            
+        );
+    }
+
+    public function address(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function job(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => strtoupper($value),
+        );
+    }
+
+    public function religion(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function blood(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => strtoupper($value),
+        );
+    }
+
+    public function familyStatus(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function marriage(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function fatherName(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function motherName(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function lastEducation(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => strtoupper($value),
+        );
+    }
+
+
+    public function healthAssurance(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function dtks(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => strtoupper($value),
+        );
+    }
+
+
+    public function disability(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function vaccine1(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function vaccine2(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function vaccine3(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+
+    public function village(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function subDistricts(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function districts(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+    public function province(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
+        );
+    }
+
+
+   
+
+    public function createdUser() 
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
+    public function updatedUser() 
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
+
 
     // gunakan scope utk query yg sering dipakai
     // contoh utk user yg aktif saja
@@ -161,41 +352,3 @@ class Citizens extends Model
 
 }
 
-// Identitas pribadi
-// 1. nik
-// 2. kk
-// 3. name
-// 4. gender
-// 5. date_birth
-// 6. place_birth
-// 7. religion
-// 8. family_status
-// 9. blood
-// 10. job
-// 11. phone
-// 12. marriage
-
-// Vaksin
-// 12. vaccine_1
-// 13. vaccine_2
-// 14. vaccine_3
-
-// Lanjutan
-// 15. move_date
-// 16. death_date
-
-// Alamat
-// 17. rt
-// 18. rw
-// 19. village
-// 20. sub_districts
-// 21. districts
-// 22. province
-
-// Data info
-// 23. created_by
-// 24. updated_by
-// 25. deleted_by
-// 26. created_at 	#
-// 27. updated_at 	#
-// 28. deleted_at

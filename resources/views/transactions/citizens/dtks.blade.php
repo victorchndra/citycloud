@@ -520,7 +520,7 @@
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
                                 
-                                <td>{{ $data->dtks == 'y' ? 'Ya' : 'Tidak'  }}</td>
+                                <td>{{ $data->dtks }}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
@@ -532,7 +532,7 @@
                                                 <form action="/citizendtks/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data dari DTKS?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data DTKS?')">Hapus</button>
                                                 </form>
 
 
@@ -541,7 +541,7 @@
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data DTKS?')">Hapus</button>
                                                 </form>
 
                                             </div>

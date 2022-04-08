@@ -53,7 +53,7 @@ class User extends Authenticatable
     public function name(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => strtolower($value),
+            get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
     }

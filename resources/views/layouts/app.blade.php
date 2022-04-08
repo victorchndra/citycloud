@@ -34,12 +34,7 @@
             <div class="badge badge-info badge-pill">2</div>
           </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/log">
-                <i class="mdi mdi-history menu-icon"></i>
-                <span class="menu-title">Aktivitas</span>
-            </a>
-        </li>
+       
         <li class="nav-item sidebar-category">
           <p>Menu Utama</p>
           <span></span>
@@ -52,13 +47,19 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/citizens">Semua Penduduk</a></li>
-              <li class="nav-item"> <a class="nav-link" href="#">Kartu Keluarga</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/citizendtks">Penduduk DTKS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk Aktif</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/family">Kartu Keluarga</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/dtks">Penduduk DTKS</a></li>
               <li class="nav-item"> <a class="nav-link" href="/move">Penduduk Pindah</a></li>
               <li class="nav-item"> <a class="nav-link" href="/death">Penduduk Meninggal</a></li>
             </ul>
           </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/log">
+                <i class="mdi mdi-history menu-icon"></i>
+                <span class="menu-title">Aktivitas</span>
+            </a>
+        </li>
         </li>
 
         <li class="nav-item sidebar-category">
@@ -81,7 +82,24 @@
               <li class="nav-item"> <a class="nav-link" href="#"> Data Informasi </a></li>
             </ul>
           </div>
+           
     </li>
+
+    @guest @else
+    <li class="nav-item">
+    <a class="nav-link" href="/logout" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
+    <button class="btn bg-danger btn-lg menu-title"><i class="mdi mdi-arrow-left-bold-circle"></i> Logout</button>
+                </a>
+           
+          </a>
+        </li>
+
+                  <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                  @csrf
+                  </form>
+                @endif
+                
+   
       </ul>
     </nav>
     <!-- partial -->
@@ -93,10 +111,10 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="/images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="/"><img src="/images/logo.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="/"><img src="/images/logo-mini.svg" alt="logo"/></a>
           </div>
-          <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Selamat Datang, {{ Auth::user()->name }}</h4>
+          <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Selamat Datang, {{ ucwords(Auth::user()->name) }}</h4>
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown me-2">
               <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
@@ -160,7 +178,7 @@
 
               <form action="" method="GET">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search" name="search" id="search"
+                <input type="text" class="form-control" placeholder="Ketik kata kunci pencarian..." aria-label="search" aria-describedby="search" name="search" id="search"
                 value="{{ request()->search }}">
               </div>
             </form>
@@ -172,15 +190,15 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                 <img src="/images/faces/face5.jpg" alt="profile"/>
-                <span class="nav-profile-name">{{ Auth::user()->name }}</span>
+                <span class="nav-profile-name">{{ ucwords(Auth::user()->name) }}</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item">
-                  <i class="mdi mdi-settings text-primary"></i>
-                  Settings
+                <a  href="/profiles" class="dropdown-item">
+                  <i class="mdi mdi-face text-primary"></i>
+                  Profil
                 </a>
                 @guest @else
-                <a class="dropdown-item" href="/logout" onclick="if(confirm('Logout dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
+                <a class="dropdown-item" href="/logout" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
                   <i class="mdi mdi-logout text-primary"></i>
                   Logout
                 </a>

@@ -4,20 +4,18 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Penduduk</h4>
+                <h4 class="card-title">Data Kartu Keluarga</h4>
                 <p class="card-description">
                     Data Penduduk Kelurahan Lembah Sari
                 </p>
                 <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i
-                        class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
+
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
-                <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+                <a href="{{url('export/exportFamilyCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
-                    .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&lastEducation='.$lastEducationSelected)}}"
-                    class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
+                    .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&lastEducation='.$lastEducationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
 
@@ -27,7 +25,7 @@
                 <div class="modal" id="myModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            <form class="form-sample" action="/citizens" id="search_form">
+                            <form class="form-sample" action="">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Cari Data Kependudukan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -93,7 +91,8 @@
                                                 <div class="col-sm-9">
                                                     <input type="date" name="date_birth"
                                                         class="form-control @error('date_birth') is-invalid @enderror"
-                                                        placeholder="dd/mm/yyyy" value="{{ old('date_birth') }}" />
+                                                        placeholder="dd/mm/yyyy"
+                                                        value="{{ old('date_birth') }}" />
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -109,9 +108,9 @@
                                                 <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="gender">
-                                                        <option value="">-- Pilih jenis kelamin --</option>
-                                                        <option value="l">Laki Laki</option>
-                                                        <option value="p">Perempuan</option>
+                                                    <option value="">-- Pilih jenis kelamin --</option>
+                                    <option value="l">Laki Laki</option>
+                                    <option value="p">Perempuan</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -122,7 +121,8 @@
                                                 <div class="col-sm-9">
                                                     <input type="text" name="place_birth"
                                                         class="form-control @error('place_birth') is-invalid @enderror"
-                                                        placeholder="Tempat Lahir" value="{{ old('place_birth') }}" />
+                                                        placeholder="Tempat Lahir"
+                                                        value="{{ old('place_birth') }}" />
                                                     @error('place_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -139,12 +139,12 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="religion">
                                                         <option value="">-- Pilih agama --</option>
-                                                        <option value="islam">Islam</option>
-                                                        <option value="kristen katolik">Kristen Katolik</option>
-                                                        <option value="kristen protestan">Kristen Protestan</option>
-                                                        <option value="buddha">Buddha</option>
-                                                        <option value="hindu">Hindu</option>
-                                                        <option value="konguchu">Konghucu</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen Katolik">Kristen Katolik</option>
+                                                        <option value="Kristen Protestan">Kristen Protestan</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Konghucu">Konghucu</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -155,9 +155,9 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="family_status">
                                                         <option value="">-- Pilih status keluarga --</option>
-                                                        <option value="kepala keluarga">Kepala keluarga</option>
-                                                        <option value="istri">Istri</option>
-                                                        <option value="anak">Anak</option>
+                                                        <option value="head">Kepala keluarga</option>
+                                                        <option value="wife">Istri</option>
+                                                        <option value="child">Anak</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -170,10 +170,10 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="blood">
                                                         <option value="">-- Pilih golongan darah --</option>
-                                                        <option value="a">A</option>
-                                                        <option value="b">B</option>
-                                                        <option value="ab">AB</option>
-                                                        <option value="o">O</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="AB">AB</option>
+                                                        <option value="O">O</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -184,7 +184,8 @@
                                                 <div class="col-sm-9">
                                                     <input type="text"
                                                         class="form-control @error('job') is-invalid @enderror"
-                                                        placeholder="Pekerjaan" name="job" value="{{ old('job') }}" />
+                                                        placeholder="Pekerjaan" name="job"
+                                                        value="{{ old('job') }}" />
                                                     @error('job')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -223,34 +224,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Pendidikan</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" name="last_education">
-                                                        <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
-                                                        <option value="DIPLOMA I / II">DIPLOMA I / II</option>
-                                                        <option value="STRATA III">STRATA III</option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Asuransi Kesehatan</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" name="health_assurance"
-                                                        class="form-control @error('health_assurance') is-invalid @enderror"
-                                                        required />
-                                                    @error('name')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     {{-- <p class="card-description my-3 text-muted">
                                         Alamat
@@ -263,7 +236,7 @@
                                                 <div class="col-sm-9">
                                                     <input type="number"
                                                         class="form-control @error('rt') is-invalid @enderror" name="rt"
-                                                        value="{{ old('rt') }}" />
+                                                     value="{{ old('rt') }}" />
                                                     @error('rt')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -278,7 +251,7 @@
                                                 <div class="col-sm-9">
                                                     <input type="number"
                                                         class="form-control @error('rw') is-invalid @enderror" name="rw"
-                                                        value="{{ old('rw') }}" />
+                                                     value="{{ old('rw') }}" />
                                                     @error('rw')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -327,7 +300,8 @@
                                                 <div class="col-sm-9">
                                                     <input type="text"
                                                         class="form-control @error('sub_districts') is-invalid @enderror"
-                                                        name="sub_districts" value="{{ old('sub_districts') }}" />
+                                                        name="sub_districts"
+                                                        value="{{ old('sub_districts') }}" />
                                                     @error('sub_districts')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -427,30 +401,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="card-description my-3 text-muted">
-                                        Status DTKS
-                                    </p>
-                                    <hr class="text-muted">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Status DTKS</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" name="dtks">
-                                                        <option value="ya" selected>Ya</option>
-                                                        <option value="tidak">Tidak</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary" onclick="form_submit()" data-bs-dismiss="modal">Cari
-                                        Data</button>
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Cari Data</button>
                                 </div>
                             </form>
                         </div>
@@ -467,7 +423,7 @@
                 <div class="modal" id="importModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            <form action="{{ route('citizens.import') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('citizens.import') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -503,10 +459,8 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>NIK/KK</th>
-                                <th colspan="2">
-                                    <center>Informasi</center>
-                                </th>
-                                <th>Ditambahkan</th>
+                                <th colspan="2"><center>Informasi</center></th>
+                                <th>Anggota Keluarga</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -517,20 +471,17 @@
                                 <td>{{ $loop->iteration }} </td>
                                 <td>{{ $data->name }} <b>({{ strtoupper($data->gender) }})</b><br>
 
-                                    @if($data->vaccine_1 == 'Sudah Vaksin')
-                                    <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>
-                                        Vaksin 1</span>
-                                    @endif
+                                @if($data->vaccine_1 == 'Sudah Vaksin')
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 1</span>
+                                @endif
 
-                                    @if($data->vaccine_2 == 'Sudah Vaksin')
-                                    <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>
-                                        Vaksin 2</span>
-                                    @endif
+                                @if($data->vaccine_2 == 'Sudah Vaksin')
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 2</span>
+                                @endif
 
-                                    @if($data->vaccine_3 == 'Sudah Vaksin')
-                                    <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>
-                                        Vaksin 3</span>
-                                    @endif
+                                @if($data->vaccine_3 == 'Sudah Vaksin')
+                                <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i> Vaksin 3</span>
+                                @endif
 
 
                                 <td>
@@ -546,9 +497,8 @@
                                             {{$data->date_birth}}</span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
-                                    <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }} <b>RT :
-                                            </b>{{ $data->rt ?? '-' }}<b> RW : </b>
-                                            {{ $data->rw ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b> RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
+                                        {{ $data->rw ?? '-' }}</span></span>
 
                                     <span class="d-block mb-1"><b>Pekerjaan : </b>
                                         <span>{{ $data->job ?? '-' }}</span></span>
@@ -562,51 +512,35 @@
 
                                     <span class="d-block mb-1"><b>Gol.Darah : </b>
                                         <span>{{ $data->blood ?? '-' }}</span></span>
-                                    <span class="d-block mb-1"><b>Status Pernikahan :
-                                        </b>{{ $data->marriage ?? '-' }}</span>
+                                    <span class="d-block mb-1"><b>Status Pernikahan : </b>{{ $data->marriage ?? '-' }}</span>
                                     <span class="d-block mb-1"><b>Status Keluarga : </b>
                                         <span>{{ $data->family_status ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Pendidikan Terakhir : </b>
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
-                                    <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
+                                        <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
                                 </td>
-                                <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
-                                        <span>{{$data->created_at, 'd M Y'}}</span><br>
-                                        @if($data->updated_by)
-                                        <br>
-                                        <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
-                                        <span>{{$data->updated_at, 'd M Y'}}<br>
-                                        @endif
+                                <td>
+                                @if (is_array($data->kk) || is_object($data->kk))
+                                @foreach ($data->kk as $value)
+                                {{$value->family_status}}
+                                @endforeach
+                                @endif
+                                </td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="/citizens/{{ $data->uuid }}/edit"
-                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
-                                                <div class="dropdown-divider"></div>
+                                                {{-- <a href="/citizens/{{ $data->uuid }}/edit"
+                                                    class="dropdown-item">Edit</a> --}}
+                                                {{-- <div class="dropdown-divider"></div> --}}
 
-                                                <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
-                                                <div class="dropdown-divider"></div>
-
-
-                                                <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-folder-move"></i>  Pindah</a>
-                                                <div class="dropdown-divider"></div>
-
-                                                <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-account-minus"></i> Meninggal</a>
-                                                <div class="dropdown-divider"></div>
-
-
-                                                <form action="/citizens/{{ $data->uuid }}" method="post">
-                                                    @method('delete')
+                                                <form action="/death/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')"><i class="mdi mdi-delete-forever"></i>Hapus</button>
+                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
                                                 </form>
 
 
@@ -615,7 +549,7 @@
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
                                                 </form>
 
                                             </div>
@@ -627,7 +561,7 @@
                         </tbody>
                     </table>
                     <div class="mt-3">
-                        {{ $datas->links('pagination::bootstrap-5') }}
+                    {{ $datas->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
 
@@ -644,11 +578,5 @@
     myInput.focus()
     })
 </script> --}}
-
-<script type="text/javascript">
-    function form_submit() {
-      document.getElementById("search_form").submit();
-    }
-</script>
 
 @endsection
