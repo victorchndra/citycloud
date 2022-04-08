@@ -63,8 +63,8 @@ class InformationController extends Controller
     public function edit($uuid)
     {
         //
-        $information = Information::where('uuid', $uuid)->get();
-        return view('masters.information.edit',compact(['information']));
+        $in = Information::where('uuid', $uuid)->get();
+        return view('masters.information.edit',compact(['in']));
     }
 
     /**

@@ -9,7 +9,7 @@
         </p>
         {{-- @if (is_array($data) || is_object($data)) --}}
         
-       @foreach($information as $key => $i)
+       @foreach($in as $key => $i)
       
         <form class="forms-sample" action="/information/{{ $i->uuid}}" method="post" enctype="multipart/form-data">
           @method('put')

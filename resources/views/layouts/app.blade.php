@@ -136,7 +136,7 @@
                     </p>
                   </div>
                 </a> --}}
-                @foreach ($datas as $data)
+                {{-- @foreach ($datas as $data)
 
                 <a class="dropdown-item preview-item" href="/log">
                     <div class="preview-thumbnail">
@@ -151,7 +151,7 @@
                         </p>
                     </div>
                 </a>
-                @endforeach
+                @endforeach --}}
                 {{-- <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-info">
