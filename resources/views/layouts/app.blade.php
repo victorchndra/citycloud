@@ -137,7 +137,22 @@
                     </p>
                   </div>
                 </a> --}}
-               
+                {{-- @foreach ($datas as $data)
+
+                <a class="dropdown-item preview-item" href="/log">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-settings mx-0"></i>
+                    </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <h6 class="preview-subject font-weight-normal">Victor baru saja menambah pengguna baru</h6>
+                        <p class="font-weight-light small-text mb-0 text-muted">
+                            {{ $data->created_at->diffForHumans() }}
+                        </p>
+                    </div>
+                </a>
+                @endforeach --}}
                 {{-- <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-info">
