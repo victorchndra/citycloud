@@ -81,7 +81,7 @@ Route::prefix('export')->name('export.')->group(function () {
 
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
-
+// Route::get('/citizens/{citizens:uuid}', [CitizenController::class, 'deathCheck'])->middleware('auth');
 
 Route::get('/family',[CitizenController::class, 'familyCitizens'])->middleware('auth');
 

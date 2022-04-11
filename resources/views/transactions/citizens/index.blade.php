@@ -458,7 +458,31 @@
                 </div>
                 {{-- End Seach Modal --}}
 
-
+                {{-- Death Button --}}
+                @foreach ($datas as $data)
+                <div class="modal" id="deathModal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <form action="/citizens/{{ $data->uuid }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <input id="uuidValidate" type="hidden" name="uuidValidate">
+                                <div class="modal-header">
+                                    <label>Tanggal Meninggal</label>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="date" name="death_date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">OK</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
 
                 @if($datas->isEmpty())
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
@@ -483,13 +507,13 @@
                     </div>
                 </div>
                 @endif
-                
-                
+
+
                 <div class="modal" id="moveModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             {{-- @foreach($datas as $key => $data) --}}
-                                
+
                             {{-- <form action="{{ route('citizens.moveUpdateCitizen') }}" method="POST" enctype="multipart/form-data"> --}}
                                 {{-- <form action="/citizens/{{$data->uuid}}" method="POST" enctype="multipart/form-data"> --}}
                                     @csrf
@@ -519,7 +543,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
 
                 @if (session()->has('success'))
@@ -574,7 +598,6 @@
 
 
                                 </td>
-
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
@@ -591,7 +614,6 @@
                                         <span>{{ $data->religion ?? '-' }}</span></span>
 
                                 </td>
-
                                 <td>
 
 
@@ -627,15 +649,14 @@
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
                                                 <div class="dropdown-divider"></div>
 
-
                                                 <a href="#"
-                                                    class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moveModal"><i class="mdi mdi-folder-move"></i>  Pindah</a>                
+                                                    class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moveModal"><i class="mdi mdi-folder-move"></i>  Pindah</a>
                                                 <div class="dropdown-divider"></div>
 
-                                                <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-account-minus"></i> Meninggal</a>
+                                                {{-- Death Button --}}
+                                                <button class="dropdown-item" data-bs-toggle="modal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#deathModal').modal('show');"><i class="mdi mdi-account-minus"></i> Meninggal</button>
                                                 <div class="dropdown-divider"></div>
-
+                                                {{-- data-bs-target="#deathModal" --}}
 
                                                 <form action="/citizens/{{ $data->uuid }}" method="post">
                                                     @method('delete')
@@ -671,19 +692,18 @@
     </div>
 </div>
 
-{{-- <script type="text/javascript">
-    var myModal = document.getElementById('myModal')
-    var myInput = document.getElementById('myInput')
-
-    myModal.addEventListener('shown.bs.modal', function () {
-    myInput.focus()
-    })
-</script> --}}
-
 <script type="text/javascript">
     function form_submit() {
-      document.getElementById("search_form").submit();
+        document.getElementById("search_form").submit();
     }
+
+    // $(document).ready(function(){
+    //     $(document).on("click", ".passingID", function () {
+    //         var ids = $(this).data('id');
+    //         // $("#deathModal").modal('show');
+    //         $("#uuidValidate").val(ids);
+    //     });
+    // });
 </script>
 
 @endsection
