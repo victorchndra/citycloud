@@ -78,31 +78,29 @@ class InformationController extends Controller
     {
         //
         $validatedate = $request->validate([
-            'letter-index' => 'required|max:255',
+            'letter_index' => 'required|max:255',
             'village_name' => 'required|max:255',
-            'sub_district_name' => 'required',
+            'sub_district_name' => 'required|max:255',
             'district_name' => 'required|max:255',
             'province_name' => 'required|max:255',
-            'header' => 'required',
+            'header' => 'required|max:255',
             'code' => 'required'
-    
         ]);
-        $validatedate['updated_by'] = Auth::user()->id;
+        
         $validatedate['uuid'] = Uuid::uuid4()->getHex();
-    
         Information::where('uuid',$uuid)->first()->update($validatedate);
     
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Data Informasi <strong>[' . $request->header . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data Informasi',
+            'description' => '<em>Mengubah</em> Data Informasi <strong>[' . $request->village_name . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'Edit',
             'created_at' => now(),
         ];
     
         DB::table('logs')->insert($log);
 
-        return redirect('/information')->with('success', 'Data has been updated successfully');
+        return redirect('/ti')->with('success', 'Data has been updated successfully');
         // return view('masters.information.index')->with('success', 'Data has been updated successfully');
     }
 

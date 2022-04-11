@@ -488,12 +488,11 @@
                 <div class="modal" id="moveModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            {{-- @foreach($datas as $key => $data) --}}
                                 
                             {{-- <form action="{{ route('citizens.moveUpdateCitizen') }}" method="POST" enctype="multipart/form-data"> --}}
-                                {{-- <form action="/citizens/{{$data->uuid}}" method="POST" enctype="multipart/form-data"> --}}
+                                {{-- <form action="/citizens/{{$data->uuid}}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    @method('put')
+                                    @method('put') --}}
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label>Penduduk Pindah</label>

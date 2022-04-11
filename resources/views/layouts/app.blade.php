@@ -79,7 +79,7 @@
               <li class="nav-item"> <a class="nav-link" href="/rw"> Data RW </a></li>
               <li class="nav-item"> <a class="nav-link" href="/assistance"> Data Bantuan Sosial </a></li>
               <li class="nav-item"> <a class="nav-link" href="/users"> Data Pengguna </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/information"> Data Informasi </a></li>
+              <li class="nav-item"> <a class="nav-link" href="/ti"> Data Informasi </a></li>
             </ul>
           </div>
            

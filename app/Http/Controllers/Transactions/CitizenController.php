@@ -47,6 +47,7 @@ class CitizenController extends Controller
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
             ])
         )->paginate(20)->withQueryString();
+        
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');

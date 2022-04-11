@@ -15,7 +15,7 @@
                 <p class="card-description">
                     Data Informasi
                 </p>
-                <a href="/information" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                <a href="/info" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
@@ -50,7 +50,7 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                            <a href="/information/{{ $data->uuid }}/edit" class="dropdown-item"><i class="bi bi-pencil-fill"></i>Edit</a>
+                                            <a href="/ti/{{ $data->uuid }}/edit" class="dropdown-item"><i class="bi bi-pencil-fill"></i>Edit</a>
                                         </div>
                                     </div>
                                 </td>
