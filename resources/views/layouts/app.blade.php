@@ -80,6 +80,7 @@
               <li class="nav-item"> <a class="nav-link" href="/assistance"> Data Bantuan Sosial </a></li>
               <li class="nav-item"> <a class="nav-link" href="/users"> Data Pengguna </a></li>
               <li class="nav-item"> <a class="nav-link" href="/ti"> Data Informasi </a></li>
+              <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia </a></li>
             </ul>
           </div>
            

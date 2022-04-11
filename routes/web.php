@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
+use App\Models\Masters\ageRange;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,10 @@ Route::resource("ti", "App\Http\Controllers\InformationController")->middleware(
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
 
 Route::resource('log', LogController::class)->middleware('auth');
+
+Route::resource('agerange', "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
+// Route::resource('ageRange', AgeRangeController::class)->middleware('auth');
+
 
 Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::class, 'authenticate']);
@@ -75,7 +81,7 @@ Route::prefix('export')->name('export.')->group(function () {
 
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
-
+// Route::get('/citizens/{citizens:uuid}', [CitizenController::class, 'deathCheck'])->middleware('auth');
 
 Route::get('/family',[CitizenController::class, 'familyCitizens'])->middleware('auth');
 
@@ -90,4 +96,6 @@ Route::get('/move/{citizens:uuid}', [CitizenController::class, 'rollBackMoveDate
 
 Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
 Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDate'])->middleware('auth');
+
+// Route::get('/ageRange',[AgeRangeController::class, 'index'])->middleware('auth');
 

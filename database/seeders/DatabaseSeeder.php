@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DatarwSeeder::class);
         $this->call(AssistanceSeeder::class);
         $this->call(InformationSeeder::class);
+        $this->call(AgeRangeSeeder::class);
     }
 }
