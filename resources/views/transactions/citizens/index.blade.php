@@ -458,12 +458,15 @@
                 </div>
                 {{-- End Seach Modal --}}
 
+                {{-- Death Button --}}
                 @foreach ($datas as $data)
                 <div class="modal" id="deathModal">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
-                            <form action="/citizens/{{ $data->uuid }}">
+                            <form action="/citizens/{{ $data->uuid }}" method="POST">
+                                @method('PUT')
                                 @csrf
+                                <input id="uuidValidate" type="hidden" name="uuidValidate">
                                 <div class="modal-header">
                                     <label>Tanggal Meninggal</label>
                                 </div>
@@ -615,11 +618,10 @@
                                                 class="dropdown-item"><i class="mdi mdi-folder-move"></i>  Pindah</a>
                                                 <div class="dropdown-divider"></div>
 
-                                                {{-- death --}}
-                                                <button class="dropdown-item" data-bs-toggle="modal"
-                                                data-bs-target="#deathModal"><i class="mdi mdi-account-minus"></i> Meninggal</button>
+                                                {{-- Death Button --}}
+                                                <button class="dropdown-item" data-bs-toggle="modal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#deathModal').modal('show');"><i class="mdi mdi-account-minus"></i> Meninggal</button>
                                                 <div class="dropdown-divider"></div>
-
+                                                {{-- data-bs-target="#deathModal" --}}
 
                                                 <form action="/citizens/{{ $data->uuid }}" method="post">
                                                     @method('delete')
@@ -655,19 +657,18 @@
     </div>
 </div>
 
-{{-- <script type="text/javascript">
-    var myModal = document.getElementById('myModal')
-    var myInput = document.getElementById('myInput')
-
-    myModal.addEventListener('shown.bs.modal', function () {
-    myInput.focus()
-    })
-</script> --}}
-
 <script type="text/javascript">
     function form_submit() {
-      document.getElementById("search_form").submit();
+        document.getElementById("search_form").submit();
     }
+
+    // $(document).ready(function(){
+    //     $(document).on("click", ".passingID", function () {
+    //         var ids = $(this).data('id');
+    //         // $("#deathModal").modal('show');
+    //         $("#uuidValidate").val(ids);
+    //     });
+    // });
 </script>
 
 @endsection

@@ -278,6 +278,28 @@ class CitizenController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+        if ($request->get('death_date')) {
+            $deathData = $request->validate([
+                'death_date' => 'date|required'
+            ]);
+            $deathData['updated_by'] = Auth::user()->id;
+            $uuidValidated = $request->input('uuidValidate');
+            Citizens::where('uuid', $uuidValidated)->update($deathData);
+            // dd(Citizens::where('uuid', $uuid)->get());
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
+                'category' => 'Semua Kependudukan',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+
+            return redirect('/citizens')->with('success', 'Data berhasil diperbarui!');
+        }
+
         $validatedData = $request->validate([
             'nik' => 'numeric|min:16',
             'kk' => 'numeric|min:16',
@@ -309,9 +331,10 @@ class CitizenController extends Controller
             'health_assurance' => 'required'
         ]);
 
-        $validatedData['updated_by'] = Auth::user()->id;
-
-        Citizens::where('uuid', $uuid)->first()->update($validatedData);
+        if ($validatedData) {
+            $validatedData['updated_by'] = Auth::user()->id;
+            Citizens::where('uuid', $uuid)->first()->update($validatedData);
+        }
 
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
