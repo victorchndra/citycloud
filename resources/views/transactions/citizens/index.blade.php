@@ -640,7 +640,7 @@
 
                                                 <a href="#"
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
-                                                <div class="dropdown-divider"></div>s
+                                                <div class="dropdown-divider"></div>
 
                                                 {{-- Move Button --}}
                                                 <button class="dropdown-item" data-bs-toggle="modal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate2').val($(this).data('id')); $('#moveModal').modal('show');"><i class="mdi mdi-folder-move"></i> Pindah</button>
