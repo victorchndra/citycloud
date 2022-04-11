@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
+use App\Models\Masters\ageRange;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +36,15 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 //jika penggunaan resource, path harus lengkap
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
+Route::resource('information', "App\Http\Controllers\InformationController")->middleware('auth');
+
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
 
 Route::resource('log', LogController::class)->middleware('auth');
+
+Route::resource("ageRange", "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
+// Route::resource('ageRange', AgeRangeController::class)->middleware('auth');
+
 
 Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::class, 'authenticate']);
@@ -83,7 +91,11 @@ Route::get('/dtks/{citizens:uuid}', [CitizenController::class, 'rollBackDtks'])-
 
 Route::get('/move',[CitizenController::class, 'moveCitizens'])->middleware('auth');
 Route::get('/move/{citizens:uuid}', [CitizenController::class, 'rollBackMoveDate'])->middleware('auth');
+// Route::get('/citizens/{citizens:uuid}', [CitizenController::class, 'moveUpdateCitizen'])->name('citizens.moveUpdateCitizen')->middleware('auth');
+// Route::post('/citizens/{citizens:uuid}', 'App\Http\Controllers\Transactions\CitizenController@moveUpdateCitizen')->name('citizens.moveUpdateCitizen');
 
 Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
 Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDate'])->middleware('auth');
+
+// Route::get('/ageRange',[AgeRangeController::class, 'index'])->middleware('auth');
 

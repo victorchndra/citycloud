@@ -737,6 +737,28 @@ class CitizenController extends Controller
     }
     //End View Move Date
 
+    public function moveUpdateCitizen(Request $request, $uuid)
+    {
+        $data = Citizens::get()->where('uuid', $uuid)->whereNull('move_date')->firstOrFail();
+        $data->update([
+            'updated_by' =>Auth::user()->id,
+            'move_date' => $data->move_date,
+            'move_to' => $data->move_to,
+        ]);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
+            'category' => 'Semua Kependudukan',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+        return redirect('/move')->with('success', 'Data berhasil diperbarui!');
+    }
+
     // Rollback Move Date
     public function rollBackMoveDate(Request $request, $uuid)
     {
