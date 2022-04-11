@@ -484,6 +484,36 @@
                 </div>
                 @endforeach
 
+                @foreach ($datas as $data)
+                <div class="modal" id="moveModal">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <form action="/citizens/{{ $data->uuid }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT');
+                                <div class="modal-header">
+                                    Penduduk Pindah
+                                </div>
+                                <div class="modal-body row">
+                                    <input id="uuidValidate2" type="hidden" name="uuidValidate">
+                                    <div class="form-group col-6">
+                                            <label>Tanggal Pindah</label>
+                                            <input type="date" name="move_date" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>Pindah ke</label>
+                                            <input type="text" name="move_to" class="form-control" required>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success text-white">SIMPAN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
                 @if($datas->isEmpty())
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
@@ -509,40 +539,7 @@
                 @endif
 
 
-                <div class="modal" id="moveModal">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            {{-- @foreach($datas as $key => $data) --}}
-
-                            {{-- <form action="{{ route('citizens.moveUpdateCitizen') }}" method="POST" enctype="multipart/form-data"> --}}
-                                {{-- <form action="/citizens/{{$data->uuid}}" method="POST" enctype="multipart/form-data"> --}}
-                                    @csrf
-                                    @method('put')
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label>Penduduk Pindah</label>
-                                        <div class="row">
-                                            <div class="col-md -6">
-                                                <label class="col-form-label">Tanggal Pindah</label>
-                                                <input type="date" name="move_date" class="form-control" placeholder="Tanggal Pindah" required>
-                                            </div>
-                                            <div class="col-md -6">
-                                                <label class="col-form-label">Pindah ke</label>
-                                                <input type="text" name="move_to" class="form-control" placeholder="Pindah ke" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success text-light">SIMPAN</button>
-                                    </div>
-                                </form>
-                                {{-- @endforeach --}}
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
+                
 
 
 
@@ -647,11 +644,12 @@
 
                                                 <a href="#"
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
-                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-divider"></div>s
 
-                                                <a href="#"
-                                                    class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moveModal"><i class="mdi mdi-folder-move"></i>  Pindah</a>
+                                                {{-- Move Button --}}
+                                                <button class="dropdown-item" data-bs-toggle="modal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate2').val($(this).data('id')); $('#moveModal').modal('show');"><i class="mdi mdi-folder-move"></i> Pindah</button>
                                                 <div class="dropdown-divider"></div>
+                                                {{-- data-bs-target="#MoveModal" --}}
 
                                                 {{-- Death Button --}}
                                                 <button class="dropdown-item" data-bs-toggle="modal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#deathModal').modal('show');"><i class="mdi mdi-account-minus"></i> Meninggal</button>

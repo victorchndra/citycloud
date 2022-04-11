@@ -301,6 +301,30 @@ class CitizenController extends Controller
             return redirect('/citizens')->with('success', 'Data berhasil diperbarui!');
         }
 
+        if ($request->get('move_date') && $request->get('move_to')) {
+            $moveData = $request->validate([
+                'move_date' => 'date|required',
+                'move_to' => 'max:255|required'
+            ]);
+            $moveData['updated_by'] = Auth::user()->id;
+            $uuidValidated = $request->input('uuidValidate');
+            Citizens::where('uuid', $uuidValidated)->update($moveData);
+            // dd(Citizens::where('uuid', $uuid)->get());
+
+            $citizenName = Citizens::where('uuid', $uuidValidated)->firstOrFail();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> penduduk <strong>[' . $citizenName->name . ']</strong> menjadi penduduk pindah',
+                'category' => 'Semua Kependudukan',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+
+            return redirect('/citizens')->with('success', 'Data berhasil diperbarui!');
+        }
+
         $validatedData = $request->validate([
             'nik' => 'numeric|min:16',
             'kk' => 'numeric|min:16',
@@ -1686,15 +1710,5 @@ class CitizenController extends Controller
         return redirect('/citizendtks')->with('success', 'Data berhasil dihapus dari data DTKS!');
     }
 
-    public function deathCheck(Request $request) {
-        $inputedData = [
-            'date_death' => $request->date,
-            'updated_by' => Auth::user()->id,
-        ];
-
-        Citizens::where('uuid', $uuid)->first()->update($inputedData);
-
-        return redirect('/citizens')->with('success', 'Data berhasil diperbarui!');
-    }
 }
 
