@@ -21,7 +21,7 @@
                         Data Rentang Usia Kelurahan Lembah Sari
                     </p>
                     <a href="/rt" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                    <a href="/rt/create" class="btn btn-sm btn-primary btn-fw"><i
+                    <a href="/agerange/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
@@ -48,11 +48,11 @@
                                                         data-bs-toggle="dropdown">Aksi</button>
                                                     <div class="dropdown-menu">
 
-                                                        <a href="/rt/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
+                                                        <a href="/agerange/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
 
                                                         <div class="dropdown-divider"></div>
 
-                                                        <form action="/rt/{{ $data->uuid }}" method="post"
+                                                        <form action="/agerange/{{ $data->uuid }}" method="post"
                                                             class="d-inline">
                                                             @method('delete')
                                                             @csrf

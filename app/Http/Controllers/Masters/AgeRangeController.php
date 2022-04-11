@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Masters;
 use Ramsey\Uuid\Uuid;
 
-use App\Models\ageRange;
+use App\Models\Masters\ageRange;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -25,7 +25,7 @@ class AgeRangeController extends Controller
 
 
        //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('masters.ageRange.index', compact('datas'));
+        return view('masters.agerange.index', compact('datas'));
     }
 
     /**
@@ -35,7 +35,7 @@ class AgeRangeController extends Controller
      */
     public function create()
     {
-        //
+        return view('masters.agerange.form');
     }
 
     /**
@@ -46,7 +46,30 @@ class AgeRangeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'start' => 'numeric|required',
+            'end' => 'numeric|required',
+            'notes' => 'string|required|max:255'
+
+        ]);
+
+        $validatedData['uuid'] = Uuid::uuid4()->getHex();
+        $validatedData['created_by'] = Auth::user()->id;
+        
+        MastersAgeRange::create($validatedData);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menambah</em> data Rentang Umur <strong>[' . $request->notes . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'Data Rentang Umur',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
+        return redirect('/agerange')->with('success', 'Data Rentang Usia Berhasil Ditambah!!');
     }
 
     /**
@@ -55,7 +78,7 @@ class AgeRangeController extends Controller
      * @param  \App\Models\ageRange  $ageRange
      * @return \Illuminate\Http\Response
      */
-    public function show(ageRange $ageRange)
+    public function show(MastersAgeRange $ageRange)
     {
         //
     }
@@ -66,9 +89,11 @@ class AgeRangeController extends Controller
      * @param  \App\Models\ageRange  $ageRange
      * @return \Illuminate\Http\Response
      */
-    public function edit(ageRange $ageRange)
+    public function edit(MastersAgeRange $ageRange, $uuid)
     {
-        //
+        $datas = MastersAgeRange::where('uuid', $uuid)->get();
+
+        return view('masters.agerange.edit', compact('datas'));
     }
 
     /**
@@ -78,9 +103,34 @@ class AgeRangeController extends Controller
      * @param  \App\Models\ageRange  $ageRange
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ageRange $ageRange)
+    public function update(Request $request, MastersAgeRange $ageRange, $uuid)
     {
-        //
+        
+
+        
+
+        $validatedData = $request->validate([
+            'start' => 'numeric|required',
+            'end' => 'numeric|required',
+            'notes' => 'string|required|max:255'
+
+        ]);
+        $validatedData['updated_by'] = Auth::user()->id;
+
+        MastersAgeRange::where('uuid', $uuid)->first()->update($validatedData);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Mengubah</em> data Rentang Usia <strong>[' . $request->notes . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'Data Rentang Usia',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
+        return redirect('/agerange')->with('success', 'Data Rentang Usia Berhasil Diupdate !!');
     }
 
     /**
@@ -89,8 +139,22 @@ class AgeRangeController extends Controller
      * @param  \App\Models\ageRange  $ageRange
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ageRange $ageRange)
+    public function destroy(MastersAgeRange $ageRange, $uuid)
     {
-        //
+        $data = MastersAgeRange::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> data Rentang Usia <strong>[' . $data->notes . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'Data Rentang Usia',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        $data->delete();
+
+        return redirect()->route('agerange.index')->with('success', 'Data Rentang Usia Berhasil Dihapus!');
     }
 }

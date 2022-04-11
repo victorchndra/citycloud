@@ -42,7 +42,7 @@ Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController
 
 Route::resource('log', LogController::class)->middleware('auth');
 
-Route::resource("ageRange", "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
+Route::resource('agerange', "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
 // Route::resource('ageRange', AgeRangeController::class)->middleware('auth');
 
 
