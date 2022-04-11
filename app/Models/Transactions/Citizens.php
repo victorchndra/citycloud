@@ -287,6 +287,7 @@ class Citizens extends Model
         if(isset($filters['marriage'])) {
             $q->where('marriage', 'like', str_replace('','%20',$filters['marriage']))->get();
         }
+        
         if(isset($filters['vaccine_1'])) {
             $q->where('vaccine_1', 'like', str_replace('','%20',$filters['vaccine_1']))->get();
         }

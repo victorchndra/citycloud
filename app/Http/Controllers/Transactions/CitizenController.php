@@ -20,6 +20,10 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Transactions\Citizens;
 use Illuminate\Support\Facades\Storage;
 
+//external model goes heree
+use App\Models\Masters\RT;
+use App\Models\Masters\RW;
+
 //use import class dan storage nya utk simpan data
 use App\Imports\CitizenImport;
 
@@ -41,9 +45,64 @@ class CitizenController extends Controller
             request([
                 'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
                 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
             ])
         )->paginate(20)->withQueryString();
+
+        //add for searching begin
+      
+    
+        $place_births = Citizens::groupBy('place_birth')->get();
+        $place_birthSelected =  $request->get('place_birth');
+
+        $jobs = Citizens::groupBy('job')->get();
+        $jobSelected =  $request->get('job');
+
+        $family_statuses = Citizens::groupBy('family_status')->get();
+        $family_statusSelected =  $request->get('family_status');
+
+        $marriages = Citizens::groupBy('marriage')->get();
+        $marriageSelected =  $request->get('marriage');
+
+        $religions = Citizens::groupBy('religion')->get();
+        $religionSelected =  $request->get('religion');
+       
+        $last_educations = Citizens::groupBy('last_education')->get();
+        $last_educationsSelected = Citizens::groupBy('last_education')->get();
+
+        $health_assurances = Citizens::groupBy('health_assurance')->get();
+        $health_assuranceSelected =  $request->get('health_assurance');
+
+        $dtkses = Citizens::groupBy('dtks')->get();
+        $dtksSelected =  $request->get('dtks');
+
+        $vaccine1s = Citizens::groupBy('vaccine_1')->get();
+        $vaccine1Selected =  $request->get('vaccine_1');
+
+        $vaccine2s = Citizens::groupBy('vaccine_2')->get();
+        $vaccine2Selected =  $request->get('vaccine_2');
+
+        $vaccine3s = Citizens::groupBy('vaccine_3')->get();
+        $vaccine3Selected =  $request->get('vaccine_3');
+
+        $rts = Citizens::groupBy('rt')->get();
+        $rtSelected =  $request->get('rt');
+
+        $rws = Citizens::groupBy('rw')->get();
+        $rwSelected =  $request->get('rw');
+
+        $villages = Citizens::groupBy('village')->get();
+        $villagesSelected =  $request->get('village');
+
+        $sub_districtses = Citizens::groupBy('sub_districts')->get();
+        $sub_districtSelected =  $request->get('sub_districts');
+
+        $districtses = Citizens::groupBy('districts')->get();
+        $districtsSelected =  $request->get('districts');
+
+        $provinces = Citizens::groupBy('province')->get();
+        $provincesSelected =  $request->get('province');
+        //add for searching end
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
@@ -51,7 +110,7 @@ class CitizenController extends Controller
         $genderSelected =  $request->get('gender');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
-        $religionSelected =  $request->get('religion');
+
         $familyStatusSelected =  $request->get('family_status');
         $bloodSelected =  $request->get('blood');
         $job =  $request->get('job');
@@ -67,13 +126,19 @@ class CitizenController extends Controller
         $districtSelected =  $request->get('district');
         $provinceSelected =  $request->get('province');
         $health_assuranceSelected =  $request->get('health_assurance');
-        $lastEducationSelected =  $request->get('last_education');
+        $last_educationSelected =  $request->get('last_education');
 
 
         if ($request->has('gender')) {
             if (!empty($genderSelected))
                 $datas->where('gender', $genderSelected);
         }
+
+        if ($request->has('job')) {
+            if (!empty($jobs))
+                $datas->where('job', $jobs);
+        }
+
 
         if ($request->has('religion')) {
             if (!empty($religion))
@@ -142,10 +207,7 @@ class CitizenController extends Controller
                 $datas->where('health_assurance', $health_assuranceSelected);
         }
 
-        if ($request->has('lastEducation')) {
-            if (!empty($lastEducationSelected))
-                $datas->where('lastEducation', $lastEducationSelected);
-        }
+        
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.index', compact(
@@ -164,13 +226,43 @@ class CitizenController extends Controller
             'vaccine1Selected',
             'vaccine2Selected',
             'vaccine3Selected',
-            'rtSelected',
-            'rwSelected',
             'villageSelected',
             'sub_districsSelected',
             'provinceSelected',
             'health_assuranceSelected',
-            'lastEducationSelected'
+            //new add
+            'marriages',
+            'marriageSelected',
+            'family_statuses',
+            'family_statusSelected',
+            'place_births',
+            'place_birthSelected',
+            'jobs',
+            'jobSelected',
+            'religions',
+            'last_educations',
+            'last_educationsSelected',
+            'health_assurances',
+            'health_assuranceSelected',
+            'vaccine1s',
+            'vaccine1Selected',
+            'vaccine2s',
+            'vaccine2Selected',
+            'vaccine3s',
+            'vaccine3Selected',
+            'dtkses',
+            'dtksSelected',
+            'rts',
+            'rtSelected',
+            'rws',
+            'rwSelected',
+            'villages',
+            'sub_districtses',
+            'sub_districtSelected',
+            'districtses',
+            'districtsSelected',
+            'provinces',
+            'provincesSelected'
         ));
     }
 
