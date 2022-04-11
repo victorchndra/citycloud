@@ -31,6 +31,7 @@
                                     <th>Mulai</th>
                                     <th>Sampai</th>
                                     <th>Keterangan</th>
+                                    <th>Ditambahkan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -41,6 +42,7 @@
                                         <td>{{ $data->start }} </b></td>
                                         <td>{{ $data->end}}</td>
                                         <td>{{ $data->notes}}</td>
+                                        <td>{{ $data->created_at, 'H:i:s' }}</td>
                                         <td>
                                             <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                                 <div class="btn-group">
