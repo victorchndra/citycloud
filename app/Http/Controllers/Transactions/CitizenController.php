@@ -287,10 +287,11 @@ class CitizenController extends Controller
             Citizens::where('uuid', $uuidValidated)->update($deathData);
             // dd(Citizens::where('uuid', $uuid)->get());
 
+            $citizenName = Citizens::where('uuid', $uuidValidated)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
+                'description' => '<em>Mengubah</em> penduduk <strong>[' . $citizenName->name . ']</strong> menjadi penduduk meninggal',
                 'category' => 'Semua Kependudukan',
                 'created_at' => now(),
             ];
