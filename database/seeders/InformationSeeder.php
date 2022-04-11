@@ -18,13 +18,13 @@ class InformationSeeder extends Seeder
         //
         $information = new \App\Models\Information();
         $information->uuid = Uuid::uuid4()->getHex();
-        $information->letter_index = "ini test";
+        $information->letter_index = "474/";
         $information->village_name = "Rumbai";
-        $information->sub_district_name = "Rumbai 1";
-        $information->district_name = "R";
+        $information->sub_district_name = "Rumbai Timur";
+        $information->district_name = "Pekanbaru";
         $information->province_name = "Riau";
         $information->header = "Anto";
-        $information->code = 1;
+        $information->code = 001;
         $information->save();
 
     }

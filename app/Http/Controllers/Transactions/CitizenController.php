@@ -24,9 +24,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Imports\CitizenImport;
 
 
-
-
-
 class CitizenController extends Controller
 {
     /**
@@ -252,9 +249,10 @@ class CitizenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        $citizen = Citizens::where('uuid', $uuid)->get();
+        return view('transactions.citizens.show', compact('citizen'));
     }
 
     /**
@@ -1407,8 +1405,9 @@ class CitizenController extends Controller
                 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance', 'dtks'
             ])
-        )->whereNotNull('dtks')->orderBy('id', 'desc')->paginate(10)->withQueryString();
+        )->whereNot('dtks','=','')->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
+      
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
         $name =  $request->get('name');
@@ -1511,8 +1510,6 @@ class CitizenController extends Controller
                 $datas->where('lastEducation', $lastEducationSelected);
         }
 
-
-
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.dtks', compact(
             'datas',
@@ -1551,7 +1548,7 @@ class CitizenController extends Controller
                 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
             ])
-        )->where('dtks', '=', 'y')
+        )->whereNot('dtks','=','')
             ->orderBy('id', 'desc');
 
         $nik =  $request->get('nik');
@@ -1690,11 +1687,11 @@ class CitizenController extends Controller
     public function rollBackDtks(Request $request, $uuid)
     {
 
-        $data = Citizens::get()->where('uuid', $uuid)->where('dtks', 'y')->firstOrFail();
+        $data = Citizens::get()->where('uuid', $uuid)->whereNot('dtks','=','')->firstOrFail();
 
         $data->update([
             'updated_by' =>Auth::user()->id,
-            'dtks' => 't    ',
+            'dtks' => null,
         ]);
 
         $log = [

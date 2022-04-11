@@ -172,6 +172,7 @@ class Citizens extends Model
         );
     }
 
+
     public function vaccine1(): Attribute
     {
         return new Attribute(

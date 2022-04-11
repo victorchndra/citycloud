@@ -638,7 +638,7 @@
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
 
-                                                <a href="#"
+                                                <a href="/citizens/{{ $data->uuid }}/show"
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
                                                 <div class="dropdown-divider"></div>
 

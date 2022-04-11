@@ -527,21 +527,19 @@
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                
-
+                                            
                                                 <form action="/citizendtks/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data DTKS?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
                                                 </form>
-
 
                                                 <form class="d-none invisible"
                                                     action="/citizens/destroy/{{$data->uuid}}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data DTKS?')">Hapus</button>
+                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
                                                 </form>
 
                                             </div>
