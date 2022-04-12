@@ -39,8 +39,8 @@
                                 @foreach ($datas as $key => $data)
                                     <tr>
                                         <td>{{ $data->id }} </td>
-                                        <td>{{ $data->start }} </b></td>
-                                        <td>{{ $data->end}}</td>
+                                        <td>{{ $data->start }} Th</b></td>
+                                        <td>{{ $data->end}} Th</td>
                                         <td>{{ $data->notes}}</td>
                                         <td>{{$data->created_at, 'H:i:s'}}</td>
                                         <td>
