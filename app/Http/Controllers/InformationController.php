@@ -78,7 +78,7 @@ class InformationController extends Controller
     {
         //
         $validatedate = $request->validate([
-            'letter-index' => 'required|max:255',
+            'letter_index' => 'required|max:255',
             'village_name' => 'required|max:255',
             'sub_district_name' => 'required',
             'district_name' => 'required|max:255',
@@ -102,7 +102,7 @@ class InformationController extends Controller
     
         DB::table('logs')->insert($log);
 
-        return redirect('/information')->with('success', 'Data has been updated successfully');
+        return redirect('/ti')->with('success', 'Data has been updated successfully');
         // return view('masters.information.index')->with('success', 'Data has been updated successfully');
     }
 

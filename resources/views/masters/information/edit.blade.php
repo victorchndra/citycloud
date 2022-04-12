@@ -11,7 +11,7 @@
         
        @foreach($in as $key => $i)
       
-        <form class="forms-sample" action="/information/{{ $i->uuid}}" method="post" enctype="multipart/form-data">
+        <form class="forms-sample" action="/ti/{{ $i->uuid}}" method="post" enctype="multipart/form-data">
           @method('put')
           @csrf
           <div class="form-group">

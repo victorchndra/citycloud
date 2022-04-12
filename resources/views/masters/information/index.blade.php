@@ -50,7 +50,7 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                            <a href="/information/{{ $data->uuid }}/edit" class="dropdown-item"><i class="bi bi-pencil-fill"></i>Edit</a>
+                                            <a href="/ti/{{ $data->uuid }}/edit" class="dropdown-item"><i class="bi bi-pencil-fill"></i>Edit</a>
                                         </div>
                                     </div>
                                 </td>
