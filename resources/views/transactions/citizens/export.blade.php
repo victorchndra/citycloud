@@ -10,10 +10,10 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th colspan=25 rowspan=2 style="vertical-align:center;text-align:center;"><strong> LAPORAN KEPENDUDUKAN</strong></th>
+                <th colspan=27 rowspan=2 style="vertical-align:center;text-align:center;"><strong> LAPORAN KEPENDUDUKAN</strong></th>
             </tr>
             <tr>
-                <th colspan=25>&nbsp;</th>
+                <th colspan=27>&nbsp;</th>
             </tr>
             <tr>
                 <th>#</th>
@@ -30,9 +30,12 @@
                 <th>Gol. Darah</th>
                 <th>Status Keluarga</th>
                 <th>Status Pernikahan</th>
+                <th>Nama Ayah</th>
+                <th>Nama Ibu</th>
                 <th>Pendidikan Terakhir</th>
                 <th>Asuransi Kesehatan</th>
                 <th>DTKS</th>
+                <th>Disabilitas</th>
                 <th>Vaksin 1</th>
                 <th>Vaksin 2</th>
                 <th>Vaksin 3</th>
@@ -66,9 +69,12 @@
                 <td>{{ $data->blood }}</td>
                 <td>{{ $data->family_status }}</td>
                 <td>{{ $data->marriage }}</td>
-                <td>{{ $data->last_Education }}</td>
+                <td>{{ $data->father_name }}</td>
+                <td>{{ $data->mother_name }}</td>
+                <td>{{ $data->last_education }}</td>
                 <td>{{ $data->health_assurance }}</td>
                 <td>{{ $data->dtks }}</td>
+                <td>{{ $data->disability }}</td>
                 <td>{{ $data->vaccine_1 }}</td>
                 <td>{{ $data->vaccine_2 }}</td>
                 <td>{{ $data->vaccine_3 }}</td>

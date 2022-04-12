@@ -50,8 +50,7 @@ class CitizenController extends Controller
         )->paginate(20)->withQueryString();
 
         //add for searching begin
-      
-    
+
         $place_births = Citizens::groupBy('place_birth')->get();
         $place_birthSelected =  $request->get('place_birth');
 
@@ -68,10 +67,10 @@ class CitizenController extends Controller
         $religionSelected =  $request->get('religion');
        
         $last_educations = Citizens::groupBy('last_education')->get();
-        $last_educationsSelected = Citizens::groupBy('last_education')->get();
+        $last_educationSelected = $request->get('last_education');
 
         $health_assurances = Citizens::groupBy('health_assurance')->get();
-        $health_assuranceSelected =  $request->get('health_assurance');
+        $healthAssurancesSelected =  $request->get('health_assurance');
 
         $dtkses = Citizens::groupBy('dtks')->get();
         $dtksSelected =  $request->get('dtks');
@@ -118,16 +117,12 @@ class CitizenController extends Controller
         $vaccine1Selected =  $request->get('vaccine_1');
         $vaccine2Selected =  $request->get('vaccine_2');
         $vaccine3Selected =  $request->get('vaccine_3');
-        $dtks =  $request->get('dtks');
         $rtSelected =  $request->get('rt');
         $rwSelected =  $request->get('rw');
         $villageSelected =  $request->get('village');
         $sub_districsSelected =  $request->get('sub_district');
         $districtSelected =  $request->get('district');
         $provinceSelected =  $request->get('province');
-        $health_assuranceSelected =  $request->get('health_assurance');
-        $last_educationSelected =  $request->get('last_education');
-
 
         if ($request->has('gender')) {
             if (!empty($genderSelected))
@@ -203,11 +198,17 @@ class CitizenController extends Controller
         }
 
         if ($request->has('health_assurance')) {
-            if (!empty($health_assuranceSelected))
-                $datas->where('health_assurance', $health_assuranceSelected);
+            if (!empty($healthAssurancesSelected))
+                $datas->where('health_assurance', $healthAssurancesSelected);
+        }
+
+        if ($request->has('last_education')) {
+            if (!empty($lastEducationSelected))
+                $datas->where('last_education', $lastEducationSelected);
         }
 
         
+
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.index', compact(
@@ -229,7 +230,6 @@ class CitizenController extends Controller
             'villageSelected',
             'sub_districsSelected',
             'provinceSelected',
-            'health_assuranceSelected',
             //new add
             'marriages',
             'marriageSelected',
@@ -241,9 +241,9 @@ class CitizenController extends Controller
             'jobSelected',
             'religions',
             'last_educations',
-            'last_educationsSelected',
+            'last_educationSelected',
             'health_assurances',
-            'health_assuranceSelected',
+            'healthAssurancesSelected',
             'vaccine1s',
             'vaccine1Selected',
             'vaccine2s',
@@ -1338,15 +1338,13 @@ class CitizenController extends Controller
     public function exportCitizen(Request $request)
     {
 
-
-        // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->filter(
+         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
+         $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
                 'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
-                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
-            ])
-        )->whereNull('death_date')->whereNull('move_date');
+                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date', 'last_education',
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'health_assurance','dtks'
+            ]));
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
@@ -1356,6 +1354,7 @@ class CitizenController extends Controller
         $address =  $request->get('address');
         $religionSelected =  $request->get('religion');
         $familyStatusSelected =  $request->get('family_status');
+        $healthAssurancesSelected =  $request->get('health_assurance');
         $bloodSelected =  $request->get('blood');
         $job =  $request->get('job');
         $phone =  $request->get('phone');
@@ -1369,8 +1368,7 @@ class CitizenController extends Controller
         $sub_districsSelected =  $request->get('sub_district');
         $districtSelected =  $request->get('district');
         $provinceSelected =  $request->get('province');
-        $health_assuranceSelected =  $request->get('health_assurance');
-        $lastEducationSelected =  $request->get('last_education');
+       
 
         if ($request->has('gender')) {
             if (!empty($genderSelected))
@@ -1380,6 +1378,11 @@ class CitizenController extends Controller
         if ($request->has('religion')) {
             if (!empty($religionSelected))
                 $data->where('religion', $religionSelected);
+        }
+
+        if ($request->has('health_assurance')) {
+            if (!empty($healthAssurancesSelected))
+                $data->where('health_assurance', $healthAssurancesSelected);
         }
 
         if ($request->has('family_status')) {
@@ -1432,23 +1435,10 @@ class CitizenController extends Controller
                 $data->where('district', $districtSelected);
         }
 
-
         if ($request->has('province')) {
             if (!empty($provinceSelected))
                 $data->where('province', $provinceSelected);
         }
-
-        if ($request->has('health_assurance')) {
-            if (!empty($health_assuranceSelected))
-                $data->where('health_assurance', $health_assuranceSelected);
-        }
-
-        if ($request->has('lastEducation')) {
-            if (!empty($lastEducationSelected))
-                $data->where('lastEducation', $lastEducationSelected);
-        }
-
-
 
         $datas = $data->get();
 
@@ -1462,6 +1452,7 @@ class CitizenController extends Controller
 
         DB::table('logs')->insert($log);
 
+
         return Excel::download(new CitizenExport(
             $datas,
             $nik,
@@ -1472,6 +1463,7 @@ class CitizenController extends Controller
             $religionSelected,
             $address,
             $familyStatusSelected,
+            $healthAssurancesSelected,
             $bloodSelected,
             $job,
             $phone,
@@ -1484,10 +1476,11 @@ class CitizenController extends Controller
             $sub_districsSelected,
             $districtSelected,
             $provinceSelected,
-            $health_assuranceSelected,
-            $lastEducationSelected
+            
         ), 'Laporan Penduduk.xls');
     }
+
+    
 
     public function citizendtks(Request $request)
     {
