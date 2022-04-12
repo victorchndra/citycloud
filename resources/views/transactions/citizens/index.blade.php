@@ -94,9 +94,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" name="date_birth"
-                                                        class="form-control @error('date_birth') is-invalid @enderror"
-                                                        placeholder="dd/mm/yyyy" value="{{ old('date_birth') }}" />
+                                                <input type="date" name="date_birth" id="date_birth" class="form-control col-md-7" value="">
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -341,9 +339,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Vaksin 1</label>
                                                 <div class="col-sm-9">
-                                                <select name="vaccine1" id="vaccine1" class="form-control">
-                                                        @foreach($vaccine1s as $vaccine1)
-                                                            <option value="{{ $vaccine1->vaccine1 }}" @if($vaccine1Selected == $vaccine1->vaccine1) {{ 'selected' }} @endif> {{ $vaccine1->vaccine1 }}</option>
+                                                <select name="vaccine_1" id="vaccine_1" class="form-control">
+                                                        @foreach($vaccine1s as $vaccine_1)
+                                                            <option value="{{ $vaccine_1->vaccine_1 }}" @if($vaccine1Selected == $vaccine_1->vaccine_1) {{ 'selected' }} @endif> {{ $vaccine_1->vaccine_1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -353,9 +351,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Vaksin 2</label>
                                                 <div class="col-sm-9">
-                                                <select name="vaccine2" id="vaccine2" class="form-control">
-                                                        @foreach($vaccine2s as $vaccine2)
-                                                            <option value="{{ $vaccine2->vaccine2 }}" @if($vaccine2Selected == $vaccine2->vaccine2) {{ 'selected' }} @endif> {{ $vaccine2->vaccine2 }}</option>
+                                                <select name="vaccine_2" id="vaccine_2" class="form-control">
+                                                        @foreach($vaccine1s as $vaccine_2)
+                                                            <option value="{{ $vaccine_2->vaccine_2 }}" @if($vaccine1Selected == $vaccine_2->vaccine_2) {{ 'selected' }} @endif> {{ $vaccine_2->vaccine_2 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -365,9 +363,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Vaksin 3</label>
                                                 <div class="col-sm-9">
-                                                <select name="vaccine3" id="vaccine3" class="form-control">
-                                                        @foreach($vaccine3s as $vaccine3)
-                                                            <option value="{{ $vaccine3->vaccine3 }}" @if($vaccine3Selected == $vaccine3->vaccine3) {{ 'selected' }} @endif> {{ $vaccine3->vaccine3 }}</option>
+                                                <select name="vaccine_3" id="vaccine_3" class="form-control">
+                                                        @foreach($vaccine1s as $vaccine_3)
+                                                            <option value="{{ $vaccine_3->vaccine_3 }}" @if($vaccine1Selected == $vaccine_3->vaccine_3) {{ 'selected' }} @endif> {{ $vaccine_3->vaccine_3 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -464,7 +462,7 @@
                 </div>
                 @endforeach
 
-                @if($datas->isEmpty())
+        
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
 
@@ -486,8 +484,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
-
+            
 
                 @if (session()->has('success'))
 

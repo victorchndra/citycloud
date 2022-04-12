@@ -51,6 +51,13 @@ class CitizenController extends Controller
 
         //add for searching begin
 
+
+        $start = $request->get('start') ?? date('Y-m-d');
+        $until = $request->get('until') ?? date('Y-m-d');        
+
+        $date_birth =  $request->get('date_birth');
+
+
         $place_births = Citizens::groupBy('place_birth')->get();
         $place_birthSelected =  $request->get('place_birth');
 
@@ -109,14 +116,10 @@ class CitizenController extends Controller
         $genderSelected =  $request->get('gender');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
-
         $familyStatusSelected =  $request->get('family_status');
         $bloodSelected =  $request->get('blood');
         $job =  $request->get('job');
         $phone =  $request->get('phone');
-        $vaccine1Selected =  $request->get('vaccine_1');
-        $vaccine2Selected =  $request->get('vaccine_2');
-        $vaccine3Selected =  $request->get('vaccine_3');
         $rtSelected =  $request->get('rt');
         $rwSelected =  $request->get('rw');
         $villageSelected =  $request->get('village');
@@ -224,12 +227,10 @@ class CitizenController extends Controller
             'bloodSelected',
             'job',
             'phone',
-            'vaccine1Selected',
-            'vaccine2Selected',
-            'vaccine3Selected',
             'villageSelected',
             'sub_districsSelected',
             'provinceSelected',
+            'date_birth',
             //new add
             'marriages',
             'marriageSelected',
