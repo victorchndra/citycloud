@@ -151,7 +151,7 @@ class Citizens extends Model
     {
         return new Attribute(
             set: fn ($value) => strtolower($value),
-            get: fn ($value) => ucwords($value),
+            get: fn ($value) => strtoupper($value),
         );
     }
 
@@ -272,6 +272,15 @@ class Citizens extends Model
         if(isset($filters['family_status'])) {
             $q->where('family_status', 'like', ($filters['family_status']) ? ('%' . str_replace('','%20',$filters['family_status']) . '%') : '')->get();
         }
+        if(isset($filters['health_assurance'])) {
+            $q->where('health_assurance', 'like', ($filters['health_assurance']) ? ('%' . str_replace('','%20',$filters['health_assurance']) . '%') : '')->get();
+        }
+        if(isset($filters['dtks'])) {
+            $q->where('dtks', 'like', ($filters['dtks']) ? ('%' . str_replace('','%20',$filters['dtks']) . '%') : '')->get();
+        }
+        if(isset($filters['last_education'])) {
+            $q->where('last_education', 'like', ($filters['last_education']) ? ('%' . str_replace('','%20',$filters['last_education']) . '%') : '')->get();
+        }
         if(isset($filters['gender'])) {
             $q->where('gender', 'like', str_replace('','%20',$filters['gender']))->get();
         }
@@ -287,7 +296,6 @@ class Citizens extends Model
         if(isset($filters['marriage'])) {
             $q->where('marriage', 'like', str_replace('','%20',$filters['marriage']))->get();
         }
-        
         if(isset($filters['vaccine_1'])) {
             $q->where('vaccine_1', 'like', str_replace('','%20',$filters['vaccine_1']))->get();
         }

@@ -19,6 +19,7 @@ class CitizenExport implements FromView
     public $address;
     public $religion;
     public $familyStatusSelected;
+    public $healthAssurancesSelected;
     public $bloodSelected;
     public $job;
     public $phone;
@@ -31,12 +32,10 @@ class CitizenExport implements FromView
     public $sub_districsSelected;
     public $districtSelected;
     public $province;
-    public $last_education;
-    public $health_assurance;
 
 
-    function __construct($datas,$nik,$kk,$name,$genderSelected,$place_birth,$religion,$familyStatusSelected,$bloodSelected,$job,$phone,$address,$vaccine1Selected,
-    $vaccine2Selected,$vaccine3Selected,$rt,$rw,$village,$sub_districsSelected,$districtSelected,$province,$last_education,$health_assurance) {
+    function __construct($datas,$nik,$kk,$name,$genderSelected,$place_birth,$religion,$familyStatusSelected,$healthAssurancesSelected,$bloodSelected,$job,$phone,$address,$vaccine1Selected,
+    $vaccine2Selected,$vaccine3Selected,$rt,$rw,$village,$sub_districsSelected,$districtSelected,$province) {
 
         $this->datas = $datas;
         $this->nik = $nik;
@@ -47,6 +46,7 @@ class CitizenExport implements FromView
         $this->religion = $religion;
         $this->address = $address;
         $this->familyStatusSelected = $familyStatusSelected;
+        $this->healthAssurancesSelected = $healthAssurancesSelected;
         $this->bloodSelected = $bloodSelected;
         $this->job = $job;
         $this->phone = $phone;
@@ -59,8 +59,6 @@ class CitizenExport implements FromView
         $this->sub_districsSelected = $sub_districsSelected;
         $this->districtSelected = $districtSelected;
         $this->province = $province;
-        $this->last_education = $last_education;
-        $this->health_assurance = $health_assurance;
     }
 
     /**
@@ -81,6 +79,7 @@ class CitizenExport implements FromView
             'place_birth' => $this->place_birth,
             'religion' => $this->religion,
             'familyStatusSelected' => $this->familyStatusSelected,
+            'healthAssurancesSelected' => $this->healthAssurancesSelected,
             'bloodSelected' => $this->bloodSelected,
             'job' => $this->job,
             'phone' => $this->phone,
@@ -93,8 +92,6 @@ class CitizenExport implements FromView
             'sub_districsSelected' => $this->sub_districsSelected,
             'districtSelected' => $this->districtSelected,
             'province' => $this->province,
-            'last_education' => $this->last_education,
-            'health_assurance' => $this->health_assurance,
         ]);
         
     }

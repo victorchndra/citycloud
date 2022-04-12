@@ -16,7 +16,10 @@
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&marriage='.$marriageSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
-                    .'&province='.$provinceSelected.'&health_assurance='.$health_assuranceSelected.'&last_education='.$last_educationsSelected)}}"
+                    .'&province='.$provinceSelected.
+                    '&health_assurance='.$healthAssurancesSelected.
+                    '&last_education='.$last_educationSelected.
+                    '&dtks='.$dtksSelected)}}"
                     class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
@@ -224,7 +227,7 @@
                                                 <select name="last_education" id="last_education" class="form-control">
                                                         <option value="">Semua Pendidikan</option>
                                                         @foreach($last_educations as $last_education)
-                                                            <option value="{{ $last_education->last_education }}" @if($last_educationsSelected == $last_education->last_education) {{ 'selected' }} @endif> {{ $last_education->last_education }}</option>
+                                                            <option value="{{ $last_education->last_education }}" @if($last_educationSelected == $last_education->last_education) {{ 'selected' }} @endif> {{ $last_education->last_education }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -237,7 +240,7 @@
                                                 <select name="health_assurance" id="health_assurance" class="form-control">
                                                         <option value="">Semua Asuransi</option>
                                                         @foreach($health_assurances as $health_assurance)
-                                                            <option value="{{ $health_assurance->health_assurance }}" @if($health_assuranceSelected == $health_assurance->health_assurance) {{ 'selected' }} @endif> {{ $health_assurance->health_assurance }}</option>
+                                                            <option value="{{ $health_assurance->health_assurance }}" @if($healthAssurancesSelected == $health_assurance->health_assurance) {{ 'selected' }} @endif> {{ $health_assurance->health_assurance }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
