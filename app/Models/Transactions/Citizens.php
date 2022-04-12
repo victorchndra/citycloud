@@ -261,7 +261,7 @@ class Citizens extends Model
             $q->where('kk', 'like', ($filters['kk']) ? ('%' . str_replace('','%20',$filters['kk']) . '%') : '')->get();
         }
         if(isset($filters['date_birth'])) {
-            $q->where('date_birth', 'like', ($filters['date_birth']) ? ('%' . str_replace('','%20',$filters['date_birth']) . '%') : '')->get();
+            $q->where('date_birth', 'like', ($filters['date_birth']) ? : '')->get();
         }
         if(isset($filters['place_birth'])) {
             $q->where('place_birth', 'like', ($filters['place_birth']) ? ('%' . str_replace('','%20',$filters['place_birth']) . '%') : '')->get();

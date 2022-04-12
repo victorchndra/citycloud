@@ -94,9 +94,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" name="date_birth"
-                                                        class="form-control @error('date_birth') is-invalid @enderror"
-                                                        placeholder="dd/mm/yyyy" value="{{ old('date_birth') }}" />
+                                                <input type="date" name="date_birth" id="date_birth" class="form-control col-md-7" value="">
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -464,7 +462,7 @@
                 </div>
                 @endforeach
 
-                @if($datas->isEmpty())
+        
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
 
@@ -486,8 +484,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
-
+            
 
                 @if (session()->has('success'))
 
