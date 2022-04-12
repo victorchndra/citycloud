@@ -114,9 +114,6 @@ class CitizenController extends Controller
         $bloodSelected =  $request->get('blood');
         $job =  $request->get('job');
         $phone =  $request->get('phone');
-        $vaccine1Selected =  $request->get('vaccine_1');
-        $vaccine2Selected =  $request->get('vaccine_2');
-        $vaccine3Selected =  $request->get('vaccine_3');
         $rtSelected =  $request->get('rt');
         $rwSelected =  $request->get('rw');
         $villageSelected =  $request->get('village');
@@ -224,9 +221,6 @@ class CitizenController extends Controller
             'bloodSelected',
             'job',
             'phone',
-            'vaccine1Selected',
-            'vaccine2Selected',
-            'vaccine3Selected',
             'villageSelected',
             'sub_districsSelected',
             'provinceSelected',
