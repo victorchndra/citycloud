@@ -26,7 +26,7 @@ use App\Models\Masters\RW;
 
 //use import class dan storage nya utk simpan data
 use App\Imports\CitizenImport;
-
+use Carbon\Carbon;
 
 class CitizenController extends Controller
 {
@@ -48,14 +48,6 @@ class CitizenController extends Controller
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
             ])
         )->paginate(20)->withQueryString();
-
-        //add for searching begin
-
-
-        $start = $request->get('start') ?? date('Y-m-d');
-        $until = $request->get('until') ?? date('Y-m-d');        
-
-        $date_birth =  $request->get('date_birth');
 
 
         $place_births = Citizens::groupBy('place_birth')->get();
@@ -231,6 +223,7 @@ class CitizenController extends Controller
             'sub_districsSelected',
             'provinceSelected',
             'date_birth',
+            'date_birth2',
             //new add
             'marriages',
             'marriageSelected',

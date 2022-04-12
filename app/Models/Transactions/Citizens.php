@@ -251,6 +251,7 @@ class Citizens extends Model
     public function scopeFilter($query, array $filters) {
         $q = $query;
 
+        
         if(isset($filters['name'])) {
             $q->where('name', 'like', ($filters['name']) ? ('%' . str_replace('','%20',$filters['name']) . '%') : '')->get();
         }
@@ -261,7 +262,8 @@ class Citizens extends Model
             $q->where('kk', 'like', ($filters['kk']) ? ('%' . str_replace('','%20',$filters['kk']) . '%') : '')->get();
         }
         if(isset($filters['date_birth'])) {
-            $q->where('date_birth', 'like', ($filters['date_birth']) ? : '')->get();
+            
+            $q->whereBetween('date_birth', ['2014-08-16', '2020-01-01'])->get();
         }
         if(isset($filters['place_birth'])) {
             $q->where('place_birth', 'like', ($filters['place_birth']) ? ('%' . str_replace('','%20',$filters['place_birth']) . '%') : '')->get();
