@@ -70,7 +70,7 @@ class Citizens extends Model
     {
         return new Attribute(
             get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
-            
+
         );
     }
 
@@ -231,13 +231,13 @@ class Citizens extends Model
     }
 
 
-   
 
-    public function createdUser() 
+
+    public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
-    public function updatedUser() 
+    public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
@@ -251,7 +251,7 @@ class Citizens extends Model
     public function scopeFilter($query, array $filters) {
         $q = $query;
 
-        
+
         if(isset($filters['name'])) {
             $q->where('name', 'like', ($filters['name']) ? ('%' . str_replace('','%20',$filters['name']) . '%') : '')->get();
         }
@@ -261,9 +261,26 @@ class Citizens extends Model
         if(isset($filters['kk'])) {
             $q->where('kk', 'like', ($filters['kk']) ? ('%' . str_replace('','%20',$filters['kk']) . '%') : '')->get();
         }
-        if(isset($filters['date_birth'])) {
-            
-            $q->whereBetween('date_birth', ['2014-08-16', '2020-01-01'])->get();
+        if(isset($filters['date_birth']) && isset($filters['date_birth2'])) {
+            // $age = Carbon::parse($filters['date_birth'])->format('Y-m-d');
+            $age = $filters['date_birth'];
+            $age2 = $filters['date_birth2'];
+
+            $now = (Carbon::now()->year)-$age;
+            $now2 = (Carbon::now()->year)-$age2;
+
+            $tgl = Carbon::now()->format('-m-d');
+            // dd($now . '-01-01 ' . $now2);
+            // dd($age. " Years, " . $age2 . " Years");
+            // $date = $q->get('date_birth');
+            // dd($date);
+
+            // get tanggal sekarang, kemudian tahunnya dikurang dari inputan user
+            // in1 : tanggal sekarang (tahun) dikurang dengan 2 (inputan user), Ex : 2022-02-20 menjadi 2020-02-20
+            // in2 : sama dengan in1, jadi nnti var ini digunakan untuk perbandingan (whereBetween), Ex : 2022-02-20 menjadi 2018-02-20
+            // $q->whereBetween('date_birth', [$in2, $in1])->get();
+            // $age = dd(Carbon::parse($filters['date_birth'])->diff(Carbon::now())->y);
+            $q->whereBetween('date_birth', [($now2 . $tgl), ($now . $tgl)])->get();
         }
         if(isset($filters['place_birth'])) {
             $q->where('place_birth', 'like', ($filters['place_birth']) ? ('%' . str_replace('','%20',$filters['place_birth']) . '%') : '')->get();

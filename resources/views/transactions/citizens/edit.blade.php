@@ -112,7 +112,7 @@
                                         <option value="Kristen Protestan">Kristen Protestan</option>
                                         <option value="Buddha">Buddha</option>
                                         <option value="Hindu">Hindu</option>
-                                        <option value="Konghucu">Konghucu</option>
+                                        <option value="khonghucu">Konghucu</option>
                                     @elseif (old('religion', 'Kristen Katolik') == $c->religion)
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen Katolik" selected>Kristen Katolik</option>
@@ -156,22 +156,22 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-9">                               
                                 <select class="form-control" name="family_status">
-                                    @if (old('family_status', 'Kepala keluarga') == $c->family_status)
-                                    <option value="Kepala keluarga" selected>Kepala keluarga</option>
-                                    <option value="Istri">Istri</option>
-                                    <option value="Anak">Anak</option>
+                                    @if (old('family_status', 'Kepala Keluarga') == $c->family_status)
+                                    <option value="kepala keluarga" selected>Kepala keluarga</option>
+                                    <option value="istri">Istri</option>
+                                    <option value="anak">Anak</option>
                                     @elseif (old('family_status', 'Istri') == $c->family_status)
-                                    <option value="Kepala keluarga">Kepala keluarga</option>
-                                    <option value="Istri" selected>Istri</option>
-                                    <option value="Anak">Anak</option>
+                                    <option value="kepala keluarga" >Kepala keluarga</option>
+                                    <option value="istri" selected>Istri</option>
+                                    <option value="anak">Anak</option>
                                     @elseif (old('family_status', 'Anak') == $c->family_status)
-                                    <option value="Kepala keluarga">Kepala keluarga</option>
-                                    <option value="Istri">Istri</option>
-                                    <option value="Anak" selected>Anak</option>
+                                    <option value="kepala keluarga" >Kepala keluarga</option>
+                                    <option value="istri" >Istri</option>
+                                    <option value="anak" selected>Anak</option>
                                     @endif
-                                </select>
+                                </select>                            
                             </div>
                         </div>
                     </div>
@@ -292,12 +292,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control @error('rt') is-invalid @enderror" name="rt" required value="{{ old('rt', $c->rt) }}"/>
-                                @error('rt')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="rw" id="rw" class="form-control">
+                                    <option value="">Semua RT</option>
+                                    @foreach($rts as $rt)
+                                        <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -305,12 +305,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RW</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control @error('rw') is-invalid @enderror" name="rw" required value="{{ old('rw', $c->rw) }}"/>
-                                @error('rw')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="rw" id="rw" class="form-control">
+                                    <option value="">Semua RW</option>
+                                    @foreach($rws as $rw)
+                                        <option value="{{ $rw->name }}" @if($rwSelected == $rw->name) {{ 'selected' }} @endif> {{ $rw->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -320,12 +320,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Desa</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('village') is-invalid @enderror" name="village" required value="{{ old('village', $c->village) }}"/>
-                                @error('village')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="village_name" id="village_name" class="form-control">
+                                    
+                                    @foreach($village as $desa)
+                                        <option value="{{ $desa->village_name }}" @if($villageSelected == $desa->village_name) {{ 'selected' }} @endif> {{ $desa->village_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -333,12 +333,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('sub_districts') is-invalid @enderror" name="sub_districts" required value="{{ old('sub_districts', $c->sub_districts) }}"/>
-                                @error('sub_districts')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="district_name" id="district_name" class="form-control">
+                                    @foreach($districtses as $districts)
+                                        <option value="{{ $districts->district_name }}" @if($districtsSelected == $districts->district_name) {{ 'selected' }} @endif> {{ $districts->district_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -348,12 +347,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kecamatan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('districts') is-invalid @enderror" name="districts" required value="{{ old('districts', $c->districts) }}"/>
-                                @error('districts')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="sub_district_name" id="sub_district_name" class="form-control">
+                                    @foreach($sub_districtses as $sub_districts)
+                                        <option value="{{ $sub_districts->sub_district_name }}" @if($sub_districtSelected == $sub_districts->sub_district_name) {{ 'selected' }} @endif> {{ $sub_districts->sub_district_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -361,12 +359,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Provinsi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('province') is-invalid @enderror" name="province" required value="{{ old('province', $c->province) }}"/>
-                                @error('province')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="province_name" id="province_name" class="form-control">
+                                    @foreach($provinces as $province)
+                                        <option value="{{ $province->province_name }}" @if($provinceSelected == $province->province_name) {{ 'selected' }} @endif> {{ $province->province_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -426,12 +423,12 @@
                             <label class="col-sm-3 col-form-label">Vaksin 1</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_1">
-                                    @if (old('vaccine_1', '') == $c->vaccine_1)
-                                    <option value="" selected>Belum Vaksin</option>
-                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
-                                    @elseif (old('vaccine_1', 'Sudah Vaksin') == $c->vaccine_1)
-                                    <option value="">Belum Vaksin</option>
+                                    @if (old('vaccine_1', 'sudah vaksin') == $c->vaccine_1)
                                     <option value="Sudah Vaksin" selected>Sudah Vaksin</option>
+                                    <option value="Belum Vaksin">Belum Vaksin</option>
+                                    @elseif (old('vaccine_1', 'Belum Vaksin') == $c->vaccine_1)
+                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
+                                    <option value="Belum Vaksin" selected>Belum Vaksin</option>
                                     @endif
                                 </select>
                             </div>
@@ -442,12 +439,12 @@
                             <label class="col-sm-3 col-form-label">Vaksin 2</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_2">
-                                    @if (old('vaccine_2', '') == $c->vaccine_2)
-                                    <option value="" selected>Belum Vaksin</option>
-                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
-                                    @elseif (old('vaccine_2', 'Sudah Vaksin') == $c->vaccine_2)
-                                    <option value="">Belum Vaksin</option>
+                                    @if (old('vaccine_2', 'Sudah Vaksin') == $c->vaccine_2)
                                     <option value="Sudah Vaksin" selected>Sudah Vaksin</option>
+                                    <option value="Belum Vaksin">Belum Vaksin</option>
+                                    @elseif (old('vaccine_2', 'Belum Vaksin') == $c->vaccine_2)
+                                    <option value="Sudah Vaksin" >Sudah Vaksin</option>
+                                    <option value="Belum Vaksin" selected>Belum Vaksin</option>
                                     @endif
                                 </select>
                             </div>
@@ -458,12 +455,12 @@
                             <label class="col-sm-3 col-form-label">Vaksin 3</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_3">
-                                    @if (old('vaccine_3', '') == $c->vaccine_3)
-                                    <option value="" selected>Belum Vaksin</option>
-                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
-                                    @elseif (old('vaccine_3', 'Sudah Vaksin') == $c->vaccine_3)
-                                    <option value="">Belum Vaksin</option>
+                                    @if (old('vaccine_3', 'Sudah Vaksin') == $c->vaccine_3)
                                     <option value="Sudah Vaksin" selected>Sudah Vaksin</option>
+                                    <option value="Belum Vaksin">Belum Vaksin</option>
+                                    @elseif (old('vaccine_3', 'Belum Vaksin') == $c->vaccine_3)
+                                    <option value="Sudah Vaksin" >Sudah Vaksin</option>
+                                    <option value="Belum Vaksin" selected>Belum Vaksin</option>
                                     @endif
                                 </select>
                             </div>
@@ -480,12 +477,12 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    @if (old('dtks', 'ya') == $c->dtks)
-                                    <option value="ya" selected>Ya</option>
-                                    <option value="tidak">Tidak</option>
-                                    @elseif (old('dtks', 'tidak')== $c->dtks)
-                                    <option value="ya">Ya</option>
-                                    <option value="tidak" selected>Tidak</option>
+                                    @if (old('dtks', 'Y') == $c->dtks)
+                                    <option value="y" selected>Ya</option>
+                                    <option value="t">Tidak</option>
+                                    @elseif (old('dtks', 'T')== $c->dtks)
+                                    <option value="y">Ya</option>
+                                    <option value="t" selected>Tidak</option>
                                     @endif
                                 </select>
                             </div>
