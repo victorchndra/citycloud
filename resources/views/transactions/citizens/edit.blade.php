@@ -158,7 +158,7 @@
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
                             <div class="col-sm-9">                               
                                 <select class="form-control" name="family_status">
-                                    @if (old('family_status', 'Kepala keluarga') == $c->family_status)
+                                    @if (old('family_status', 'Kepala Keluarga') == $c->family_status)
                                     <option value="kepala keluarga" selected>Kepala keluarga</option>
                                     <option value="istri">Istri</option>
                                     <option value="anak">Anak</option>
