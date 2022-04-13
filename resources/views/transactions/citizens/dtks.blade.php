@@ -31,7 +31,7 @@
                         <div class="modal-content">
                             <form class="form-sample" action="/dtks" id="search_form">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Cari Data Kependudukan</h5>
+                                    <h5 class="modal-title">Cari Data Penduduk DTKS</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -93,8 +93,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Usia</label>
                                                 <div class="col-sm-9">
-                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" value="" placeholder="Mulai">
-                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" value="" placeholder="Sampai">
+                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" value="" placeholder="Mulai cth : 20">
+                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" value="" placeholder="Sampai cth : 50">
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
