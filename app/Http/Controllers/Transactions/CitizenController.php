@@ -106,6 +106,8 @@ class CitizenController extends Controller
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $familyStatusSelected =  $request->get('family_status');
@@ -159,8 +161,7 @@ class CitizenController extends Controller
             if (!empty($vaccine3Selected))
                 $datas->where('vaccine_3', $vaccine3Selected);
         }
-
-
+        
         if ($request->has('rt')) {
             if (!empty($rtSelected))
                 $datas->where('rt', $rtSelected);
@@ -212,6 +213,8 @@ class CitizenController extends Controller
             'kk',
             'name',
             'genderSelected',
+            'date_birth',
+            'date_birth2',
             'place_birth',
             'address',
             'religionSelected',
@@ -371,7 +374,7 @@ class CitizenController extends Controller
         $citizen = Citizens::where('uuid', $uuid)->get();
         return view('transactions.citizens.edit', compact('citizen','rws','rwSelected','rts','rtSelected',
     'village','villageSelected','districtses','districtsSelected','sub_districtses','sub_districtSelected',
-'provinces','provinceSelected'));
+    'provinces','provinceSelected'));
 
 
     }
@@ -1457,18 +1460,19 @@ class CitizenController extends Controller
     public function exportCitizen(Request $request)
     {
 
-         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-         $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
+                // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
+        $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
-                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date', 'last_education',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'health_assurance','dtks'
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
             ]));
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $religionSelected =  $request->get('religion');
@@ -1578,6 +1582,8 @@ class CitizenController extends Controller
             $kk,
             $name,
             $genderSelected,
+            $date_birth,
+            $date_birth2,
             $place_birth,
             $religionSelected,
             $address,
