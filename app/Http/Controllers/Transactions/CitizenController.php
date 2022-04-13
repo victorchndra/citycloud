@@ -44,8 +44,7 @@ class CitizenController extends Controller
         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
         $datas = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
-                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
             ])
         )->paginate(20)->withQueryString();
@@ -65,7 +64,7 @@ class CitizenController extends Controller
 
         $religions = Citizens::groupBy('religion')->get();
         $religionSelected =  $request->get('religion');
-       
+
         $last_educations = Citizens::groupBy('last_education')->get();
         $last_educationSelected = $request->get('last_education');
 
@@ -203,7 +202,7 @@ class CitizenController extends Controller
                 $datas->where('last_education', $lastEducationSelected);
         }
 
-        
+
 
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
@@ -1488,7 +1487,7 @@ class CitizenController extends Controller
         $sub_districsSelected =  $request->get('sub_district');
         $districtSelected =  $request->get('district');
         $provinceSelected =  $request->get('province');
-       
+
 
         if ($request->has('gender')) {
             if (!empty($genderSelected))
@@ -1596,11 +1595,11 @@ class CitizenController extends Controller
             $sub_districsSelected,
             $districtSelected,
             $provinceSelected,
-            
+
         ), 'Laporan Penduduk.xls');
     }
 
-    
+
 
     public function citizendtks(Request $request)
     {
@@ -1612,7 +1611,7 @@ class CitizenController extends Controller
             ])
         )->whereNot('dtks','=','')->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
-      
+
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
         $name =  $request->get('name');
