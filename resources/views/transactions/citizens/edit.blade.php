@@ -158,15 +158,15 @@
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
                             <div class="col-sm-9">                               
                                 <select class="form-control" name="family_status">
-                                    @if (old('family_status', 'kepala keluarga') == $c->family_status)
+                                    @if (old('family_status', 'Kepala keluarga') == $c->family_status)
                                     <option value="kepala keluarga" selected>Kepala keluarga</option>
                                     <option value="istri">Istri</option>
                                     <option value="anak">Anak</option>
-                                    @elseif (old('family_status', 'istri') == $c->family_status)
+                                    @elseif (old('family_status', 'Istri') == $c->family_status)
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" selected>Istri</option>
                                     <option value="anak">Anak</option>
-                                    @elseif (old('family_status', 'anak') == $c->family_status)
+                                    @elseif (old('family_status', 'Anak') == $c->family_status)
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" >Istri</option>
                                     <option value="anak" selected>Anak</option>
@@ -477,10 +477,10 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    @if (old('dtks', 'y') == $c->dtks)
+                                    @if (old('dtks', 'Y') == $c->dtks)
                                     <option value="ya" selected>Ya</option>
                                     <option value="tidak">Tidak</option>
-                                    @elseif (old('dtks', 't')== $c->dtks)
+                                    @elseif (old('dtks', 'T')== $c->dtks)
                                     <option value="ya">Ya</option>
                                     <option value="tidak" selected>Tidak</option>
                                     @endif
