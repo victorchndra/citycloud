@@ -222,8 +222,6 @@ class CitizenController extends Controller
             'villageSelected',
             'sub_districsSelected',
             'provinceSelected',
-            'date_birth',
-            'date_birth2',
             //new add
             'marriages',
             'marriageSelected',
