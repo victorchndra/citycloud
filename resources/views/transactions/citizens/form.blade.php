@@ -114,9 +114,9 @@
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="family_status">
-                                    <option value="Kepala keluarga">Kepala keluarga</option>
-                                    <option value="Istri">Istri</option>
-                                    <option value="Anak">Anak</option>
+                                    <option value="kepala keluarga">Kepala keluarga</option>
+                                    <option value="istri">Istri</option>
+                                    <option value="anak">Anak</option>
                                 </select>
                             </div>
                         </div>
@@ -391,8 +391,8 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    <option value="ya" >Ya</option>
-                                    <option value="tidak" selected>Tidak</option>                            
+                                    <option value="y" >Ya</option>
+                                    <option value="t" selected>Tidak</option>                            
                                 </select>
                             </div>
                         </div>

@@ -5,24 +5,25 @@ namespace App\Http\Controllers\Transactions;
 
 use Ramsey\Uuid\Uuid;
 
-use Illuminate\Http\Request;
-use App\Exports\CitizenExport;
+use App\Models\Masters\RT;
+use App\Models\Masters\RW;
 //panggil uuid library
-use App\Exports\CitizenDTKSExport;
+use App\Models\Information;
 
 //definisikan model
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 //use export class
+use App\Exports\CitizenExport;
+use App\Exports\CitizenDTKSExport;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
+//external model goes heree
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Transactions\Citizens;
 use Illuminate\Support\Facades\Storage;
-
-//external model goes heree
-use App\Models\Masters\RT;
-use App\Models\Masters\RW;
 
 //use import class dan storage nya utk simpan data
 use App\Imports\CitizenImport;
@@ -345,10 +346,35 @@ class CitizenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($uuid)
+    public function edit($uuid,Request $request)
     {
+        $rws = RW::get();
+        $rwSelected =  $request->get('rw');
+
+        $rts = RT::get();
+        $rtSelected =  $request->get('rt');
+
+        $village = Information::get();
+        $villageSelected =  $request->get('village_name');
+
+        $districtses = Information::get();
+        $districtsSelected =  $request->get('district_name');
+
+        $sub_districtses = Information::get();
+        $sub_districtSelected =  $request->get('sub_district_name');
+        
+        $provinces = Information::get();
+        $provinceSelected =  $request->get('province_name');
+
+        // $family_statuses = Citizens::get();
+        // $family_statusSelected =  $request->get('family_status');
+        
         $citizen = Citizens::where('uuid', $uuid)->get();
-        return view('transactions.citizens.edit', compact('citizen'));
+        return view('transactions.citizens.edit', compact('citizen','rws','rwSelected','rts','rtSelected',
+    'village','villageSelected','districtses','districtsSelected','sub_districtses','sub_districtSelected',
+'provinces','provinceSelected'));
+
+
     }
 
     /**
