@@ -423,7 +423,7 @@
                             <label class="col-sm-3 col-form-label">Vaksin 1</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_1">
-                                    @if (old('vaccine_1', 'sudah vaksin') == $c->vaccine_1)
+                                    @if (old('vaccine_1', 'Sudah Vaksin') == $c->vaccine_1)
                                     <option value="Sudah Vaksin" selected>Sudah Vaksin</option>
                                     <option value="Belum Vaksin">Belum Vaksin</option>
                                     @elseif (old('vaccine_1', 'Belum Vaksin') == $c->vaccine_1)
