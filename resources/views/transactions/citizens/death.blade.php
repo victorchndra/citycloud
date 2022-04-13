@@ -494,7 +494,7 @@
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
-                                            {{$data->date_birth}}</span></span>
+                                        {!! $data->date_birth !!}</span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
                                         <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b>RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>

@@ -249,7 +249,7 @@
                                     </p> --}}
                                     <hr class="text-muted">
                                     <div class="row">
-                                        
+
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">RT</label>
@@ -461,7 +461,7 @@
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
-                                            {{$data->date_birth}}</span></span>
+                                            {!! $data->date_birth !!}</span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }} <b>RT :
