@@ -274,13 +274,17 @@ class Citizens extends Model
             // dd($age. " Years, " . $age2 . " Years");
             // $date = $q->get('date_birth');
             // dd($date);
+            // dd(($now2 . $tgl), ($now . $tgl));
 
             // get tanggal sekarang, kemudian tahunnya dikurang dari inputan user
             // in1 : tanggal sekarang (tahun) dikurang dengan 2 (inputan user), Ex : 2022-02-20 menjadi 2020-02-20
             // in2 : sama dengan in1, jadi nnti var ini digunakan untuk perbandingan (whereBetween), Ex : 2022-02-20 menjadi 2018-02-20
             // $q->whereBetween('date_birth', [$in2, $in1])->get();
             // $age = dd(Carbon::parse($filters['date_birth'])->diff(Carbon::now())->y);
-            $q->whereBetween('date_birth', [($now2 . $tgl), ($now . $tgl)])->get();
+            // $q->whereBetween('date_birth', [($now2 . $tgl), ($now . $tgl)])->get();
+            $q->whereDate('date_birth','<=', ($now2 . $tgl))
+              ->whereDate('date_birth','<=', ($now . $tgl))
+              ->get();
         }
         if(isset($filters['place_birth'])) {
             $q->where('place_birth', 'like', ($filters['place_birth']) ? ('%' . str_replace('','%20',$filters['place_birth']) . '%') : '')->get();
