@@ -351,8 +351,8 @@
                             <label class="col-sm-3 col-form-label">Vaksin 1</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_1">
-                                    <option value="">Belum Vaksin</option>
-                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
+                                    <option value="belum vaksin">Belum Vaksin</option>
+                                    <option value="sudah vaksin">Sudah Vaksin</option>
                                 </select>
                             </div>
                         </div>
@@ -362,8 +362,8 @@
                             <label class="col-sm-3 col-form-label">Vaksin 2</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_2">
-                                    <option value="">Belum Vaksin</option>
-                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
+                                    <option value="belum vaksin">Belum Vaksin</option>
+                                    <option value="sudah vaksin">Sudah Vaksin</option>
                                 </select>
                             </div>
                         </div>
@@ -373,8 +373,8 @@
                             <label class="col-sm-3 col-form-label">Vaksin 3</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="vaccine_3">
-                                    <option value="">Belum Vaksin</option>
-                                    <option value="Sudah Vaksin">Sudah Vaksin</option>
+                                    <option value="belum vaksin">Belum Vaksin</option>
+                                    <option value="sudah vaksin">Sudah Vaksin</option>
                                 </select>
                             </div>
                         </div>
