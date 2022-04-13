@@ -92,8 +92,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                                                 <div class="col-sm-9">
-                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" value="">
-                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" value="">
+                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" placeholder="Mulai cth : 20">
+                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" placeholder="Mulai cth : 50">
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}

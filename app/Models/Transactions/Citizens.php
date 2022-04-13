@@ -282,7 +282,7 @@ class Citizens extends Model
             // $q->whereBetween('date_birth', [$in2, $in1])->get();
             // $age = dd(Carbon::parse($filters['date_birth'])->diff(Carbon::now())->y);
             // $q->whereBetween('date_birth', [($now2 . $tgl), ($now . $tgl)])->get();
-            $q->whereDate('date_birth','<=', ($now2 . $tgl))
+            $q->whereDate('date_birth','>=', ($now2 . $tgl))
               ->whereDate('date_birth','<=', ($now . $tgl))
               ->get();
         }
