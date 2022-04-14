@@ -843,6 +843,8 @@ class CitizenController extends Controller
     $kk =  $request->get('kk');
     $name =  $request->get('name');
     $genderSelected =  $request->get('gender');
+    $date_birth =  $request->get('date_birth');
+    $date_birth2 =  $request->get('date_birth2');
     $place_birth =  $request->get('place_birth');
     $address =  $request->get('address');
     $familyStatusSelected =  $request->get('family_status');
@@ -950,6 +952,8 @@ class CitizenController extends Controller
         'name',
         'genderSelected',
         'place_birth',
+        'date_birth',
+        'date_birth2',
         'address',
         'religionSelected',
         'familyStatusSelected',
@@ -1050,7 +1054,7 @@ class CitizenController extends Controller
     {
 
         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->filter(request(['name','nik','kk','gender','date_birth','address','place_birth','religion','family_status','blood',
+        $data = Citizens::latest()->filter(request(['name','nik','kk','gender','date_birth','date_birth2','address','place_birth','religion','family_status','blood',
         'job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date',
         'rt','rw','village','sub_districts','districts','province','last_education','health_assurance'])
         )->whereNull('death_date')->whereNotNull('move_date');
@@ -1059,6 +1063,8 @@ class CitizenController extends Controller
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $religionSelected =  $request->get('religion');
@@ -1171,7 +1177,7 @@ class CitizenController extends Controller
         DB::table('logs')->insert($log);
         // selesai
 
-        return Excel::download(new CitizenExport($datas,$nik,$kk,$name,$genderSelected,$place_birth,$religionSelected,$address,
+        return Excel::download(new CitizenExport($datas,$nik,$kk,$name,$genderSelected,$date_birth,$date_birth2,$place_birth,$religionSelected,$address,
         $familyStatusSelected,$bloodSelected,$job,$phone,$vaccine1Selected,$vaccine2Selected,$vaccine3Selected,$rtSelected,
         $rwSelected,$villageSelected,$sub_districsSelected,$districtSelected,$provinceSelected,$health_assuranceSelected,
         $lastEducationSelected), 'Laporan Penduduk Pindah.xls');
@@ -1698,6 +1704,8 @@ class CitizenController extends Controller
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $familyStatusSelected =  $request->get('family_status');
@@ -1804,6 +1812,8 @@ class CitizenController extends Controller
             'kk',
             'name',
             'genderSelected',
+            'date_birth',
+            'date_birth2',
             'place_birth',
             'address',
             'religionSelected',
@@ -1848,6 +1858,8 @@ class CitizenController extends Controller
             'provinces',
             'provincesSelected'
         ));
+
+        
     }
 
     public function exportDtksCitizen(Request $request)
@@ -1865,19 +1877,20 @@ class CitizenController extends Controller
         //     ->orderBy('id', 'desc');
 
         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->filter(
+        $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
-                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date', 'last_education',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'health_assurance','dtks'
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
             ])
-        )->whereNot('dtks','=','')
-            ->orderBy('id', 'desc');
+            )->whereNot('dtks','=','')
+                ->orderBy('id', 'desc');
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $religionSelected =  $request->get('religion');
@@ -1896,7 +1909,7 @@ class CitizenController extends Controller
         $sub_districsSelected =  $request->get('sub_district');
         $districtSelected =  $request->get('district');
         $provinceSelected =  $request->get('province');
-       
+
 
         if ($request->has('gender')) {
             if (!empty($genderSelected))
@@ -1987,6 +2000,8 @@ class CitizenController extends Controller
             $kk,
             $name,
             $genderSelected,
+            $date_birth,
+            $date_birth2,
             $place_birth,
             $religionSelected,
             $address,
@@ -2004,7 +2019,7 @@ class CitizenController extends Controller
             $sub_districsSelected,
             $districtSelected,
             $provinceSelected,
-            
+
         ), 'Laporan Penduduk DTKS.xls');
     }
 
