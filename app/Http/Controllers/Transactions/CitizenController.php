@@ -266,11 +266,31 @@ class CitizenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $rws = RW::get();
+        $rwSelected =  $request->get('rw');
+
+        $rts = RT::get();
+        $rtSelected =  $request->get('rt');
+
+        $village = Information::get();
+        $villageSelected =  $request->get('village_name');
+
+        $districtses = Information::get();
+        $districtsSelected =  $request->get('district_name');
+
+        $sub_districtses = Information::get();
+        $sub_districtSelected =  $request->get('sub_district_name');
+        
+        $provinces = Information::get();
+        $provinceSelected =  $request->get('province_name');
+
         return view('transactions.citizens.form', [
             'page' => 'create',
-        ]);
+        ],compact('rws','rwSelected','rts','rtSelected',
+        'village','villageSelected','districtses','districtsSelected','sub_districtses','sub_districtSelected',
+        'provinces','provinceSelected'));
     }
 
     /**
@@ -281,6 +301,8 @@ class CitizenController extends Controller
      */
     public function store(Request $request)
     {
+       
+
         $validatedData = $request->validate([
             'nik' => 'numeric|min:16',
             'kk' => 'numeric|min:16',
@@ -326,6 +348,7 @@ class CitizenController extends Controller
         ];
 
         DB::table('logs')->insert($log);
+
 
         return redirect('/citizens')->with('success', 'Data kependudukan berhasil ditambah!');
     }

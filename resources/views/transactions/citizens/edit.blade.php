@@ -292,7 +292,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                <select name="rw" id="rw" class="form-control">
+                                <select name="rt" id="rt" class="form-control">
                                     <option value="">Semua RT</option>
                                     @foreach($rts as $rt)
                                         <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
