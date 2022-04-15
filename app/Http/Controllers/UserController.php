@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -109,22 +110,54 @@ class UserController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-        // dd($request->username != User::where('uuid', $uuid)->firstOrFail()->username);
-        $rules = [
-            'name' => 'required|max:255',
-            'phone' => 'required|numeric|min:12',
-            'address' => 'required',
-        ];
+        // Define selected user
+        $user = User::where('uuid', $uuid)->firstOrFail();
 
-        if($request->username != User::where('uuid', $uuid)->firstOrFail()->username) {
-            $rules['username'] = 'required|unique:users';
+        // Change selected user personal data
+        if ($request->name && $request->phone && $request->email && $request->username && $request->address) {
+            $rules = [
+                'name' => 'required|max:255',
+                'phone' => 'required|numeric|min:12',
+                'address' => 'required',
+            ];
+
+            if($request->username != $user->username) {
+                $rules['username'] = 'required|unique:users';
+            }
+
+            if($request->email != $user->email) {
+                $rules['email'] = 'required|email:dns|unique:users';
+            }
+
+            $validatedData = $request->validate($rules);
         }
 
-        if($request->email != User::where('uuid', $uuid)->firstOrFail()->email) {
-            $rules['email'] = 'required|email:dns|unique:users';
-        }
+        // Change selected user password
+        if($request->oldPassword && $request->password && $request->cpassword) {
+            // Validate inputed value from user
+            $request->validate([
+                //first array : used to custom field rules
+                'oldPassword' => 'required',
+                'password' => 'required|different:oldPassword',
+                'cpassword' => 'required|same:password',
+            ], [
+                //second array : used to custom rules message
+            ], [
+                //third array : used to change validation name message
+                'oldpassword' => 'old password',
+                'password' => 'new password',
+                'cpassword' => 'confirm new password',
+            ]);
 
-        $validatedData = $request->validate($rules);
+            // Check old password
+            if(Hash::check($request->oldPassword, $user->password)) {
+                $validatedData = [
+                    'password' => bcrypt($request['password'])
+                ];
+            } else {
+                return redirect()->route('users.changePassword', $uuid)->with('success', 'Kata sandi lama tidak cocok');
+            }
+        }
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['updated_by'] = Auth::user()->id;

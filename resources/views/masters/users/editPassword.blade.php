@@ -6,18 +6,27 @@
         <div class="card-body">
             <h4 class="card-title">Pengguna</h4>
             @foreach ($datas as $data)
-            <form class="form-sample" action="/users" method="POST">
+            <form class="form-sample" action="{{ route('users.update', $data->uuid) }}" method="POST">
+                @method('put')
                 @csrf
                 <p class="card-description my-3 text-muted">
                     Identitas pengguna
                 </p>
+
+                @if (session()->has('success'))
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
                 <hr class="text-muted">
                     <div class="col-md-8">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kata sandi lama</label>
                             <div class="col-sm-9">
-                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Kata sandi lama" required"/>
-                                @error('password')
+                                <input type="password" name="oldPassword" class="form-control @error('oldPassword') is-invalid @enderror" placeholder="Kata sandi lama" required"/>
+                                @error('oldPassword')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
