@@ -171,7 +171,7 @@ class UserController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> kata sandi akun <strong>[' . $request->name . ']</strong>',
+                'description' => '<em>Mengubah</em> kata sandi akun <strong>[' . $user->name . ']</strong>',
                 'category' => 'Edit',
                 'created_at' => now(),
             ];
@@ -201,7 +201,7 @@ class UserController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> akun <strong>[' . $request->name . ']</strong>',
+            'description' => '<em>Menghapus</em> akun <strong>[' . $data->name . ']</strong>',
             'category' => 'Hapus',
             'created_at' => now(),
         ];
