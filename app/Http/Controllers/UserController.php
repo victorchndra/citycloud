@@ -68,8 +68,8 @@ class UserController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> pengguna baru <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Semua Kependudukan',
+            'description' => '<em>Menambah</em> pengguna baru <strong>[' . $request->name . ']</strong>',
+            'category' => 'Tambah',
             'created_at' => now(),
         ];
 
@@ -130,6 +130,16 @@ class UserController extends Controller
             }
 
             $validatedData = $request->validate($rules);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> data personal akun <strong>[' . $request->name . ']</strong>',
+                'category' => 'Edit',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
         }
 
         // Change selected user password
@@ -157,6 +167,16 @@ class UserController extends Controller
             } else {
                 return redirect()->route('users.changePassword', $uuid)->with('success', 'Kata sandi lama tidak cocok');
             }
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> kata sandi akun <strong>[' . $request->name . ']</strong>',
+                'category' => 'Edit',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
         }
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
@@ -178,6 +198,15 @@ class UserController extends Controller
         $data = User::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> akun <strong>[' . $request->name . ']</strong>',
+            'category' => 'Hapus',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
         $data->delete();
 
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil dihapus!');
@@ -185,6 +214,16 @@ class UserController extends Controller
 
     public function export()
     {
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> data pengguna',
+            'category' => 'Export',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 

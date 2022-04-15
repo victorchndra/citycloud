@@ -343,7 +343,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menambah</em> data penduduk baru <strong>[' . $request->name . ']</strong>',
-            'category' => 'Semua Kependudukan',
+            'category' => 'Tambah',
             'created_at' => now(),
         ];
 
@@ -425,7 +425,7 @@ class CitizenController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Mengubah</em> penduduk <strong>[' . $citizenName->name . ']</strong> menjadi penduduk meninggal',
-                'category' => 'Semua Kependudukan',
+                'category' => 'Edit',
                 'created_at' => now(),
             ];
 
@@ -449,7 +449,7 @@ class CitizenController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Mengubah</em> penduduk <strong>[' . $citizenName->name . ']</strong> menjadi penduduk pindah',
-                'category' => 'Semua Kependudukan',
+                'category' => 'Edit',
                 'created_at' => now(),
             ];
 
@@ -498,7 +498,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
-            'category' => 'Semua Kependudukan',
+            'category' => 'Edit',
             'created_at' => now(),
         ];
 
@@ -522,7 +522,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data penduduk <strong>[' . $data->name . ']</strong>',
-            'category' => 'Semua Kependudukan',
+            'category' => 'Hapus',
             'created_at' => now(),
         ];
 
@@ -1014,7 +1014,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
-            'category' => 'Semua Kependudukan',
+            'category' => 'Edit',
             'created_at' => now(),
         ];
 
@@ -1038,7 +1038,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data dari penduduk pindah <strong>[' . $data->name . ']</strong>',
-            'category' => 'Bantuan Sosial',
+            'category' => 'Hapus',
             'created_at' => now(),
         ];
 
@@ -1170,7 +1170,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Export</em> data penduduk pindah', //name = nama tag di view (file index)
-            'category' => 'Penduduk Pindah',
+            'category' => 'Export',
             'created_at' => now(),
         ];
 
@@ -1523,7 +1523,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Export</em> data penduduk meninggal',
-            'category' => 'Penduduk Meninggal',
+            'category' => 'Export',
             'created_at' => now(),
         ];
 
@@ -1551,7 +1551,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data penduduk dari penduduk meninggal <strong>[' . $data->name . ']</strong>',
-            'category' => 'Bantuan Sosial',
+            'category' => 'Hapus',
             'created_at' => now(),
         ];
 
@@ -1703,7 +1703,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Export</em> semua data penduduk', //name = nama tag di view (file index)
-            'category' => 'Semua Kependudukan',
+            'category' => 'Export',
             'created_at' => now(),
         ];
 
@@ -2092,7 +2092,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Export</em> semua data penduduk', //name = nama tag di view (file index)
-            'category' => 'Semua Kependudukan',
+            'category' => 'Export',
             'created_at' => now(),
         ];
 
@@ -2142,7 +2142,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data dari penduduk DTKS <strong>[' . $data->name . ']</strong>',
-            'category' => 'Penduduk DTKS',
+            'category' => 'Hapus',
             'created_at' => now(),
         ];
 

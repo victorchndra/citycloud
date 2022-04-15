@@ -61,7 +61,7 @@ class RTController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menambah</em> data RT <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data RT',
+            'category' => 'Tambah',
             'created_at' => now(),
         ];
 
@@ -120,7 +120,7 @@ class RTController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> data RT <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data RT',
+            'category' => 'Edit',
             'created_at' => now(),
         ];
 
@@ -145,7 +145,7 @@ class RTController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data RT <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data RT',
+            'category' => 'Hapus',
             'created_at' => now(),
         ];
 

@@ -63,7 +63,7 @@ class AssistanceController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menambah</em> data bantuan sosial <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Bantuan Sosial',
+            'category' => 'Tambah',
             'created_at' => now(),
         ];
 
@@ -120,7 +120,7 @@ class AssistanceController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> data bantuan sosial <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Bantuan Sosial',
+            'category' => 'Edit',
             'created_at' => now(),
         ];
 
@@ -152,7 +152,7 @@ class AssistanceController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data bantuan sosial <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Bantuan Sosial',
+            'category' => 'Hapus',
             'created_at' => now(),
         ];
 
