@@ -68,5 +68,10 @@ class User extends Authenticatable
     public function log() {
         return $this->hasMany(Log::class);
     }
-    
+
+    // getRouteKeyName berpengaruh pada resource, gunakan method ini jika tidak menggunakan ID
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 }

@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
          //get data dari table citizen dengan urutan ascending 10 pertama
-         $datas = User::first()->first()->cari(request(['search']))->paginate(10);
+         $datas = User::first()->cari(request(['search']))->paginate(10);
 
 
          //render view dengan variable yang ada menggunakan 'compact', method bawaan php
@@ -94,9 +94,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $datas = User::where('uuid', $uuid)->get();
+        return view('masters.users.edit', compact('datas'));
     }
 
     /**
@@ -106,9 +107,31 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        // dd($request->username != User::where('uuid', $uuid)->firstOrFail()->username);
+        $rules = [
+            'name' => 'required|max:255',
+            'phone' => 'required|numeric|min:12',
+            'address' => 'required',
+        ];
+
+        if($request->username != User::where('uuid', $uuid)->firstOrFail()->username) {
+            $rules['username'] = 'required|unique:users';
+        }
+
+        if($request->email != User::where('uuid', $uuid)->firstOrFail()->email) {
+            $rules['email'] = 'required|email:dns|unique:users';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['uuid'] = Uuid::uuid4()->getHex();
+        $validatedData['updated_by'] = Auth::user()->id;
+
+        User::where('uuid', $uuid)->update($validatedData);
+
+        return redirect('/users')->with('success', 'Data pengguna berhasil diperbarui!');
     }
 
     /**
@@ -130,5 +153,10 @@ class UserController extends Controller
     public function export()
     {
         return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function changePassword($uuid) {
+        $datas = User::where('uuid', $uuid)->get();
+        return view('masters.users.editPassword', compact('datas'));
     }
 }
