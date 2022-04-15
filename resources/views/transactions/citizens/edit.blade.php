@@ -59,7 +59,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" required value="{{ old('date_birth', $c->date_birth) }}"/>
+                                {{-- <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" required value="{{ old('date_birth', $c->date_birth) }}"/> --}}
+                                <input type="date" name="date_birth" id="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" value="@if(!empty($c)){{ $c->date_birth }}@else{{ old('date_birth') }}@endif" required/>
                                 @error('date_birth')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -292,7 +293,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                <select name="rw" id="rw" class="form-control">
+                                <select name="rt" id="rt" class="form-control">
                                     <option value="">Semua RT</option>
                                     @foreach($rts as $rt)
                                         <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>

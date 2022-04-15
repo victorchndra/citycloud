@@ -266,11 +266,31 @@ class CitizenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $rws = RW::get();
+        $rwSelected =  $request->get('rw');
+
+        $rts = RT::get();
+        $rtSelected =  $request->get('rt');
+
+        $village = Information::get();
+        $villageSelected =  $request->get('village_name');
+
+        $districtses = Information::get();
+        $districtsSelected =  $request->get('district_name');
+
+        $sub_districtses = Information::get();
+        $sub_districtSelected =  $request->get('sub_district_name');
+        
+        $provinces = Information::get();
+        $provinceSelected =  $request->get('province_name');
+
         return view('transactions.citizens.form', [
             'page' => 'create',
-        ]);
+        ],compact('rws','rwSelected','rts','rtSelected',
+        'village','villageSelected','districtses','districtsSelected','sub_districtses','sub_districtSelected',
+        'provinces','provinceSelected'));
     }
 
     /**
@@ -281,6 +301,8 @@ class CitizenController extends Controller
      */
     public function store(Request $request)
     {
+       
+
         $validatedData = $request->validate([
             'nik' => 'numeric|min:16',
             'kk' => 'numeric|min:16',
@@ -326,6 +348,7 @@ class CitizenController extends Controller
         ];
 
         DB::table('logs')->insert($log);
+
 
         return redirect('/citizens')->with('success', 'Data kependudukan berhasil ditambah!');
     }
@@ -1681,6 +1704,8 @@ class CitizenController extends Controller
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $familyStatusSelected =  $request->get('family_status');
@@ -1787,6 +1812,8 @@ class CitizenController extends Controller
             'kk',
             'name',
             'genderSelected',
+            'date_birth',
+            'date_birth2',
             'place_birth',
             'address',
             'religionSelected',
@@ -1831,6 +1858,8 @@ class CitizenController extends Controller
             'provinces',
             'provincesSelected'
         ));
+
+        
     }
 
     public function exportDtksCitizen(Request $request)
@@ -1848,19 +1877,20 @@ class CitizenController extends Controller
         //     ->orderBy('id', 'desc');
 
         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->filter(
+        $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
-                'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date', 'last_education',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'health_assurance','dtks'
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
             ])
-        )->whereNot('dtks','=','')
-            ->orderBy('id', 'desc');
+            )->whereNot('dtks','=','')
+                ->orderBy('id', 'desc');
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
         $name =  $request->get('name');
         $genderSelected =  $request->get('gender');
+        $date_birth =  $request->get('date_birth');
+        $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
         $religionSelected =  $request->get('religion');
@@ -1879,7 +1909,7 @@ class CitizenController extends Controller
         $sub_districsSelected =  $request->get('sub_district');
         $districtSelected =  $request->get('district');
         $provinceSelected =  $request->get('province');
-       
+
 
         if ($request->has('gender')) {
             if (!empty($genderSelected))
@@ -1970,6 +2000,8 @@ class CitizenController extends Controller
             $kk,
             $name,
             $genderSelected,
+            $date_birth,
+            $date_birth2,
             $place_birth,
             $religionSelected,
             $address,
@@ -1987,7 +2019,7 @@ class CitizenController extends Controller
             $sub_districsSelected,
             $districtSelected,
             $provinceSelected,
-            
+
         ), 'Laporan Penduduk DTKS.xls');
     }
 

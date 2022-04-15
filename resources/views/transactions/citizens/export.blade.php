@@ -61,7 +61,7 @@
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->gender }}</td>
                 <td>{{ $data->place_birth }}</td>
-                <td>{{ $data->date_birth }}</td>
+                <td>{!! $data->date_birth !!}</td>
                 <td>{{ $data->address }}</td>
                 <td>{{ $data->job }}</td>
                 <td>{{ $data->phone }}</td>

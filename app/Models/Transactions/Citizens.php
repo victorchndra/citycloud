@@ -69,7 +69,7 @@ class Citizens extends Model
     public function dateBirth(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y') . ' <strong>['. Carbon::parse($this->attributes['date_birth'])->age . ' th]</strong>',
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y') . ' <b> ['. Carbon::parse($this->attributes['date_birth'])->age . ' th]</b>',
         );
     }
 

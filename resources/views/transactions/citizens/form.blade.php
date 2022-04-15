@@ -221,12 +221,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control @error('rt') is-invalid @enderror" name="rt" required value="{{ old('rt') }}"/>
-                                @error('rt')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="rt" id="rt" class="form-control">
+                                    @foreach($rts as $rt)
+                                        <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -234,12 +233,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RW</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control @error('rw') is-invalid @enderror" name="rw" required value="{{ old('rw') }}"/>
-                                @error('rw')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="rw" id="rw" class="form-control">
+                                    
+                                    @foreach($rws as $rw)
+                                        <option value="{{ $rw->name }}" @if($rwSelected == $rw->name) {{ 'selected' }} @endif> {{ $rw->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -249,12 +248,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kelurahan / Desa</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('village') is-invalid @enderror" name="village" required value="{{ old('village') }}"/>
-                                @error('village')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="village_name" id="village_name" class="form-control"> 
+                                    @foreach($village as $desa)
+                                        <option value="{{ $desa->village_name }}" @if($villageSelected == $desa->village_name) {{ 'selected' }} @endif> {{ $desa->village_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -262,12 +260,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kecamatan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('districts') is-invalid @enderror" name="districts" required value="{{ old('districts') }}"/>
-                                @error('districts')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="sub_district_name" id="sub_district_name" class="form-control">
+                                    @foreach($sub_districtses as $sub_districts)
+                                        <option value="{{ $sub_districts->sub_district_name }}" @if($sub_districtSelected == $sub_districts->sub_district_name) {{ 'selected' }} @endif> {{ $sub_districts->sub_district_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -277,12 +274,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('sub_districts') is-invalid @enderror" name="sub_districts" required value="{{ old('sub_districts') }}"/>
-                                @error('sub_districts')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="district_name" id="district_name" class="form-control">
+                                    @foreach($districtses as $districts)
+                                        <option value="{{ $districts->district_name }}" @if($districtsSelected == $districts->district_name) {{ 'selected' }} @endif> {{ $districts->district_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -290,12 +286,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Provinsi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('province') is-invalid @enderror" name="province" required value="{{ old('province') }}"/>
-                                @error('province')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                <select name="province_name" id="province_name" class="form-control">
+                                    @foreach($provinces as $province)
+                                        <option value="{{ $province->province_name }}" @if($provinceSelected == $province->province_name) {{ 'selected' }} @endif> {{ $province->province_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
