@@ -34,7 +34,7 @@
             <div class="badge badge-info badge-pill">2</div>
           </a>
         </li>
-       
+
         <li class="nav-item sidebar-category">
           <p>Menu Utama</p>
           <span></span>
@@ -83,7 +83,7 @@
               <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia </a></li>
             </ul>
           </div>
-           
+
     </li>
 
     @guest @else
@@ -91,7 +91,7 @@
     <a class="nav-link" href="/logout" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
     <button class="btn bg-danger btn-lg menu-title"><i class="mdi mdi-arrow-left-bold-circle"></i> Logout</button>
                 </a>
-           
+
           </a>
         </li>
 
@@ -99,8 +99,8 @@
                   @csrf
                   </form>
                 @endif
-                
-   
+
+
       </ul>
     </nav>
     <!-- partial -->
@@ -243,6 +243,9 @@
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <script src="{{asset('/vendors/chart.js/Chart.min.js')}}"></script>
+  {{-- My Custom Javascript --}}
+  <script src="{{asset('/js/script.js')}}" type="text/javascript"></script>
+  {{-- End Custom Javascript --}}
   <script src="{{asset('/js/jquery.cookie.js')}}" type="text/javascript"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->

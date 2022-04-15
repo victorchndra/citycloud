@@ -261,6 +261,8 @@ class Citizens extends Model
             $q->where('kk', 'like', ($filters['kk']) ? ('%' . str_replace('','%20',$filters['kk']) . '%') : '')->get();
         }
         if(isset($filters['date_birth']) && isset($filters['date_birth2'])) {
+            // dd(Carbon::parse($this->attributes['date_birth'])->age);
+
             // $age = Carbon::parse($filters['date_birth'])->format('Y-m-d');
             $age = $filters['date_birth'];
             $age2 = $filters['date_birth2'];
@@ -273,8 +275,6 @@ class Citizens extends Model
             $q->whereDate('date_birth','>=', ($now2 . $tgl))
             ->whereDate('date_birth','<=', ($now . $tgl))
             ->get();
-
-            // Carbon::parse($this->attributes['date_birth'])->age;
         }
         if(isset($filters['place_birth'])) {
             $q->where('place_birth', 'like', ($filters['place_birth']) ? ('%' . str_replace('','%20',$filters['place_birth']) . '%') : '')->get();

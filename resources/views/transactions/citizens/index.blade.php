@@ -92,10 +92,27 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                                <div class="col-sm-9">
-                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" value="">
-                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" value="">
+                                                <label class="col-sm-3 col-form-label">Rentang usia</label>
+                                                <div class="col-sm-9 row">
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="10">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-form-label mySeparator">-</div>
+                                                    </div>
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="60">
+                                                    </div>
+
+                                                    {{-- Slider date birth --}}
+                                                    <div class="slider mt-3 ms-3">
+                                                        <div class="progress"></div>
+                                                    </div>
+                                                    <div class="range-input">
+                                                        <input type="range" class="range-min" min="0" max="120" value="10" class="form-control">
+                                                        <input type="range" class="range-max" min="0" max="120" value="60" class="form-control">
+                                                    </div>
+
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}

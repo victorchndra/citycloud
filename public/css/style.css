@@ -22297,3 +22297,65 @@ dl li {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+
+/* My Custom CSS here */
+.mySeparator {
+    font-size: 1.2rem;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.slider{
+    height: 5px;
+    width: 66%;
+    border-radius: 5px;
+    background: #ddd;
+    position: relative;
+}
+
+.slider .progress{
+    height: 5px;
+    left: 10%;
+    right: 50%;
+    position: absolute;
+    border-radius: 5px;
+    background: #6640b2;
+}
+
+.range-input {
+    position: relative;
+}
+
+.range-input input {
+    position: absolute;
+    top: -5px;
+    height: 5px;
+    width: 67%;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    background: #6640b2;
+}
+
+input[type="range"]::-moz-slider-thumb{
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    pointer-events: auto;
+    -moz-appearance: none;
+    background: #6640b2;
+}
+
+/* End Custom CSS */
