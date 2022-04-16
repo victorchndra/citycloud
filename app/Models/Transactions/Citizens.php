@@ -274,9 +274,16 @@ class Citizens extends Model
 
             $tgl = Carbon::now()->format('-m-d');
 
-            $q->whereDate('date_birth','>=', ($now2 . $tgl))
-            ->whereDate('date_birth','<=', ($now . $tgl))
-            ->get();
+            // $q->whereDate('date_birth','>=', ($now2 . $tgl))
+            // ->whereDate('date_birth','<=', ($now . $tgl))
+            // ->get();
+
+            $q->whereRaw("TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN $age and $age2")->get();
+
+            // $SQL = "
+            // SELECT date_birth, TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5";
+    
+            // $q = (object) (DB::select($SQL));
 
             // $countAge05 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();
         }
@@ -297,6 +304,9 @@ class Citizens extends Model
         }
         if(isset($filters['last_education'])) {
             $q->where('last_education', 'like', ($filters['last_education']) ? ('%' . str_replace('','%20',$filters['last_education']) . '%') : '')->get();
+        }
+        if(isset($filters['disability'])) {
+            $q->where('disability', 'like', ($filters['disability']) ? ('%' . str_replace('','%20',$filters['disability']) . '%') : '')->get();
         }
         if(isset($filters['gender'])) {
             $q->where('gender', 'like', str_replace('','%20',$filters['gender']))->get();

@@ -33,7 +33,8 @@
                     .'&province='.$provinceSelected.
                     '&health_assurance='.$healthAssurancesSelected.
                     '&last_education='.$last_educationSelected.
-                    '&dtks='.$dtksSelected)}}"
+                    '&dtks='.$dtksSelected.
+                    '&disability='.$disabilitySelected)}}"
                     class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
@@ -109,13 +110,13 @@
                                                 <label class="col-sm-3 col-form-label">Rentang usia</label>
                                                 <div class="col-sm-9 row">
                                                     <div class="col-sm-4 birth-input">
-                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="10">
+                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="0">
                                                     </div>
                                                     <div class="col-sm-1">
                                                         <div class="col-form-label mySeparator">-</div>
                                                     </div>
                                                     <div class="col-sm-4 birth-input">
-                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="60">
+                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="120">
                                                     </div>
 
                                                     {{-- Slider date birth --}}
@@ -123,8 +124,8 @@
                                                         <div class="progress"></div>
                                                     </div>
                                                     <div class="range-input">
-                                                        <input type="range" class="range-min" min="0" max="120" value="10" class="form-control">
-                                                        <input type="range" class="range-max" min="0" max="120" value="60" class="form-control">
+                                                        <input type="range" class="range-min" min="0" max="120" value="0" class="form-control">
+                                                        <input type="range" class="range-max" min="0" max="120" value="120" class="form-control">
                                                     </div>
 
                                                     @error('date_birth')
@@ -271,6 +272,19 @@
                                                         <option value="">Semua Asuransi</option>
                                                         @foreach($health_assurances as $health_assurance)
                                                             <option value="{{ $health_assurance->health_assurance }}" @if($healthAssurancesSelected == $health_assurance->health_assurance) {{ 'selected' }} @endif> {{ $health_assurance->health_assurance }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Disabilitas</label>
+                                                <div class="col-sm-9">
+                                                <select name="disability" id="disability" class="form-control">
+                                                        <option value="">Semua Disabilitas</option>
+                                                        @foreach($disabilitys as $disability)
+                                                            <option value="{{ $disability->disability }}" @if($disabilitySelected == $disability->disability) {{ 'selected' }} @endif> {{ $disability->disability }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

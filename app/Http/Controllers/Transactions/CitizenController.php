@@ -45,13 +45,16 @@ class CitizenController extends Controller
         $datas = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
                 'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks','disability'
             ]))->paginate(20)->withQueryString();
 
 
 
 
         $informations = Information::get();
+
+        $disabilitys = Citizens::groupBy('disability')->get();
+        $disabilitySelected =  $request->get('disability');
 
         $place_births = Citizens::groupBy('place_birth')->get();
         $place_birthSelected =  $request->get('place_birth');
@@ -206,6 +209,11 @@ class CitizenController extends Controller
                 $datas->where('last_education', $lastEducationSelected);
         }
 
+        if ($request->has('disability')) {
+            if (!empty($disabilitySelected))
+                $datas->where('disability', $disabilitySelected);
+        }
+
 
 
 
@@ -218,6 +226,8 @@ class CitizenController extends Controller
             'genderSelected',
             'date_birth',
             'date_birth2',
+            'disabilitySelected',
+            'disabilitys',
             'place_birth',
             'address',
             'religionSelected',
@@ -2035,7 +2045,7 @@ class CitizenController extends Controller
         $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
                 'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks'
+                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks','disability'
             ]));
 
         $nik =  $request->get('nik');

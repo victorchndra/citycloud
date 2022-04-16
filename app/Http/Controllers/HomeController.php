@@ -37,8 +37,8 @@ class HomeController extends Controller
         $countAge05 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();
         $countAge610 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 6 and 10')->count();
         $countAge1119 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 11 and 19')->count();
-        $countAge2057 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 20 and 58')->count();
-        $countAge58 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) > 58')->count();
+        $countAge2057 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 20 and 57')->count();
+        $countAge58 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 58 and 120')->count();
 
         $religions = Citizens::groupBy('religion')->get();
         // $religionCounts = Citizens::groupBy('religion')->count();

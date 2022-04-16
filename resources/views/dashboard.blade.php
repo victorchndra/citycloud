@@ -873,7 +873,7 @@
       var regionalChart = new Chart(regionalChartCanvas, {
         type: 'horizontalBar',
         data: {
-          labels: ["0-5 Th", "5-10 Th", "11-19 Th", "20-57 Th", "58+ Th"],
+          labels: ["0-5 Th", "6-10 Th", "11-19 Th", "20-57 Th", "58+ Th"],
           datasets: [
             {
               label: '',
