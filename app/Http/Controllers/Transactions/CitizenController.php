@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Masters\RT;
 use App\Models\Masters\RW;
 //panggil uuid library
-use App\Models\Information;
+use App\Models\Masters\Information;
 
 //definisikan model
 use Illuminate\Http\Request;

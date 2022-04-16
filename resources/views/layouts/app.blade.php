@@ -190,7 +190,7 @@
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                <img src="/images/faces/face5.jpg" alt="profile"/>
+              <i class="mdi mdi-account text-primary"></i>
                 <span class="nav-profile-name">{{ ucwords(Auth::user()->name) }}</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -224,8 +224,8 @@
           <div class="card">
             <div class="card-body">
               <div class="d-sm-flex justify-content-center justify-content-sm-between py-2">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Only the best <a href="https://www.bootstrapdash.com/" target="_blank"> Bootstrap dashboard </a> templates</span>
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="#" target="_blank">Kampung Digital Lembah Sari </a>2022</span>
+             
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@
     <script src="{{asset('/js/jquery.cookie.js')}}" type="text/javascript"></script>
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="{{asset('/js/dashboard.js')}}"></script>
+
   <!-- End custom js for this page-->
 </body>
 

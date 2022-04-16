@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
+use App\Http\Controllers\HomeController;
 use App\Models\Masters\ageRange;
 
 /*
@@ -19,7 +20,7 @@ use App\Models\Masters\ageRange;
 |
 */
 
-Route::get('/',[CitizenController::class, 'index'])->middleware('auth');
+Route::get('/',[HomeController::class, 'index'])->middleware('auth');
 
 
 //jika penggunaan resource, path harus lengkap

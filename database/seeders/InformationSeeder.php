@@ -16,10 +16,10 @@ class InformationSeeder extends Seeder
     public function run()
     {
         //
-        $information = new \App\Models\Information();
+        $information = new \App\Models\Masters\Information();
         $information->uuid = Uuid::uuid4()->getHex();
         $information->letter_index = "474/";
-        $information->village_name = "Rumbai";
+        $information->village_name = "Lembah Sari";
         $information->sub_district_name = "Rumbai Timur";
         $information->district_name = "Pekanbaru";
         $information->province_name = "Riau";

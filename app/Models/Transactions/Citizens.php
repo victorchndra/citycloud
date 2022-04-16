@@ -277,6 +277,8 @@ class Citizens extends Model
             $q->whereDate('date_birth','>=', ($now2 . $tgl))
             ->whereDate('date_birth','<=', ($now . $tgl))
             ->get();
+
+            // $countAge05 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();
         }
         if(isset($filters['place_birth'])) {
             $q->where('place_birth', 'like', ($filters['place_birth']) ? ('%' . str_replace('','%20',$filters['place_birth']) . '%') : '')->get();
