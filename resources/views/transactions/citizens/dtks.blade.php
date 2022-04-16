@@ -6,7 +6,20 @@
             <div class="card-body">
                 <h4 class="card-title">Data Penduduk DTKS</h4>
                 <p class="card-description">
-                    Data Penduduk DTKS Kelurahan Lembah Sari
+                    Data Penduduk Kelurahan 
+                    @foreach($informations as $information)
+                    {{ $information->village_name  }}
+                    @endforeach
+
+                    Kecamatan
+                    @foreach($informations as $information)
+                    {{ $information->sub_district_name  }}
+                    @endforeach
+
+                    Kota
+                    @foreach($informations as $information)
+                    {{ $information->district_name  }}
+                    @endforeach
                 </p>
                 <a href="/dtks" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 

@@ -57,7 +57,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" required value="{{ old('date_birth') }}"/>
+                                <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('date_birth') }}"/>
                                 @error('date_birth')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -105,6 +105,7 @@
                                     <option value="Buddha">Buddha</option>
                                     <option value="Hindu">Hindu</option>
                                     <option value="Konghucu">Konghucu</option>
+                                    <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
                                 </select>
                             </div>
                         </div>
@@ -117,6 +118,7 @@
                                     <option value="kepala keluarga">Kepala keluarga</option>
                                     <option value="istri">Istri</option>
                                     <option value="anak">Anak</option>
+                                    <option value="famili lain">Famili</option>
                                 </select>
                             </div>
                         </div>
@@ -128,6 +130,7 @@
                             <label class="col-sm-3 col-form-label">Golongan Darah</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="blood">
+                                    <option value="-">-</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="AB">AB</option>
@@ -155,7 +158,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" required value="{{ old('phone') }}">
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" required value="{{ old('phone') }}">
                                 @error('phone')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -169,8 +172,9 @@
                             <label class="col-sm-3 col-form-label">Status Pernikahan</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="marriage">
-                                    <option value="Belum Kawen">Belum Menikah</option>
-                                    <option value="Kawin Tercatat">Sudah Menikah</option>
+                                    <option value="Belum Kawin">Belum Kawin</option>
+                                    <option value="Kawin Tercatat">Kawin Tercatat</option>
+                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>  
                                 </select>
                             </div>
                         </div>
@@ -193,6 +197,49 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama Ayah</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="father_name" class="form-control @error('father_name') is-invalid @enderror" required value="{{ old('father_name') }}"/>
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama Ibu</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="mother_name" class="form-control @error('mother_name') is-invalid @enderror" required value="{{ old('mother_name') }}"/>
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Disabilitas</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="disability">
+                                    <option value="t">Tidak</option>
+                                    <option value="tuna rungu">Tuna Rungu</option>
+                                    <option value="tuna wicara">Tuna Wicara</option>
+                                    <option value="tuna daksa">Tuna Daksa</option>
+                                    <option value="tuna netra">Tuna Netra</option>
+                                    <option value="tuna laras">Tuna Laras</option>
+                                    <option value="tuna grahita">Tuna Grahita</option>
+                                    <option value="tuna ganda">Tuna Ganda</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -222,6 +269,7 @@
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
                                 <select name="rt" id="rt" class="form-control">
+                                    
                                     @foreach($rts as $rt)
                                         <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
                                     @endforeach
@@ -234,7 +282,6 @@
                             <label class="col-sm-3 col-form-label">RW</label>
                             <div class="col-sm-9">
                                 <select name="rw" id="rw" class="form-control">
-                                    
                                     @foreach($rws as $rw)
                                         <option value="{{ $rw->name }}" @if($rwSelected == $rw->name) {{ 'selected' }} @endif> {{ $rw->name }}</option>
                                     @endforeach
@@ -248,7 +295,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kelurahan / Desa</label>
                             <div class="col-sm-9">
-                                <select name="village_name" id="village_name" class="form-control"> 
+                                <select name="village" id="village" class="form-control"> 
                                     @foreach($village as $desa)
                                         <option value="{{ $desa->village_name }}" @if($villageSelected == $desa->village_name) {{ 'selected' }} @endif> {{ $desa->village_name }}</option>
                                     @endforeach
@@ -260,7 +307,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kecamatan</label>
                             <div class="col-sm-9">
-                                <select name="sub_district_name" id="sub_district_name" class="form-control">
+                                <select name="sub_districts" id="sub_districts" class="form-control">
                                     @foreach($sub_districtses as $sub_districts)
                                         <option value="{{ $sub_districts->sub_district_name }}" @if($sub_districtSelected == $sub_districts->sub_district_name) {{ 'selected' }} @endif> {{ $sub_districts->sub_district_name }}</option>
                                     @endforeach
@@ -274,7 +321,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
                             <div class="col-sm-9">
-                                <select name="district_name" id="district_name" class="form-control">
+                                <select name="districts" id="districts" class="form-control">
                                     @foreach($districtses as $districts)
                                         <option value="{{ $districts->district_name }}" @if($districtsSelected == $districts->district_name) {{ 'selected' }} @endif> {{ $districts->district_name }}</option>
                                     @endforeach
@@ -286,52 +333,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Provinsi</label>
                             <div class="col-sm-9">
-                                <select name="province_name" id="province_name" class="form-control">
+                                <select name="province" id="province" class="form-control">
                                     @foreach($provinces as $province)
                                         <option value="{{ $province->province_name }}" @if($provinceSelected == $province->province_name) {{ 'selected' }} @endif> {{ $province->province_name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="card-description my-3 text-muted">
-                    Lanjutan
-                </p>
-                <hr class="text-muted">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Pindah</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control @error('move_date') is-invalid @enderror" name="move_date" value="{{ old('move_date') }}"/>
-                                @error('move_date')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pindah Ke</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control @error('move_to') is-invalid @enderror" name="move_to" value="{{ old('move_to') }}"/>
-                               
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Meninggal</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control @error('death_date') is-invalid @enderror" name="death_date" value="{{ old('death_date') }}"/>
-                                @error('death_date')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
                             </div>
                         </div>
                     </div>

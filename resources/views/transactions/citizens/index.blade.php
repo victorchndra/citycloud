@@ -6,7 +6,21 @@
             <div class="card-body">
                 <h4 class="card-title">Data Penduduk</h4>
                 <p class="card-description">
-                    Data Penduduk Kelurahan Lembah Sari
+                    Data Penduduk Kelurahan 
+                    @foreach($informations as $information)
+                    {{ $information->village_name  }}
+                    @endforeach
+
+                    Kecamatan
+                    @foreach($informations as $information)
+                    {{ $information->sub_district_name  }}
+                    @endforeach
+
+                    Kota
+                    @foreach($informations as $information)
+                    {{ $information->district_name  }}
+                    @endforeach
+  
                 </p>
                 <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i
@@ -481,13 +495,14 @@
                 @endforeach
 
 
+                @if($datas->isEmpty())
                 <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
                     data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
 
                 <div class="modal" id="importModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            <form action="{{ route('citizens.import') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('citizens.import') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -502,6 +517,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
+
 
 
                 @if (session()->has('success'))

@@ -6,7 +6,21 @@
             <div class="card-body">
                 <h4 class="card-title">Data Penduduk Pindah</h4>
                 <p class="card-description">
-                    Data Penduduk Kelurahan Lembah Sari
+                    Data Penduduk Kelurahan 
+                    @foreach($informations as $information)
+                    {{ $information->village_name  }}
+                    @endforeach
+
+                    Kecamatan
+                    @foreach($informations as $information)
+                    {{ $information->sub_district_name  }}
+                    @endforeach
+
+                    Kota
+                    @foreach($informations as $information)
+                    {{ $information->district_name  }}
+                    @endforeach
+                    
                 </p>
                 <a href="/move" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->

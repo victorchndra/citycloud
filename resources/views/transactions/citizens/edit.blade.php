@@ -1,5 +1,15 @@
 @extends("layouts.app")
-
+<script>
+ $(function(){
+        $("#to").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#from").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+            var minValue = $(this).val();
+            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+            minValue.setDate(minValue.getDate()+1);
+            $("#to").datepicker( "option", "minDate", minValue );
+        })
+    });
+</script>
 @section('content')
 <div class="col-12 grid-margin">
     <div class="card">
@@ -59,17 +69,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                {{-- <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" required value="{{ old('date_birth', $c->date_birth) }}"/> --}}
-                                <input type="date" name="date_birth" id="date_birth" class="form-control @error('date_birth') is-invalid @enderror" placeholder="dd/mm/yyyy" value="@if(!empty($c)){{ $c->date_birth }}@else{{ old('date_birth') }}@endif" required/>
-                                @error('date_birth')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
+                            <input type="date" class="form-control @error('date_birth') is-invalid @enderror" name="date_birth" id="date" required value="{{ date('Y-m-d', strtotime($c->date_birth))}}">
+                        </div>
                         </div>
                     </div>
                 </div>
+        
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -114,6 +119,7 @@
                                         <option value="Buddha">Buddha</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="khonghucu">Konghucu</option>
+                                        <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
                                     @elseif (old('religion', 'Kristen Katolik') == $c->religion)
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen Katolik" selected>Kristen Katolik</option>
@@ -121,6 +127,7 @@
                                         <option value="Buddha">Buddha</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="Konghucu">Konghucu</option>
+                                        <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
                                     @elseif (old('religion', 'Kristen Protestan') == $c->religion)
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen Katolik">Kristen Katolik</option>
@@ -128,6 +135,7 @@
                                         <option value="Buddha">Buddha</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="Konghucu">Konghucu</option>
+                                        <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
                                     @elseif (old('religion', 'Buddha') == $c->religion)
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen Katolik">Kristen Katolik</option>
@@ -135,6 +143,7 @@
                                         <option value="Buddha" selected>Buddha</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="Konghucu">Konghucu</option>
+                                        <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
                                     @elseif (old('religion', 'Hindu') == $c->religion)
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen Katolik">Kristen Katolik</option>
@@ -142,6 +151,7 @@
                                         <option value="Buddha">Buddha</option>
                                         <option value="Hindu" selected>Hindu</option>
                                         <option value="Konghucu">Konghucu</option>
+                                        <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
                                     @elseif (old('religion', 'Konghucu') == $c->religion)
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen Katolik">Kristen Katolik</option>
@@ -149,6 +159,15 @@
                                         <option value="Buddha">Buddha</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="Konghucu" selected>Konghucu</option>
+                                        <option value="Aliran Kepercayaan">Aliran Kepercayaan</option>
+                                    @elseif (old('religion', 'Aliran Kepercayaan') == $c->religion)
+                                        <option value="Islam">Islam</option>
+                                        <option value="Kristen Katolik">Kristen Katolik</option>
+                                        <option value="Kristen Protestan">Kristen Protestan</option>
+                                        <option value="Buddha">Buddha</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Konghucu">Konghucu</option>
+                                        <option value="Aliran Kepercayaan" selected>Aliran Kepercayaan</option>
                                     @endif
                                 </select>
                             </div>
@@ -163,14 +182,22 @@
                                     <option value="kepala keluarga" selected>Kepala keluarga</option>
                                     <option value="istri">Istri</option>
                                     <option value="anak">Anak</option>
+                                    <option value="famili lain">Famili Lain</option>
                                     @elseif (old('family_status', 'Istri') == $c->family_status)
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" selected>Istri</option>
                                     <option value="anak">Anak</option>
+                                    <option value="famili lain">Famili Lain</option>
                                     @elseif (old('family_status', 'Anak') == $c->family_status)
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" >Istri</option>
                                     <option value="anak" selected>Anak</option>
+                                    <option value="famili lain">Famili Lain</option>
+                                    @else
+                                    <option value="kepala keluarga" >Kepala keluarga</option>
+                                    <option value="istri" >Istri</option>
+                                    <option value="anak">Anak</option>
+                                    <option value="famili lain">Famili Lain</option>
                                     @endif
                                 </select>                            
                             </div>
@@ -184,25 +211,35 @@
                             <div class="col-sm-9">
                                 <select class="form-control" name="blood">
                                     @if (old('blood', 'A') == $c->blood)
+                                    <option value="-">-</option>
                                     <option value="A" selected>A</option>
                                     <option value="B">B</option>
                                     <option value="AB">AB</option>
                                     <option value="O">O</option>
                                     @elseif (old('blood', 'B') == $c->blood)
+                                    <option value="-">-</option>
                                     <option value="A">A</option>
                                     <option value="B" selected>B</option>
                                     <option value="AB">AB</option>
                                     <option value="O">O</option>
                                     @elseif (old('blood', 'AB') == $c->blood)
+                                    <option value="-">-</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="AB" selected>AB</option>
                                     <option value="O">O</option>
                                     @elseif (old('blood', 'O') == $c->blood)
+                                    <option value="-">-</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="AB">AB</option>
                                     <option value="O" selected>O</option>
+                                    @elseif (old('blood', '-') == $c->blood)
+                                    <option value="-" selected>-</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="AB">AB</option>
+                                    <option value="O">O</option>
                                     @endif
                                 </select>
                             </div>
@@ -241,12 +278,18 @@
                             <label class="col-sm-3 col-form-label">Status Pernikahan</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="marriage">
-                                    @if (old('marriage', 'Belum Kawen') == $c->marriage)
-                                    <option value="Belum Kawen" selected>Belum Menikah</option>
-                                    <option value="Kawin Tercatat">Sudah Menikah</option>
+                                    @if (old('marriage', 'Belum Kawin') == $c->marriage)
+                                    <option value="Belum Kawin" selected>Belum Kawin</option>
+                                    <option value="Kawin Tercatat">Kawin Tercatat</option>
+                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
                                     @elseif (old('marriage', 'Kawin Tercatat') == $c->marriage)
-                                    <option value="Belum Kawen">Belum Menikah</option>
+                                    <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" selected>Sudah Menikah</option>
+                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
+                                    @elseif (old('marriage', 'Kawin Tidak Tercatat') == $c->marriage)
+                                    <option value="Belum Kawin">Belum Menikah</option>
+                                    <option value="Kawin Tercatat" >Sudah Menikah</option>
+                                    <option value="Kawin Tidak Tercatat" selected>Kawin Tidak Tercatat</option>
                                     @endif
                                 </select>
                             </div>
@@ -272,7 +315,44 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>                  
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama Ayah</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="father_name" class="form-control @error('health_assurance') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('father_name', $c->father_name) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama Ibu</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="mother_name" class="form-control @error('health_assurance') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('mother_name', $c->mother_name) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Disabilitas</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="disability">
+                                   
+                                    <option value="t" selected>Tidak</option>
+                                    <option value="tuna rungu">Tuna Rungu</option>
+                                    <option value="tuna wicara">Tuna Wicara</option>
+                                    <option value="tuna daksa">Tuna Daksa</option>
+                                    <option value="tuna netra">Tuna Netra</option>
+                                    <option value="tuna laras">Tuna Laras</option>
+                                    <option value="tuna grahita">Tuna Grahita</option>
+                                    <option value="tuna ganda">Tuna Ganda</option>
+                                 
+                                    
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>               
                 </div>
                 <p class="card-description my-3 text-muted">
                     Alamat
@@ -293,25 +373,15 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                <select name="rt" id="rt" class="form-control">
-                                    <option value="">Semua RT</option>
-                                    @foreach($rts as $rt)
-                                        <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
-                                    @endforeach
-                                </select>
+                                    <input class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" required value="{{ old('rt', $c->rt) }}"></input>               
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RW</label>
-                            <div class="col-sm-9">
-                                <select name="rw" id="rw" class="form-control">
-                                    <option value="">Semua RW</option>
-                                    @foreach($rws as $rw)
-                                        <option value="{{ $rw->name }}" @if($rwSelected == $rw->name) {{ 'selected' }} @endif> {{ $rw->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-sm-9">       
+                                    <input class="form-control @error('address') is-invalid @enderror" name="rw" id="rw" required value="{{ old('rw', $c->rw) }}"></input>
                             </div>
                         </div>
                     </div>
@@ -321,8 +391,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Desa</label>
                             <div class="col-sm-9">
-                                <select name="village_name" id="village_name" class="form-control">
-                                    
+                                <select name="village" id="village" class="form-control">
                                     @foreach($village as $desa)
                                         <option value="{{ $desa->village_name }}" @if($villageSelected == $desa->village_name) {{ 'selected' }} @endif> {{ $desa->village_name }}</option>
                                     @endforeach
@@ -332,11 +401,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
+                            <label class="col-sm-3 col-form-label">Kecamatan</label>
                             <div class="col-sm-9">
-                                <select name="district_name" id="district_name" class="form-control">
-                                    @foreach($districtses as $districts)
-                                        <option value="{{ $districts->district_name }}" @if($districtsSelected == $districts->district_name) {{ 'selected' }} @endif> {{ $districts->district_name }}</option>
+                                <select name="sub_districts" id="sub_districts" class="form-control">
+                                    @foreach($sub_districtses as $sub_districts)
+                                        <option value="{{ $sub_districts->sub_district_name }}" @if($sub_districtSelected == $sub_districts->sub_district_name) {{ 'selected' }} @endif> {{ $sub_districts->sub_district_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -344,13 +413,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Kecamatan</label>
+                            <label class="col-sm-3 col-form-label">Kota / Kabupaten</label>
                             <div class="col-sm-9">
-                                <select name="sub_district_name" id="sub_district_name" class="form-control">
-                                    @foreach($sub_districtses as $sub_districts)
-                                        <option value="{{ $sub_districts->sub_district_name }}" @if($sub_districtSelected == $sub_districts->sub_district_name) {{ 'selected' }} @endif> {{ $sub_districts->sub_district_name }}</option>
+                                <select name="districts" id="districts" class="form-control">
+                                    @foreach($districtses as $districts)
+                                        <option value="{{ $districts->district_name }}" @if($districtsSelected == $districts->district_name) {{ 'selected' }} @endif> {{ $districts->district_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -360,56 +429,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Provinsi</label>
                             <div class="col-sm-9">
-                                <select name="province_name" id="province_name" class="form-control">
+                                <select name="province" id="province" class="form-control">
                                     @foreach($provinces as $province)
                                         <option value="{{ $province->province_name }}" @if($provinceSelected == $province->province_name) {{ 'selected' }} @endif> {{ $province->province_name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="card-description my-3 text-muted">
-                    Lanjutan
-                </p>
-                <hr class="text-muted">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Pindah</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control @error('move_date') is-invalid @enderror" name="move_date" value="{{ old('move_date', $c->move_date) }}"/>
-                                @error('move_date')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pindah Ke</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control @error('move_to') is-invalid @enderror" name="move_to" value="{{ old('move_to', $c->move_to) }}"/>
-                                @error('move_to')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Meninggal</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control @error('death_date') is-invalid @enderror" name="death_date" value="{{ old('death_date', $c->death_date) }}"/>
-                                @error('death_date')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -478,13 +502,8 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    @if (old('dtks', 'Y') == $c->dtks)
-                                    <option value="y" selected>Ya</option>
-                                    <option value="t">Tidak</option>
-                                    @elseif (old('dtks', 'T')== $c->dtks)
+                                     <option value="t" selected>Tidak</option>
                                     <option value="y">Ya</option>
-                                    <option value="t" selected>Tidak</option>
-                                    @endif
                                 </select>
                             </div>
                         </div>

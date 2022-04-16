@@ -64,8 +64,8 @@
                     <button type="submit" class="btn btn-primary submit-btn btn-block">Login</button>
                 </div>
                 <div class="text-block text-center my-3">
-                <span class="text-small font-weight-semibold">Hospicloud 2.0 Copyright By</span>
-                    <a href="https://hoscloud.co.id/" target="_blank" class="text-small">HOSCLOUD.CO.ID</a>
+                <span class="text-small font-weight-semibold">Sipend 2.0 Copyright By</span>
+                    <a href="#" target="_blank" class="text-small">Kampung Digital RW002 Lembah Sari</a>
                 </div>
             </form>
               
