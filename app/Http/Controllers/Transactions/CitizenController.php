@@ -2144,6 +2144,11 @@ class CitizenController extends Controller
                 $data->where('province', $provinceSelected);
         }
 
+        
+
+        // $data = Citizens::orderBy('kk', 'desc');
+        $data->orderBy('kk', 'desc');
+
         $datas = $data->get();
 
         $log = [
