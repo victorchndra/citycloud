@@ -33,6 +33,8 @@ Route::resource("citizens", "App\Http\Controllers\Transactions\CitizenController
 Route::resource("users", "App\Http\Controllers\UserController")->middleware('auth');
 Route::get("/users/{users:uuid}/edit/password", [UserController::class, 'changePassword'])->name('users.changePassword')->middleware('auth');
 
+Route::get("/citizens/{citizens:uuid}/show", [CitizenController::class, 'showKK'])->name('citizens.view')->middleware('auth');
+
 Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('auth');
 
 //jika penggunaan resource, path harus lengkap

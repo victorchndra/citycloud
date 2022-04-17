@@ -175,6 +175,8 @@
                                     <option value="Belum Kawin">Belum Kawin</option>
                                     <option value="Kawin Tercatat">Kawin Tercatat</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>  
+                                    <option value="Cerai Hidup">Cerai Hidup</option>  
+                                    <option value="Cerai Mati">Cerai Mati</option>  
                                 </select>
                             </div>
                         </div>
@@ -231,7 +233,7 @@
                             <label class="col-sm-3 col-form-label">Disabilitas</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="disability">
-                                    <option value="t">Tidak</option>
+                                    <option value="tidak">Tidak</option>
                                     <option value="tuna rungu">Tuna Rungu</option>
                                     <option value="tuna wicara">Tuna Wicara</option>
                                     <option value="tuna daksa">Tuna Daksa</option>
@@ -392,8 +394,8 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    <option value="y" >Ya</option>
-                                    <option value="t" selected>Tidak</option>                            
+                                    <option value="ya" >Ya</option>
+                                    <option value="tidak" selected>Tidak</option>                            
                                 </select>
                             </div>
                         </div>

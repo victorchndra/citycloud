@@ -282,14 +282,32 @@
                                     <option value="Belum Kawin" selected>Belum Kawin</option>
                                     <option value="Kawin Tercatat">Kawin Tercatat</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
+                                    <option value="Cerai Hidup">Cerai Hidup</option>  
+                                    <option value="Cerai Mati">Cerai Mati</option>  
                                     @elseif (old('marriage', 'Kawin Tercatat') == $c->marriage)
                                     <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" selected>Sudah Menikah</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
+                                    <option value="Cerai Hidup">Cerai Hidup</option>  
+                                    <option value="Cerai Mati">Cerai Mati</option>  
                                     @elseif (old('marriage', 'Kawin Tidak Tercatat') == $c->marriage)
                                     <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" >Sudah Menikah</option>
                                     <option value="Kawin Tidak Tercatat" selected>Kawin Tidak Tercatat</option>
+                                    <option value="Cerai Hidup">Cerai Hidup</option>  
+                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    @elseif (old('marriage', 'Cerai Hidup') == $c->marriage)
+                                    <option value="Belum Kawin">Belum Menikah</option>
+                                    <option value="Kawin Tercatat" >Sudah Menikah</option>
+                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
+                                    <option value="Cerai Hidup" selected>Cerai Hidup</option>  
+                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    @elseif (old('marriage', 'Cerai Mati') == $c->marriage)
+                                    <option value="Belum Kawin">Belum Menikah</option>
+                                    <option value="Kawin Tercatat" >Sudah Menikah</option>
+                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
+                                    <option value="Cerai Hidup">Cerai Hidup</option>  
+                                    <option value="Cerai Mati" selected>Cerai Mati</option>  
                                     @endif
                                 </select>
                             </div>
@@ -338,7 +356,7 @@
                             <div class="col-sm-9">
                                 <select class="form-control" name="disability">
                                    
-                                    <option value="t" selected>Tidak</option>
+                                    <option value="tidak" selected>Tidak</option>
                                     <option value="tuna rungu">Tuna Rungu</option>
                                     <option value="tuna wicara">Tuna Wicara</option>
                                     <option value="tuna daksa">Tuna Daksa</option>
@@ -502,8 +520,8 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                     <option value="t" selected>Tidak</option>
-                                    <option value="y">Ya</option>
+                                     <option value="tidak" selected>Tidak</option>
+                                    <option value="ya">Ya</option>
                                 </select>
                             </div>
                         </div>

@@ -601,6 +601,8 @@
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>Disabilitas : </b>
+                                        <span>{{ $data->disability ?? '-' }}</span></span>
 
                                 </td>
                                 <td>
@@ -616,6 +618,8 @@
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>DTKS : </b>
+                                        <span>{{ $data->dtks ?? '-' }}</span></span>
                                 </td>
                                 <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
                                         <span>{{$data->created_at, 'd M Y'}}</span><br>
@@ -630,13 +634,15 @@
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
+
+                                            <a href="/citizens/{{ $data->uuid }}/show"
+                                                    class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
+                                                <div class="dropdown-divider"></div>
+                                                
                                                 <a href="/citizens/{{ $data->uuid }}/edit"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
 
-                                                <a href="/citizens/{{ $data->uuid }}/show"
-                                                    class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
-                                                <div class="dropdown-divider"></div>
 
                                                 {{-- Move Button --}}
                                                 <button class="dropdown-item" data-bs-toggle="modal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate2').val($(this).data('id')); $('#moveModal').modal('show');"><i class="mdi mdi-folder-move"></i> Pindah</button>

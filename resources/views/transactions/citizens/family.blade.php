@@ -460,7 +460,6 @@
                                 <th>Nama</th>
                                 <th>NIK/KK</th>
                                 <th colspan="2"><center>Informasi</center></th>
-                                <th>Anggota Keluarga</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -519,8 +518,7 @@
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
                                         <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
-                                </td>
-                                <td>
+                              
                                 @if (is_array($data->kk) || is_object($data->kk))
                                 @foreach ($data->kk as $value)
                                 {{$value->family_status}}
@@ -533,25 +531,9 @@
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                {{-- <a href="/citizens/{{ $data->uuid }}/edit"
-                                                    class="dropdown-item">Edit</a> --}}
-                                                {{-- <div class="dropdown-divider"></div> --}}
-
-                                                <form action="/death/{{ $data->uuid }}">
-                                                    @csrf
-                                                    <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
-                                                </form>
-
-
-                                                <form class="d-none invisible"
-                                                    action="/citizens/destroy/{{$data->uuid}}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus</button>
-                                                </form>
-
+                                            <a href="/citizens/{{ $data->uuid }}/show"
+                                                    class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
+                                                <div class="dropdown-divider"></div>
                                             </div>
                                         </div>
                                     </div>

@@ -552,6 +552,20 @@ class CitizenController extends Controller
     }
 
         // ---------------------FAMILY AREA ------------------
+        
+        public function showKK($uuid)
+        {
+
+            $citizen = Citizens::where('uuid', $uuid)->get();
+
+            $data = Citizens::where('uuid', '=', $uuid)->first();
+            $families = Citizens::where('kk','=',$data->kk)->orderBy('family_status','desc')->get();
+            // $families = Citizens::where('kk',$data->kk)->orderBy('family_status','desc')->get();
+
+            return view('transactions.citizens.show', compact('citizen','families','data'));
+        }
+
+        
         // View Family
         public function familyCitizens(Request $request){
             $datas = Citizens::latest()->filter(
