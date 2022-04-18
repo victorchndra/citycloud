@@ -88,7 +88,7 @@
 
     @guest @else
     <li class="nav-item">
-    <a class="nav-link" href="/logout" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
+    <a class="nav-link" href="/logout/{{  }}" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
     <button class="btn bg-danger btn-lg menu-title"><i class="mdi mdi-arrow-left-bold-circle"></i> Logout</button>
                 </a>
 
@@ -225,7 +225,7 @@
             <div class="card-body">
               <div class="d-sm-flex justify-content-center justify-content-sm-between py-2">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="#" target="_blank">Kampung Digital Lembah Sari </a>2022</span>
-             
+
               </div>
             </div>
           </div>
