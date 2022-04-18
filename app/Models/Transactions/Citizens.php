@@ -21,7 +21,7 @@ class Citizens extends Model
     protected $guarded = [];
     protected $dates = ['deleted_at','date_birth'];
 
-    
+
 
     //ACESSOR
      //ini biar semua yg ke model ini kolom nama jadi huruf besar.mantab. ga perlu ke view 1 1 strtoupper
@@ -70,8 +70,8 @@ class Citizens extends Model
     public function dateBirth(): Attribute
     {
         return new Attribute(
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'). ' <b> ['. Carbon::parse($this->attributes['date_birth'])->age . ' th]</b>',
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'). ' <b> ['. Carbon::parse($this->attributes['date_birth'])->age . ' th]</b>',
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
     }
 
@@ -282,7 +282,7 @@ class Citizens extends Model
 
             // $SQL = "
             // SELECT date_birth, TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5";
-    
+
             // $q = (object) (DB::select($SQL));
 
             // $countAge05 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();

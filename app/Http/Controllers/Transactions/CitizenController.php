@@ -324,8 +324,8 @@ class CitizenController extends Controller
             'date_birth' => 'required|date',
             'place_birth' => 'required',
             'religion' => 'required',
-            'job' => 'required',
-            'phone' => 'required',
+            'job' => 'nullable',
+            'phone' => 'nullable',
             'marriage' => 'required',
             'move_to' => 'nullable',
             'move_date' => 'date|nullable',
@@ -344,10 +344,10 @@ class CitizenController extends Controller
             'province' => 'nullable',
             'address' => 'required',
             'dtks'=> 'required',
-            'last_education' => 'required',
-            'health_assurance' => 'required',
-            'father_name' => 'required',
-            'mother_name' => 'required',
+            'last_education' => 'nullable',
+            'health_assurance' => 'nullable',
+            'father_name' => 'nullable',
+            'mother_name' => 'nullable',
             'disability' => 'required',
         ]);
 
@@ -413,7 +413,7 @@ class CitizenController extends Controller
         // $family_statusSelected =  $request->get('family_status');
 
         $citizen = Citizens::where('uuid', $uuid)->get();
-        
+
         return view('transactions.citizens.edit', compact('citizen','rws','rwSelected','rts','rtSelected',
     'village','villageSelected','districtses','districtsSelected','sub_districtses','sub_districtSelected',
     'provinces','provinceSelected'));
@@ -483,15 +483,15 @@ class CitizenController extends Controller
             'name' => 'required|max:255',
             'date_birth' => 'required|date',
             'place_birth' => 'required',
-            'religion' => 'required',
-            'job' => 'required',
-            'phone' => 'required',
-            'marriage' => 'required',
+            'religion' => 'nullable',
+            'job' => 'nullable',
+            'phone' => 'nullable',
+            'marriage' => 'nullable',
             'move_date' => 'date|nullable',
             'death_date' => 'date|nullable',
-            'gender' => 'required',
-            'family_status' => 'required',
-            'blood' => 'required',
+            'gender' => 'nullable',
+            'family_status' => 'nullable',
+            'blood' => 'nullable',
             'vaccine_1' => 'nullable',
             'vaccine_2' => 'nullable',
             'vaccine_3' => 'nullable',
@@ -501,11 +501,13 @@ class CitizenController extends Controller
             'sub_districts' => 'nullable',
             'districts' => 'nullable',
             'province' => 'nullable',
-            'address' => 'required',
-            'dtks'=> 'required',
-            'last_education' => 'required',
+            'address' => 'nullable',
+            'dtks'=> 'nullable',
+            'last_education' => 'nullable',
             'move_to' => 'nullable',
-            'health_assurance' => 'required',
+            'health_assurance' => 'nullable',
+            'father_name' => 'nullable',
+            'mother_name' => 'nullable',
         ]);
 
         if ($validatedData) {
@@ -552,7 +554,7 @@ class CitizenController extends Controller
     }
 
         // ---------------------FAMILY AREA ------------------
-        
+
         public function showKK($uuid)
         {
 
@@ -565,7 +567,7 @@ class CitizenController extends Controller
             return view('transactions.citizens.show', compact('citizen','families','data'));
         }
 
-        
+
         // View Family
         public function familyCitizens(Request $request){
             $datas = Citizens::latest()->filter(
@@ -1237,6 +1239,9 @@ class CitizenController extends Controller
 
         $informations = Information::get();
 
+        $disabilitys = Citizens::groupBy('disability')->get();
+        $disabilitySelected =  $request->get('disability');
+
         $place_births = Citizens::groupBy('place_birth')->get();
         $place_birthSelected =  $request->get('place_birth');
 
@@ -1391,6 +1396,11 @@ class CitizenController extends Controller
                 $datas->where('last_education', $lastEducationSelected);
         }
 
+        if ($request->has('disability')) {
+            if (!empty($disabilitySelected))
+                $datas->where('disability', $disabilitySelected);
+        }
+
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.citizens.death', compact(
             'datas',
@@ -1399,6 +1409,8 @@ class CitizenController extends Controller
             'name',
             'genderSelected',
             'place_birth',
+            'disabilitySelected',
+            'disabilitys',
             'date_birth',
             'date_birth2',
             'address',
@@ -1453,9 +1465,7 @@ class CitizenController extends Controller
     {
 
         // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->filter(request(['name','nik','kk','gender','date_birth','address','place_birth','religion','family_status','blood',
-        'job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date',
-        'rt','rw','village','sub_districts','districts','province','last_education','health_assurance'])
+        $data = Citizens::latest()->filter(request(['name','nik','kk','gender','date_birth','address','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date', 'rt','rw','village','sub_districts','districts','province','last_education','health_assurance','disability'])
         )->whereNotNull('death_date');
 
         $nik =  $request->get('nik');
@@ -1557,6 +1567,8 @@ class CitizenController extends Controller
             if (!empty($lastEducationSelected))
                 $data->where('lastEducation',$lastEducationSelected);
         }
+
+        $data->orderBy('kk', 'desc');
 
         $datas = $data->get();
 
@@ -2168,7 +2180,7 @@ class CitizenController extends Controller
                 $data->where('province', $provinceSelected);
         }
 
-        
+
 
         // $data = Citizens::orderBy('kk', 'desc');
         $data->orderBy('kk', 'desc');

@@ -4,16 +4,16 @@
     <div class="col-12 col-xl-6 grid-margin stretch-card">
         <div class="row w-100 flex-grow">
             <div class="col-md-12 grid-margin stretch-card">
-                
+
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-title">  Data Penduduk Kelurahan 
+                        <p class="card-title">  Data Penduduk Kelurahan
                     @foreach($informations as $information)
                     {{ $information->village_name  }}
                     @endforeach
                        </p>
-                       
-                        <p class="text-muted">  
+
+                        <p class="text-muted">
                           Kecamatan
                     @foreach($informations as $information)
                     {{ $information->sub_district_name  }}
@@ -29,8 +29,8 @@
                                     <div class="item">
                                         <p class="mb-">Penduduk Aktif</p>
                                         <h1 class="font-weight-bold mb-0">{{$countCitizens}}</h1>
-                                   
-                  
+
+
                                         <div class="color-border"></div>
                                     </div>
                                     <div class="item">
@@ -68,7 +68,7 @@
                         <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countMove}}</h1>
                             <a href="/move" class="link-primary">Penduduk Pindah</a>
                         </div>
-                   
+
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countDtks}}</h1>
                         <a href="/dtks" class="link-primary">Selengkapnya</a>
                         </div>
-                   
+
                     </div>
                 </div>
             </div>
@@ -102,16 +102,16 @@
                         <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countDeath}}</h1>
                         <a href="/death" class="link-primary">Selengkapnya</a>
                         </div>
-                   
+
                     </div>
                 </div>
             </div>
 
         </div>
 
-        
+
     </div>
-    
+
     <div class="col-12 col-xl-6 grid-margin stretch-card">
         <div class="row w-100 flex-grow">
             <div class="col-md-6 grid-margin stretch-card">
@@ -124,7 +124,7 @@
                         <canvas height="280" id="regional-chart"></canvas>
                           <!-- <p class="text">0-5 Th: <b>{{$countAge05}}</b> | 6-10 Th: <b>{{$countAge610}}</b>| 11-19 Th: <b>{{$countAge1119}} </b>
                           | 20-57 Th: <b>{{$countAge2057}}</b> 58+ Th: <b>{{$countAge58}}</b></p> -->
-                         
+
                     </div>
                 </div>
             </div>
@@ -182,8 +182,8 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
 
 
             <div class="col-md-6 stretch-card">
@@ -193,9 +193,9 @@
                         <div class="d-flex justify-content-between flex-wrap">
                             <p class="text-muted">Data pernikahan</p>
                             <div class="d-flex align-items-center flex-wrap server-status-legend mt-3 mb-3 mb-md-0">
-                            
-                                   
-                               
+
+
+
                             </div>
                         </div>
                     </div>
@@ -210,9 +210,9 @@
                         <div class="d-flex justify-content-between flex-wrap">
                             <p class="text-muted">Last update: 2 Hours ago</p>
                             <div class="d-flex align-items-center flex-wrap server-status-legend mt-3 mb-3 mb-md-0">
-                                
-                               
-                  
+
+
+
                             </div>
                         </div>
                     </div>
@@ -222,21 +222,21 @@
 
         </div>
     </div>
-   
+
 
     <div class="col-12 col-xl-6 grid-margin stretch-card">
         <div class="row w-100 flex-grow">
-            
+
         <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <p class="card-title">Berdasarkan Pendidikan</p>
                         <p class="text-muted"></p>
-                    
+
                         <canvas height="300" id="education-chart"></canvas>
                           <!-- <p class="text">0-5 Th: <b>{{$countAge05}}</b> | 6-10 Th: <b>{{$countAge610}}</b>| 11-19 Th: <b>{{$countAge1119}} </b>
                           | 20-57 Th: <b>{{$countAge2057}}</b> 58+ Th: <b>{{$countAge58}}</b></p> -->
-                         
+
                     </div>
                 </div>
             </div>
@@ -244,19 +244,19 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-title">Berdasarkan Disabilitas</p>                  
+                        <p class="card-title">Berdasarkan Disabilitas</p>
                         <p class="text-muted"></p>
                         <canvas height="300" id="disability-chart"></canvas>
                     </div>
                 </div>
             </div>
-            
-            
+
+
 
 
         </div>
     </div>
-  
+
 </div>
 
 <div class="row">
@@ -272,17 +272,17 @@
                             <div class="col-6">
                              <div class="d-flex align-items-center flex-wrap mb-3">
                               <i class="mdi mdi-account-check icon-lg text-success"></i>
-                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine1Y}}</h1> 
+                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine1Y}}</h1>
                             </div>
                             </div>
                             <div class="col-6">
                              <div class="d-flex align-items-center flex-wrap mb-3">
                               <i class="mdi mdi-account-multiple-minus icon-lg text-warning"></i>
-                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine1N}}</h1> 
+                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine1N}}</h1>
                             </div>
                             </div>
                         </div>
-                   
+
                     </div>
                     <canvas id="vaccine1-chart"></canvas>
                 </div>
@@ -299,17 +299,17 @@
                             <div class="col-6">
                              <div class="d-flex align-items-center flex-wrap mb-3">
                               <i class="mdi mdi-account-check icon-lg text-success"></i>
-                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine2Y}}</h1> 
+                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine2Y}}</h1>
                             </div>
                             </div>
                             <div class="col-6">
                              <div class="d-flex align-items-center flex-wrap mb-3">
                               <i class="mdi mdi-account-multiple-minus icon-lg text-warning"></i>
-                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine2N}}</h1> 
+                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine2N}}</h1>
                             </div>
                             </div>
                         </div>
-                   
+
                     </div>
                     <canvas id="vaccine2-chart"></canvas>
                 </div>
@@ -326,17 +326,17 @@
                             <div class="col-6">
                              <div class="d-flex align-items-center flex-wrap mb-3">
                               <i class="mdi mdi-account-check icon-lg text-success"></i>
-                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine3Y}}</h1> 
+                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine3Y}}</h1>
                             </div>
                             </div>
                             <div class="col-6">
                              <div class="d-flex align-items-center flex-wrap mb-3">
                               <i class="mdi mdi-account-multiple-minus icon-lg text-warning"></i>
-                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine3N}}</h1> 
+                              <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countVaccine3N}}</h1>
                             </div>
                             </div>
                         </div>
-                   
+
                     </div>
                     <canvas id="vaccine3-chart"></canvas>
                 </div>
@@ -480,7 +480,7 @@
         },
       });
     }
-    
+
     if ($("#vaccine2-chart").length) {
       var Vaccine2ChartCanvas = $("#vaccine2-chart").get(0).getContext("2d");
       var Vaccine2Chart = new Chart(Vaccine2ChartCanvas, {
@@ -908,7 +908,7 @@
                 max: 400,
                 stepSize: 100,
                 fontColor: '#2c2c2c', // X-Axis font color
-          fontStyle: 'bold',    // X-Axis font style 
+          fontStyle: 'bold',    // X-Axis font style
                 fontSize: 12,
                 padding: 0
               },
@@ -947,7 +947,7 @@
               text.push('<div class="item me-4 d-flex align-items-center">');
                 text.push('<div class="item-box me-2" style=" background-color: ' + chart.data.datasets[0].backgroundColor + ' "></div><p class="text-black mb-0"> ' + chart.data.datasets[0].label + '</p>');
               text.push('</div>');
-              
+
             return text.join('');
           }
         },
@@ -957,20 +957,20 @@
 
       if ($("#activity-chart").length) {
       var _ydata=JSON.parse('{!!json_encode($religionCounts)!!}');
-      
+
       console.log("religioncounts",_ydata);
       var ActivityChartCanvas = $("#activity-chart").get(0).getContext("2d");
       var ActivityChart = new Chart(ActivityChartCanvas, {
         type: 'pie',
         data: {
-          
+
           labels: [
             @foreach($religions as $data)
             '{{$data->religion}}',
             @endforeach
-          
+
           ],
-          
+
           datasets: [
             {
               data: Object.values(_ydata),
@@ -1041,19 +1041,19 @@
 
     if ($("#status-chart").length) {
       var countMarriage=JSON.parse('{!!json_encode($countMarriage)!!}');
-      
+
       var StatusChartCanvas = $("#status-chart").get(0).getContext("2d");
       var StatusChart = new Chart(StatusChartCanvas, {
         type: 'bar',
         data: {
-          
+
           labels: [
             @foreach($marriage as $data)
             '{{$data->marriage}}',
             @endforeach
-          
+
           ],
-          
+
           datasets: [
             {
               data: Object.values(countMarriage),
@@ -1123,19 +1123,19 @@
 
     if ($("#jobs-chart").length) {
       var countJobs=JSON.parse('{!!json_encode($countJobs)!!}');
-      
+
       var JobsChartCanvas = $("#jobs-chart").get(0).getContext("2d");
       var JobsChart = new Chart(JobsChartCanvas, {
         type: 'pie',
         data: {
-          
+
           labels: [
             @foreach($jobs as $data)
             '{{$data->job}}',
             @endforeach
-          
+
           ],
-          
+
           datasets: [
             {
               data: Object.values(countJobs ),
@@ -1205,19 +1205,19 @@
     }
     if ($("#education-chart").length) {
       var countEducations=JSON.parse('{!!json_encode($countEducations)!!}');
-      
+
       var EducationChartCanvas = $("#education-chart").get(0).getContext("2d");
       var EducationChart = new Chart(EducationChartCanvas, {
         type: 'pie',
         data: {
-          
+
           labels: [
             @foreach($educations as $data)
             '{{$data->last_education}}',
             @endforeach
-          
+
           ],
-          
+
           datasets: [
             {
               data: Object.values(countEducations ),
@@ -1287,19 +1287,19 @@
     }
     if ($("#disability-chart").length) {
       var countDisability=JSON.parse('{!!json_encode($countDisability)!!}');
-      
+
       var DisabilityChartCanvas = $("#disability-chart").get(0).getContext("2d");
       var DisabilityChart = new Chart(DisabilityChartCanvas, {
         type: 'pie',
         data: {
-          
+
           labels: [
             @foreach($disability as $data)
             '{{$data->disability}}',
             @endforeach
-          
+
           ],
-          
+
           datasets: [
             {
               data: Object.values(countDisability ),
@@ -1367,8 +1367,8 @@
         },
       });
     }
- 
-    
+
+
   });
 })(jQuery);
 </script>
