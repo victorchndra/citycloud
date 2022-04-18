@@ -69,12 +69,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                            <input type="date" class="form-control @error('date_birth') is-invalid @enderror" name="date_birth" id="date" required value="{{ date('Y-m-d', strtotime($c->date_birth))}}">
+                            <input type="date" class="form-control @error('date_birth') is-invalid @enderror" name="date_birth" id="date" required value="{{ date('Y-m-d', strtotime(Str::limit($c->date_birth, 10, '')))}}">
                         </div>
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -176,7 +176,7 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Status Keluarga</label>
-                            <div class="col-sm-9">                               
+                            <div class="col-sm-9">
                                 <select class="form-control" name="family_status">
                                     @if (old('family_status', 'Kepala Keluarga') == $c->family_status)
                                     <option value="kepala keluarga" selected>Kepala keluarga</option>
@@ -199,7 +199,7 @@
                                     <option value="anak">Anak</option>
                                     <option value="famili lain">Famili Lain</option>
                                     @endif
-                                </select>                            
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -282,32 +282,32 @@
                                     <option value="Belum Kawin" selected>Belum Kawin</option>
                                     <option value="Kawin Tercatat">Kawin Tercatat</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
-                                    <option value="Cerai Hidup">Cerai Hidup</option>  
-                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    <option value="Cerai Hidup">Cerai Hidup</option>
+                                    <option value="Cerai Mati">Cerai Mati</option>
                                     @elseif (old('marriage', 'Kawin Tercatat') == $c->marriage)
                                     <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" selected>Sudah Menikah</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
-                                    <option value="Cerai Hidup">Cerai Hidup</option>  
-                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    <option value="Cerai Hidup">Cerai Hidup</option>
+                                    <option value="Cerai Mati">Cerai Mati</option>
                                     @elseif (old('marriage', 'Kawin Tidak Tercatat') == $c->marriage)
                                     <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" >Sudah Menikah</option>
                                     <option value="Kawin Tidak Tercatat" selected>Kawin Tidak Tercatat</option>
-                                    <option value="Cerai Hidup">Cerai Hidup</option>  
-                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    <option value="Cerai Hidup">Cerai Hidup</option>
+                                    <option value="Cerai Mati">Cerai Mati</option>
                                     @elseif (old('marriage', 'Cerai Hidup') == $c->marriage)
                                     <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" >Sudah Menikah</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
-                                    <option value="Cerai Hidup" selected>Cerai Hidup</option>  
-                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    <option value="Cerai Hidup" selected>Cerai Hidup</option>
+                                    <option value="Cerai Mati">Cerai Mati</option>
                                     @elseif (old('marriage', 'Cerai Mati') == $c->marriage)
                                     <option value="Belum Kawin">Belum Menikah</option>
                                     <option value="Kawin Tercatat" >Sudah Menikah</option>
                                     <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
-                                    <option value="Cerai Hidup">Cerai Hidup</option>  
-                                    <option value="Cerai Mati" selected>Cerai Mati</option>  
+                                    <option value="Cerai Hidup">Cerai Hidup</option>
+                                    <option value="Cerai Mati" selected>Cerai Mati</option>
                                     @endif
                                 </select>
                             </div>
@@ -355,7 +355,7 @@
                             <label class="col-sm-3 col-form-label">Disabilitas</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="disability">
-                                   
+
                                     <option value="tidak" selected>Tidak</option>
                                     <option value="tuna rungu">Tuna Rungu</option>
                                     <option value="tuna wicara">Tuna Wicara</option>
@@ -364,13 +364,13 @@
                                     <option value="tuna laras">Tuna Laras</option>
                                     <option value="tuna grahita">Tuna Grahita</option>
                                     <option value="tuna ganda">Tuna Ganda</option>
-                                 
-                                    
-                                    
+
+
+
                                 </select>
                             </div>
                         </div>
-                    </div>               
+                    </div>
                 </div>
                 <p class="card-description my-3 text-muted">
                     Alamat
@@ -391,14 +391,14 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
-                                    <input class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" required value="{{ old('rt', $c->rt) }}"></input>               
+                                    <input class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" required value="{{ old('rt', $c->rt) }}"></input>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">RW</label>
-                            <div class="col-sm-9">       
+                            <div class="col-sm-9">
                                     <input class="form-control @error('address') is-invalid @enderror" name="rw" id="rw" required value="{{ old('rw', $c->rw) }}"></input>
                             </div>
                         </div>
