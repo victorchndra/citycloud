@@ -62,7 +62,7 @@ class AgeRangeController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menambah</em> data Rentang Umur <strong>[' . $request->notes . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data Rentang Umur',
+            'category' => 'tambah',
             'created_at' => now(),
         ];
 
@@ -123,7 +123,7 @@ class AgeRangeController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> data Rentang Usia <strong>[' . $request->notes . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data Rentang Usia',
+            'category' => 'edit',
             'created_at' => now(),
         ];
 
@@ -148,7 +148,7 @@ class AgeRangeController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data Rentang Usia <strong>[' . $data->notes . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data Rentang Usia',
+            'category' => 'hapus',
             'created_at' => now(),
         ];
 

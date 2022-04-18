@@ -19,4 +19,13 @@ class ageRange extends Model
             return $query->where('name','LIKE','%'.$search.'%');
         });
     }
+    
+    public function createdUser()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
+    public function updatedUser()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
 }
