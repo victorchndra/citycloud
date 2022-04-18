@@ -468,7 +468,7 @@ class CitizenController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Mengubah</em> penduduk <strong>[' . $citizenName->name . ']</strong> menjadi penduduk pindah',
-                'category' => 'Edit',
+                'category' => 'edit',
                 'created_at' => now(),
             ];
 
@@ -1053,6 +1053,7 @@ class CitizenController extends Controller
     }
     //End View Move Date
 
+    //move Update
     public function moveUpdateCitizen(Request $request, $uuid)
     {
         $data = Citizens::get()->where('uuid', $uuid)->whereNull('move_date')->firstOrFail();
@@ -1065,8 +1066,8 @@ class CitizenController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> data penduduk <strong>[' . $request->name . ']</strong>',
-            'category' => 'Edit',
+            'description' => '<em>Menambah</em> data penduduk pindah <strong>[' . $request->name . ']</strong>',
+            'category' => 'tambah',
             'created_at' => now(),
         ];
 
@@ -1074,6 +1075,7 @@ class CitizenController extends Controller
 
         return redirect('/move')->with('success', 'Data berhasil diperbarui!');
     }
+    //End move Update
 
     // Rollback Move Date
     public function rollBackMoveDate(Request $request, $uuid)
@@ -1090,7 +1092,7 @@ class CitizenController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data dari penduduk pindah <strong>[' . $data->name . ']</strong>',
-            'category' => 'Hapus',
+            'category' => 'hapus',
             'created_at' => now(),
         ];
     
@@ -1217,8 +1219,8 @@ class CitizenController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Export</em> semua data penduduk', //name = nama tag di view (file index)
-            'category' => 'Export',
+            'description' => '<em>export</em> semua data penduduk pindah', //name = nama tag di view (file index)
+            'category' => 'export',
             'created_at' => now(),
         ];
 
