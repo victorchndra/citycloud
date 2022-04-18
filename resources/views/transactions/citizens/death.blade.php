@@ -6,14 +6,14 @@
             <div class="card-body">
                 <h4 class="card-title">Data Penduduk Meninggal</h4>
                 <p class="card-description">
-                    Data Penduduk Kelurahan 
+                    Data Penduduk Kelurahan
                     @foreach($informations as $information)
-                    {{ $information->village_name  }}
+                    {{ $information->village_name  }},
                     @endforeach
 
                     Kecamatan
                     @foreach($informations as $information)
-                    {{ $information->sub_district_name  }}
+                    {{ $information->sub_district_name  }},
                     @endforeach
 
                     Kota
@@ -100,10 +100,27 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                                <div class="col-sm-9">
-                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" placeholder="Mulai cth : 20">
-                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" placeholder="Mulai cth : 50">
+                                                <label class="col-sm-3 col-form-label">Rentang usia</label>
+                                                <div class="col-sm-9 row">
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="0">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-form-label mySeparator">-</div>
+                                                    </div>
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="120">
+                                                    </div>
+
+                                                    {{-- Slider date birth --}}
+                                                    <div class="slider mt-3 ms-3">
+                                                        <div class="progress"></div>
+                                                    </div>
+                                                    <div class="range-input">
+                                                        <input type="range" class="range-min" min="0" max="120" value="0" class="form-control">
+                                                        <input type="range" class="range-max" min="0" max="120" value="120" class="form-control">
+                                                    </div>
+
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -248,6 +265,19 @@
                                                         <option value="">Semua Asuransi</option>
                                                         @foreach($health_assurances as $health_assurance)
                                                             <option value="{{ $health_assurance->health_assurance }}" @if($healthAssurancesSelected == $health_assurance->health_assurance) {{ 'selected' }} @endif> {{ $health_assurance->health_assurance }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Disabilitas</label>
+                                                <div class="col-sm-9">
+                                                <select name="disability" id="disability" class="form-control">
+                                                        <option value="">Semua Disabilitas</option>
+                                                        @foreach($disabilitys as $disability)
+                                                            <option value="{{ $disability->disability }}" @if($disabilitySelected == $disability->disability) {{ 'selected' }} @endif> {{ $disability->disability }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -478,7 +508,8 @@
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
-
+                                    <span class="d-block mb-1"><b>Disabilitas : </b>
+                                        <span>{{ $data->disability ?? '-' }}</span></span>
                                 </td>
 
                                 <td>

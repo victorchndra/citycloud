@@ -22311,7 +22311,7 @@ input[type="number"]::-webkit-inner-spin-button{
 
 .slider{
     height: 5px;
-    width: 66%;
+    width: 100%;
     border-radius: 5px;
     background: #ddd;
     position: relative;
@@ -22319,8 +22319,10 @@ input[type="number"]::-webkit-inner-spin-button{
 
 .slider .progress{
     height: 5px;
-    left: 10%;
-    right: 50%;
+    /* left: 10%; //umur 10
+    right: 50%; //umur 60*/
+    left: 0%;
+    right: 0%;
     position: absolute;
     border-radius: 5px;
     background: #6640b2;
@@ -22334,7 +22336,7 @@ input[type="number"]::-webkit-inner-spin-button{
     position: absolute;
     top: -5px;
     height: 5px;
-    width: 67%;
+    width: 100%;
     background: none;
     pointer-events: none;
     -webkit-appearance: none;
