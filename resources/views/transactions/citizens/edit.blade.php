@@ -192,12 +192,12 @@
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" >Istri</option>
                                     <option value="anak" selected>Anak</option>
-                                    <option value="famili lain">Famili Lain</option>
-                                    @else
+                                    <option value="famili lain">Famili Lain</option>                   
+                                    @elseif (old('family_status', 'Famili Lain') == $c->family_status)
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" >Istri</option>
-                                    <option value="anak">Anak</option>
-                                    <option value="famili lain">Famili Lain</option>
+                                    <option value="anak" >Anak</option>
+                                    <option value="famili lain" selected>Famili Lain</option>
                                     @endif
                                 </select>
                             </div>
@@ -235,6 +235,12 @@
                                     <option value="AB">AB</option>
                                     <option value="O" selected>O</option>
                                     @elseif (old('blood', '-') == $c->blood)
+                                    <option value="-" selected>-</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="AB">AB</option>
+                                    <option value="O">O</option>
+                                    @elseif (old('blood', '') == $c->blood)
                                     <option value="-" selected>-</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -520,8 +526,13 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                     <option value="tidak" selected>Tidak</option>
-                                    <option value="ya">Ya</option>
+                                    @if (old('dtks', 'YA') == $c->dtks)
+                                     <option value="tidak" >Tidak</option>
+                                    <option value="ya" selected>Ya</option>
+                                    @elseif (old('dtks', 'TIDAK') == $c->dtks)
+                                    <option value="tidak" selected>Tidak</option>
+                                    <option value="ya" >Ya</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
