@@ -42,7 +42,14 @@
                                         <td>{{ $data->start }} Th</b></td>
                                         <td>{{ $data->end}} Th</td>
                                         <td>{{ $data->notes}}</td>
-                                        <td>{{$data->created_at, 'H:i:s'}}</td>
+                                        <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
+                                            <span>{{$data->created_at, 'd M Y'}}</span><br>
+                                            @if($data->updated_by)
+                                            <br>
+                                            <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
+                                            <span>{{$data->updated_at, 'd M Y'}}<br>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                                 <div class="btn-group">
