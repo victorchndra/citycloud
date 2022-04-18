@@ -143,7 +143,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pekerjaan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('job') is-invalid @enderror" placeholder="Pekerjaan" name="job" required value="{{ old('job') }}"/>
+                                <input type="text" class="form-control @error('job') is-invalid @enderror" placeholder="Pekerjaan" name="job" value="{{ old('job') }}"/>
                                 @error('job')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -158,7 +158,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" required value="{{ old('phone') }}">
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" value="{{ old('phone') }}">
                                 @error('phone')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -174,9 +174,9 @@
                                 <select class="form-control" name="marriage">
                                     <option value="Belum Kawin">Belum Kawin</option>
                                     <option value="Kawin Tercatat">Kawin Tercatat</option>
-                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>  
-                                    <option value="Cerai Hidup">Cerai Hidup</option>  
-                                    <option value="Cerai Mati">Cerai Mati</option>  
+                                    <option value="Kawin Tidak Tercatat">Kawin Tidak Tercatat</option>
+                                    <option value="Cerai Hidup">Cerai Hidup</option>
+                                    <option value="Cerai Mati">Cerai Mati</option>
                                 </select>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Asuransi Kesehatan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" required value="{{ old('health_assurance') }}"/>
+                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" value="{{ old('health_assurance') }}"/>
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -206,7 +206,7 @@
                     <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nama Ayah</label>
                             <div class="col-sm-9">
-                                <input type="text" name="father_name" class="form-control @error('father_name') is-invalid @enderror" required value="{{ old('father_name') }}"/>
+                                <input type="text" name="father_name" class="form-control @error('father_name') is-invalid @enderror" value="{{ old('father_name') }}"/>
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -219,7 +219,7 @@
                     <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nama Ibu</label>
                             <div class="col-sm-9">
-                                <input type="text" name="mother_name" class="form-control @error('mother_name') is-invalid @enderror" required value="{{ old('mother_name') }}"/>
+                                <input type="text" name="mother_name" class="form-control @error('mother_name') is-invalid @enderror" value="{{ old('mother_name') }}"/>
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -271,7 +271,7 @@
                             <label class="col-sm-3 col-form-label">RT</label>
                             <div class="col-sm-9">
                                 <select name="rt" id="rt" class="form-control">
-                                    
+
                                     @foreach($rts as $rt)
                                         <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
                                     @endforeach
@@ -297,7 +297,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kelurahan / Desa</label>
                             <div class="col-sm-9">
-                                <select name="village" id="village" class="form-control"> 
+                                <select name="village" id="village" class="form-control">
                                     @foreach($village as $desa)
                                         <option value="{{ $desa->village_name }}" @if($villageSelected == $desa->village_name) {{ 'selected' }} @endif> {{ $desa->village_name }}</option>
                                     @endforeach
@@ -395,7 +395,7 @@
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
                                     <option value="ya" >Ya</option>
-                                    <option value="tidak" selected>Tidak</option>                            
+                                    <option value="tidak" selected>Tidak</option>
                                 </select>
                             </div>
                         </div>
