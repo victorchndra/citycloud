@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
     {
         //panggil semua table seeder di database seeder ini.
         // $this->call(CitizenTableSeeder::class);
-        $this->call(UserTableSeeder::class);
-        // $this->call(RTSeeder::class);
-        // $this->call(DatarwSeeder::class);
-        // $this->call(AssistanceSeeder::class);
-        $this->call(InformationSeeder::class);
-        $this->call(AgeRangeSeeder::class);
+        // $this->call(UserTableSeeder::class);
+        $this->call(RTSeeder::class);
+        $this->call(DatarwSeeder::class);
+        $this->call(AssistanceSeeder::class);
+        // $this->call(InformationSeeder::class);
+        // $this->call(AgeRangeSeeder::class);
     }
 }
