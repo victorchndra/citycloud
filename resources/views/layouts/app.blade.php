@@ -88,7 +88,7 @@
 
     @guest @else
     <li class="nav-item">
-    <a class="nav-link" href="/logout/{{  }}" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
+    <a class="nav-link" href="/logout" onclick="if(confirm('Keluar dari sistem?')){ event.preventDefault(); document.getElementById('logout-form').submit(); }else{ return false; }">
     <button class="btn bg-danger btn-lg menu-title"><i class="mdi mdi-arrow-left-bold-circle"></i> Logout</button>
                 </a>
 

@@ -19,7 +19,7 @@
                                 <th>#</th>
                                 <th>Deskripsi</th>
                                 <th>Kategori</th>
-                                <th>Nama pengguna</th>
+                                <th>Pengguna</th>
                                 <th>Tanggal Aktivitas</th>
                             </tr>
                         </thead>
@@ -31,7 +31,10 @@
                                     <td>{!! $data->description !!}</td>
                                     <td>{{ $data->category }}</td>
                                     <td>{{ $data->user->name }}</td>
-                                    <td>{{ $data->created_at}}</td>
+                                    <td>
+                                        <span>Ditambahkan Oleh: <b> {{$data->user->name}} </b></span><br>
+                                            <span>{{$data->created_at, 'd M Y'}}</span>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
