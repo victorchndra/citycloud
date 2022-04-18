@@ -35,7 +35,16 @@
                                 <td>{{ $data->id }} </td>
                                 <td>{{ $data->name }} </td>
                                 <td>{{ $data->nominal }} </td>
-                                <td>{{$data->created_at, 'H:i:s'}}</td>
+                                <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
+                                    <span>{{$data->created_at, 'd M Y'}}</span><br>
+                                    @if($data->updated_by)
+                                    <br>
+                                    <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
+                                    <span>
+                                        {{$data->updated_at, 'd M Y'}}<br>
+                                    </span>
+                                    @endif
+                            </td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">

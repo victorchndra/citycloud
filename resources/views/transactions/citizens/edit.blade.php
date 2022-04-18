@@ -541,16 +541,58 @@
                             <label class="col-sm-3 col-form-label">Status DTKS</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="dtks">
-                                    @if (old('dtks', 'YA') == $c->dtks)
-                                     <option value="tidak" >Tidak</option>
-                                    <option value="ya" selected>Ya</option>
+                                    @if (old('dtks', 'DTKS') == $c->dtks)
+                                     <option value="dtks" selected>DTKS</option>
+                                    <option value="kks">KKS</option>
+                                    <option value="p-pkh">P-PKH</option>
+                                    <option value="pkh">PKH</option>
+                                    <option value="tidak">TIDAK</option>
+                                    <option value="u-pkh">U-PKH</option>
+                                    @elseif (old('dtks', 'KKS') == $c->dtks)
+                                    <option value="dtks">DTKS</option>
+                                    <option value="kks" selected>KKS</option>
+                                    <option value="p-pkh">P-PKH</option>
+                                    <option value="pkh">PKH</option>
+                                    <option value="tidak">TIDAK</option>
+                                    <option value="u-pkh">U-PKH</option>
+                                    @elseif (old('dtks', 'P-PKH') == $c->dtks)
+                                    <option value="dtks">DTKS</option>
+                                    <option value="kks">KKS</option>
+                                    <option value="p-pkh" selected>P-PKH</option>
+                                    <option value="pkh">PKH</option>
+                                    <option value="tidak">TIDAK</option>
+                                    <option value="u-pkh">U-PKH</option>
+                                    @elseif (old('dtks', 'PKH') == $c->dtks)
+                                    <option value="dtks" >DTKS</option>
+                                    <option value="kks">KKS</option>
+                                    <option value="p-pkh">P-PKH</option>
+                                    <option value="pkh" selected>PKH</option>
+                                    <option value="tidak">TIDAK</option>
+                                    <option value="u-pkh">U-PKH</option>
                                     @elseif (old('dtks', 'TIDAK') == $c->dtks)
-                                    <option value="tidak" selected>Tidak</option>
-                                    <option value="ya" >Ya</option>
+                                    <option value="dtks" >DTKS</option>
+                                    <option value="kks">KKS</option>
+                                    <option value="p-pkh">P-PKH</option>
+                                    <option value="pkh">PKH</option>
+                                    <option value="tidak" selected>TIDAK</option>
+                                    <option value="u-pkh">U-PKH</option>
+                                    @elseif (old('dtks', 'U-PKH') == $c->dtks)
+                                    <option value="dtks" >DTKS</option>
+                                    <option value="kks">KKS</option>
+                                    <option value="p-pkh">P-PKH</option>
+                                    <option value="pkh">PKH</option>
+                                    <option value="tidak">TIDAK</option>
+                                    <option value="u-pkh" selected>U-PKH</option>
                                     @elseif (old('dtks', '') == $c->dtks)
-                                    <option value="tidak" selected>Tidak</option>
-                                    <option value="ya" >Ya</option>
+                                    <option value="" selected>Pilih Status</option>
+                                    <option value="dtks">DTKS</option>
+                                    <option value="kks">KKS</option>
+                                    <option value="p-pkh">P-PKH</option>
+                                    <option value="pkh">PKH</option>
+                                    <option value="tidak">TIDAK</option>
+                                    <option value="u-pkh">U-PKH</option>
                                     @endif
+
                                 </select>
                             </div>
                         </div>

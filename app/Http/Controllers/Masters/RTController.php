@@ -61,7 +61,7 @@ class RTController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menambah</em> data RT <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Tambah',
+            'category' => 'tambah',
             'created_at' => now(),
         ];
 
@@ -94,6 +94,7 @@ class RTController extends Controller
     {
         $datas = RT::where('uuid', $uuid)->get();
 
+        
         return view('masters.rt.edit', compact('datas'));
     }
 
@@ -120,12 +121,13 @@ class RTController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> data RT <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Edit',
+            'category' => 'edit',
             'created_at' => now(),
         ];
 
         DB::table('logs')->insert($log);
         // selesai
+
 
         return redirect('/rt')->with('success', 'Data RT Berhasil Diupdate !!');
     }
@@ -145,7 +147,7 @@ class RTController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> data RT <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Hapus',
+            'category' => 'hapus',
             'created_at' => now(),
         ];
 

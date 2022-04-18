@@ -20,19 +20,20 @@
                     @foreach($informations as $information)
                     {{ $information->district_name  }}
                     @endforeach
+  
                 </p>
                 <a href="/dtks" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 
-                <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->                            
-
-                    <a href="{{url('export/exportDTKSCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&date_birth='.$date_birth.'&date_birth2='.$date_birth2.'&gender='.$genderSelected.'&place_birth='.
+                <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
+                <a href="{{url('export/exportDTKSCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&date_birth='.$date_birth.'&date_birth2='.$date_birth2.'&gender='.$genderSelected.'&place_birth='.
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&marriage='.$marriageSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
                     .'&province='.$provinceSelected.
                     '&health_assurance='.$healthAssurancesSelected.
                     '&last_education='.$last_educationSelected.
-                    '&dtks='.$dtksSelected)}}"
+                    '&dtks='.$dtksSelected.
+                    '&disability='.$disabilitySelected)}}"
                     class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
@@ -43,9 +44,9 @@
                 <div class="modal" id="myModal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            <form class="form-sample" action="/dtks" id="search_form">
+                            <form class="form-sample" action="/citizens" id="search_form">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Cari Data Penduduk DTKS</h5>
+                                    <h5 class="modal-title">Cari Data Kependudukan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -105,10 +106,27 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Usia</label>
-                                                <div class="col-sm-9">
-                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" value="" placeholder="Mulai cth : 20">
-                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" value="" placeholder="Sampai cth : 50">
+                                                <label class="col-sm-3 col-form-label">Rentang usia</label>
+                                                <div class="col-sm-9 row">
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="0">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-form-label mySeparator">-</div>
+                                                    </div>
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="120">
+                                                    </div>
+
+                                                    {{-- Slider date birth --}}
+                                                    <div class="slider mt-3 ms-3">
+                                                        <div class="progress"></div>
+                                                    </div>
+                                                    <div class="range-input">
+                                                        <input type="range" class="range-min" min="0" max="120" value="0" class="form-control">
+                                                        <input type="range" class="range-max" min="0" max="120" value="120" class="form-control">
+                                                    </div>
+
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -253,6 +271,19 @@
                                                         <option value="">Semua Asuransi</option>
                                                         @foreach($health_assurances as $health_assurance)
                                                             <option value="{{ $health_assurance->health_assurance }}" @if($healthAssurancesSelected == $health_assurance->health_assurance) {{ 'selected' }} @endif> {{ $health_assurance->health_assurance }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Disabilitas</label>
+                                                <div class="col-sm-9">
+                                                <select name="disability" id="disability" class="form-control">
+                                                        <option value="">Semua Disabilitas</option>
+                                                        @foreach($disabilitys as $disability)
+                                                            <option value="{{ $disability->disability }}" @if($disabilitySelected == $disability->disability) {{ 'selected' }} @endif> {{ $disability->disability }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -474,7 +505,8 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
+                @endforeach    
+
 
                 @if (session()->has('success'))
 
@@ -495,8 +527,8 @@
                                 <th colspan="2">
                                     <center>Informasi</center>
                                 </th>
-                                <th>Ditambahkan</th>
                                 <th>DTKS</th>
+                                <th>Ditambahkan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -543,6 +575,8 @@
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>Disabilitas : </b>
+                                        <span>{{ $data->disability ?? '-' }}</span></span>
 
                                 </td>
                                 <td>
@@ -558,6 +592,8 @@
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>DTKS : </b>
+                                        <span>{{ $data->dtks ?? '-' }}</span></span>
                                 </td>
                                 <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
                                         <span>{{$data->created_at, 'd M Y'}}</span><br>
@@ -566,19 +602,20 @@
                                         <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
                                         <span>{{$data->updated_at, 'd M Y'}}<br>
                                         @endif
-                                </td>
-                                <td>{{ $data->dtks }}</td>
-                                <td>
+                                    </td>
+                                    <td>{{ $data->dtks }}</td>
+                                    <td>
+
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-
+                                            
                                                 <form action="/dtks/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus dari DTKS</button>
+                                                        onclick="return confirm('Hapus data dan pindahkan ke penduduk aktif?')">Hapus dari DTKS</button>
                                                 </form>
 
                                                 <form class="d-none invisible"
@@ -586,8 +623,9 @@
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data dan pindahan ke penduduk aktif?')">Hapus dari DTKS</button>
+                                                        onclick="return confirm('Hapus data dan pindahkan ke penduduk aktif?')">Hapus dari DTKS</button>
                                                 </form>
+
 
                                             </div>
                                         </div>
