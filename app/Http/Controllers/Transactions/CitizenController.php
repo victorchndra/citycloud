@@ -1066,8 +1066,8 @@ class CitizenController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data penduduk pindah <strong>[' . $request->name . ']</strong>',
-            'category' => 'tambah',
+            'description' => '<em>Mengubah</em> data penduduk pindah <strong>[' . $request->name . ']</strong>',
+            'category' => 'edit',
             'created_at' => now(),
         ];
 
@@ -1219,7 +1219,7 @@ class CitizenController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>export</em> semua data penduduk pindah', //name = nama tag di view (file index)
+            'description' => '<em>Export</em> data penduduk pindah', //name = nama tag di view (file index)
             'category' => 'export',
             'created_at' => now(),
         ];
