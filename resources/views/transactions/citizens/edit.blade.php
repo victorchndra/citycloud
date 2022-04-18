@@ -192,7 +192,7 @@
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" >Istri</option>
                                     <option value="anak" selected>Anak</option>
-                                    <option value="famili lain">Famili Lain</option>                   
+                                    <option value="famili lain">Famili Lain</option>
                                     @elseif (old('family_status', 'Famili Lain') == $c->family_status)
                                     <option value="kepala keluarga" >Kepala keluarga</option>
                                     <option value="istri" >Istri</option>
@@ -255,7 +255,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pekerjaan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('job') is-invalid @enderror" placeholder="Pekerjaan" name="job" required value="{{ old('job', $c->job) }}"/>
+                                <input type="text" class="form-control @error('job') is-invalid @enderror" placeholder="Pekerjaan" name="job" value="{{ old('job', $c->job) }}"/>
                                 @error('job')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -270,7 +270,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" required value="{{ old('phone', $c->phone) }}">
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror" placeholder="Nomor Telepon" name="phone" value="{{ old('phone', $c->phone) }}">
                                 @error('phone')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -323,7 +323,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pendidikan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="last_education" class="form-control @error('health_assurance') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('last_education', $c->last_education) }}">
+                                <input type="text" name="last_education" class="form-control @error('last_education') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('last_education', $c->last_education) }}">
+                                @error('last_education')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -331,8 +336,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Asuransi Kesehatan</label>
                             <div class="col-sm-9">
-                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" required value="{{ old('health_assurance', $c->health_assurance) }}"/>
-                                @error('name')
+                                <input type="text" name="health_assurance" class="form-control @error('health_assurance') is-invalid @enderror" value="{{ old('health_assurance', $c->health_assurance) }}"/>
+                                @error('health_assurance')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -344,7 +349,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nama Ayah</label>
                             <div class="col-sm-9">
-                                <input type="text" name="father_name" class="form-control @error('health_assurance') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('father_name', $c->father_name) }}">
+                                <input type="text" name="father_name" class="form-control @error('father_name') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('father_name', $c->father_name) }}">
+                                @error('father_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -352,7 +362,12 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nama Ibu</label>
                             <div class="col-sm-9">
-                                <input type="text" name="mother_name" class="form-control @error('health_assurance') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('mother_name', $c->mother_name) }}">
+                                <input type="text" name="mother_name" class="form-control @error('mother_name') is-invalid @enderror" placeholder="Isikan Bagian Kosong" value="{{ old('mother_name', $c->mother_name) }}">
+                                @error('mother_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
