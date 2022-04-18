@@ -547,6 +547,9 @@
                                     @elseif (old('dtks', 'TIDAK') == $c->dtks)
                                     <option value="tidak" selected>Tidak</option>
                                     <option value="ya" >Ya</option>
+                                    @elseif (old('dtks', '') == $c->dtks)
+                                    <option value="tidak" selected>Tidak</option>
+                                    <option value="ya" >Ya</option>
                                     @endif
                                 </select>
                             </div>
