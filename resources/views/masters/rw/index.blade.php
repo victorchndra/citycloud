@@ -34,10 +34,10 @@
                                 <td>{{ $data->id }} </td>
                                 <td>{{ $data->name}} </td>                                                      
                                 <td>   
-                                    @if($data->created_by)
+                                    
                                     <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
                                         <span>{{$data->created_at, 'd M Y'}}</span><br>
-                                        @elseif($data->updated_by)
+                                        @if($data->updated_by)
                                         <br>
                                         <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
                                         <span>{{$data->updated_at, 'd M Y'}}<br>
