@@ -2,12 +2,16 @@
 
 
 namespace App\Http\Controllers\Auth;
-use App\Http\Controllers\Controller;
+use App\Models\User;
 
-use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 //pastikan aktifkan ini utk cek auth loginya
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -30,18 +34,31 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-
+        // dd(User::get()->where('username', $request->username)->firstOrFail());
         $credentials = $request->validate([
             'username'=> 'required',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials)) {
-           
+
             $request->session()->regenerate();
-            // dd(Auth::id());
+
+            $data = User::get()->where('username', $request->username)->firstOrFail();
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Login</em> akun <strong>[' . $data->name . ']</strong>',
+                'category' => 'login',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+
             return redirect()->intended('/');
         }
+
 
         return back()->with('loginError', 'Username atau Password salah');
     }
@@ -49,15 +66,27 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-    Auth::logout();
- 
-    $request->session()->invalidate();
- 
-    $request->session()->regenerateToken();
- 
-    return redirect('/');
+        // $data = User::get()->where('uuid',)->firstOrFail();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            // 'description' => '<em>Log out</em> akun <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Log out</em> akun',
+            'category' => 'logout',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
-    
+
     public function create()
     {
         //

@@ -10,6 +10,12 @@ class Log extends Model
 {
     use HasFactory;
 
+    public function scopeCari($query, array $filters){
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where('category','LIKE','%'.$search.'%');
+        });
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

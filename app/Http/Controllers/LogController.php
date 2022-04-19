@@ -15,7 +15,9 @@ class LogController extends Controller
      */
     public function index()
     {
-        $datas = Log::latest()->paginate(10);
+        $datas = Log::first()->cari(request(['search']))->paginate(10);
+
+        // $datas = Log::latest()->paginate(10);
         // $datasCounted = Log::latest()->take(5)->get();
         return view('transactions.log.index', compact('datas'));
     }

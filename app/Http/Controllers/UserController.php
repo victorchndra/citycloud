@@ -69,7 +69,7 @@ class UserController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menambah</em> pengguna baru <strong>[' . $request->name . ']</strong>',
-            'category' => 'Tambah',
+            'category' => 'tambah',
             'created_at' => now(),
         ];
 
@@ -135,7 +135,7 @@ class UserController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Mengubah</em> data personal akun <strong>[' . $request->name . ']</strong>',
-                'category' => 'Edit',
+                'category' => 'edit',
                 'created_at' => now(),
             ];
 
@@ -172,7 +172,7 @@ class UserController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Mengubah</em> kata sandi akun <strong>[' . $user->name . ']</strong>',
-                'category' => 'Edit',
+                'category' => 'edit',
                 'created_at' => now(),
             ];
 
@@ -202,7 +202,7 @@ class UserController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Menghapus</em> akun <strong>[' . $data->name . ']</strong>',
-            'category' => 'Hapus',
+            'category' => 'hapus',
             'created_at' => now(),
         ];
 
@@ -218,7 +218,7 @@ class UserController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Export</em> data pengguna',
-            'category' => 'Export',
+            'category' => 'ekspor',
             'created_at' => now(),
         ];
 

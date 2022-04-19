@@ -20,7 +20,7 @@
                     @foreach($informations as $information)
                     {{ $information->district_name  }}
                     @endforeach
-                    
+  
                 </p>
                 <a href="/move" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
@@ -31,7 +31,8 @@
                     .'&province='.$provinceSelected.
                     '&health_assurance='.$healthAssurancesSelected.
                     '&last_education='.$last_educationSelected.
-                    '&dtks='.$dtksSelected)}}"
+                    '&dtks='.$dtksSelected.
+                    '&disability='.$disabilitySelected)}}"
                     class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
                     <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
@@ -104,10 +105,27 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                                <div class="col-sm-9">
-                                                <input type="text" name="date_birth" id="date_birth" class="form-control col-md-7" placeholder="Mulai cth : 20">
-                                                <input type="text" name="date_birth2" id="date_birth2" class="form-control col-md-7" placeholder="Mulai cth : 50">
+                                                <label class="col-sm-3 col-form-label">Rentang usia</label>
+                                                <div class="col-sm-9 row">
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="0">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-form-label mySeparator">-</div>
+                                                    </div>
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="120">
+                                                    </div>
+
+                                                    {{-- Slider date birth --}}
+                                                    <div class="slider mt-3 ms-3">
+                                                        <div class="progress"></div>
+                                                    </div>
+                                                    <div class="range-input">
+                                                        <input type="range" class="range-min" min="0" max="120" value="0" class="form-control">
+                                                        <input type="range" class="range-max" min="0" max="120" value="120" class="form-control">
+                                                    </div>
+
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -252,6 +270,19 @@
                                                         <option value="">Semua Asuransi</option>
                                                         @foreach($health_assurances as $health_assurance)
                                                             <option value="{{ $health_assurance->health_assurance }}" @if($healthAssurancesSelected == $health_assurance->health_assurance) {{ 'selected' }} @endif> {{ $health_assurance->health_assurance }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Disabilitas</label>
+                                                <div class="col-sm-9">
+                                                <select name="disability" id="disability" class="form-control">
+                                                        <option value="">Semua Disabilitas</option>
+                                                        @foreach($disabilitys as $disability)
+                                                            <option value="{{ $disability->disability }}" @if($disabilitySelected == $disability->disability) {{ 'selected' }} @endif> {{ $disability->disability }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -419,6 +450,89 @@
                 </div>
                 {{-- End Seach Modal --}}
 
+                {{-- Death Button --}}
+                @foreach ($datas as $data)
+                <div class="modal" id="deathModal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <form action="/citizens/{{ $data->uuid }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <input id="uuidValidate" type="hidden" name="uuidValidate">
+                                <div class="modal-header">
+                                    <label>Tanggal Meninggal</label>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="date" name="death_date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">OK</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+                @foreach ($datas as $data)
+                <div class="modal" id="moveModal">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <form action="/citizens/{{ $data->uuid }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT');
+                                <div class="modal-header">
+                                    Penduduk Pindah
+                                </div>
+                                <div class="modal-body row">
+                                    <input id="uuidValidate2" type="hidden" name="uuidValidate">
+                                    <div class="form-group col-6">
+                                            <label>Tanggal Pindah</label>
+                                            <input type="date" name="move_date" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>Pindah ke</label>
+                                            <input type="text" name="move_to" class="form-control" required>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success text-white">SIMPAN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+
+                @if($datas->isEmpty())
+                <button class="btn btn-sm btn-primary btn-fw float-right" data-bs-toggle="modal"
+                    data-bs-target="#importModal"><i class="mdi mdi-account-search text-white"></i> Impor Data</button>
+
+                <div class="modal" id="importModal">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                        <form action="{{ route('citizens.import') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>PILIH FILE</label>
+                                        <input type="file" name="file" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">IMPORT</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+
+
                 @if (session()->has('success'))
 
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -486,6 +600,8 @@
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>Disabilitas : </b>
+                                        <span>{{ $data->disability ?? '-' }}</span></span>
 
                                 </td>
                                 <td>
@@ -501,20 +617,27 @@
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>DTKS : </b>
+                                        <span>{{ $data->dtks ?? '-' }}</span></span>
                                 </td>
                                 <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
                                         <span>{{$data->created_at, 'd M Y'}}</span><br>
                                         @if($data->updated_by)
                                         <br>
                                         <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
-                                        <span>{{$data->updated_at, 'd M Y'}}<br>
+                                        <span>
+                                            {{$data->updated_at, 'd M Y'}}<br>
+                                        </span>
                                         @endif
-                                <td>
-                                    <span class="d-block mb-1"><b>Tanggal Pindah : </b>
-                                        <span>{{ $data->move_date ?? '-' }}</span></span>
-                                    <span class="d-block mb-1"><b>Pindah ke : </b>
-                                        <span>{{ $data->move_to ?? '-' }}</span></span>
-                                    {{-- {{$data->created_at, 'H:i:s'}} --}}
+                                </td>
+                                <td>   
+                                        <span>Tanggal Pindah: <br>
+                                            <b> {{ $data->move_date ?? '-' }} </b>
+                                        </span><br>
+                                        <br>
+                                        <span>Pindah Ke: 
+                                            <b> {{$data->move_to}} </b>
+                                        </span> <br>
                                 </td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
@@ -522,6 +645,7 @@
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
+
                                                 <form action="/move/{{ $data->uuid }}">
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
@@ -536,6 +660,7 @@
                                                     <button class="dropdown-item" type="submit"
                                                         onclick="return confirm('Hapus data dan pindahkan ke penduduk aktif?')">Hapus</button>
                                                 </form>
+
 
                                             </div>
                                         </div>
