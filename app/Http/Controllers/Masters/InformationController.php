@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Masters;
 
 use Ramsey\Uuid\Uuid;
-use App\Models\Information;
+use Illuminate\support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Masters\Information;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 class InformationController extends Controller
 {
     /**
@@ -29,7 +33,9 @@ class InformationController extends Controller
      */
     public function create()
     {
-        //
+        // 
+        
+       
     }
 
     /**
@@ -41,8 +47,11 @@ class InformationController extends Controller
     public function store(Request $request)
     {
         //
+      
     }
 
+    
+    
     /**
      * Display the specified resource.
      *
@@ -74,7 +83,7 @@ class InformationController extends Controller
      * @param  \App\Models\Information  $information
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Information $information,$uuid)
+    public function update(Request $request, $uuid)
     {
         //
         $validatedate = $request->validate([
@@ -84,9 +93,17 @@ class InformationController extends Controller
             'district_name' => 'required|max:255',
             'province_name' => 'required|max:255',
             'header' => 'required',
-            'code' => 'required'
-    
+            'code' => 'required',
+            'image' => 'image|file|max:50024'
         ]);
+
+         if($request->file('image')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedate['image'] = $request->file('image')->store('post-image');
+        }
+
         $validatedate['updated_by'] = Auth::user()->id;
         $validatedate['uuid'] = Uuid::uuid4()->getHex();
     

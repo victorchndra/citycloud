@@ -16,7 +16,9 @@
                     Data Informasi
                 </p>
                 <a href="/ti" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                
+
+                {{-- //button upload --}}
+               
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -28,7 +30,8 @@
                                 <th>Nama District</th>
                                 <th>Nama Provinsi</th>
                                 <th>Header</th>
-                                <th>Code</th>     
+                                <th>Code</th>    
+                                <th>Image</th> 
                                 <th>Dibuat</th>                                           
                                 <th>Aksi</th>
                             </tr>
@@ -43,7 +46,15 @@
                                 <td>{{ $data->district_name }} </td>                                                      
                                 <td>{{ $data->province_name}} </td>                                                      
                                 <td>{{ $data->header}} </td>                                                      
-                                <td>{{ $data->code}} </td>                                                      
+                                <td>{{ $data->code}} </td> 
+
+                                <td> @if ($data->image)
+                                    <div style="max-height: 350px; overflow: hidden;">
+                                        <img src="{{ asset('/storage/'. $data->image)}}""
+                                            class="img-fluid">
+                                    </div>
+                                    
+                                        @endif</td>                                                    
                                 <td>{{ $data->created_at, 'H:i:s'}}</td>
                                 <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
@@ -51,6 +62,7 @@
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
                                             <a href="/ti/{{ $data->uuid }}/edit" class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i>Edit</a>
+                                            <div class="dropdown-divider"></div>
                                         </div>
                                     </div>
                                 </td>
@@ -64,5 +76,19 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    function previewImage(){
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
+</script>
 @endsection
 

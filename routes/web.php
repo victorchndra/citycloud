@@ -40,7 +40,7 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 //jika penggunaan resource, path harus lengkap
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
-Route::resource('ti', "App\Http\Controllers\InformationController")->middleware('auth');
+Route::resource('ti', "App\Http\Controllers\Masters\InformationController")->middleware('auth');
 
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
 

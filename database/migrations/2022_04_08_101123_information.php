@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('province_name')->nullable();
             $table->string('header')->nullable();
             $table->string('code')->nullable();
+            $table->string('image')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
