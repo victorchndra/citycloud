@@ -8,7 +8,7 @@
                 <p class="card-description">
                     Data Penduduk Kelurahan Lembah Sari
                 </p>
-                <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                <a href="/family" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
 
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportFamilyCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.

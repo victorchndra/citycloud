@@ -8,7 +8,7 @@
                 <p class="card-description">
                     Data Pengguna Kelurahan Lembah Sari
                 </p>
-                <a href="citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                <a href="/users" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                 <a href="/users/create" class="btn btn-sm btn-primary btn-fw"><i class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- wajib pakai route href nya kalo mau export atau nge blank hasilnya -->
                 <!-- <a class="btn btn-warning float-end" href="{{ route('users.export') }}">Export User Data</a> -->

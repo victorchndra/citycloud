@@ -20,7 +20,7 @@
                     <p class="card-description">
                         Data Rentang Usia Kelurahan Lembah Sari
                     </p>
-                    <a href="/rt" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                    <a href="/agerange" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                     <a href="/agerange/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                     <div class="table-responsive pt-3">
