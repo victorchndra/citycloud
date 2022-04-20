@@ -31,8 +31,7 @@
                                     <td>{!! $data->description !!}</td>
                                     <td>{{ $data->category }}</td>
                                     <td>{{ $data->user->name }}</td>
-                                    <td>
-                                        <span>Ditambahkan Oleh: <b> {{$data->user->name}} </b></span><br>
+                                    <td>        
                                             <span>{{$data->created_at, 'd M Y'}}</span>
                                     </td>
                                 </tr>
