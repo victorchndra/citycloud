@@ -21,7 +21,7 @@
                     {{ $information->district_name  }}
                     @endforeach
                 </p>
-                <a href="/citizens" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                <a href="/death" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
 
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportDeathCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.

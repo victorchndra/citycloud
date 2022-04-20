@@ -19,7 +19,7 @@ class HomeController extends Controller
     {
         $informations = Information::get();
         // count total citizens
-        $countCitizens = Citizens::count('id');
+        $countCitizens = Citizens::whereNull('death_date')->whereNull('move_date')->count('id');
 
         $countKK = Citizens::where('family_status','=','kepala keluarga')->count();
 

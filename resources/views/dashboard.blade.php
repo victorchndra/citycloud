@@ -66,7 +66,7 @@
                         <div class="d-flex align-items-center flex-wrap mb-3">
                         <i class="mdi mdi-exit-to-app icon-lg text-info"></i>
                         <h1 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3"> {{$countMove}}</h1>
-                            <a href="/move" class="link-primary">Penduduk Pindah</a>
+                            <a href="/move" class="link-primary">Selengkapnya</a>
                         </div>
 
                     </div>
