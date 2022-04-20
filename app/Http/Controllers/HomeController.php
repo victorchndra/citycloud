@@ -28,10 +28,10 @@ class HomeController extends Controller
         $countDeath = Citizens::whereNotNull('death_date')->count();
 
         // count total citizens men
-        $countCitizensMen = Citizens::where('gender','=','l')->count();
+        $countCitizensMen = Citizens::where('gender','=','l')->whereNull('death_date')->whereNull('move_date')->count();
 
          // count total citizens women
-        $countCitizensWomen = Citizens::where('gender','=','p')->count();
+        $countCitizensWomen = Citizens::where('gender','=','p')->whereNull('death_date')->whereNull('move_date')->count();
 
         //itung usia
         $countAge05 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();
