@@ -70,7 +70,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                            <input type="date" readonly class="form-control @error('date_birth') is-invalid @enderror" name="date_birth" id="date" required value="{{ date('YYYY-MM-DD', strtotime(Str::limit($c->date_birth, 10, '')))}}">
+                            <input type="date" readonly class="form-control @error('date_birth') is-invalid @enderror" name="date_birth" id="date" required value="{{ date('Y-m-d', strtotime(Str::limit($c->date_birth, 10, '')))}}">
                         </div>
                         </div>
                     </div>
