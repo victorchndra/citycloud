@@ -24,7 +24,7 @@ class HomeController extends Controller
         $countKK = Citizens::where('family_status','=','kepala keluarga')->count();
 
         $countMove = Citizens::whereNotNull('move_date')->count();
-        $countDtks = Citizens::whereNot('dtks','=','')->count();
+        $countDtks = Citizens::whereNull('death_date')->whereNull('move_date')->whereNot('dtks','=','')->count();
         $countDeath = Citizens::whereNotNull('death_date')->count();
 
         // count total citizens men
@@ -34,13 +34,13 @@ class HomeController extends Controller
         $countCitizensWomen = Citizens::where('gender','=','p')->count();
 
         //itung usia
-        $countAge05 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();
-        $countAge610 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 6 and 10')->count();
-        $countAge1119 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 11 and 19')->count();
-        $countAge2057 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 20 and 57')->count();
-        $countAge58 = Citizens::whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 58 and 120')->count();
+        $countAge05 = Citizens::whereNull('death_date')->whereNull('move_date')->whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 0 and 5')->count();
+        $countAge610 = Citizens::whereNull('death_date')->whereNull('move_date')->whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 6 and 10')->count();
+        $countAge1119 = Citizens::whereNull('death_date')->whereNull('move_date')->whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 11 and 19')->count();
+        $countAge2057 = Citizens::whereNull('death_date')->whereNull('move_date')->whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 20 and 57')->count();
+        $countAge58 = Citizens::whereNull('death_date')->whereNull('move_date')->whereRaw('TIMESTAMPDIFF(YEAR, date_birth, CURDATE()) BETWEEN 58 and 120')->count();
 
-        $religions = Citizens::groupBy('religion')->get();
+        $religions = Citizens::whereNull('death_date')->whereNull('move_date')->groupBy('religion')->get();
         // $religionCounts = Citizens::groupBy('religion')->count();
         
         //group all religion then counts:
@@ -67,14 +67,14 @@ class HomeController extends Controller
      
 
         //count education
-        $educations = Citizens::groupBy('last_education')->get();
+        $educations = Citizens::whereNull('death_date')->whereNull('move_date')->groupBy('last_education')->get();
         $countEducations = DB::table('citizens')
         ->select('last_education', DB::raw('count(*) as total'))
         ->groupBy('last_education')
         ->pluck('total','last_education');
 
         //count disability
-        $disability = Citizens::groupBy('disability')->get();
+        $disability = Citizens::whereNull('death_date')->whereNull('move_date')->groupBy('disability')->get();
         $countDisability = DB::table('citizens')
         ->select('disability', DB::raw('count(*) as total'))
         ->groupBy('disability')
@@ -83,17 +83,17 @@ class HomeController extends Controller
         
   
 
-        $countVaccine1Y = Citizens::where('vaccine_1','=','sudah vaksin')->count();
-        $countVaccine1N = Citizens::where('vaccine_1','=','belum vaksin')->count();
+        $countVaccine1Y = Citizens::whereNull('death_date')->whereNull('move_date')->where('vaccine_1','=','sudah vaksin')->count();
+        $countVaccine1N = Citizens::whereNull('death_date')->whereNull('move_date')->where('vaccine_1','=','belum vaksin')->count();
 
-        $countVaccine2Y = Citizens::where('vaccine_2','=','sudah vaksin')->count();
-        $countVaccine2N = Citizens::where('vaccine_2','=','belum vaksin')->count();
+        $countVaccine2Y = Citizens::whereNull('death_date')->whereNull('move_date')->where('vaccine_2','=','sudah vaksin')->count();
+        $countVaccine2N = Citizens::whereNull('death_date')->whereNull('move_date')->where('vaccine_2','=','belum vaksin')->count();
 
-        $countVaccine3Y = Citizens::where('vaccine_3','=','sudah vaksin')->count();
-        $countVaccine3N = Citizens::where('vaccine_3','=','belum vaksin')->count();
+        $countVaccine3Y = Citizens::whereNull('death_date')->whereNull('move_date')->where('vaccine_3','=','sudah vaksin')->count();
+        $countVaccine3N = Citizens::whereNull('death_date')->whereNull('move_date')->where('vaccine_3','=','belum vaksin')->count();
 
-        $disability = Citizens::groupBy('disability')->get();
-        $disabilityCounts = Citizens::groupBy('disability')->count();
+        $disability = Citizens::whereNull('death_date')->whereNull('move_date')->groupBy('disability')->get();
+        $disabilityCounts = Citizens::whereNull('death_date')->whereNull('move_date')->groupBy('disability')->count();
         
         
 
