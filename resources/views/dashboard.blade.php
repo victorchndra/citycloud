@@ -208,7 +208,7 @@
                     <div class="card-body pb-0">
                         <p class="card-title">Berdasarkan Pekerjaan</p>
                         <div class="d-flex justify-content-between flex-wrap">
-                            <p class="text-muted">Last update: 2 Hours ago</p>
+                       
                             <div class="d-flex align-items-center flex-wrap server-status-legend mt-3 mb-3 mb-md-0">
 
 
