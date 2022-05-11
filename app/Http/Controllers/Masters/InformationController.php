@@ -92,17 +92,34 @@ class InformationController extends Controller
             'sub_district_name' => 'required',
             'district_name' => 'required|max:255',
             'province_name' => 'required|max:255',
-            'header' => 'required',
+            'header' => 'image|file|max:50024',
+            'signature' => 'image|file|max:50024',
+            'logo' => 'image|file|max:50024',
             'code' => 'required',
-            'image' => 'image|file|max:50024'
         ]);
 
-         if($request->file('image')){
+         if($request->file('header')){
             if($request->oldImage){
                 Storage::delete($request->oldImage);
             }
-            $validatedate['image'] = $request->file('image')->store('post-image');
+            $validatedate['header'] = $request->file('header')->store('information');
         }
+
+        if($request->file('signature')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedate['signature'] = $request->file('signature')->store('information');
+        }
+
+        if($request->file('logo')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedate['logo'] = $request->file('logo')->store('information');
+        }
+
+
 
         $validatedate['updated_by'] = Auth::user()->id;
         $validatedate['uuid'] = Uuid::uuid4()->getHex();
@@ -113,13 +130,13 @@ class InformationController extends Controller
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
             'description' => '<em>Mengubah</em> Data Informasi <strong>[' . $request->header . ']</strong>', //name = nama tag di view (file index)
-            'category' => 'Data Informasi',
+            'category' => 'edit',
             'created_at' => now(),
         ];
     
         DB::table('logs')->insert($log);
 
-        return redirect('/ti')->with('success', 'Data has been updated successfully');
+        return redirect('/information')->with('success', 'Data has been updated successfully');
         // return view('masters.information.index')->with('success', 'Data has been updated successfully');
     }
 

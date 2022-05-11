@@ -8,6 +8,8 @@ use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
 use App\Http\Controllers\HomeController;
 use App\Models\Masters\ageRange;
+use App\Http\Controllers\Transactions\Letter\LetterController;    
+use App\Http\Controllers\Transactions\Letter\LetterBusinessController;    
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,7 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 //jika penggunaan resource, path harus lengkap
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
-Route::resource('ti', "App\Http\Controllers\Masters\InformationController")->middleware('auth');
+Route::resource('information', "App\Http\Controllers\Masters\InformationController")->middleware('auth');
 
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
 
@@ -101,5 +103,13 @@ Route::get('/move/{citizens:uuid}', [CitizenController::class, 'rollBackMoveDate
 Route::get('/death',[CitizenController::class, 'deathCitizens'])->middleware('auth');
 Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDate'])->middleware('auth');
 
+
 // Route::get('/ageRange',[AgeRangeController::class, 'index'])->middleware('auth');
 
+//letters
+Route::resource("letters", "App\Http\Controllers\Transactions\Letter\LetterController")->middleware('auth');
+Route::get("/letters-citizens", [LetterController::class, 'indexcitizen'])->middleware('auth');
+Route::get("list", [LetterController::class, 'list'])->middleware('auth');
+//businessletters
+Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
+Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');

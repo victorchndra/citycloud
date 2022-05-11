@@ -20,10 +20,13 @@
 <body>
   <div class="container-scroller d-flex">
 
+ 
     <!-- partial:./partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
       <ul class="nav">
-        <li class="nav-item sidebar-category">
+        
+      <li class="nav-item sidebar-category">
           <p>Dashboard</p>
           <span></span>
         </li>
@@ -60,6 +63,25 @@
                 <span class="menu-title">Aktivitas</span>
             </a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <i class="mdi mdi-account-multiple menu-icon"></i>
+            <span class="menu-title">Surat</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/letters">Surat Keluar</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a></li>
+            </ul>
+          </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/log">
+                <i class="mdi mdi-history menu-icon"></i>
+                <span class="menu-title">Aktivitas</span>
+            </a>
+        </li>
+        
         </li>
 
         <li class="nav-item sidebar-category">
@@ -79,12 +101,47 @@
               <li class="nav-item"> <a class="nav-link" href="/rw"> Data RW </a></li>
               <li class="nav-item"> <a class="nav-link" href="/assistance"> Data Bantuan Sosial </a></li>
               <li class="nav-item"> <a class="nav-link" href="/users"> Data Pengguna </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/ti"> Data Informasi </a></li>
+              <li class="nav-item"> <a class="nav-link" href="/information"> Data Informasi </a></li>
               <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia </a></li>
             </ul>
           </div>
-
     </li>
+    @endif
+
+    @if ( Auth::user()->roles == 'citizens' || Auth::user()->roles == 'headrt')
+      <ul class="nav">
+        
+      <li class="nav-item sidebar-category">
+          <p>Dashboard</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+            <div class="badge badge-info badge-pill">2</div>
+          </a>
+        </li>
+
+        <li class="nav-item sidebar-category">
+          <p>Menu Utama</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <i class="mdi mdi-account-multiple menu-icon"></i>
+            <span class="menu-title">Surat</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/letters">Buat Surat</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a></li>
+            </ul>
+          </div>
+    
+        </li>
+    @endif
 
     @guest @else
     <li class="nav-item">

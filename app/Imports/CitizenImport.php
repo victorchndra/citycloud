@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-
+use App\Models\User;
 use App\Models\Transactions\Citizens;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -69,6 +69,27 @@ class CitizenImport implements ToModel
             $newData->created_by        = \Auth::user()->id;
 
             $newData->save();
+
+          
+            $user                        = new User;
+            $user->username              = $row[1];
+            $user->uuid                  = Uuid::uuid4()->getHex();
+            $user->name                  = $row[3];
+            $user->roles                 = "citizens";
+            $user->password              = \Hash::make($row[1]);
+            $user->citizens_id           = $newData->id;
+            $user->avatar                = "";
+            $user->phone                 = $row[10];
+            $user->village_sub           = "";
+            $user->rt                    = $row[26];
+            $user->rw                    = $row[27];
+            $user->village               = $row[28];
+            $user->sub_districts         = $row[29];
+            $user->districts             = $row[30];
+            $user->province              = $row[31];
+            $user->created_by            = \Auth::user()->id;
+            $user->save();            
+
 
     }
 

@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('district_name')->nullable();
             $table->string('province_name')->nullable();
             $table->string('header')->nullable();
+            $table->string('signature')->nullable();
+            $table->string('logo')->nullable();
             $table->string('code')->nullable();
-            $table->string('image')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
         });

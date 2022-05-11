@@ -1,7 +1,7 @@
 @extends("layouts.app")
 @section('content')
 {{-- Isi konten --}}
-
+<link rel="stylesheet" href="{{asset('/vendors/simple-datatables/style.css')}}">
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -13,7 +13,7 @@
                 <a href="/log" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
 
                 <div class="table-responsive pt-3">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered"  id="tablelog">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -38,12 +38,16 @@
                             @endforeach
                             </tbody>
                     </table>
-                    <div class="mt-3">
-                        {{ $datas->links('pagination::bootstrap-5') }}
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{{asset('/vendors/simple-datatables/simple-datatables.js')}}"></script>
+<script>
+    // Simple Datatable
+    let tablelog = document.querySelector('#tablelog');
+    let dataTable = new simpleDatatables.DataTable(tablelog);
+    
+</script>
 @endsection
