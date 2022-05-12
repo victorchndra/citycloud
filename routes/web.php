@@ -8,8 +8,8 @@ use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
 use App\Http\Controllers\HomeController;
 use App\Models\Masters\ageRange;
-use App\Http\Controllers\Transactions\Letter\LetterController;    
-use App\Http\Controllers\Transactions\Letter\LetterBusinessController;    
+use App\Http\Controllers\Transactions\Letter\LetterController;
+use App\Http\Controllers\Transactions\Letter\LetterBusinessController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,3 +113,6 @@ Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 //businessletters
 Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');
+// bukan bpjs
+Route::resource("letters-not-bpjs", "App\Http\Controllers\Transactions\Letter\LetterNotBPJSController")->middleware('auth');
+Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNotBPJS@approve")->name('approve.notbpjs');
