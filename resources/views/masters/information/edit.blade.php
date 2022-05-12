@@ -11,7 +11,7 @@
         
        @foreach($in as $key => $i)
       
-        <form class="forms-sample" action="/ti/{{ $i->uuid}}" method="post" enctype="multipart/form-data">
+        <form class="forms-sample" action="/information/{{ $i->uuid}}" method="post" enctype="multipart/form-data">
           @method('put')
           @csrf
           <div class="form-group">
@@ -25,7 +25,7 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="name">Nama Desa</label>
+            <label for="name">Desa</label>
             <input type="text" id="village_name" name="village_name" class="form-control @error('village_name') is-invalid @enderror" 
             required autofocus value="{{old('village_name',$i->village_name)}}">
             @error('village_name')
@@ -35,7 +35,7 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="name">Sub Nama Desa</label>
+            <label for="name">Kecamatan</label>
             <input type="text" id="sub_district_name" name="sub_district_name" class="form-control @error('sub_district_name') is-invalid @enderror" 
             required autofocus value="{{old('sub_district_name',$i->sub_district_name)}}">
             @error('sub_district_name')
@@ -45,7 +45,7 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="name">Nama District</label>
+            <label for="name">Kabupaten</label>
             <input type="text" id="district_name" name="district_name" class="form-control @error('district_name') is-invalid @enderror" 
             required autofocus value="{{old('district_name',$i->district_name)}}">
             @error('district_name')
@@ -55,7 +55,7 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="name">Nama Provinsi</label>
+            <label for="name">Provinsi</label>
             <input type="text" id="province_name" name="province_name" class="form-control @error('province_name') is-invalid @enderror" 
             required autofocus value="{{old('province_name',$i->province_name)}}">
             @error('province_name')
@@ -64,7 +64,7 @@
             </div>
             @enderror
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="name">Kepala</label>
             <input type="text" id="header" name="header" class="form-control @error('header') is-invalid @enderror" 
             required autofocus value="{{old('header',$i->header)}}">
@@ -73,7 +73,7 @@
                 {{ $message }}
             </div>
             @enderror
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="name">Kode</label>
             <input type="text" id="code" name="code" class="form-control @error('code') is-invalid @enderror" 
@@ -85,16 +85,50 @@
             @enderror
           </div>
           <div class="mb-3">
-            <label for="image" class="form-label">Input Gambar</label>
-            <input type="hidden" name="oldImage" value="{{ $i->image}}">
-            @if ($i->image)
-            <img src="{{asset('storage/' . $i->image)}}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+            <label for="header" class="form-label">Input Kop</label>
+            <input type="hidden" name="oldImage" value="{{ $i->header}}">
+            @if ($i->header)
+            <img src="{{asset('storage/' . $i->header)}}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
             @else
             <img class="img-preview img-fluid mb-3 col-sm-5">
             @endif
             
-            <input class="form-control @error('image') is-invalid @enderror"" type="file" id="image" name="image" value="{{ old('image', $i->image)}}" onchange="previewImage()">
-            @error('image')
+            <input class="form-control @error('header') is-invalid @enderror"" type="file" id="header" name="header" value="{{ old('header', $i->header)}}" onchange="previewImage()">
+            @error('header')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+          </div>
+
+          <div class="mb-3">
+            <label for="signature" class="form-label">Input TTD Digital</label>
+            <input type="hidden" name="oldImage" value="{{ $i->signature}}">
+            @if ($i->signature)
+            <img src="{{asset('storage/' . $i->signature)}}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+            @else
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+            @endif
+            
+            <input class="form-control @error('signature') is-invalid @enderror"" type="file" id="signature" name="signature" value="{{ old('signature', $i->signature)}}" onchange="previewImage()">
+            @error('signature')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+          </div>
+         
+          <div class="mb-3">
+            <label for="logo" class="form-label">Input Logo</label>
+            <input type="hidden" name="oldImage" value="{{ $i->logo}}">
+            @if ($i->logo)
+            <img src="{{asset('storage/' . $i->logo)}}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+            @else
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+            @endif
+            
+            <input class="form-control @error('logo') is-invalid @enderror"" type="file" id="logo" name="logo" value="{{ old('logo', $i->logo)}}" onchange="previewImage()">
+            @error('logo')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>

@@ -2091,11 +2091,13 @@ class CitizenController extends Controller
         $path = $file->storeAs('public/excel/', $nama_file);
 
         // import data
-        $import = Excel::import(new CitizenImport(), storage_path('app/public/excel/' . $nama_file));
-
+        // $import = Excel::import(new CitizenImport(), storage_path('app/public/excel/' . $nama_file));
+        $import = Excel::import(new CitizenImport, request()->file('file'));
 
         //remove from server
         Storage::delete($path);
+
+        
 
         if ($import) {
             //redirect

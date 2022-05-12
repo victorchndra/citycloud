@@ -74,4 +74,12 @@ class User extends Authenticatable
     {
         return 'uuid';
     }
+
+    public function position(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => ucwords($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
 }

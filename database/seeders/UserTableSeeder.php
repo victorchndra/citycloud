@@ -24,10 +24,12 @@ class UserTableSeeder extends Seeder
         $user->uuid = Uuid::uuid4()->getHex();
         $user->username = "support";
         $user->name = "support";
+        $user->roles = "god";
+        $user->citizens_id = 0;
         $user->password = Hash::make("123456");
         $user->created_by = 1;
         $user->save();
-
+      
         $this->command->info("All User success inserted");
     }
 }
