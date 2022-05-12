@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 //callmodel
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterBusiness;
+
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
@@ -44,6 +45,7 @@ class LetterBusinessController extends Controller
     {
 
         $informations = Information::get();
+       
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
@@ -222,12 +224,12 @@ class LetterBusinessController extends Controller
      */
     public function edit($uuid,Request $request)
     {
-        $informations = Information::get();
-        // $citizen = Citizen::orderBy('name', 'asc')->get();
-        $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterBusiness::where('uuid', $uuid)->get();
+        // $informations = Information::get();
+        // // $citizen = Citizen::orderBy('name', 'asc')->get();
+        // $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+        // $citizen = LetterBusiness::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.business.edit', compact('citizen','informations','position'));
+        // return view('transactions.letters.business.edit', compact('citizen','informations','position'));
     }
 
     /**

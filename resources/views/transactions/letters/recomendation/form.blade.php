@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Usaha</h3>
+                <h3>Surat Keterangan Rekomendasi SKCK</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Rekomendasi SKCK</li>
                     </ol>
                 </nav>
             </div>
@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-pension" method="POST">
+                            <form class="form form-horizontal" action="/letters-recomendation" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -59,21 +59,25 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Pilih Status</label>
+                                            <select class="form-control" name="status_prilaku">
+                                                <option value="Tidak ada">Tidak Ada</option>
+                                                <option value="Berkelakuan Baik">Berkelakuan Baik</option>
+                                                <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Surat Pengantar RT</label>                                    
+                                                <div class="col-sm-9">
+                                                    <select name="letter_rt" id="rt" class="form-control">                    
+                                                        @foreach($rts as $rt)
+                                                            <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                         </div>
-
-                                      
-
+                                                                                
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -126,7 +130,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-recomendation" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -150,29 +154,14 @@
                                             </select>
                                         </div>
 
-
                                         <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
+                                            <label>Pilih Status</label>
+                                            <select class="form-control" name="skck_status">
                                                 <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
+                                                <option value="Berkelakuan Baik">Berkelakuan Baik</option>
+                                                <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
                                             </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
-
+                                        </div>                                                                            
                                       
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

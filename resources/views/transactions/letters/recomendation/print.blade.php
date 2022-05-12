@@ -68,8 +68,9 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
         <tr>
+            
             <td>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa  {{ $informations->village_name }} Kecamatan  {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }}, dengan ini menerangkan bahwa :
+                <span>Dengan Hormat,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa  {{ $informations->village_name }} Kecamatan  {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }}, dengan ini memberikan Rekomendasi kepada :
             </td>
         </tr>
     </table>
@@ -119,16 +120,29 @@
     </div>
 
 
-    
+    <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
+        <tr>
+            <td class="justify">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami, hingga saat dikeluarkan Rekomendasi ini serta diperjelas oleh :
+            </td>
+        </tr>
+    </table>
+    <div style="line-height: 1; margin-top: 10px;">
+        <table align="center" width="540">
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 30 px;"></span>1.&nbsp;&nbsp;&nbsp;Pernyataan Keterangan {{ $data->letter_rt}} yang bersangkutan di ketahui <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oleh Lurah Umban Sari</td>                
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 30 px;"></span>2.&nbsp;&nbsp;&nbsp;Surat Pengantar dari Ketua {{ $data->letter_rt}}</td>                                
+            </tr>            
+        </table>
+    </div>
             <br>
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>
-            <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Bahwa Benar {{ $data->job }} tersebut diatas benar akan memasuki masa pensiun saat {{ $data->job }} 
-                tersebut genap berusia {{$data->age_letter}} tahun 
-                    <br/>
-                    <br/>
-                Demikianlah {{ $data->letter_name }} ini dibuat untuk dapat dipergunakan sebagaimana mestinya.
+            <td class="justify" style="text-align: justify">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ternyata yang bersangkutan ”Tidak Pernah Terlibat Partai Terlarang, Tidak Terlibat Dalam Tindakan Kriminal, Serta Tidak Pernah Membuat Keributan Di Lingkungan Tempat Tinggalnya”. <br> Rekomendasi ini diberikan untuk melengkapi persyaratan memperoleh SURAT KETERANGAN CATATAN KEPOLISIAN (SKCK) dari Kepala Bapak Kapolsek Kabun.
+                <br><br>Demikian Rekomendasi ini kami berikan untuk dapat dipergunakan seperlunya.
             </td>
         </tr>
     </table>
@@ -137,15 +151,18 @@
     <div style="margin-bttom:10px; overflow:auto;">
             <table align="right" width="320" border="1px" >
                 <tr>
-                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $informations->village_name }} {{$data->letter_date}}</td>
-                   
+                    <td  width="">Dikeluarkan di </td>
+                    <td width="10 px">: </td>
+                    <td width=""; > {{ $informations->village_name }} </td>
                      <td></td> 
                   
                 </tr>
                 <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yang Membuat Pernyataan</td>
+                    <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
+                    <td style=" border-bottom: 1px solid #000;">: </td>
+                    <td style=" border-bottom: 1px solid #000;">{{$data->letter_date}}</td>
+                     <td></td>
                 </tr>
-                
             </table>
     </div>
 
@@ -201,6 +218,9 @@
                 </div>
             </div>
         </section>
+
+
+
 
     </body>
 </html>

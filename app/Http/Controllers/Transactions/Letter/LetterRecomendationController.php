@@ -16,14 +16,16 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterPension;
+use App\Models\Transactions\Letter\LetterBusiness;
 use App\Models\Masters\Information;
+use App\Models\Masters\RT;
+use App\Models\Transactions\Letter\LetterRecomendation;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
 
-class LetterPensionController extends Controller
+class LetterRecomendationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,14 +42,18 @@ class LetterPensionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        //
         
+        $rts = RT::get();
+        $rtSelected =  $request->get('rt');
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
         
-        return view('transactions.letters.pension.form', compact('citizen','informations','position'));
+        return view('transactions.letters.recomendation.form', compact('citizen','informations','position','rts', 'rtSelected'));
+    
     }
 
     /**
@@ -58,17 +64,18 @@ class LetterPensionController extends Controller
      */
     public function store(Request $request)
     {
+        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'age_letter' => 'required',
-                'job_letter' => 'required',
+                'status_prilaku' => 'required',
+                'letter_rt' => 'required'
             ]);
     
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan pensiun";
+            $validatedData['letter_name']     = "surat keterangan rekomendasi skck";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -112,7 +119,7 @@ class LetterPensionController extends Controller
             DB::table('logs')->insert($log);
             // selesai
     
-            LetterPension::create($validatedData);
+            LetterRecomendation::create($validatedData);
     
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -120,14 +127,14 @@ class LetterPensionController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'age_letter' => 'required',
-                'job_letter' => 'required',
+                'status_prilaku' => 'required',
+                'letter_rt' => 'required'
             ]);
     
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "surat keterangan rekomendasi skck";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -170,13 +177,12 @@ class LetterPensionController extends Controller
             DB::table('logs')->insert($log);
             // selesai
     
-            LetterPension::create($validatedData);
+            LetterBusiness::create($validatedData);
     
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }
-       
     }
 
     /**
@@ -187,13 +193,14 @@ class LetterPensionController extends Controller
      */
     public function show($uuid)
     {
-        $data = LetterPension::where('uuid', $uuid)->firstOrFail();
+        //
+        $data = LetterBusiness::where('uuid', $uuid)->firstOrFail();
         $informations = Information::first();
                  // tambahkan baris kode ini di setiap controller
                  $log = [
                     'uuid' => Uuid::uuid4()->getHex(),
                     'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data surat keterangan usaha <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'description' => '<em>Mencetak</em> data surat keterangan Rekomendasi SKCK <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                     'category' => 'cetak',
                     'created_at' => now(),
                 ];
@@ -201,7 +208,7 @@ class LetterPensionController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
    
-        return view('transactions.letters.pension.print',compact('data','informations'));
+        return view('transactions.letters.recomendation.print',compact('data','informations'));
 
     }
 
@@ -213,13 +220,14 @@ class LetterPensionController extends Controller
      */
     public function edit($uuid,Request $request)
     {
+        //
         $informations = Information::get();
-        $letterpension = LetterPension::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterPension::where('uuid', $uuid)->get();
+        $citizen = LetterBusiness::where('uuid', $uuid)->get();
         
-        return view('transactions.letters.pension.edit', compact('citizen','informations','position','letterpension'));
+        return view('transactions.letters.business.edit', compact('citizen','informations','position'));
+    
     }
 
     /**
@@ -231,82 +239,85 @@ class LetterPensionController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        if ($request->get('rejected_notes_admin')) {
-            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
-            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_admin' => "rejected",
-            ]);
+            if ($request->get('rejected_notes_admin')) {
+                $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_admin' => "rejected",
+                ]);
+            
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
         
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'tolak',
-            'created_at' => now(),
-        ];
-    
-        DB::table('logs')->insert($log);
-        // selesai
-    
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
-        }
-        $validatedData = $request->validate([
-            'letter_index' => 'required',
-            'age_letter' => 'required',
-            'job_letter' => 'required',
-        ]);
-        $position           = User::findOrFail($request->get('positions'));
-        $validatedData['letter_date']   = $request->get('letter_date');
-        $validatedData['valid_until']   = $request->get('letter_date');
-        $validatedData['signed_by']     = $position->id;
-        $validatedData['signature']     = $request->get('signature');
-    
-
-        if ($validatedData) {
-
-            $validatedData['updated_by'] = Auth::user()->id;
-            $letters = LetterPension::where('uuid', $uuid)->first()->update($validatedData);
-        }
-
-        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
-            'category' => 'edit',
-            'created_at' => now(),
-        ];
-
-        DB::table('logs')->insert($log);
-
-        return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
-    }else{
-        if ($request->get('rejected_notes_rt')) {
-            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
-            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_rt' => "rejected",
-            ]);
+            DB::table('logs')->insert($log);
+            // selesai
         
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'tolak',
-            'created_at' => now(),
-        ];
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
+            $validatedData = $request->validate([
+                'letter_index' => 'required',
+                'status_prilaku' => 'required',
+                'letter_rt' => 'required'
+            
+            ]);
+            $position           = User::findOrFail($request->get('positions'));
+            $validatedData['letter_date']   = $request->get('letter_date');
+            $validatedData['valid_until']   = $request->get('letter_date');
+            $validatedData['signed_by']     = $position->id;
+            $validatedData['signature']     = $request->get('signature');
+        
     
-        DB::table('logs')->insert($log);
-        // selesai
+            if ($validatedData) {
     
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+                $validatedData['updated_by'] = Auth::user()->id;
+                $letters = LetterBusiness::where('uuid', $uuid)->first()->update($validatedData);
+            }
+    
+            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
+                'category' => 'edit',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+    
+            return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+            
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+        
+            DB::table('logs')->insert($log);
+            // selesai
+        
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        }
     }
-    }
-    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -315,29 +326,30 @@ class LetterPensionController extends Controller
      */
     public function destroy($uuid)
     {
-        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
-        $data->deleted_by = Auth::user()->id;
-        $data->save();
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
-            'category' => 'hapus',
-            'created_at' => now(),
-        ];
+        //
+        // data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        // $data->deleted_by = Auth::user()->id;
+        // $data->save();
+        // $log = [
+        //     'uuid' => Uuid::uuid4()->getHex(),
+        //     'user_id' => Auth::user()->id,
+        //     'description' => '<em>Menghapus</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
+        //     'category' => 'hapus',
+        //     'created_at' => now(),
+        // ];
 
-        DB::table('logs')->insert($log);
-        $data->delete();
+        // DB::table('logs')->insert($log);
+        // $data->delete();
 
         
-        return redirect('/letters')->with('success','Surat berhasil dihapus');
+        // return redirect('/letters')->with('success','Surat berhasil dihapus');
+    
     }
-
     public function approve($uuid)
     {
 
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
         $data->update([
             'updated_by' =>Auth::user()->id,
             'approval_admin' => "approved",
@@ -359,7 +371,7 @@ class LetterPensionController extends Controller
         return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }else{
             
-            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
             $data->update([
                 'updated_by' =>Auth::user()->id,
                 'approval_rt' => "approved",
@@ -386,6 +398,4 @@ class LetterPensionController extends Controller
             return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }
     }
-
-
 }
