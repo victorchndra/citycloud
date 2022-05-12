@@ -72,7 +72,7 @@ class AssistanceController extends Controller
 
         Assistance::create($validatedData);
 
-        return redirect('/assistance')->with('success','Data has been created successfully');
+        return redirect('/assistance')->with('success','Data berhasil ditambah!');
     }
 
     /**
@@ -127,7 +127,7 @@ class AssistanceController extends Controller
         DB::table('logs')->insert($log);
         // selesai
 
-        return redirect('/assistance')->with('success', 'Data has been updated successfully');
+        return redirect('/assistance')->with('success', 'Data berhasil diperbarui!');
     }
 
     /**
@@ -159,7 +159,7 @@ class AssistanceController extends Controller
         DB::table('logs')->insert($log);
         $data->delete();
 
-        return redirect()->route('assistance.index')->with('success', 'Data has been deleted successfully');
+        return redirect()->route('assistance.index')->with('success', 'Data berhasil dihapus!');
     }
 
 }

@@ -18,7 +18,11 @@ use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
+<<<<<<< HEAD
 use App\Models\Transactions\Letter\LetterRecomendation;
+=======
+use App\Models\Transactions\Letter\LetterHoliday;
+>>>>>>> 06bb0056c2a91d40f64a363f841e3c07de0bc738
 
 class LetterController extends Controller
 {
@@ -36,6 +40,9 @@ class LetterController extends Controller
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $datas = $businessletters->concat($notbpjsletters)->concat($recomendationletters);
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
+            $datas = $businessletters->concat($notbpjsletters)->concat($holidayletters);
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters);
             return view('transactions.letters.index',  compact('datas'));
@@ -120,7 +127,7 @@ class LetterController extends Controller
 
             return view('transactions.letters.business.print',compact('data','informations'));
         }
-
+        
         // Surat belum menerima bpjs
         if(LetterNotBPJS::where('uuid', $uuid)->exists()) {
             $data = LetterNotBPJS::where('uuid', $uuid)->firstOrFail();
@@ -138,6 +145,24 @@ class LetterController extends Controller
                 // selesai
 
             return view('transactions.letters.notbpjs.print',compact('data','informations'));
+        }
+
+        if(LetterHoliday::where('uuid', $uuid)->exists()) {
+            $data = LetterHoliday::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat pengajuan cuti tahunan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.holiday.print',compact('data','informations'));
         }
 
         //surat Pensiun
