@@ -111,7 +111,7 @@ class LetterRecomendationController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan rekomendasi SKCK <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -134,7 +134,7 @@ class LetterRecomendationController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan rekomendasi skck";
+            $validatedData['letter_name']     = "surat keterangan rekomendasi SKCK";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -169,7 +169,7 @@ class LetterRecomendationController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan rekomendasi SKCK <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -326,23 +326,22 @@ class LetterRecomendationController extends Controller
      */
     public function destroy($uuid)
     {
-        //
-        // data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
-        // $data->deleted_by = Auth::user()->id;
-        // $data->save();
-        // $log = [
-        //     'uuid' => Uuid::uuid4()->getHex(),
-        //     'user_id' => Auth::user()->id,
-        //     'description' => '<em>Menghapus</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
-        //     'category' => 'hapus',
-        //     'created_at' => now(),
-        // ];
+        $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> Surat Keterangan Rekomendasi SKCK <strong>[' . $data->name . ']</strong>',
+            'category' => 'hapus',
+            'created_at' => now(),
+        ];
 
-        // DB::table('logs')->insert($log);
-        // $data->delete();
+        DB::table('logs')->insert($log);
+        $data->delete();
 
-        
-        // return redirect('/letters')->with('success','Surat berhasil dihapus');
+
+        return redirect('/letters')->with('success','Surat berhasil dihapus');
     
     }
     public function approve($uuid)
