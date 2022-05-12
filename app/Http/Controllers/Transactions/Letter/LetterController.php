@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Transactions\Letter;
 
-use App\Http\Controllers\Controller;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 
 //panggil auth
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 //call all letters
-use App\Models\Transactions\Letter\LetterBusiness;
-use App\Models\Transactions\Citizens;
-
+use App\Models\Masters\Information;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 //calldb
-use Illuminate\Support\Facades\DB;
+use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterNotBPJS;
+use App\Models\Transactions\Letter\LetterBusiness;
 
 class LetterController extends Controller
 {
@@ -24,32 +26,35 @@ class LetterController extends Controller
      */
     public function index()
     {
-       
+
 
         if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            return view('transactions.letters.index',  compact('businessletters'));
+            $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
+            $datas = $businessletters->concat($notbpjsletters);
+            return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
         }else{
             return view('transactions.letters.list');
         }
-        
+
     }
-  
+
 
     public function indexcitizen()
     {
 
         if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-            $businessletters = LetterBusiness::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $businessletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             return view('transactions.letters.indexcitizen',  compact('businessletters'));
         }elseif(Auth::user()->roles == 'headrt'){
             $businessletters = Citizens::join('letter_businesses', 'citizens.id', '=', 'letter_businesses.citizen_id')
             ->where('letter_businesses.rt', '=', Auth::user()->rt)->orderBy('letter_businesses.created_at', 'desc')->get();
             return view('transactions.letters.indexcitizen',  compact('businessletters'));
         }elseif(Auth::user()->roles == 'citizens' ){
-            $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $businessletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             return view('transactions.letters.indexcitizen',  compact('businessletters'));
         }
     }
@@ -90,9 +95,45 @@ class LetterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        // Surat keterangan usaha
+        if(LetterBusiness::where('uuid', $uuid)->exists()) {
+            $data = LetterBusiness::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan usaha <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.business.print',compact('data','informations'));
+        }
+
+        // Surat belum menerima bpjs
+        if(LetterNotBPJS::where('uuid', $uuid)->exists()) {
+            $data = LetterNotBPJS::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+                    // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat belum menerima BPJS <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+            return view('transactions.letters.notbpjs.print',compact('data','informations'));
+        }
     }
 
     /**

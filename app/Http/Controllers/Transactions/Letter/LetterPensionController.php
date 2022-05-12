@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterBusiness;
+use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
 
-class LetterBusinessController extends Controller
+class LetterPensionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,12 +42,12 @@ class LetterBusinessController extends Controller
      */
     public function create()
     {
-
+        
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-
-        return view('transactions.letters.business.form', compact('citizen','informations','position'));
+        
+        return view('transactions.letters.pension.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -61,18 +61,14 @@ class LetterBusinessController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'business_variation' => 'required',
-                'business_name' => 'required',
-                'business_place' => 'required',
-                'business_address' => 'required',
-                'agrarian_status' => 'required',
-                'self_status' => 'required',
+                'age_letter' => 'required',
+                'job_letter' => 'required',
             ]);
-
+    
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-
-            $validatedData['letter_name']     = "surat keterangan usaha";
+    
+            $validatedData['letter_name']     = "surat keterangan pensiun";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -93,17 +89,17 @@ class LetterBusinessController extends Controller
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-
+    
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
-
-
+    
+    
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "approved";
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
-
+    
+    
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -112,29 +108,25 @@ class LetterBusinessController extends Controller
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
             // selesai
-
-            LetterBusiness::create($validatedData);
-
+    
+            LetterPension::create($validatedData);
+    
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
         }else{
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'business_variation' => 'required',
-                'business_name' => 'required',
-                'business_place' => 'required',
-                'business_address' => 'required',
-                'agrarian_status' => 'required',
-                'self_status' => 'required',
+                'age_letter' => 'required',
+                'job_letter' => 'required',
             ]);
-
+    
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-
+    
             $validatedData['letter_name']     = "surat keterangan usaha";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
@@ -144,7 +136,7 @@ class LetterBusinessController extends Controller
             $validatedData['date_birth'] = $citizen->date_birth;
             $validatedData['religion'] = $citizen->religion;
             $validatedData['job'] = $citizen->job;
-
+            
             $validatedData['address'] =  "Dusun ".$citizen->village_sub.", RT ".$citizen->rt." RW ".$citizen->rw." Desa ".$citizen->village;
             $validatedData['village_sub'] = $citizen->village_sub;
             $validatedData['rt'] = $citizen->rt;
@@ -153,19 +145,19 @@ class LetterBusinessController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
-
+           
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
-
+    
             $validatedData['letter_date']   = date('Y-m-d');
             $validatedData['valid_until']   = date('Y-m-d');
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "waiting";
-
+    
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
-
+    
+    
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -174,17 +166,17 @@ class LetterBusinessController extends Controller
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
             // selesai
-
-            LetterBusiness::create($validatedData);
-
+    
+            LetterPension::create($validatedData);
+    
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }
-
+       
     }
 
     /**
@@ -195,22 +187,21 @@ class LetterBusinessController extends Controller
      */
     public function show($uuid)
     {
-        // ---BACK UP
-        // $data = LetterBusiness::where('uuid', $uuid)->firstOrFail();
-        // $informations = Information::first();
-        //          // tambahkan baris kode ini di setiap controller
-        //          $log = [
-        //             'uuid' => Uuid::uuid4()->getHex(),
-        //             'user_id' => Auth::user()->id,
-        //             'description' => '<em>Mencetak</em> data surat keterangan usaha <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-        //             'category' => 'cetak',
-        //             'created_at' => now(),
-        //         ];
-
-        //         DB::table('logs')->insert($log);
-        //         // selesai
-
-        // return view('transactions.letters.business.print',compact('data','informations'));
+        $data = LetterPension::where('uuid', $uuid)->firstOrFail();
+        $informations = Information::first();
+                 // tambahkan baris kode ini di setiap controller
+                 $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat keterangan usaha <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+        
+                DB::table('logs')->insert($log);
+                // selesai
+   
+        return view('transactions.letters.pension.print',compact('data','informations'));
 
     }
 
@@ -225,9 +216,9 @@ class LetterBusinessController extends Controller
         $informations = Information::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterBusiness::where('uuid', $uuid)->get();
-
-        return view('transactions.letters.business.edit', compact('citizen','informations','position'));
+        $citizen = LetterPension::where('uuid', $uuid)->get();
+        
+        return view('transactions.letters.pension.edit', compact('citizen','informations','position'));
     }
 
     /**
@@ -241,13 +232,13 @@ class LetterBusinessController extends Controller
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
         if ($request->get('rejected_notes_admin')) {
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
             $data->update([
                 'updated_by' =>Auth::user()->id,
                 'approval_admin' => "rejected",
             ]);
-
+        
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
@@ -255,35 +246,31 @@ class LetterBusinessController extends Controller
             'category' => 'tolak',
             'created_at' => now(),
         ];
-
+    
         DB::table('logs')->insert($log);
         // selesai
-
+    
         return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
         $validatedData = $request->validate([
             'letter_index' => 'required',
-            'business_variation' => 'required',
-            'business_name' => 'required',
-            'business_place' => 'required',
-            'business_address' => 'required',
-            'agrarian_status' => 'required',
-            'self_status' => 'required',
+            'age_letter' => 'required',
+            'job_letter' => 'required',
         ]);
         $position           = User::findOrFail($request->get('positions'));
         $validatedData['letter_date']   = $request->get('letter_date');
         $validatedData['valid_until']   = $request->get('letter_date');
         $validatedData['signed_by']     = $position->id;
         $validatedData['signature']     = $request->get('signature');
-
+    
 
         if ($validatedData) {
 
             $validatedData['updated_by'] = Auth::user()->id;
-            $letters = LetterBusiness::where('uuid', $uuid)->first()->update($validatedData);
+            $letters = LetterPension::where('uuid', $uuid)->first()->update($validatedData);
         }
 
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
@@ -297,13 +284,13 @@ class LetterBusinessController extends Controller
         return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
     }else{
         if ($request->get('rejected_notes_rt')) {
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
             $data->update([
                 'updated_by' =>Auth::user()->id,
                 'approval_rt' => "rejected",
             ]);
-
+        
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
@@ -311,10 +298,10 @@ class LetterBusinessController extends Controller
             'category' => 'tolak',
             'created_at' => now(),
         ];
-
+    
         DB::table('logs')->insert($log);
         // selesai
-
+    
         return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
     }
     }
@@ -327,7 +314,7 @@ class LetterBusinessController extends Controller
      */
     public function destroy($uuid)
     {
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $log = [
@@ -341,7 +328,7 @@ class LetterBusinessController extends Controller
         DB::table('logs')->insert($log);
         $data->delete();
 
-
+        
         return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 
@@ -349,13 +336,13 @@ class LetterBusinessController extends Controller
     {
 
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
         $data->update([
             'updated_by' =>Auth::user()->id,
             'approval_admin' => "approved",
             'rejected_notes_admin' => null,
         ]);
-
+    
         // tambahkan baris kode ini di setiap controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
@@ -364,25 +351,25 @@ class LetterBusinessController extends Controller
             'category' => 'setuju',
             'created_at' => now(),
         ];
-
+    
         DB::table('logs')->insert($log);
         // selesai
-
+    
         return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }else{
-
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            
+            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
             $data->update([
                 'updated_by' =>Auth::user()->id,
                 'approval_rt' => "approved",
             ]);
-
+        
             // $data->update([
             //     'updated_by' =>Auth::user()->id,
             //     'approval_rt    ' => "approved",
             //     'rejected_notes_admin' => null,
             // ]);
-
+        
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -391,10 +378,10 @@ class LetterBusinessController extends Controller
                 'category' => 'setuju',
                 'created_at' => now(),
             ];
-
+        
             DB::table('logs')->insert($log);
             // selesai
-
+        
             return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }
     }

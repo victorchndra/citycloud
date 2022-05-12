@@ -8,8 +8,8 @@ use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
 use App\Http\Controllers\HomeController;
 use App\Models\Masters\ageRange;
-use App\Http\Controllers\Transactions\Letter\LetterController;    
-use App\Http\Controllers\Transactions\Letter\LetterBusinessController;    
+use App\Http\Controllers\Transactions\Letter\LetterController;
+use App\Http\Controllers\Transactions\Letter\LetterBusinessController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +108,9 @@ Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDa
 
 //letters
 Route::resource("letters", "App\Http\Controllers\Transactions\Letter\LetterController")->middleware('auth');
+
+//letterspension
+
 Route::get("/letters-citizens", [LetterController::class, 'indexcitizen'])->middleware('auth');
 Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 //businessletters
@@ -117,3 +120,11 @@ Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\
 //recomendationletters
 Route::resource("letters-recomendation", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController")->middleware('auth');
 Route::get("approve/recomendation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController@approve")->name('approve.businessletters');
+
+//pensionletter
+Route::resource("letters-pension", "App\Http\Controllers\Transactions\Letter\LetterPensionController")->middleware('auth');
+Route::get("approve/pension-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterPensionController@approve")->name('approve.businessletters');
+
+// bukan bpjs
+Route::resource("letters-not-bpjs", "App\Http\Controllers\Transactions\Letter\LetterNotBPJSController")->middleware('auth');
+Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNotBPJS@approve")->name('approve.notbpjs');

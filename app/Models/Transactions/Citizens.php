@@ -324,14 +324,16 @@ class Citizens extends Model
             $q->where('marriage', 'like', str_replace('','%20',$filters['marriage']))->get();
         }
         if(isset($filters['vaccine_1'])) {
-            $q->where('vaccine_1', 'like', str_replace('','%20',$filters['vaccine_1']))->get();
+            $q->where('vaccine_1', ($filters['vaccine_1']))->get();
         }
         if(isset($filters['vaccine_2'])) {
-            $q->where('vaccine_2', 'like',str_replace('','%20',$filters['vaccine_2']))->get();
+            $q->where('vaccine_2', ($filters['vaccine_2']))->get();
         }
+
         if(isset($filters['vaccine_3'])) {
-            $q->where('vaccine_3', 'like',str_replace('','%20',$filters['vaccine_3']))->get();
+            $q->where('vaccine_3', ($filters['vaccine_3']))->get();
         }
+
         if(isset($filters['move_date'])) {
             $q->where('move_date', 'like', ($filters['move_date']) ? ('%' . str_replace('','%20',$filters['move_date']) . '%') : '')->get();
         }
