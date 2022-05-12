@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterBusiness;
+use App\Models\Transactions\Letter\LetterRecomendation;
 
 class LetterController extends Controller
 {
@@ -31,8 +32,8 @@ class LetterController extends Controller
         if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-
-            $datas = $businessletters->concat($notbpjsletters);
+            $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $datas = $businessletters->concat($notbpjsletters)->concat($recomendationletters);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
@@ -133,6 +134,25 @@ class LetterController extends Controller
                 // selesai
 
             return view('transactions.letters.notbpjs.print',compact('data','informations'));
+        }
+
+        // Surat rekomendasi
+        if(LetterRecomendation::where('uuid', $uuid)->exists()) {
+            $data = LetterRecomendation::where('uuid', $uuid)->firstOrFail();            
+            $informations = Information::first();
+                    // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat rekomendasi <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+            return view('transactions.letters.recomendation.print',compact('data','informations'));
         }
     }
 

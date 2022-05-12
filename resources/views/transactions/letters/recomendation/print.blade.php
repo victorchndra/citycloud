@@ -130,10 +130,10 @@
     <div style="line-height: 1; margin-top: 10px;">
         <table align="center" width="540">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>1.&nbsp;&nbsp;&nbsp;Pernyataan Keterangan {{ $data->letter_rt}} yang bersangkutan di ketahui <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oleh Lurah Umban Sari</td>                
+                <td width="180"><span style="display:inline-block; width: 30 px;"></span>1.&nbsp;&nbsp;&nbsp;Pernyataan Keterangan {{ $data->status_prilaku}} yang bersangkutan di ketahui <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oleh Lurah Umban Sari</td>                
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>2.&nbsp;&nbsp;&nbsp;Surat Pengantar dari Ketua {{ $data->letter_rt}}</td>                                
+                <td width="180"><span style="display:inline-block; width: 30 px;"></span>2.&nbsp;&nbsp;&nbsp;Surat Pengantar dari Ketua RT. {{ $data->letter_rt}}</td>                                
             </tr>            
         </table>
     </div>
