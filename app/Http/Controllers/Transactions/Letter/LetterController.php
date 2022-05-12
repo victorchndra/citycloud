@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Transactions\Letter;
 
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Http\Request;
 
 //panggil auth
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 //call all letters
+use Illuminate\Support\Facades\DB;
 use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 //calldb
+use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterNotBPJS;
+use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
 
 class LetterController extends Controller
@@ -31,8 +33,8 @@ class LetterController extends Controller
         if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-
-            $datas = $businessletters->concat($notbpjsletters);
+            $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
@@ -134,6 +136,25 @@ class LetterController extends Controller
 
             return view('transactions.letters.notbpjs.print',compact('data','informations'));
         }
+
+        //surat Pensiun
+        if(LetterPension::where('uuid', $uuid)->exists()) {
+            $data = LetterPension::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+                    // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat Pensiun <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+            return view('transactions.letters.pension.print',compact('data','informations'));
+        }
     }
 
     /**
@@ -142,9 +163,18 @@ class LetterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        //surat Pensiun
+        if(LetterPension::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterpension = LetterPension::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterPension::where('uuid', $uuid)->get();
+            
+            return view('transactions.letters.pension.edit', compact('citizen','informations','position','letterpension'));
+        }
     }
 
     /**
@@ -165,8 +195,26 @@ class LetterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         //
+        if(LetterPension::where('uuid', $uuid)->exists()) {
+            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Pensiun <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            $data->delete();
+    
+            
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
     }
 }

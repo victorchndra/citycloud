@@ -124,8 +124,11 @@
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ $data->letter_name }} ini berlaku sejak tanggal <strong> {{$data->letter_date}} - {{ \Carbon\Carbon::parse($data->valid_until)->addYears(1)->isoFormat('D MMMM Y')}}</strong>.</font>
-                Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Bahwa Benar {{ $data->job }} tersebut diatas benar akan memasuki masa pensiun saat {{ $data->job }} 
+                tersebut genap berusia {{$data->age_letter}} tahun 
+                    <br/>
+                    <br/>
+                Demikianlah {{ $data->letter_name }} ini dibuat untuk dapat dipergunakan sebagaimana mestinya.
             </td>
         </tr>
     </table>
@@ -134,18 +137,15 @@
     <div style="margin-bttom:10px; overflow:auto;">
             <table align="right" width="320" border="1px" >
                 <tr>
-                    <td  width="">Dikeluarkan di </td>
-                    <td width="10 px">: </td>
-                    <td width=""; > {{ $informations->village_name }} </td>
+                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $informations->village_name }} {{$data->letter_date}}</td>
+                   
                      <td></td> 
                   
                 </tr>
                 <tr>
-                    <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
-                    <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{$data->letter_date}}</td>
-                     <td></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yang Membuat Pernyataan</td>
                 </tr>
+                
             </table>
     </div>
 
