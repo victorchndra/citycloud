@@ -18,11 +18,8 @@ use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
-<<<<<<< HEAD
-use App\Models\Transactions\Letter\LetterRecomendation;
-=======
 use App\Models\Transactions\Letter\LetterHoliday;
->>>>>>> 06bb0056c2a91d40f64a363f841e3c07de0bc738
+use App\Models\Transactions\Letter\LetterRecomendation;
 
 class LetterController extends Controller
 {
@@ -44,7 +41,7 @@ class LetterController extends Controller
 
             $datas = $businessletters->concat($notbpjsletters)->concat($holidayletters);
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
@@ -183,6 +180,23 @@ class LetterController extends Controller
 
             return view('transactions.letters.pension.print',compact('data','informations'));
         }
+        if(LetterRecomendation::where('uuid', $uuid)->exists()) {
+            $data = LetterRecomendation::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+                    // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat Pensiun <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+            return view('transactions.letters.pension.print',compact('data','informations'));
+        }
     }
 
     /**
@@ -228,6 +242,25 @@ class LetterController extends Controller
         //
         if(LetterPension::where('uuid', $uuid)->exists()) {
             $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Pensiun <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            $data->delete();
+    
+            
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        if(LetterRecomendation::where('uuid', $uuid)->exists()) {
+            $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
             $log = [
