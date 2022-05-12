@@ -108,8 +108,15 @@ Route::get('/death/{citizens:uuid}', [CitizenController::class, 'rollBackDeathDa
 
 //letters
 Route::resource("letters", "App\Http\Controllers\Transactions\Letter\LetterController")->middleware('auth');
+
+//letterspension
+
 Route::get("/letters-citizens", [LetterController::class, 'indexcitizen'])->middleware('auth');
 Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 //businessletters
 Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');
+
+//pensionletter
+Route::resource("letters-pension", "App\Http\Controllers\Transactions\Letter\LetterPensionController")->middleware('auth');
+Route::get("approve/pension-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterPensionController@approve")->name('approve.businessletters');
