@@ -89,6 +89,22 @@ class LetterHoliday extends Model
             // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
     }
+    
+    // public function startDate(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->isoFormat('D MMMM Y'),
+    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->isoFormat('D MMMM Y'),
+    //     );
+    // }
+    
+    // public function endDate(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->isoFormat('D MMMM Y'),
+    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->isoFormat('D MMMM Y'),
+    //     );
+    // }
 
     public function validUntil(): Attribute
     {

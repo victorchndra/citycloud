@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterBusiness;
+use App\Models\Transactions\Letter\LetterHoliday;
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
@@ -58,14 +58,18 @@ class LetterHolidayController extends Controller
     public function store(Request $request)
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+
+            
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'day' => 'required',
                 'start_date' => 'required',
                 'end_date' => 'required',
                 'address_letter' => 'required',
             ]);
-    
+            
+            // $jarak = $validatedData['end_date']->diff($validatedData['start_date']);
+            // $validatedData['day'] = $jarak->d;
+
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
@@ -105,7 +109,7 @@ class LetterHolidayController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat pengajuan cuti tahunan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -113,7 +117,7 @@ class LetterHolidayController extends Controller
             DB::table('logs')->insert($log);
             // selesai
     
-            LetterBusiness::create($validatedData);
+            LetterHoliday::create($validatedData);
     
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -173,7 +177,7 @@ class LetterHolidayController extends Controller
             DB::table('logs')->insert($log);
             // selesai
     
-            LetterBusiness::create($validatedData);
+            LetterHoliday::create($validatedData);
     
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
@@ -190,7 +194,8 @@ class LetterHolidayController extends Controller
      */
     public function show($uuid)
     {
-        $data = LetterBusiness::where('uuid', $uuid)->firstOrFail();
+        $data = LetterHoliday::where('uuid', $uuid)->firstOrFail();
+
         $informations = Information::first();
                  // tambahkan baris kode ini di setiap controller
                  $log = [

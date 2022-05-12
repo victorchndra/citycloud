@@ -122,8 +122,35 @@
     <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini mengajukan cuti tahunan untuk tahun 2021 selama {{ $data->day }} ( dua belas ) hari kerja,
-                terhitung mulai tanggal {{$data->date_birth}} s.d {{ $data->end_date }} Selama menjalankan
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini mengajukan cuti tahunan untuk tahun 2021 selama {{ (strtotime($data->end_date) - strtotime($data->start_date))/(60*60*24) }} ( @php
+                    $x = (strtotime($data->end_date) - strtotime($data->start_date))/(60*60*24);
+                    $angka = array("", "Satu", "Dua", "Tiga", "Empat", "Lima",
+                    "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
+                    $temp = "";
+                    if ($x <12) {
+                        $temp = " ". $angka[$x];
+                    } else if ($x <20) {
+                        $temp = $_this->rupiah($x - 10). " Belas";
+                    } else if ($x <100) {
+                        $temp = $_this->rupiah($x/10)." Puluh". $_this->rupiah($x % 10);
+                    } else if ($x <200) {
+                        $temp = " Seratus" . $_this->rupiah($x - 100);
+                    } else if ($x <1000) {
+                        $temp = $_this->rupiah($x/100) . " Ratus" . $_this->rupiah($x % 100);
+                    } else if ($x <2000) {
+                        $temp = " Seribu" . $_this->rupiah($x - 1000);
+                    } else if ($x <1000000) {
+                        $temp = $_this->rupiah($x/1000) . " Ribu" . $_this->rupiah($x % 1000);
+                    } else if ($x <1000000000) {
+                        $temp = $_this->rupiah($x/1000000) . " Juta" . $_this->rupiah($x % 1000000);
+                    } else if ($x <1000000000000) {
+                        $temp = $_this->rupiah($x/1000000000) . " Milyar" . $_this->rupiah(fmod($x,1000000000));
+                    } else if ($x <1000000000000000) {
+                        $temp = $_this->rupiah($x/1000000000000) . " Trilyun" . $_this->rupiah(fmod($x,1000000000000));
+                    }     
+                        echo $temp;
+                @endphp ) hari kerja,
+                terhitung mulai tanggal <strong>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->start_date)->isoFormat('D MMMM Y') }}</strong> s.d <strong>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->end_date)->isoFormat('D MMMM Y') }}</strong> Selama menjalankan
                 cuti alamat saya di {{ $data->address_letter }}.
             </td>
         </tr>
