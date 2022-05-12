@@ -117,9 +117,14 @@ Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');
 
+//recomendationletters
+Route::resource("letters-recomendation", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController")->middleware('auth');
+Route::get("approve/recomendation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController@approve")->name('approve.businessletters');
+
 //pensionletter
 Route::resource("letters-pension", "App\Http\Controllers\Transactions\Letter\LetterPensionController")->middleware('auth');
 Route::get("approve/pension-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterPensionController@approve")->name('approve.businessletters');
+
 // bukan bpjs
 Route::resource("letters-not-bpjs", "App\Http\Controllers\Transactions\Letter\LetterNotBPJSController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNotBPJS@approve")->name('approve.notbpjs');
