@@ -29,9 +29,9 @@
                     <i class="bi bi-plus text-white"></i> Tambah Surat</a>
 
             </div>
-            
+
             <div class="card-body">
-                
+
                           <!-- success message -->
                           @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -42,7 +42,7 @@
                         <!-- success message end -->
 
 
-                        
+
 
                 <table class="table table-striped" id="letters" >
                     <thead>
@@ -51,46 +51,46 @@
                             <th>Nama</th>
                             <th>Jenis Surat</th>
                             <th>Ditambahkan pada</th>
-                          
+
                             @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')  <th style="align:center">Aksi</th>@endif
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($businessletters as $key => $businessletter)
+                        @foreach($datas as $key => $data)
 
 
                         <tr>
                             <td> {{ $key + 1 }}</td>
-                            <td>{{ $businessletter->name }} <b>(@if($businessletter->gender == 'PEREMPUAN'){{'P'}}@else{{'L'}}@endif)</b></td>
-                            <td>{{ $businessletter->letter_name}}</td>
+                            <td>{{ $data->name }} <b>(@if($data->gender == 'PEREMPUAN'){{'P'}}@else{{'L'}}@endif)</b></td>
+                            <td>{{ $data->letter_name}}</td>
                             <td>
-                                                Ditambahkan Oleh: <b> {{$businessletter->createdUser->name}}
-                                                </b><br>{{$businessletter->created_at, 'd M Y'}}
+                                                Ditambahkan Oleh: <b> {{$data->createdUser->name}}
+                                                </b><br>{{$data->created_at, 'd M Y'}}
 
-                                                @if($businessletter->updated_by)
+                                                @if($data->updated_by)
                                                 <br>
-                                                Diubah Oleh: <b> {{$businessletter->updatedUser->name}}
-                                                </b><br>{{$businessletter->updated_at, 'd M Y'}}
+                                                Diubah Oleh: <b> {{$data->updatedUser->name}}
+                                                </b><br>{{$data->updated_at, 'd M Y'}}
                                                 @endif
                             </td>
-                            
+
                                 @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
                             <td>
-                                
+
                                             <button type="button" class="btn btn-sm btn-primary  dropdown-toggle"
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                             <div class="dropdown-menu">
 
-                                            <a href="/letters-pension/{{ $businessletter->uuid }}"
+                                            <a href="/letters/{{ $data->uuid }}"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Cetak</a>
                                                     <div class="dropdown-divider"></div>
-                              
 
-                                            <a href="/letters-business/{{ $businessletter->uuid }}/edit"
+
+                                            <a href="/letters-business/{{ $data->uuid }}/edit"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                     <div class="dropdown-divider"></div>
 
-                                                <form action="/letters-business/{{ $businessletter->uuid }}" method="post">
+                                                <form action="/letters-business/{{ $data->uuid }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
@@ -99,16 +99,16 @@
 
 
                                                 <form class="d-none invisible"
-                                                    action="/letters-business/destroy/{{$businessletter->uuid}}" method="POST">
+                                                    action="/letters-business/destroy/{{$data->uuid}}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
                                                         onclick="return confirm('Hapus data?')">Hapus</button>
                                                 </form>
                                             </div>
-                              
+
                                 </td>
-                                @endif 
+                                @endif
                                 @endforeach
                     </tbody>
                 </table>

@@ -2,20 +2,19 @@
 
 namespace App\Models\Transactions\Letter;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
-use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LetterBusiness extends Model
+class LetterNotBPJS extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
 
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
-
 
     public function letterName(): Attribute
     {
@@ -82,55 +81,6 @@ class LetterBusiness extends Model
         );
     }
 
-    public function businessVariation(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function businessName(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function businessAddress(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function businessPlace(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function agrarianStatus(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function selfStatus(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-
     public function letterDate(): Attribute
     {
         return new Attribute(
@@ -139,19 +89,11 @@ class LetterBusiness extends Model
         );
     }
 
-    public function validUntil(): Attribute
-    {
-        return new Attribute(
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['valid_until'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-        );
-    }
-
-
     public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
+
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
@@ -161,5 +103,4 @@ class LetterBusiness extends Model
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
-
 }
