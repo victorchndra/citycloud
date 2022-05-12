@@ -1,0 +1,29 @@
+{
+  "favorites.resources": [
+    {
+      "filePath": "app\\Models\\Transactions\\Letter\\LetterNotBPJS.php",
+      "group": "Default"
+    },
+    {
+      "filePath": "app\\Http\\Controllers\\Transactions\\Letter\\LetterNotBPJSController.php",
+      "group": "Default"
+    },
+    {
+      "filePath": "database\\migrations\\2022_05_12_095838_create_letter_not_b_p_j_s_table.php",
+      "group": "Default"
+    },
+    {
+      "filePath": "resources\\views\\transactions\\letters\\notbpjs",
+      "group": "Default"
+    },
+    {
+      "filePath": "routes\\web.php",
+      "group": "Default"
+    },
+    {
+      "filePath": "app\\Http\\Controllers\\Transactions\\Letter\\LetterController.php",
+      "group": "Default"
+    }
+  ],
+  "favorites.sortOrder": "ASC"
+}

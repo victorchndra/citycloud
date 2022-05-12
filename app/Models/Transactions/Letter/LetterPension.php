@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
-
-class LetterBusiness extends Model
+class LetterPension extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -23,7 +22,7 @@ class LetterBusiness extends Model
             get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
-    }
+    }   
 
     public function name(): Attribute
     {
@@ -82,54 +81,6 @@ class LetterBusiness extends Model
         );
     }
 
-    public function businessVariation(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function businessName(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function businessAddress(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function businessPlace(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function agrarianStatus(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function selfStatus(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
 
     public function letterDate(): Attribute
     {
@@ -156,10 +107,10 @@ class LetterBusiness extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-
+    
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
-
+    
 }

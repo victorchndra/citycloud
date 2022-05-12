@@ -28,7 +28,7 @@
             <div class="card-header">
             <a href="/list" class="btn btn-sm btn-secondary btnReload"><i
                                 class="bi bi-arrow-counterclockwise"></i></a>
-        
+
             </div>
             <div class="card-body">
                 <table class="table table-striped" id="table1">
@@ -545,7 +545,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-not-bpjs/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -625,7 +625,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-pension/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -810,7 +810,7 @@
                         </tr>
                     </tbody>
                     </tbody>
-                    
+
                 </table>
             </div>
         </div>
@@ -823,6 +823,6 @@
     // Simple Datatable
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
-    
+
 </script>
 @endsection
