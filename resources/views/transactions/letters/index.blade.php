@@ -56,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($businessletters as $key => $businessletter)
+                        @foreach($recomendationletter as $key => $recomendationletter)
 
 
                         <tr>
@@ -81,7 +81,7 @@
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                             <div class="dropdown-menu">
 
-                                            <a href="/letters-business/{{ $businessletter->uuid }}"
+                                            <a href="/letters-recomendation/{{ $businessletter->uuid }}"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Cetak</a>
                                                     <div class="dropdown-divider"></div>
                               

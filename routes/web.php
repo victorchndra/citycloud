@@ -113,3 +113,7 @@ Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 //businessletters
 Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');
+
+//recomendationletters
+Route::resource("letters-recomendation", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController")->middleware('auth');
+Route::get("approve/recomendation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController@approve")->name('approve.businessletters');
