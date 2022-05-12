@@ -237,7 +237,6 @@
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                             <div class="dropdown-menu">
 
-{{-- test branch --}}
                                             <a href="{{ route('approve.businessletters', [ $businessletter->uuid ]) }}"
                                                     class="dropdown-item"  type="submit" onclick="return confirm('Setujui Surat?')"><i class="mdi mdi-tooltip-edit"></i> Setujui</a>
                                                     <div class="dropdown-divider"></div>
