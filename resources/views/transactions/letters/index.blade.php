@@ -56,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($recomendationletter as $key => $recomendationletter)
+                        @foreach($businessletters as $key => $businessletter)
 
 
                         <tr>
