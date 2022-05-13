@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Rekomendasi SKCK</h3>
+                    <h3>Surat Keterangan Usaha</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Rekoendasi SKCK</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,12 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Rekomendasi SKCK</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Usaha</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-recomendation/{{ $c->uuid }}"
+                                    <form class="form-sample" action="/letters-holiday/{{ $c->uuid }}"
                                         method="POST">
                                         @method('put')
                                         @csrf
@@ -41,11 +41,12 @@
                                                 <div class="col-md-12 form-group">
                                                     <label>No Surat</label>
                                                     @foreach ($informations as $information)
-                                                        <input type="text" name="letter_index" class="form-control @error('letter_index') is-invalid @enderror"
-                                                            placeholder="No Surat" required value="{{ old('letter_index', $information->letter_index) }}"/>
-                                                            
+                                                        <input type="text" name="letter_index"
+                                                            class="form-control @error('letter_index') is-invalid @enderror"
+                                                            placeholder="No Surat"
+                                                            value="  {{ $c->letter_index }}">
                                                     @endforeach
-                                                </div>                                                
+                                                </div>
 
                                                 <div class="col-md-12 form-group">
                                                     <label>Pilih Penduduk</label>
@@ -59,41 +60,60 @@
                                                 </div>
 
                                                 <div class="col-md-6 form-group">
-                                                    <label>Pilih Status</label>
+                                                    <label>Dari</label>
 
-                                                    <select
-                                                        class="form-control @error('status_prilaku')  @enderror"
-                                                        name="status_prilaku" id="status_prilaku" required>
-                                                        <option value="Tidak ada"
-                                                            @if (!empty($c) && $c->status_prilaku == 'Tidak ada') {{ 'selected' }} @endif>
-                                                            Tidak ada</option>
-                                                        <option value="Berkelakuan Baik"
-                                                            @if (!empty($c) && $c->status_prilaku == 'Berkelakuan Baik') {{ 'selected' }} @endif>
-                                                            Berkelakuan Baik</option>
-                                                        <option value="Berkelakuan Tidak Baik"
-                                                            @if (!empty($c) && $c->status_prilaku == 'Berkelakuan Tidak Baik') {{ 'selected' }} @endif>
-                                                            Berkelakuan Tidak Baik</option>
-                                                    </select>
+                                                    <input type="date" name="start_date"
+                                                        class="form-control @error('start_date') is-invalid @enderror"
+                                                        placeholder="cth: 01/01/2022" required
+                                                        value="{{ old('start_date', $c->start_date) }}" />
+                                                    @error('start_date')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-md-6 form-group">
+                                                    <label>Hingga</label>
+
+                                                    <input type="date" name="end_date"
+                                                        class="form-control @error('end_date') is-invalid @enderror"
+                                                        placeholder="cth: 01/01/2022" required
+                                                        value="{{ old('end_date', $c->end_date) }}" />
+                                                    @error('end_date')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="col-md-6 form-group">
-                                                    <label>Surat Pengantar</label>
-                                                    <select id="letter_rt" class="form-control" name="letter_rt"
-                                                        style="width: 100%;" required>
-                                                        @foreach ($rts as $rt)
-                                                            <option value="{{ $rt->name }}"
-                                                                @if ($rtSelected == $rt->name) {{ 'selected' }} @endif>
-                                                                {{ $rt->name }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <label>Alamat Selama Cuti</label>
+
+                                                    <input type="text" name="address_letter"
+                                                        class="form-control @error('address_letter') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('address_letter', $c->address_letter) }}" />
+                                                    @error('address_letter')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="col-md-12 form-group">
-                                                    <label>Tgl Surat</label>
-                                                    <input type="date"
-                                                        class="form-control @error('letter_date') is-invalid @enderror"
-                                                        name="letter_date" id="date" required
-                                                        value="{{ $c->letter_date }}">
+                                                    <label>Tanggal Surat</label>
+                                                    
+                                                    <input type="date" name="letter_date"
+                                                    class="form-control @error('letter_date') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->letter_date }}" />
+
+                                                    @error('letter_date')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="col-md-12 form-group">

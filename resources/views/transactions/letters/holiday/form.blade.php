@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Usaha</h3>
+                <h3>Surat Pengajuan Cuti Tahunan</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Pengajuan Cuti Tahunan</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Tambah Surat Pengajuan Cuti Tahunan</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-pension" method="POST">
+                            <form class="form form-horizontal" action="/letters-holiday" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -59,20 +59,32 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Mulai</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Tanggal Mulai Cuti">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Hingga</label>
+                                            <input type="date" name="end_date"
+                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="Tanggal Akhir Cuti">
                                         </div>
 
-                                      
+                                        <div class="col-md-12 form-group">
+                                            <label>Alamat Selama Cuti</label>
+                                            <input type="text" name="address_letter"
+                                                class="form-control @error('address_letter') is-invalid @enderror"
+                                                placeholder="Alamat Selama Cuti">
+                                        </div>
+                                        
+                                        {{-- <div class="col-md-12 form-group">
+                                            <label>Cuti Selama</label>
+                                            <input type="text" name="day"
+                                                class="form-control @error('day') is-invalid @enderror"
+                                                placeholder="Cuti Selama">
+                                        </div> --}}
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
@@ -126,7 +138,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-holiday" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -143,51 +155,41 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-
+                                              
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-
+                                  
                                             </select>
                                             </select>
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Mulai</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Tanggal Mulai Cuti">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Hingga</label>
+                                            <input type="date" name="end_date"
+                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="Tanggal Akhir Cuti">
                                         </div>
 
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
+                                        <div class="col-md-12 form-group">
+                                            <label>Alamat Selama Cuti</label>
+                                            <input type="text" name="address_letter"
+                                                class="form-control @error('address_letter') is-invalid @enderror"
+                                                placeholder="Alamat Selama Cuti">
                                         </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
-
-
+                                        
+                                        {{-- <div class="col-md-12 form-group">
+                                            <label>Cuti Selama</label>
+                                            <input type="text" name="day"
+                                                class="form-control @error('day') is-invalid @enderror"
+                                                placeholder="Cuti Selama">
+                                        </div> --}}
+                                      
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -204,7 +206,7 @@
                                             </div>
                                         </div>
 
-
+                                      
                                     </div>
 
                                     </div>

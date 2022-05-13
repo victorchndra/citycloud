@@ -214,11 +214,12 @@ class LetterPensionController extends Controller
     public function edit($uuid,Request $request)
     {
         $informations = Information::get();
+        $letterpension = LetterPension::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
         $citizen = LetterPension::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.pension.edit', compact('citizen','informations','position'));
+        return view('transactions.letters.pension.edit', compact('citizen','informations','position','letterpension'));
     }
 
     /**
