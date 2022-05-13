@@ -97,7 +97,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -113,18 +113,12 @@ class LetterNotBPJSController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                // 'business_variation' => 'required',
-                // 'business_name' => 'required',
-                // 'business_place' => 'required',
-                // 'business_address' => 'required',
-                // 'agrarian_status' => 'required',
-                // 'self_status' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "surat belum memiliki bpjs";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -160,7 +154,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];

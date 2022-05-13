@@ -68,16 +68,16 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Surat Pengantar RT</label>                                    
+                                            <label>Surat Pengantar RT</label>
                                                 <div class="col-sm-9">
-                                                    <select name="letter_rt" id="rt" class="form-control">                    
+                                                    <select name="letter_rt" id="rt" class="form-control">
                                                         @foreach($rts as $rt)
                                                             <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                         </div>
-                                                                                
+
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -129,62 +129,70 @@
                                     </div>
                             </form>
                         @else
-
+{{-- c --}}
                         <form class="form form-horizontal" action="/letters-recomendation" method="POST">
-                                @csrf
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-12 form-group ">
-                                            <label>No Surat</label>
-                                            @foreach($informations as $information)
-                                            <input readonly type="text" name="letter_index"
-                                                class="form-control @error('letter_index') is-invalid @enderror"
-                                                placeholder="No Surat" value="  {{ $information->letter_index  }}">
-                                            @endforeach
-                                        </div>
+                            @csrf
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-12 form-group ">
+                                        <label>No Surat</label>
+                                        @foreach($informations as $information)
+                                        <input readonly type="text" name="letter_index"
+                                            class="form-control @error('letter_index') is-invalid @enderror"
+                                            placeholder="No Surat" value="  {{ $information->letter_index  }}">
+                                        @endforeach
+                                    </div>
 
-                                        <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
-                                            <select id="citizens" class="form-control select2" name="citizens"
-                                                style="width: 100%;" required>
-                                              
-                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-                                  
-                                            </select>
-                                            </select>
-                                        </div>
+                                    <div class="col-md-12 form-group">
+                                        <label>Pilih Penduduk</label>
+                                        <select id="citizens" class="form-control select2" name="citizens"
+                                            style="width: 100%;" required>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Pilih Status</label>
-                                            <select class="form-control" name="skck_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Berkelakuan Baik">Berkelakuan Baik</option>
-                                                <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
-                                            </select>
-                                        </div>                                                                            
-                                      
-                                        <div class="col-md-12 form-group">
-                                            <label>Ditandatangani Oleh</label>
-                                            <select id="positions" class="form-control" name="positions"
-                                                style="width: 100%;" required>
+                                            <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
 
-                                                @foreach($position as $positions)
-                                                <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
-                                                    {{ $positions->position }}</option>
-                                                @endforeach
-                                            </select>
-                                            <hr>
-                                            <div class="col-sm-12 d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                                        </select>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 form-group">
+                                        <label>Pilih Status</label>
+                                        <select class="form-control" name="status_prilaku">
+                                            <option value="Tidak ada">Tidak Ada</option>
+                                            <option value="Berkelakuan Baik">Berkelakuan Baik</option>
+                                            <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 form-group">
+                                        <label>Surat Pengantar RT</label>
+                                            <div class="col-sm-9">
+                                                <select name="letter_rt" id="rt" class="form-control">
+                                                    @foreach($rts as $rt)
+                                                        <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label>Ditandatangani Oleh</label>
+                                        <select id="positions" class="form-control" name="positions"
+                                            style="width: 100%;" required>
+
+                                            @foreach($position as $positions)
+                                            <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
+                                                {{ $positions->position }}</option>
+                                            @endforeach
+                                        </select>
+                                        <hr>
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         </div>
-
-                                      
                                     </div>
-
-                                    </div>
-                            </form>
-                            @endif
+                                </div>
+                            </div>
+                        </form>
+                        @endif
                         </div>
                     </div>
                 </div>
