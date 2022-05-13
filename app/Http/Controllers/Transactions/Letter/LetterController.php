@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
+use App\Models\Masters\RT;
 //calldb
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
@@ -36,10 +37,7 @@ class LetterController extends Controller
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($recomendationletters);
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-
-            $datas = $businessletters->concat($notbpjsletters)->concat($holidayletters);
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters);
             return view('transactions.letters.index',  compact('datas'));
@@ -195,7 +193,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-            return view('transactions.letters.pension.print',compact('data','informations'));
+            return view('transactions.letters.recomendation.print',compact('data','informations'));
         }
     }
 
@@ -205,7 +203,7 @@ class LetterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($uuid)
+    public function edit($uuid, Request $request)
     {
         //surat Pensiun
         if(LetterPension::where('uuid', $uuid)->exists()) {
@@ -216,6 +214,18 @@ class LetterController extends Controller
             $citizen = LetterPension::where('uuid', $uuid)->get();
             
             return view('transactions.letters.pension.edit', compact('citizen','informations','position','letterpension'));
+        }
+        //surat Rekomendasi
+        if(LetterRecomendation::where('uuid', $uuid)->exists()) {
+            $rts = RT::get();
+            $rtSelected =  $request->get('rt');
+            $informations = Information::get();
+            $recomendationletters = LetterRecomendation::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterRecomendation::where('uuid', $uuid)->get();
+            
+            return view('transactions.letters.recomendation.edit', compact('citizen','informations','position','recomendationletters','rts','rtSelected'));
         }
     }
 
@@ -277,5 +287,7 @@ class LetterController extends Controller
             
             return redirect('/letters')->with('success','Surat berhasil dihapus');
         }
+
+        
     }
 }

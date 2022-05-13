@@ -221,12 +221,15 @@ class LetterRecomendationController extends Controller
     public function edit($uuid,Request $request)
     {
         //
+        $rts = RT::get();
+        $rtSelected =  $request->get('rt');
         $informations = Information::get();
+        $letterrecomendation = LetterRecomendation::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterBusiness::where('uuid', $uuid)->get();
+        $citizen = LetterRecomendation::where('uuid', $uuid)->get();
         
-        return view('transactions.letters.business.edit', compact('citizen','informations','position'));
+        return view('transactions.letters.recomendation.edit', compact('citizen','informations','position','letterrecomendation','rts','rtSelected'));
     
     }
 
@@ -242,7 +245,7 @@ class LetterRecomendationController extends Controller
         //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             if ($request->get('rejected_notes_admin')) {
-                $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -270,7 +273,7 @@ class LetterRecomendationController extends Controller
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
-            $validatedData['valid_until']   = $request->get('letter_date');
+            
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
         
@@ -278,10 +281,10 @@ class LetterRecomendationController extends Controller
             if ($validatedData) {
     
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterBusiness::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterRecomendation::where('uuid', $uuid)->first()->update($validatedData);
             }
     
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
@@ -295,7 +298,7 @@ class LetterRecomendationController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
