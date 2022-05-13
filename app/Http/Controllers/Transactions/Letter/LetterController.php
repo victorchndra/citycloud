@@ -35,10 +35,8 @@ class LetterController extends Controller
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-
-            $datas = $businessletters->concat($notbpjsletters)->concat($holidayletters);
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($holidayletters);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
@@ -148,7 +146,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat pengajuan cuti tahunan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Mencetak</em> data surat keterangan cuti tahunan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'cetak',
                 'created_at' => now(),
             ];
@@ -197,6 +195,16 @@ class LetterController extends Controller
             
             return view('transactions.letters.pension.edit', compact('citizen','informations','position','letterpension'));
         }
+        elseif(LetterHoliday::where('uuid', $uuid)->exists()) 
+        {
+            $informations = Information::get();
+            $letterholiday = LetterHoliday::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterHoliday::where('uuid', $uuid)->get();
+            
+            return view('transactions.letters.holiday.edit', compact('citizen','informations','position','letterholiday'));
+        }
     }
 
     /**
@@ -228,6 +236,25 @@ class LetterController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Menghapus</em> Surat Pensiun <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            $data->delete();
+    
+            
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+        elseif(LetterHoliday::where('uuid', $uuid)->exists()) 
+        {
+            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> keterangan cuti tahunan <strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];
