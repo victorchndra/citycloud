@@ -57,8 +57,9 @@ class LetterController extends Controller
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters)->concat($holidayletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }elseif(Auth::user()->roles == 'headrt'){
             $businessletters = Citizens::join('letter_businesses', 'citizens.id', '=', 'letter_businesses.citizen_id')
@@ -69,8 +70,9 @@ class LetterController extends Controller
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters)->concat($holidayletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
