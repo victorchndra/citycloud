@@ -199,23 +199,7 @@
                                         </div>
                                     </div>
                                 </td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Surat Keterangan Kelahiran</td>
-                            <td>
-                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
-                                                data-bs-toggle="dropdown">Aksi</button>
-                                            <div class="dropdown-menu">
-                                                <a href="#"
-                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td>12</td>
                             <td>Surat Keterangan Miskin</td>
@@ -289,7 +273,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-birth/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
