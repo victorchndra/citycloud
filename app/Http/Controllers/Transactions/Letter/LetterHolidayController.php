@@ -73,7 +73,7 @@ class LetterHolidayController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "surat keterangan cuti tahunan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -109,7 +109,7 @@ class LetterHolidayController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat pengajuan cuti tahunan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan cuti tahunan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -125,7 +125,6 @@ class LetterHolidayController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'day' => 'required',
                 'start_date' => 'required',
                 'end_date' => 'required',
                 'address_letter' => 'required',
@@ -169,7 +168,7 @@ class LetterHolidayController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data keterangan cuti tahunan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -201,7 +200,7 @@ class LetterHolidayController extends Controller
                  $log = [
                     'uuid' => Uuid::uuid4()->getHex(),
                     'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data surat keterangan usaha <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'description' => '<em>Mencetak</em> data surat keterangan cuti tahunan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                     'category' => 'cetak',
                     'created_at' => now(),
                 ];
@@ -222,11 +221,12 @@ class LetterHolidayController extends Controller
     public function edit($uuid,Request $request)
     {
         $informations = Information::get();
+        $letterholiday = LetterHoliday::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterBusiness::where('uuid', $uuid)->get();
+        $citizen = LetterHoliday::where('uuid', $uuid)->get();
         
-        return view('transactions.letters.business.edit', compact('citizen','informations','position'));
+        return view('transactions.letters.holiday.edit', compact('citizen','informations','position','letterholiday'));
     }
 
     /**
@@ -236,11 +236,11 @@ class LetterHolidayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
         if ($request->get('rejected_notes_admin')) {
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
             $data->update([
                 'updated_by' =>Auth::user()->id,
@@ -262,12 +262,9 @@ class LetterHolidayController extends Controller
         }
         $validatedData = $request->validate([
             'letter_index' => 'required',
-            'business_variation' => 'required',
-            'business_name' => 'required',
-            'business_place' => 'required',
-            'business_address' => 'required',
-            'agrarian_status' => 'required',
-            'self_status' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'address_letter' => 'required',
         ]);
         $position           = User::findOrFail($request->get('positions'));
         $validatedData['letter_date']   = $request->get('letter_date');
@@ -279,14 +276,14 @@ class LetterHolidayController extends Controller
         if ($validatedData) {
 
             $validatedData['updated_by'] = Auth::user()->id;
-            $letters = LetterBusiness::where('uuid', $uuid)->first()->update($validatedData);
+            $letters = LetterHoliday::where('uuid', $uuid)->first()->update($validatedData);
         }
 
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Mengubah</em> Surat keterangan cuti tahunan <strong>[' . $data->name . ']</strong>',
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -296,7 +293,7 @@ class LetterHolidayController extends Controller
         return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
     }else{
         if ($request->get('rejected_notes_rt')) {
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
             $data->update([
                 'updated_by' =>Auth::user()->id,
@@ -325,15 +322,15 @@ class LetterHolidayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat keterangan cuti tahunan <strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];
@@ -349,7 +346,7 @@ class LetterHolidayController extends Controller
     {
 
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
         $data->update([
             'updated_by' =>Auth::user()->id,
             'approval_admin' => "approved",
@@ -371,7 +368,7 @@ class LetterHolidayController extends Controller
         return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }else{
             
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
             $data->update([
                 'updated_by' =>Auth::user()->id,
                 'approval_rt' => "approved",

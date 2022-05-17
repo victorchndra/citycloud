@@ -143,11 +143,25 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-                                              
+
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-                                  
+
                                             </select>
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Age</label>
+                                            <input type="text" name="age_letter"
+                                                class="form-control @error('age_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Job</label>
+                                            <input type="text" name="job_letter"
+                                                class="form-control @error('job_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda">
                                         </div>
 
 
@@ -173,7 +187,7 @@
                                             </select>
                                         </div>
 
-                                      
+
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -190,7 +204,7 @@
                                             </div>
                                         </div>
 
-                                      
+
                                     </div>
 
                                     </div>
