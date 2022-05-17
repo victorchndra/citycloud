@@ -131,3 +131,7 @@ Route::get("approve/pension-letters/{uid}", "App\Http\Controllers\Transactions\L
 // bukan bpjs
 Route::resource("letters-not-bpjs", "App\Http\Controllers\Transactions\Letter\LetterNotBPJSController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNotBPJS@approve")->name('approve.notbpjs');
+
+//birthLetter
+Route::resource("letters-birth", "App\Http\Controllers\Transactions\Letter\LetterBirthController")->middleware('auth');
+Route::get("approve/birth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBirthController@approve")->name('approve.notbpjs');

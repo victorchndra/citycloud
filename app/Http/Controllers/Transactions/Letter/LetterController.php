@@ -16,6 +16,7 @@ use App\Models\Masters\RT;
 //calldb
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterBirth;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
@@ -39,7 +40,8 @@ class LetterController extends Controller
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters);
+            $birthletters = LetterBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
