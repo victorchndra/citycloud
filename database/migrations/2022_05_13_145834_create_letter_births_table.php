@@ -36,8 +36,8 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             // /////////////data surat////////////////
-            // $table->string('letter_rw')->nullable();
-            // $table->string('letter_rt')->nullable();
+            $table->string('letter_rw')->nullable();
+            $table->string('letter_rt')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();

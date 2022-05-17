@@ -94,6 +94,9 @@ class LetterBirthController extends Controller
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
 
+            $validatedData['letter_rt'] = $citizen->rt;
+            $validatedData['letter_rw'] = $citizen->rw;
+
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
 
@@ -150,6 +153,9 @@ class LetterBirthController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
+
+            $validatedData['letter_rt'] = $citizen->rt;
+            $validatedData['letter_rw'] = $citizen->rw;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
