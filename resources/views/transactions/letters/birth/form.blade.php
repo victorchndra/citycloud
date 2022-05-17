@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Rekomendasi SKCK</h3>
+                <h3>Surat Keterangan Lahir</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Rekomendasi SKCK</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Lahir</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Lahir</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-recomendation" method="POST">
+                            <form class="form form-horizontal" action="/letters-birth" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -56,27 +56,7 @@
                                                 @endforeach
                                             </select>
                                             </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Pilih Status</label>
-                                            <select class="form-control" name="status_prilaku">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Berkelakuan Baik">Berkelakuan Baik</option>
-                                                <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Surat Pengantar RT</label>
-                                                <div class="col-sm-9">
-                                                    <select name="letter_rt" id="rt" class="form-control">
-                                                        @foreach($rts as $rt)
-                                                            <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                        </div>
+                                        </div>                                                                                                                    
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
@@ -129,70 +109,54 @@
                                     </div>
                             </form>
                         @else
-{{-- c --}}
-                        <form class="form form-horizontal" action="/letters-recomendation" method="POST">
-                            @csrf
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-md-12 form-group ">
-                                        <label>No Surat</label>
-                                        @foreach($informations as $information)
-                                        <input readonly type="text" name="letter_index"
-                                            class="form-control @error('letter_index') is-invalid @enderror"
-                                            placeholder="No Surat" value="  {{ $information->letter_index  }}">
-                                        @endforeach
-                                    </div>
 
-                                    <div class="col-md-12 form-group">
-                                        <label>Pilih Penduduk</label>
-                                        <select id="citizens" class="form-control select2" name="citizens"
-                                            style="width: 100%;" required>
-
-                                            <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-
-                                        </select>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6 form-group">
-                                        <label>Pilih Status</label>
-                                        <select class="form-control" name="status_prilaku">
-                                            <option value="Tidak ada">Tidak Ada</option>
-                                            <option value="Berkelakuan Baik">Berkelakuan Baik</option>
-                                            <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6 form-group">
-                                        <label>Surat Pengantar RT</label>
-                                            <div class="col-sm-9">
-                                                <select name="letter_rt" id="rt" class="form-control">
-                                                    @foreach($rts as $rt)
-                                                        <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                    </div>
-
-                                    <div class="col-md-12 form-group">
-                                        <label>Ditandatangani Oleh</label>
-                                        <select id="positions" class="form-control" name="positions"
-                                            style="width: 100%;" required>
-
-                                            @foreach($position as $positions)
-                                            <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
-                                                {{ $positions->position }}</option>
+                        <form class="form form-horizontal" action="/letters-birth" method="POST">
+                                @csrf
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group ">
+                                            <label>No Surat</label>
+                                            @foreach($informations as $information)
+                                            <input readonly type="text" name="letter_index"
+                                                class="form-control @error('letter_index') is-invalid @enderror"
+                                                placeholder="No Surat" value="  {{ $information->letter_index  }}">
                                             @endforeach
-                                        </select>
-                                        <hr>
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Pilih Penduduk</label>
+                                            <select id="citizens" class="form-control select2" name="citizens"
+                                                style="width: 100%;" required>
+                                              
+                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+                                  
+                                            </select>
+                                            </select>
+                                        </div>                                        
+
+                                      
+                                        <div class="col-md-12 form-group">
+                                            <label>Ditandatangani Oleh</label>
+                                            <select id="positions" class="form-control" name="positions"
+                                                style="width: 100%;" required>
+
+                                                @foreach($position as $positions)
+                                                <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
+                                                    {{ $positions->position }}</option>
+                                                @endforeach
+                                            </select>
+                                            <hr>
+                                            <div class="col-sm-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                                            </div>
+                                        </div>
+
+                                      
                                     </div>
-                                </div>
-                            </div>
-                        </form>
-                        @endif
+
+                                    </div>
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -19,13 +19,15 @@ use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterBusiness;
 use App\Models\Masters\Information;
 use App\Models\Masters\RT;
+use App\Models\Masters\RW;
+use App\Models\Transactions\Letter\LetterBirth;
 use App\Models\Transactions\Letter\LetterRecomendation;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
 
-class LetterRecomendationController extends Controller
+class LetterBirthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,16 +46,16 @@ class LetterRecomendationController extends Controller
      */
     public function create(Request $request)
     {
-        //
-
+        //        
         $rts = RT::get();
         $rtSelected =  $request->get('rt');
-        $informations = Information::get();
+        $rws = RW::get();
+        $rwSelected =  $request->get('rw');
+        $informations = Information::get();       
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.recomendation.form', compact('citizen','informations','position','rts', 'rtSelected'));
-
+        return view('transactions.letters.birth.form', compact('citizen','informations','position','rts', 'rtSelected','rws', 'rwSelected'));        
     }
 
     /**
@@ -64,17 +66,16 @@ class LetterRecomendationController extends Controller
      */
     public function store(Request $request)
     {
+        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'status_prilaku' => 'required',
-                'letter_rt' => 'required'
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan rekomendasi skck";
+            $validatedData['letter_name']     = "surat keterangan kelahiran";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -93,6 +94,9 @@ class LetterRecomendationController extends Controller
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
 
+            $validatedData['letter_rt'] = $citizen->rt;
+            $validatedData['letter_rw'] = $citizen->rw;
+
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
 
@@ -110,8 +114,8 @@ class LetterRecomendationController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan rekomendasi <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
-                'description' => '<em>Menambah</em> data surat keterangan rekomendasi SKCK <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan kelahiran <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan kelahiran <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -119,15 +123,13 @@ class LetterRecomendationController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterRecomendation::create($validatedData);
+            LetterBirth::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
         }else{
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'status_prilaku' => 'required',
-                'letter_rt' => 'required'
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -152,6 +154,9 @@ class LetterRecomendationController extends Controller
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
 
+            $validatedData['letter_rt'] = $citizen->rt;
+            $validatedData['letter_rw'] = $citizen->rw;
+
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
 
@@ -168,7 +173,7 @@ class LetterRecomendationController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan rekomendasi SKCK <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan kelahiran <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -178,7 +183,7 @@ class LetterRecomendationController extends Controller
 
             LetterRecomendation::create($validatedData);
 
-            return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
+            return redirect('/letters-birth')->with('success','Surat berhasil ditambahkan');
 
 
         }
@@ -190,25 +195,9 @@ class LetterRecomendationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id)
     {
         //
-        $data = LetterBusiness::where('uuid', $uuid)->firstOrFail();
-        $informations = Information::first();
-                 // tambahkan baris kode ini di setiap controller
-                 $log = [
-                    'uuid' => Uuid::uuid4()->getHex(),
-                    'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data surat keterangan Rekomendasi SKCK <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-                    'category' => 'cetak',
-                    'created_at' => now(),
-                ];
-
-                DB::table('logs')->insert($log);
-                // selesai
-
-        return view('transactions.letters.recomendation.print',compact('data','informations'));
-
     }
 
     /**
@@ -220,16 +209,13 @@ class LetterRecomendationController extends Controller
     public function edit($uuid,Request $request)
     {
         //
-        $rts = RT::get();
-        $rtSelected =  $request->get('rt');
         $informations = Information::get();
         $letterrecomendation = LetterRecomendation::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
         $citizen = LetterRecomendation::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.recomendation.edit', compact('citizen','informations','position','letterrecomendation','rts','rtSelected'));
-
+        return view('transactions.letters.birth.edit', compact('citizen','informations','position','letterrecomendation'));
     }
 
     /**
@@ -244,7 +230,7 @@ class LetterRecomendationController extends Controller
         //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             if ($request->get('rejected_notes_admin')) {
-                $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -266,8 +252,6 @@ class LetterRecomendationController extends Controller
             }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'status_prilaku' => 'required',
-                'letter_rt' => 'required'
 
             ]);
             $position           = User::findOrFail($request->get('positions'));
@@ -280,10 +264,10 @@ class LetterRecomendationController extends Controller
             if ($validatedData) {
 
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterRecomendation::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterBirth::where('uuid', $uuid)->first()->update($validatedData);
             }
 
-            $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
@@ -297,7 +281,7 @@ class LetterRecomendationController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -326,30 +310,8 @@ class LetterRecomendationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uuid)
+    public function destroy($id)
     {
-        $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
-        $data->deleted_by = Auth::user()->id;
-        $data->save();
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat Keterangan Rekomendasi SKCK <strong>[' . $data->name . ']</strong>',
-            'category' => 'hapus',
-            'created_at' => now(),
-        ];
-
-        DB::table('logs')->insert($log);
-        $data->delete();
-
-
-        return redirect('/letters')->with('success','Surat berhasil dihapus');
-
-    }
-    public function approve($uuid)
-    {
-
-        // return redirect('/letters')->with('success','Surat berhasil dihapus');
-
+        //
     }
 }

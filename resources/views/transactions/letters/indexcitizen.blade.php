@@ -43,11 +43,11 @@
                         @endif
 
                         {{-- Death Button --}}
-                @foreach ($businessletters as $businessletter)
+                @foreach ($datas as $data)
                 <div class="modal" id="deathModal">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
-                        <form action="/letters-business/{{ $businessletter->uuid }}" method="POST">
+                            <form action="/letters/{{ $data->uuid }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <input id="uuidValidate" type="hidden" name="uuidValidate">
@@ -69,11 +69,11 @@
                 @endforeach
 
                 {{-- Death Button --}}
-                @foreach ($businessletters as $businessletter)
+                @foreach ($datas as $data)
                 <div class="modal" id="rejectrt">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
-                        <form action="/letters-business/{{ $businessletter->uuid }}" method="POST">
+                        <form action="/letters-business/{{ $data->uuid }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <input id="uuidValidate" type="hidden" name="uuidValidate">
@@ -111,76 +111,69 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($businessletters as $key => $businessletter)
+                        @foreach($datas as $key => $data)
 
 
                         <tr>
                             <td> {{ $key + 1 }}</td>
-                            <td>{{ $businessletter->name }} <b>(@if($businessletter->gender == 'PEREMPUAN'){{'P'}}@else{{'L'}}@endif)</b></td>
-                            <td>{{ $businessletter->letter_name}}</td>
+                            <td>{{ $data->name }} <b>(@if($data->gender == 'PEREMPUAN'){{'P'}}@else{{'L'}}@endif)</b></td>
+                            <td>{{ $data->letter_name}}</td>
                             <td>
-                            Ditambahkan Oleh: <b> {{$businessletter->createdUser->name}}
-                                                </b><br>{{$businessletter->created_at, 'd M Y'}}
+                            Ditambahkan Oleh: <b> {{$data->createdUser->name}}
+                                                </b><br>{{$data->created_at, 'd M Y'}}
 
-                                                @if($businessletter->updated_by)
+                                                @if($data->updated_by)
                                                 <br>
-                                                Diubah Oleh: <b> {{$businessletter->updatedUser->name}}
-                                                </b><br>{{$businessletter->updated_at, 'd M Y'}}
+                                                Diubah Oleh: <b> {{$data->updatedUser->name}}
+                                                </b><br>{{$data->updated_at, 'd M Y'}}
                                                 @endif
                             </td>
 
                                 <td>
-                                        @if($businessletter->approval_rt == 'approved')
+                                        @if($data->approval_rt == 'approved')
                                         <span class="badge bg-success">Setuju</span>
                                         </span>
                                         @endif
 
-                                        @if($businessletter->approval_rt == 'waiting')
+                                        @if($data->approval_rt == 'waiting')
                                         <span class="badge bg-warning"></i> Menunggu</span>
                                         </span>
                                         @endif
 
-                                        @if($businessletter->approval_rt == 'rejected')
+                                        @if($data->approval_rt == 'rejected')
                                         <span class="badge bg-danger"> </i> Ditolak</span>
                                         </span>
                                         @endif
                                 </td>
 
                                 <td>
-                                    @if($businessletter->approval_admin == 'approved')
+                                    @if($data->approval_admin == 'approved')
                                         <span class="badge bg-success">Setuju</span>
                                         </span>
                                         @endif
 
-                                        @if($businessletter->approval_admin == 'waiting')
+                                        @if($data->approval_admin == 'waiting')
                                         <span class="badge bg-warning"></i> Menunggu</span>
                                         </span>
                                         @endif
 
-                                        @if($businessletter->approval_admin == 'rejected')
+                                        @if($data->approval_admin == 'rejected')
                                         <span class="badge bg-danger"> </i> Ditolak</span>
                                         </span>
                                         @endif
                                 </td>
 
-
                                 <td>
-                                        @if($businessletter->approval_admin == 'rejected')
-                                        <span class="badge bg-danger"> </i>Admin: {{ $businessletter->rejected_notes_admin }}</span>
+                                        @if($data->approval_admin == 'rejected')
+                                        <span class="badge bg-danger"> </i>Admin: {{ $data->rejected_notes_admin }}</span>
                                         </span>
                                         @endif
                                             <br>
-                                        @if($businessletter->approval_rt == 'rejected')
-                                        <span class="badge bg-danger"> </i>RT: {{ $businessletter->rejected_notes_rt }}</span>
+                                        @if($data->approval_rt == 'rejected')
+                                        <span class="badge bg-danger"> </i>RT: {{ $data->rejected_notes_rt }}</span>
                                         </span>
                                         @endif
-
-
-
-
-
                                 </td>
-
 
                                 @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
                             <td>
@@ -189,29 +182,30 @@
                                             <div class="dropdown-menu">
 
 
-                                            <a href="{{ route('approve.businessletters', [ $businessletter->uuid ]) }}"
+                                            {{-- <a href="{{ route('approve.letters', [ $data->uuid ]) }}" --}}
+                                            <a href="/approve/{{ $data->uuid }}"
                                                     class="dropdown-item"  type="submit" onclick="return confirm('Setujui Surat?')"><i class="mdi mdi-tooltip-edit"></i> Setujui</a>
                                                     <div class="dropdown-divider"></div>
 
-                                                    {{-- Death Button --}}
-                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deathModal" data-id="{{ $businessletter->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#deathModal').modal('show');"><i class="mdi mdi-account-minus"></i> Tolak</button>
+                                            {{-- Death Button --}}
+                                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deathModal" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#deathModal').modal('show');"><i class="mdi mdi-account-minus"></i> Tolak</button>
 
                                                 {{-- data-bs-target="#deathModal" --}}
 
-                                                    <div class="dropdown-divider"></div>
+                                            <div class="dropdown-divider"></div>
 
 
 
-                                            <a href="/letters-business/{{ $businessletter->uuid }}"
+                                            <a href="/letters-business/{{ $data->uuid }}"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Cetak</a>
                                                     <div class="dropdown-divider"></div>
 
 
-                                            <a href="/letters-business/{{ $businessletter->uuid }}/edit"
+                                            <a href="/letters-business/{{ $data->uuid }}/edit"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                     <div class="dropdown-divider"></div>
 
-                                                <form action="/letters-business/{{ $businessletter->uuid }}" method="post">
+                                                <form action="/letters-business/{{ $data->uuid }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="dropdown-item" type="submit"
@@ -220,7 +214,7 @@
 
 
                                                 <form class="d-none invisible"
-                                                    action="/letters-business/destroy/{{$businessletter->uuid}}" method="POST">
+                                                    action="/letters-business/destroy/{{$data->uuid}}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button class="dropdown-item" type="submit"
@@ -237,12 +231,12 @@
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                             <div class="dropdown-menu">
 
-                                            <a href="{{ route('approve.businessletters', [ $businessletter->uuid ]) }}"
+                                            <a href="{{ route('approve.businessletters', [ $data->uuid ]) }}"
                                                     class="dropdown-item"  type="submit" onclick="return confirm('Setujui Surat?')"><i class="mdi mdi-tooltip-edit"></i> Setujui</a>
                                                     <div class="dropdown-divider"></div>
 
                                                     {{-- Death Button --}}
-                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rejectrt" data-id="{{ $businessletter->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#rejectrt').modal('show');"><i class="mdi mdi-account-minus"></i> Tolak</button>
+                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rejectrt" data-id="{{ $data->uuid }}" onclick="$('#uuidValidate').val($(this).data('id')); $('#rejectrt').modal('show');"><i class="mdi mdi-account-minus"></i> Tolak</button>
                                                     {{-- data-bs-target="#deathModal" --}}
 
 
