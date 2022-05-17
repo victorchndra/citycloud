@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-business" method="POST">
+                            <form class="form form-horizontal" action="/letters-birth" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -56,100 +56,7 @@
                                                 @endforeach
                                             </select>
                                             </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Desa</label>
-                                            <input type="text" name="business_variation"
-                                                class="form-control @error('business_variation') is-invalid @enderror"
-                                                placeholder="Jenis usaha cth Usaha Grosir">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Kecamatan/Usaha</label>
-                                            <input type="text" name="business_name"
-                                                class="form-control @error('business_name') is-invalid @enderror"
-                                                placeholder="Nama Usaha cth: Maju Jaya, Makmur Sejahtera">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Kabupaten/label>
-                                            <input type="text" name="business_address"
-                                                class="form-control @error('business_address') is-invalid @enderror"
-                                                placeholder="Alamat usaha" value="{{ $information->village_name }}">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>RT</label>                                    
-                                                <div class="col-sm-9">
-                                                    <select name="letter_rt" id="rt" class="form-control">                    
-                                                        @foreach($rts as $rt)
-                                                            <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>RWsada</label>                                    
-                                                <div class="col-sm-9">
-                                                    <select name="letter_rw" id="rw" class="form-control">                    
-                                                        @foreach($rws as $rw)
-                                                            <option value="{{ $rw->name }}" @if($rwSelected == $rw->name) {{ 'selected' }} @endif> {{ $rw->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Tempat usaha</label>
-                                            <input type="text" name="business_place"
-                                                class="form-control @error('business_place') is-invalid @enderror"
-                                                placeholder="No Surat" value="{{ $information->village_name  }}">
-                                        </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
+                                        </div>                                                                                                                    
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
@@ -203,7 +110,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-business" method="POST">
+                        <form class="form form-horizontal" action="/letters-birth" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -225,58 +132,7 @@
                                   
                                             </select>
                                             </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Jenis Usaha</label>
-                                            <input type="text" name="business_variation"
-                                                class="form-control @error('business_variation') is-invalid @enderror"
-                                                placeholder="Jenis usaha cth Usaha Grosir">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Nama Merk/Usaha</label>
-                                            <input type="text" name="business_name"
-                                                class="form-control @error('business_name') is-invalid @enderror"
-                                                placeholder="Nama Usaha cth: Maju Jaya, Makmur Sejahtera">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Alamat usaha</label>
-                                            <input type="text" name="business_address"
-                                                class="form-control @error('business_address') is-invalid @enderror"
-                                                placeholder="Alamat usaha" value="{{ $information->village_name }}">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Tempat usaha</label>
-                                            <input type="text" name="business_place"
-                                                class="form-control @error('business_place') is-invalid @enderror"
-                                                placeholder="No Surat" value="{{ $information->village_name  }}">
-                                        </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
+                                        </div>                                        
 
                                       
                                         <div class="col-md-12 form-group">

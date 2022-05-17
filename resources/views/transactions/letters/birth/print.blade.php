@@ -122,90 +122,17 @@
     <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami dan pernyataan yang bersangkutan pada tanggal <b> {{$data->letter_date}}</b>  benar mempunyai
-                usaha :
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah Benar Lahir di <b> Desa {{$informations->village_name}}, Kecamatan {{$informations->sub_district_name}}, Kota  {{$informations->district_name}}, Provinsi {{$informations->province_name}}</b> yang mana merupakan anak dari salah satu seorang warga kami yang tinggal di <b> Desa {{$informations->village_name}}, RT. {{$data->rt}}, RW. {{$data->rw}}</b>
             </td>
         </tr>
-    </table>
-    <div style="line-height: 1; margin-top: 10px;">
-        <table align="center" width="540">
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>1&nbsp;&nbsp;&nbsp;Jenis Usaha
-                </td>
-                <td width="2">: </td>
-                <td>
-                    <font style="font-weight: bold; ">{{ $data->business_variation }}</font>
-                </td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>2&nbsp;&nbsp;&nbsp;Nama/ Merek
-                    Usaha</td>
-                <td width="2">: </td>
-                <td>{{ $data->business_name }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>3&nbsp;&nbsp;&nbsp;Tempat
-                    Usaha</td>
-                <td width="2">: </td>
-                <td>{{ $data->business_place }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Status Tanah</td>
-                <td width="2">: </td>
-                <td>
-                    @if($data->agrarian_status == 'SERTIFIKAT HAK MILIK')
-                        Sertifikat Hak Milik / <span style="text-decoration: line-through;">HGB</span> / <span style="text-decoration: line-through;">SKRT</span> / <span style="text-decoration: line-through;">SKGK</span>
-                    @elseif($data->agrarian_status == 'HGB')
-                        <span style="text-decoration: line-through;">Sertifikat Hak Milik</span> / HGB / <span style="text-decoration: line-through;">SKRT</span> / <span style="text-decoration: line-through;">SKGK</span>
-                    @elseif($data->agrarian_status == 'SKRT')
-                        <span style="text-decoration: line-through;">Sertifikat Hak Milik</span> / <span style="text-decoration: line-through;">HGB</span> / SKRT / <span style="text-decoration: line-through;">SKGK</span>
-                    @elseif($data->agrarian_status == 'SKGK')
-                        <span style="text-decoration: line-through;">Sertifikat Hak Milik</span> / <span style="text-decoration: line-through;">HGB</span> / <span style="text-decoration: line-through;">SKRT</span> / SKGK
-                    @elseif($data->agrarian_status == 'TIDAK ADA')
-                        <span style="text-decoration: line-through;">Sertifikat Hak Milik</span> / <span style="text-decoration: line-through;">HGB</span> / <span style="text-decoration: line-through;">SKRT</span> / <span style="text-decoration: line-through;">SKGK</span>
-                    @endif
-                </td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 30 px;"></span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Status Kepemilikan</td>
-                <td width="2">: </td>
-                <td>
-                    @if($data->self_status == 'SEWA')
-                        Sewa / <span style="text-decoration: line-through;">Pinjam Pakai</span> / <span style="text-decoration: line-through;">Milik Sendiri</span> / <span style="text-decoration: line-through;">Milik Orang Tua</span> / <span style="text-decoration: line-through;">Milik Perusahaan</span>
-                    @elseif($data->self_status == 'PINJAM PAKAI')
-                        <span style="text-decoration: line-through;">Sewa</span> / Pinjam Pakai / <span style="text-decoration: line-through;">Milik Sendiri</span> / <span style="text-decoration: line-through;">Milik Orang Tua</span> / <span style="text-decoration: line-through;">Milik Perusahaan</span>
-                    @elseif($data->self_status == 'MILIK SENDIRI')
-                        <span style="text-decoration: line-through;">Sewa</span> / <span style="text-decoration: line-through;">Pinjam Pakai</span> / Milik Sendiri / <span style="text-decoration: line-through;">Milik Orang Tua</span> / <span style="text-decoration: line-through;">Milik Perusahaan</span>
-                    @elseif($data->self_status == 'MILIK ORANG TUA')
-                        <span style="text-decoration: line-through;">Sewa</span> / <span style="text-decoration: line-through;">Pinjam Pakai</span> / <span style="text-decoration: line-through;">Milik Sendiri</span> / Milik Orang Tua / <span style="text-decoration: line-through;">Milik Perusahaan</span>
-                    @elseif($data->self_status == 'MILIK PERUSAHAAN')
-                        <span style="text-decoration: line-through;">Sewa</span> / <span style="text-decoration: line-through;">Pinjam Pakai</span> / <span style="text-decoration: line-through;">Milik Sendiri</span> / <span style="text-decoration: line-through;">Milik Orang Tua</span> / Milik Perusahaan
-                    @elseif($data->self_status == 'TIDAK ADA')
-                        <span style="text-decoration: line-through;">Sewa</span> / <span style="text-decoration: line-through;">Pinjam Pakai</span> / <span style="text-decoration: line-through;">Milik Sendiri</span> / <span style="text-decoration: line-through;">Milik Orang Tua</span> / <span style="text-decoration: line-through;">Milik Perusahaan</span>
-                    @endif
-                </td>
-            </tr>
-            <tr>
-                <td width="180" style="vertical-align: top;"><span style="display:inline-block; width: 30 px;"></span>4&nbsp;&nbsp;&nbsp; Alamat
-                    Usaha</td>
-                <td width="2" style="vertical-align: top;">: </td>
-                <td>{{ $data->business_address }}</td>
-            </tr>
-            <tr>
-                <td width="180" style="vertical-align: top;"><span style="display:inline-block; width: 30 px;"></span>5&nbsp;&nbsp;&nbsp; Lokasi
-                    Usaha</td>
-                <td width="2">: </td>
-                <td>{{ $data->business_place }}</td>
-            </tr>
-        </table>
-    </div>
-            <br>
+
+        
+    </table>    
+            
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ $data->letter_name }} ini berlaku sejak tanggal <strong> {{$data->letter_date}} - {{ \Carbon\Carbon::parse($data->valid_until)->addYears(1)->isoFormat('D MMMM Y')}}</strong>.</font>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
             </td>
         </tr>
@@ -284,112 +211,10 @@
         </section>
 
 
-
-        <section class="pagebreak">
-            <table align="center" width="460" style="margin-top: 70px;" border="1px">
-                <tr>
-                    <td>
-                        <center>
-                            <font style="font-weight: bold; text-decoration: underline;">SURAT PERNYATAAN</font>
-                            <br>                           
-                        </center>
-                    </td>
-                </tr>
-            </table>
-            <table align="center" width="600" style="line-height: 1.5; margin-top: 50px;">
-                <tr>
-                    <td class="justify">
-                    Yang bertanda tangan dibawah ini:
-                    </td>
-                </tr>
-            </table><br>
-            <table align="center" width="540">
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
-                    <td width="2">: </td>
-                    <td>
-                        <font style="font-weight: bold; ">{{$data->name }}</font>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
-                    <td width="2">: </td>
-                    <td>{{$data->place_birth}}, {{$data->date_birth}} </td>
-                </tr>
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->nik }}</td>
-                </tr>
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->gender }}</td>
-                </tr> 
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->religion }}</td>
-                </tr>
-    
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->job }}</td>
-                </tr>
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->address }}</td>
-                </tr>
-    
-            </table>
-            <br>
-            <table align="center" width="600"  style="line-height: 1.5;">
-                <tr>
-                    <td class="justify">
-                        Dengan ini menyatakan bahwasanya saya benar-benar memiliki usaha <b>{{ $data->business_variation }}</b> yang beralamatkan {{ $data->business_place }}.
-
-                    </td>
-                </tr>
-            </table>
-            <table align="center" width="600" style="line-height: 1.5;">
-                <tr>
-                    <td class="justify">
-                       Adapun pernyataan ini saya buat untuk mendapatkan surat keterangan usaha dari kantor Kepala Desa {{ $informations->village_name }}.
-                    </td>
-                </tr>
-            </table>
-            <table align="center" width="600" style="line-height: 1.5;">
-                <tr>
-                    <td class="justify">
-                       Apabila penyataan ini salah, saya siap untuk di tuntut sesuai dengan peraturan perundang-undangan yang berlaku di Negara Kesatuan Republik Indonesia. <br>
-                       Demikian pernyataan saya ini saya buat, atas perhatiannya saya ucapkan terima kasih.
-                    </td>
-                </tr>
-            </table>
-        <table align="center" width="470" style="margin-top: 50px;" >
-        <tr>
-            <td width="270"> </td>
-            <td > <center>  {{ $informations->village_name }}, {{$data->letter_date}} 
-                </center>
-            </td>
-        </tr>
-            <tr>
-                <td width="270"> </td>
-                <td > <center> Hormat Saya, </center></td>
-        </tr>           
+        
+       
         </table>
-        <br><br><br>
-        <table align="center" width="700">
-            <tr>
-                <td width="270">
-                   
-                </td>
-                <td ><center> <span style="font-weight: bold; text-decoration: underline;">{{ $data->name }}</span>  </center>
-                </td>
-            </tr>
-        </table>  
+        <br><br><br>        
     
         </section>
 

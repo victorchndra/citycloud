@@ -36,7 +36,7 @@ class LetterController extends Controller
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();            
             $birthletters = LetterBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
+
             $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters);            
 
             return view('transactions.letters.index',  compact('datas'));
@@ -167,6 +167,8 @@ class LetterController extends Controller
 
             return view('transactions.letters.pension.print',compact('data','informations'));
         }
+
+        //surat keterangan rekomendasi skck
         if(LetterRecomendation::where('uuid', $uuid)->exists()) {
             $data = LetterRecomendation::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
@@ -183,6 +185,25 @@ class LetterController extends Controller
                 // selesai
 
             return view('transactions.letters.recomendation.print',compact('data','informations'));
+        }
+
+        //surat keterangan kelahiran
+        if(LetterBirth::where('uuid', $uuid)->exists()) {
+            $data = LetterBirth::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan kelahiran <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.birth.print',compact('data','informations'));
         }
     }
 
@@ -222,6 +243,17 @@ class LetterController extends Controller
             $citizen = LetterRecomendation::where('uuid', $uuid)->get();
 
             return view('transactions.letters.recomendation.edit', compact('citizen','informations','position','recomendationletters','rts','rtSelected'));
+        }
+
+        //surat Keterangan Kelahiran
+        if(LetterBirth::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterbirth = LetterBirth::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterBirth::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.birth.edit', compact('citizen','informations','position','letterbirth'));
         }
     }
 
@@ -367,6 +399,24 @@ class LetterController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Menghapus</em> Surat Rekomendasi <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
+
+
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+        if(LetterBirth::where('uuid', $uuid)->exists()) {
+            $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Kelahiran <strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];

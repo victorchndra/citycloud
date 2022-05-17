@@ -35,11 +35,7 @@ return new class extends Migration
             $table->string('districts')->nullable();
             $table->string('province')->nullable();
             //////////////////////////////////////
-            ///////////////data surat////////////////
-            // $table->string('letter_village')->nullable();
-            // $table->string('letter_sub_districts')->nullable();
-            // $table->string('letter_districts')->nullable();
-            // $table->string('letter_province')->nullable();
+            // /////////////data surat////////////////
             // $table->string('letter_rw')->nullable();
             // $table->string('letter_rt')->nullable();
             ////////////////////////////////////////
