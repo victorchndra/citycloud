@@ -449,7 +449,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-nohouse/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
