@@ -18,7 +18,8 @@ use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
-
+use App\Models\Transactions\Letter\LetterDivorce;
+use App\Models\Transactions\Letter\LetterBuilding;
 class LetterController extends Controller
 {
     /**
@@ -34,7 +35,9 @@ class LetterController extends Controller
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters);
+            $divorceletter = LetterDivorce::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $buildingletter = LetterBuilding::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($divorceletter)->concat($buildingletter);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
@@ -155,6 +158,43 @@ class LetterController extends Controller
 
             return view('transactions.letters.pension.print',compact('data','informations'));
         }
+
+        //surat cerai
+        if(LetterDivorce::where('uuid', $uuid)->exists()) {
+            $data = LetterDivorce::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+                    // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat Pensiun <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+            return view('transactions.letters.cerai.print',compact('data','informations'));
+        }
+
+        if(LetterBuilding::where('uuid', $uuid)->exists()) {
+            $data = LetterBuilding::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+                    // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat Izin Membangun Bangunan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+            return view('transactions.letters.building.print',compact('data','informations'));
+        }
     }
 
     /**
@@ -174,6 +214,25 @@ class LetterController extends Controller
             $citizen = LetterPension::where('uuid', $uuid)->get();
             
             return view('transactions.letters.pension.edit', compact('citizen','informations','position','letterpension'));
+        }
+
+        //surat cerai
+        if(LetterDivorce::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterdivorce = LetterDivorce::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterDivorce::where('uuid', $uuid)->get();
+            return view('transactions.letters.cerai.edit', compact('citizen','informations','position','letterdivorce'));
+        }
+        
+        if(LetterBuilding::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterbuilding = LetterBuilding::where('uuid', $uuid)->get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterBuilding::where('uuid', $uuid)->get();
+            return view('transactions.letters.building.edit', compact('citizen','informations','position','letterbuilding'));
         }
     }
 
