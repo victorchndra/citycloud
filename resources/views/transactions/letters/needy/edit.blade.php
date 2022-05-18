@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Miskin</h3>
+                    <h3>Surat Keterangan Tidak Mampu</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Miskin</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Tidak Mampu</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,12 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Miskin</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Tidak Mampu</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-poor/{{ $c->uuid }}" method="POST">
+                                    <form class="form-sample" action="/letters-needy/{{ $c->uuid }}" method="POST">
                                         @method('put')
                                         @csrf
                                         <div class="form-body">
@@ -64,8 +64,8 @@
                                                     <select class="form-control @error('letter_status') is-invalid @enderror"
                                                         name="letter_status" id="letter_status" required>
                                                         <option value="Sewa"
-                                                            @if (!empty($c) && $c->letter_status == 'Miskin') {{ 'selected' }} @endif>
-                                                            Miskin</option>                                                        
+                                                            @if (!empty($c) && $c->letter_status == 'Tidak Mampu') {{ 'selected' }} @endif>
+                                                            Tidak Mampu</option>                                                        
                                                     </select>
                                                 </div>
 

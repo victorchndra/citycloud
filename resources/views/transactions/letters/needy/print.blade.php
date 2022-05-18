@@ -120,7 +120,7 @@
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                     <td width="2">: </td>
                     <td>{{ $data->address }}</td>
-                </tr>
+                </tr>                
             </table>
         </div>
 
@@ -133,8 +133,7 @@
                         Kota
                         {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang
                     tinggal di <b> RT. {{ $data->rt }}, RW. {{ $data->rw }}, Desa
-                        {{ $informations->village_name }}</b>. Menurut Data RT setempat yang bersangkutan diatas
-                    memang benar tergolong keluarga tidak mampu <b>(Miskin)</b>.
+                        {{ $informations->village_name }}</b>. Menurut pengakuan dan sepengetahuan kami bahwa keluarga tersebut tergolong keluarga <b> Kurang Mampu/ Miskin</b>.
                 </td>
             </tr>
         </table>        

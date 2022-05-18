@@ -19,12 +19,12 @@ use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterBusiness;
 
 use App\Models\Masters\Information;
-use App\Models\Transactions\Letter\LetterPoor;
+use App\Models\Transactions\Letter\LetterNeedy;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
-class LetterPoorController extends Controller
+class LetterNeedyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,7 +49,7 @@ class LetterPoorController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
 
-        return view('transactions.letters.poor.form', compact('citizen', 'informations', 'position'));
+        return view('transactions.letters.needy.form', compact('citizen', 'informations', 'position'));
     }
 
     /**
@@ -71,7 +71,7 @@ class LetterPoorController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan miskin";
+            $validatedData['letter_name']     = "surat keterangan tidak mampu";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -107,7 +107,7 @@ class LetterPoorController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan miskin <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan tidak mampu <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -115,7 +115,7 @@ class LetterPoorController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterPoor::create($validatedData);
+            LetterNeedy::create($validatedData);
 
             return redirect('/letters')->with('success', 'Surat berhasil ditambahkan');
         } else {
@@ -128,7 +128,7 @@ class LetterPoorController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan miskin";
+            $validatedData['letter_name']     = "surat keterangan tidak mampu";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -163,7 +163,7 @@ class LetterPoorController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan miskin <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan tidak mampu <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -171,7 +171,7 @@ class LetterPoorController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterPoor::create($validatedData);
+            LetterNeedy::create($validatedData);
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditambahkan');
         }
@@ -198,12 +198,12 @@ class LetterPoorController extends Controller
     {
         //         
         $informations = Information::get();
-        $letterpoor = LetterPoor::get();
+        $letterneedy = LetterNeedy::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
-        $citizen = LetterPoor::where('uuid', $uuid)->get();
+        $citizen = LetterNeedy::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.poor.edit', compact('citizen', 'informations', 'position', 'letterpoor'));
+        return view('transactions.letters.needy.edit', compact('citizen', 'informations', 'position', 'letterneedy'));
     }
 
     /**
@@ -232,14 +232,14 @@ class LetterPoorController extends Controller
             if ($validatedData) {
 
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterPoor::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterNeedy::where('uuid', $uuid)->first()->update($validatedData);
             }
 
-            $data = LetterPoor::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterNeedy::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat Keterangan Miskin <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Tidak Mampu <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -249,7 +249,7 @@ class LetterPoorController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         } else {
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterPoor::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterNeedy::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' => Auth::user()->id,
@@ -281,7 +281,7 @@ class LetterPoorController extends Controller
     public function destroy($uuid)
     {
         //
-        $data = LetterPoor::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterNeedy::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $log = [

@@ -153,6 +153,10 @@ Route::get("approve/birth-letters/{uid}", "App\Http\Controllers\Transactions\Let
 Route::resource("letters-nohouse", "App\Http\Controllers\Transactions\Letter\LetterNoHouseController")->middleware('auth');
 Route::get("approve/nohouse-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNoHouseController@approve")->name('auth');
 
-//poorLetter
+//poorLetter ( miskin )
 Route::resource("letters-poor", "App\Http\Controllers\Transactions\Letter\LetterPoorController")->middleware('auth');
 Route::get("approve/poor-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterPoorController@approve")->name('auth');
+
+//poorNeedy ( kurang mampu )
+Route::resource("letters-needy", "App\Http\Controllers\Transactions\Letter\LetterNeedyController")->middleware('auth');
+Route::get("approve/needy-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNeedyController@approve")->name('auth');
