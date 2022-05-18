@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Lahir</h3>
+                <h3>Surat Pengajuan Cerai</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Lahir</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Pengajuan Cerai</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Lahir</h4>
+                        <h4 class="card-title">Tambah Surat Pengajuan Cerai</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-birth" method="POST">
+                            <form class="form form-horizontal" action="/letters-pension" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -46,7 +46,7 @@
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                            <label>Suami</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 <option selected="selected" value="">Ketik Nama atau NIK</option>
@@ -55,7 +55,41 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
+                                            </select>
                                         </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Istri</label>
+                                            <select id="citizens" class="form-control select2" name="citizens"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Tanggal Nikah</label>
+                                            <input type="date" name="date_marriage" class="form-control @error('date_marriage') is-invalid @enderror" placeholder="Y-m-d" required"/>
+                                                @error('date_marriage')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Akta Nikah Nomor</label>
+                                            <input type="text" name="date_number_marriage"
+                                                class="form-control @error('date_number_marriage') is-invalid @enderror"
+                                                placeholder="Isi Bagian Kosong">
+                                        </div>
+
+                                      
+
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -108,7 +142,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-birth" method="POST">
+                        <form class="form form-horizontal" action="/letters-pension" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -125,14 +159,37 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-
+                                              
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-
+                                  
                                             </select>
                                             </select>
                                         </div>
 
 
+                                        <div class="col-md-6 form-group">
+                                            <label>Status Tanah</label>
+                                            <select class="form-control" name="agrarian_status">
+                                                <option value="Tidak ada">Tidak Ada</option>
+                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
+                                                <option value="HGB">HGB</option>
+                                                <option value="SKRT">SKRT</option>
+                                                <option value="SKGK">SKGK</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Status Kepemilikan</label>
+                                            <select class="form-control" name="self_status">
+                                                <option value="Sewa">Sewa</option>
+                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
+                                                <option value="Milik Sendiri">Milik Sendiri</option>
+                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
+                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
+                                            </select>
+                                        </div>
+
+                                      
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -149,7 +206,7 @@
                                             </div>
                                         </div>
 
-
+                                      
                                     </div>
 
                                     </div>

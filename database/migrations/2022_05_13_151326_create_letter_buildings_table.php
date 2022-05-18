@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_births', function (Blueprint $table) {
+        Schema::create('letter_buildings', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
@@ -35,9 +35,12 @@ return new class extends Migration
             $table->string('districts')->nullable();
             $table->string('province')->nullable();
             //////////////////////////////////////
-            // /////////////data surat////////////////
-            $table->string('letter_rw')->nullable();
-            $table->string('letter_rt')->nullable();
+            ///////////////data surat////////////////
+            $table->string('place_build')->nullable();
+            $table->string('use_build')->nullable();             
+            $table->string('building_owner')->nullable();     
+            $table->string('proof_mastery')->nullable();     
+
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
@@ -62,6 +65,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_births');
+        Schema::dropIfExists('letter_buildings');
     }
 };

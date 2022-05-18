@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterBirth extends Model
+class LetterNoHouse extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -90,6 +90,14 @@ class LetterBirth extends Model
         );
     }
 
+    public function letterFor(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+   
     public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');

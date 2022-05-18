@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Kelahiran</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <h3>Surat Keterangan Pensiun</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Pensiun you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Kelahiran</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pensiun</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Surat Keterangan Kelahiran</h4>
+                        <h4 class="card-title">Edit Surat Keterangan Pensiun</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-birth/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-pension/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -55,7 +55,32 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>                                        
+                                        </div>
+
+                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Age</label>
+                                            @foreach($letterpension as $information)
+                                            <input type="text" name="age_letter"
+                                                class="form-control @error('age_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda" value="{{ $information->age_letter}}">
+                                                @endforeach
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Job</label>
+                                            @foreach($letterpension as $information)
+                                            <input type="text" name="job_letter"
+                                                class="form-control @error('job_letter') is-invalid @enderror"
+                                                placeholder="Pekerjaan Anda" value="{{ $information->job_letter }}">
+                                            @endforeach
+                                        </div>
+
+                                   
+
+                                      
+
+
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>

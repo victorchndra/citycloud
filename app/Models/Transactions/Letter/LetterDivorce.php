@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
-
-class LetterBirth extends Model
+class LetterDivorce extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -81,7 +80,26 @@ class LetterBirth extends Model
             set: fn ($value) => strtolower($value),
         );
     }
+
+    public function date_marriage(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
     
+    public function number_marriage(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+
+
+
     public function letterDate(): Attribute
     {
         return new Attribute(
@@ -90,10 +108,20 @@ class LetterBirth extends Model
         );
     }
 
+    public function validUntil(): Attribute
+    {
+        return new Attribute(
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['valid_until'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
+
+
     public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
+    
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
