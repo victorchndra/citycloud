@@ -127,7 +127,7 @@
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
+                <td class="justify" style="text-align: justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Bahwa data yang dimaksud diatas adalah
                     benar Berdomisili di <b>
                         Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}, Kecamatan {{ $informations->sub_district_name }},
