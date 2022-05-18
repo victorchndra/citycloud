@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Models\Masters\ageRange;
 use App\Http\Controllers\Transactions\Letter\LetterController;
 use App\Http\Controllers\Transactions\Letter\LetterBusinessController;
+use App\Http\Controllers\Transactions\Letter\LetterNotMarriedYetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,10 +138,15 @@ Route::get("approve/building-letters/{uid}", "App\Http\Controllers\Transactions\
 
 // bukan bpjs
 Route::resource("letters-not-bpjs", "App\Http\Controllers\Transactions\Letter\LetterNotBPJSController")->middleware('auth');
-Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNotBPJS@approve")->name('approve.notbpjs');
 
 //birthLetter
 Route::resource("letters-birth", "App\Http\Controllers\Transactions\Letter\LetterBirthController")->middleware('auth');
+
+// belum menikah
+Route::resource("letters-not-married-yet", "App\Http\Controllers\Transactions\Letter\LetterNotMarriedYetController")->middleware('auth');
+
+// keterangan kematian
+Route::resource('letters-death', "App\Http\Controllers\Transactions\Letter\LetterDeathController")->middleware('auth');
 Route::get("approve/birth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBirthController@approve")->name('auth');
 
 //noHouseLetter

@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Lahir</h3>
+                <h3>Surat Keterangan Usaha</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Lahir</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Lahir</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-birth" method="POST">
+                            <form class="form form-horizontal" action="/letters-death" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -55,7 +55,23 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
+                                            </select>
                                         </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Meninggal</label>
+                                            <input type="date" name="death_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Tanggal Meninggal">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Tempat</label>
+                                            <input type="text" name="death_place"
+                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="Tempat Meninggal">
+                                        </div>
+
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -108,7 +124,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-birth" method="POST">
+                        <form class="form form-horizontal" action="/letters-death" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -132,7 +148,6 @@
                                             </select>
                                         </div>
 
-
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -148,11 +163,9 @@
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
-
-
                                     </div>
 
-                                    </div>
+                                </div>
                             </form>
                             @endif
                         </div>

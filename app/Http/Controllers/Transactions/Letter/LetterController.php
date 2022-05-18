@@ -6,23 +6,25 @@ use App\Models\User;
 use Ramsey\Uuid\Uuid;
 
 //panggil auth
-use Illuminate\Http\Request;
+use App\Models\Masters\RT;
 
 //call all letters
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
-use App\Models\Masters\RT;
 //calldb
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\Letter\LetterBirth;
+use App\Models\Transactions\Letter\LetterDeath;
+use App\Models\Transactions\Letter\LetterHoliday;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
+use App\Models\Transactions\Letter\LetterNotMarriedYet;
 use App\Models\Transactions\Letter\LetterDivorce;
 use App\Models\Transactions\Letter\LetterBuilding;
-use App\Models\Transactions\Letter\LetterHoliday;
 use App\Models\Transactions\Letter\LetterNoHouse;
 use App\Models\Transactions\Letter\LetterPoor;
 use App\Models\Transactions\Letter\LetterRecomendation;
@@ -31,9 +33,7 @@ class LetterController extends Controller
 {
     public function index()
     {
-
-
-        if (Auth::user()->roles == 'god' || Auth::user()->roles == 'admin') {
+        if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
@@ -42,10 +42,12 @@ class LetterController extends Controller
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $birthletters = LetterBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $deathletters = LetterDeath::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $poorletter = LetterPoor::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($poorletter);
+            
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletter);
 
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
@@ -64,20 +66,38 @@ class LetterController extends Controller
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $birthletters = LetterBirth::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $deathletters = LetterDeath::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $divorceletters = LetterDivorce::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $buildingletters = LetterBuilding::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
-        } elseif (Auth::user()->roles == 'headrt') {
+        }
+
+        elseif(Auth::user()->roles == 'headrt'){
             $businessletters = Citizens::join('letter_businesses', 'citizens.id', '=', 'letter_businesses.citizen_id')
                 ->where('letter_businesses.rt', '=', Auth::user()->rt)->orderBy('letter_businesses.created_at', 'desc')->get();
             return view('transactions.letters.indexcitizen',  compact('businessletters'));
-        } elseif (Auth::user()->roles == 'citizens') {
+        }
+
+        elseif(Auth::user()->roles == 'citizens' ){
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $birthletters = LetterBirth::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $deathletters = LetterDeath::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $buildingletters = LetterBuilding::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $divorceletters = LetterDivorce::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
@@ -191,7 +211,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.cerai.print', compact('data', 'informations'));
+            return view('transactions.letters.cerai.print',compact('data','informations'));
         }
 
         //surat keterangan rekomendasi skck
@@ -202,7 +222,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat Pensiun <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Mencetak</em> data surat skck <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'cetak',
                 'created_at' => now(),
             ];
@@ -344,6 +364,36 @@ class LetterController extends Controller
             return view('transactions.letters.recomendation.edit', compact('citizen', 'informations', 'position', 'recomendationletters', 'rts', 'rtSelected'));
         }
 
+        // Surat Keterangan Kematian
+        if(LetterDeath::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $deathletters = LetterDeath::get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterDeath::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.death.edit', compact('citizen','informations','position','deathletters'));
+        }
+
+        // Surat Keterangan Belum Menerima BPJS
+        if(LetterNotBPJS::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $notbpjsletters = LetterNotBPJS::get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterNotBPJS::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.notbpjs.edit', compact('citizen','informations','position','notbpjsletters'));
+        }
+
+        // Surat Keterangan Belum Menikah
+        if(LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $notmarriedyetletters = LetterNotMarriedYet::get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterNotMarriedYet::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.notmarriedyet.edit', compact('citizen','informations','position','notmarriedyetletters'));
+
+        }
         //surat Keterangan Kelahiran
         if (LetterBirth::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
@@ -632,6 +682,20 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             $data->delete();
 
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        // Surat belum menikah
+        if(LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
+            $data = LetterNotMarriedYet::get()->where('uuid', $uuid)->firstOrFail();$data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Belum Menikah <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
@@ -643,7 +707,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Keterangan Kelahiran <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menghapus</em> Surat Keterangan Izin Pembangunan <strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];
@@ -651,6 +715,23 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             $data->delete();
 
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        // Surat keterangan kematian
+        if(LetterDeath::where('uuid', $uuid)->exists()) {
+            $data = LetterDeath::get()->where('uuid', $uuid)->firstOrFail();$data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Kematian <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
