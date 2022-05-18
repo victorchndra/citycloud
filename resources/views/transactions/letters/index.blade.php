@@ -77,35 +77,35 @@
                                 @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
                             <td>
 
-                                            <button type="button" class="btn btn-sm btn-primary  dropdown-toggle"
-                                                data-bs-toggle="dropdown" >Aksi</button>
-                                            <div class="dropdown-menu">
+                                    <button type="button" class="btn btn-sm btn-primary  dropdown-toggle"
+                                        data-bs-toggle="dropdown" >Aksi</button>
+                                    <div class="dropdown-menu">
 
-                                            <a href="/letters/{{ $data->uuid }}"
-                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Cetak</a>
-                                                    <div class="dropdown-divider"></div>
-
-
-                                            <a href="/letters/{{ $data->uuid }}/edit"
-                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
-                                                    <div class="dropdown-divider"></div>
-
-                                                <form action="/letters/{{ $data->uuid }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')"><i class="mdi mdi-delete-forever"></i>Hapus</button>
-                                                </form>
+                                    <a href="/letters/{{ $data->uuid }}"
+                                            class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Cetak</a>
+                                            <div class="dropdown-divider"></div>
 
 
-                                                <form class="d-none invisible"
-                                                    action="/letters-business/destroy/{{$data->uuid}}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button class="dropdown-item" type="submit"
-                                                        onclick="return confirm('Hapus data?')">Hapus</button>
-                                                </form>
-                                            </div>
+                                    <a href="/letters/{{ $data->uuid }}/edit"
+                                            class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
+                                            <div class="dropdown-divider"></div>
+
+                                        <form action="/letters/{{ $data->uuid }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="dropdown-item" type="submit"
+                                                onclick="return confirm('Hapus data?')"><i class="mdi mdi-delete-forever"></i>Hapus</button>
+                                        </form>
+
+
+                                        <form class="d-none invisible"
+                                            action="/letters-business/destroy/{{$data->uuid}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button class="dropdown-item" type="submit"
+                                                onclick="return confirm('Hapus data?')">Hapus</button>
+                                        </form>
+                                    </div>
 
                                 </td>
                                 @endif
