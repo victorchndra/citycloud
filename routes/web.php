@@ -164,3 +164,7 @@ Route::get("approve/needy-letters/{uid}", "App\Http\Controllers\Transactions\Let
 //domicileLetter
 Route::resource("letters-domicile", "App\Http\Controllers\Transactions\Letter\LetterDomicileController")->middleware('auth');
 Route::get("approve/domicile-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDomicileController@approve")->name('auth');
+
+//familyCardLetter
+Route::resource("letters-familycard", "App\Http\Controllers\Transactions\Letter\LetterFamilyCardController")->middleware('auth');
+Route::get("approve/familycard-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterFamilyCardController@approve")->name('auth');

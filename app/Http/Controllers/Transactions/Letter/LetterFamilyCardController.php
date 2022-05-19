@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Transactions\Letter;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -21,13 +20,14 @@ use App\Models\Masters\Information;
 use App\Models\Masters\RT;
 use App\Models\Masters\RW;
 use App\Models\Transactions\Letter\LetterBirth;
+use App\Models\Transactions\Letter\LetterFamilyCard;
 use App\Models\Transactions\Letter\LetterNoHouse;
 use App\Models\Transactions\Letter\LetterRecomendation;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
-class LetterNoHouseController extends Controller
+class LetterFamilyCardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -52,7 +52,7 @@ class LetterNoHouseController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.nohouse.form', compact('citizen','informations','position'));
+        return view('transactions.letters.familycard.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -74,7 +74,7 @@ class LetterNoHouseController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan belum punya rumah";
+            $validatedData['letter_name']     = "surat keterangan permohonan kartu keluarga";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -110,7 +110,7 @@ class LetterNoHouseController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum punya rumah <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan permohonan kartu keluarga <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -118,7 +118,7 @@ class LetterNoHouseController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNoHouse::create($validatedData);
+            LetterFamilyCard::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -132,7 +132,7 @@ class LetterNoHouseController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan belum punya rumah";
+            $validatedData['letter_name']     = "surat keterangan permohonan kartu keluarga";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -167,7 +167,7 @@ class LetterNoHouseController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum punya rumah <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan permohonan kartu keluarga <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -175,9 +175,9 @@ class LetterNoHouseController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNoHouse::create($validatedData);
+            LetterFamilyCard::create($validatedData);
 
-            return redirect('/letters-nohouse')->with('success','Surat berhasil ditambahkan');
+            return redirect('/letters-familycard')->with('success','Surat berhasil ditambahkan');
 
 
         }
@@ -204,12 +204,12 @@ class LetterNoHouseController extends Controller
     {
         //
         $informations = Information::get();
-        $letternohouse = LetterNoHouse::get();
+        $letterfamilycard = LetterFamilyCard::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterNoHouse::where('uuid', $uuid)->get();
+        $citizen = LetterFamilyCard::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.nohouse.edit', compact('citizen','informations','position','letternohouse'));
+        return view('transactions.letters.familycard.edit', compact('citizen','informations','position','letterfamilycard'));
     }
 
     /**
@@ -225,7 +225,7 @@ class LetterNoHouseController extends Controller
         //
         if (Auth::user()->roles == 'god' || Auth::user()->roles == 'admin') {
             if ($request->get('rejected_notes_admin')) {
-                $data = LetterNoHouse::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterFamilyCard::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
                 $data->update([
                     'updated_by' => Auth::user()->id,
@@ -247,7 +247,8 @@ class LetterNoHouseController extends Controller
             }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'letter_for' => 'required'
+                'letter_for' => 'required',
+                
 
             ]);
             $position           = User::findOrFail($request->get('positions'));
@@ -260,14 +261,14 @@ class LetterNoHouseController extends Controller
             if ($validatedData) {
 
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterNoHouse::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterFamilyCard::where('uuid', $uuid)->first()->update($validatedData);
             }
 
-            $data = LetterNoHouse::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterFamilyCard::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat Keterangan Belum Punya Rumah <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan permohonan kartu keluarga <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -277,7 +278,7 @@ class LetterNoHouseController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         } else {
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterNoHouse::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterFamilyCard::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' => Auth::user()->id,
