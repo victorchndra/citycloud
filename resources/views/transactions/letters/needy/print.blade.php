@@ -133,7 +133,8 @@
                         Kota
                         {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang
                     tinggal di <b> RT. {{ $data->rt }}, RW. {{ $data->rw }}, Desa
-                        {{ $informations->village_name }}</b>. Menurut pengakuan dan sepengetahuan kami bahwa keluarga tersebut tergolong keluarga <b> Kurang Mampu/ Miskin</b>.
+                        {{ $informations->village_name }}</b>. Menurut Data RT
+                        setempat nama yang bersangkutan diatas benar tergolong keluarga <b> Tidak Mampu</b>.
                 </td>
             </tr>
         </table>        
