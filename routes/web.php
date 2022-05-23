@@ -11,6 +11,7 @@ use App\Models\Masters\ageRange;
 use App\Http\Controllers\Transactions\Letter\LetterController;
 
 use App\Http\Controllers\Transactions\Letter\LetterBusinessController;
+use App\Http\Controllers\Transactions\Letter\LetterNotMarriedYetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,8 +147,41 @@ Route::get("approve/building-letters/{uid}", "App\Http\Controllers\Transactions\
 
 // bukan bpjs
 Route::resource("letters-not-bpjs", "App\Http\Controllers\Transactions\Letter\LetterNotBPJSController")->middleware('auth');
-Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNotBPJS@approve")->name('approve.notbpjs');
 
 //birthLetter
 Route::resource("letters-birth", "App\Http\Controllers\Transactions\Letter\LetterBirthController")->middleware('auth');
+
+// belum menikah
+Route::resource("letters-not-married-yet", "App\Http\Controllers\Transactions\Letter\LetterNotMarriedYetController")->middleware('auth');
+
+// keterangan kematian
+Route::resource('letters-death', "App\Http\Controllers\Transactions\Letter\LetterDeathController")->middleware('auth');
 Route::get("approve/birth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBirthController@approve")->name('auth');
+
+//noHouseLetter
+Route::resource("letters-nohouse", "App\Http\Controllers\Transactions\Letter\LetterNoHouseController")->middleware('auth');
+Route::get("approve/nohouse-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNoHouseController@approve")->name('auth');
+
+//poorLetter ( miskin )
+Route::resource("letters-poor", "App\Http\Controllers\Transactions\Letter\LetterPoorController")->middleware('auth');
+Route::get("approve/poor-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterPoorController@approve")->name('auth');
+
+//NeedyLetter ( kurang mampu )
+Route::resource("letters-needy", "App\Http\Controllers\Transactions\Letter\LetterNeedyController")->middleware('auth');
+Route::get("approve/needy-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNeedyController@approve")->name('auth');
+
+//domicileLetter
+Route::resource("letters-domicile", "App\Http\Controllers\Transactions\Letter\LetterDomicileController")->middleware('auth');
+Route::get("approve/domicile-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDomicileController@approve")->name('auth');
+
+//familyCardLetter
+Route::resource("letters-familycard", "App\Http\Controllers\Transactions\Letter\LetterFamilyCardController")->middleware('auth');
+Route::get("approve/familycard-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterFamilyCardController@approve")->name('auth');
+
+// Penghapusan Biodata Penduduk
+Route::resource("letters-removecitizen", "App\Http\Controllers\Transactions\Letter\LetterRemoveCitizenController")->middleware('auth');
+Route::get("approve/removecitizen-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRemoveCitizenController@approve")->name('auth');
+
+// Penghapusan Biodata Penduduk
+Route::resource("letters-selfquarantine", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController")->middleware('auth');
+Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController@approve")->name('auth');

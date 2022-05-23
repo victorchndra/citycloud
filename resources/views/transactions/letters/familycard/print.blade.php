@@ -55,7 +55,7 @@
         <hr style="border: 2px solid black;">
 
         <div style="line-height: 1;">
-            <table align="center" width="460" border="1px">
+            <table align="center" width="500" border="1px">
                 <tr>
                     <td>
                         <center>
@@ -127,23 +127,23 @@
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah Benar Lahir di <b>
-                        Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang mana
-                    merupakan anak dari salah satu seorang warga kami yang tinggal di <b> Desa
-                        {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}</b>
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk <b> Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }},
+                     Kecamatan {{ $informations->sub_district_name }}, Kota
+                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>. Surat
+                        ini dibuat dan diberikan atas permintaan yang bersangkutan diatas untuk <b> {{ $data->letter_for }}</b>.
                 </td>
-            </tr>
-
-
+            </tr>               
         </table>
+
 
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td class="justify">
+                <td class="justify" style="text-align: justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
+                    Demikianlah <b>{{ $data->letter_name }}</b> ini dibuat dengan
+                    sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai
+                    mana perlunya.
                 </td>
             </tr>
         </table>
@@ -233,6 +233,10 @@
         </div>
         </div>
     </section>
+
+
+
+    
 
 </body>
 

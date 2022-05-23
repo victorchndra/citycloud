@@ -127,17 +127,23 @@
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah Benar Lahir di <b>
-                        Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang mana
-                    merupakan anak dari salah satu seorang warga kami yang tinggal di <b> Desa
-                        {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}</b>
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Adalah penduduk yang berdomisili di
+                    wilayah kami yaitu di Lingkungan <b> RT. {{ $data->rt }}, RW. {{ $data->rw }},
+                    Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
+                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>.
                 </td>
             </tr>
-
-
+            <tr>
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Sepanjang pengetahuan dan penelitian
+                    kami bahwa yang namanya tersebut diatas
+                    memang benar sampai saat ini belum memiliki rumah tempat tinggal, dan surat
+                    keterangan ini diberikan untuk keperluan : <b> {{ $data->letter_for }}</b>.
+                </td>
+            </tr>
         </table>
+
 
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
@@ -233,6 +239,10 @@
         </div>
         </div>
     </section>
+
+
+
+    
 
 </body>
 

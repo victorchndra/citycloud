@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Kelahiran</h3>
+                <h3>Surat Keterangan Miskin</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Kelahiran</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Miskin</li>
                     </ol>
                 </nav>
             </div>
@@ -27,13 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Surat Keterangan Kelahiran</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Miskin</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                        @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-birth/{{ $c->uuid }}" method="POST">
-                            @method('put')
+                        @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
+                            <form class="form form-horizontal" action="/letters-poor" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -48,33 +47,52 @@
 
                                         <div class="col-md-12 form-group">
                                             <label>Pilih Penduduk</label>
-                                            <select disabled id="citizens" class="form-control select2" name="citizens"
+                                            <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
                                                 @foreach($citizen as $citizens)
                                                 <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>                                        
-
-                                        <div class="col-md-12 form-group">
-                                            <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}"> 
+                                            </select>
                                         </div>
 
+                                        <div class="col-md-6 form-group">
+                                            <label>Keterangan</label>
+                                            <select class="form-control" name="letter_status">
+                                                <option value="Miskin">Miskin</option>
+                                            </select>
+                                        </div>
                                         
+                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Tgl Surat</label>
+                                            <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
+                                                @error('letter_date')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
                                                 style="width: 100%;" required>
+                                                <option value="">Pilih Jabatan</option>
                                                 @foreach($position as $positions)
                                                 <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
                                                     {{ $positions->position }}</option>
-                                                    
                                                 @endforeach
                                             </select>
-                                          
+                                            <hr>
+                                            <div class="col-sm-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
 
@@ -94,18 +112,66 @@
 
                                             </div>
                                         </div>
-                                
+                                    </div>
+
+                                    </div>
+                            </form>
+                        @else
+
+                        <form class="form form-horizontal" action="/letters-poor" method="POST">
+                                @csrf
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group ">
+                                            <label>No Surat</label>
+                                            @foreach($informations as $information)
+                                            <input readonly type="text" name="letter_index"
+                                                class="form-control @error('letter_index') is-invalid @enderror"
+                                                placeholder="No Surat" value="  {{ $information->letter_index  }}">
+                                            @endforeach
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Pilih Penduduk</label>
+                                            <select id="citizens" class="form-control select2" name="citizens"
+                                                style="width: 100%;" required>
+                                              
+                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+                                  
+                                            </select>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Keterangan</label>
+                                            <select class="form-control" name="letter_status">
+                                                <option value="Miskin">Miskin</option>                                                
+                                            </select>
+                                        </div>
+
+                                      
+                                        <div class="col-md-12 form-group">
+                                            <label>Ditandatangani Oleh</label>
+                                            <select id="positions" class="form-control" name="positions"
+                                                style="width: 100%;" required>
+
+                                                @foreach($position as $positions)
+                                                <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
+                                                    {{ $positions->position }}</option>
+                                                @endforeach
+                                            </select>
                                             <hr>
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
 
-                                       
+                                      
+                                    </div>
 
                                     </div>
                             </form>
-                            @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -114,8 +180,8 @@
     </section>
 </div>
 <!-- select2js -->
-<script src="{{asset('/js/extensions/jquery-3.6.0.min.js')}}"></script>
-<script src="{{asset('/js/extensions/select2/select2.full.min.js')}}"></script>
+<script src="{{asset('/js/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('/js/select2/select2.full.min.js')}}" defer></script>
 <script>
     $(document).ready(function () {
 

@@ -120,29 +120,29 @@
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                     <td width="2">: </td>
                     <td>{{ $data->address }}</td>
-                </tr>
+                </tr>                
             </table>
         </div>
 
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah Benar Lahir di <b>
-                        Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang mana
-                    merupakan anak dari salah satu seorang warga kami yang tinggal di <b> Desa
-                        {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}</b>
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah penduduk
+                    <b> Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }},
+                        Kota
+                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang
+                    tinggal di <b> RT. {{ $data->rt }}, RW. {{ $data->rw }}, Desa
+                        {{ $informations->village_name }}</b>. Menurut Data RT
+                        setempat nama yang bersangkutan diatas benar tergolong keluarga <b> Tidak Mampu</b>.
                 </td>
             </tr>
-
-
-        </table>
-
+        </table>        
+        
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
                 <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
                 </td>
             </tr>
@@ -233,6 +233,10 @@
         </div>
         </div>
     </section>
+
+
+
+
 
 </body>
 

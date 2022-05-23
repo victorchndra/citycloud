@@ -55,9 +55,7 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
-                                            </select>
-                                        </div>                                                                                                                    
-
+                                        </div>
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -127,14 +125,14 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-                                              
-                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-                                  
-                                            </select>
-                                            </select>
-                                        </div>                                        
 
-                                      
+                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+
+                                            </select>
+                                            </select>
+                                        </div>
+
+
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -151,7 +149,7 @@
                                             </div>
                                         </div>
 
-                                      
+
                                     </div>
 
                                     </div>
