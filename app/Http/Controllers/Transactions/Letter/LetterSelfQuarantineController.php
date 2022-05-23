@@ -10,9 +10,9 @@ use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterDeath;
+use App\Models\Transactions\Letter\LetterSelfQuarantine;
 
-class LetterDeathController extends Controller
+class LetterSelfQuarantineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class LetterDeathController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.death.form', compact('citizen','informations','position'));
+        return view('transactions.letters.selfquarantine.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -49,15 +49,14 @@ class LetterDeathController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'death_date' => 'date|required',
-                'death_time' => 'required',
-                'death_place' => 'required',
+                'start_date' => 'required',
+                'finish_date' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan kematian";
+            $validatedData['letter_name']     = "surat keterangan karantina mandiri";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -94,7 +93,7 @@ class LetterDeathController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan kematian <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan karantina mandiri <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -102,7 +101,7 @@ class LetterDeathController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterDeath::create($validatedData);
+            LetterSelfQuarantine::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -110,14 +109,14 @@ class LetterDeathController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'death_date' => 'date|required',
-                'death_place' => 'required',
+                'start_date' => 'required',
+                'finish_date' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan kematian";
+            $validatedData['letter_name']     = "surat keterangan karantina mandiri";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -153,7 +152,7 @@ class LetterDeathController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan kematian <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan karantina mandiri <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -161,7 +160,7 @@ class LetterDeathController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterDeath::create($validatedData);
+            LetterSelfQuarantine::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
         }
@@ -175,7 +174,7 @@ class LetterDeathController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**

@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-death" method="POST">
+                            <form class="form form-horizontal" action="/letters-selfquarantine" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -58,25 +58,18 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4 form-group">
-                                            <label>Tanggal Meninggal</label>
-                                            <input type="date" name="death_date"
-                                                class="form-control @error('death_date') is-invalid @enderror"
-                                                placeholder="Tanggal Meninggal">
+                                        <div class="col-md-6 form-group">
+                                            <label>Dari tanggal</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Mulai">
                                         </div>
 
-                                        <div class="col-md-4 form-group">
-                                            <label>Waktu Meninggal</label>
-                                            <input type="time" name="death_time"
-                                                class="form-control @error('death_time') is-invalid @enderror"
-                                                placeholder="Waktu Meninggal">
-                                        </div>
-
-                                        <div class="col-md-4 form-group">
-                                            <label>Tempat</label>
-                                            <input type="text" name="death_place"
-                                                class="form-control @error('death_place') is-invalid @enderror"
-                                                placeholder="Tempat Meninggal">
+                                        <div class="col-md-6 form-group">
+                                            <label>Sampai tanggal</label>
+                                            <input type="date" name="finish_date"
+                                                class="form-control @error('finish_date') is-invalid @enderror"
+                                                placeholder="Selesai">
                                         </div>
 
                                         <div class="col-md-12 form-group">
@@ -131,7 +124,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-death" method="POST">
+                        <form class="form form-horizontal" action="/letters-selfquarantine" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -170,6 +163,8 @@
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
+
+
                                     </div>
 
                                 </div>
@@ -182,7 +177,6 @@
         </div>
     </section>
 </div>
-
 <!-- select2js -->
 <script src="{{asset('/js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('/js/select2/select2.full.min.js')}}" defer></script>
@@ -213,5 +207,5 @@
     });
 
 
-</script>
+    </script>
 @endsection

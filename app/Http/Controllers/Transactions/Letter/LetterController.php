@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Transactions\Letter;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 
@@ -16,21 +17,23 @@ use App\Http\Controllers\Controller;
 //calldb
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterPoor;
 use App\Models\Transactions\Letter\LetterBirth;
 use App\Models\Transactions\Letter\LetterDeath;
+use App\Models\Transactions\Letter\LetterNeedy;
+use App\Models\Transactions\Letter\LetterRemoveCitizen;
+use App\Models\Transactions\Letter\LetterDivorce;
 use App\Models\Transactions\Letter\LetterHoliday;
+use App\Models\Transactions\Letter\LetterNoHouse;
 use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
-use App\Models\Transactions\Letter\LetterBusiness;
-use App\Models\Transactions\Letter\LetterNotMarriedYet;
-use App\Models\Transactions\Letter\LetterDivorce;
 use App\Models\Transactions\Letter\LetterBuilding;
+use App\Models\Transactions\Letter\LetterBusiness;
 use App\Models\Transactions\Letter\LetterDomicile;
 use App\Models\Transactions\Letter\LetterFamilyCard;
-use App\Models\Transactions\Letter\LetterNeedy;
-use App\Models\Transactions\Letter\LetterNoHouse;
-use App\Models\Transactions\Letter\LetterPoor;
+use App\Models\Transactions\Letter\LetterNotMarriedYet;
 use App\Models\Transactions\Letter\LetterRecomendation;
+use App\Models\Transactions\Letter\LetterSelfQuarantine;
 
 class LetterController extends Controller
 {
@@ -52,8 +55,10 @@ class LetterController extends Controller
             $needyletters = LetterNeedy::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $domicileletters = LetterDomicile::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters);
 
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
@@ -83,8 +88,10 @@ class LetterController extends Controller
             $needyletters = LetterNeedy::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $domicileletters = LetterDomicile::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         } elseif (Auth::user()->roles == 'headrt') {
             $businessletters = Citizens::join('letter_businesses', 'citizens.id', '=', 'letter_businesses.citizen_id')
@@ -106,8 +113,10 @@ class LetterController extends Controller
             $needyletters = LetterNeedy::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $domicileletters = LetterDomicile::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
@@ -371,6 +380,66 @@ class LetterController extends Controller
             // selesai
 
             return view('transactions.letters.familycard.print', compact('data', 'informations'));
+        }
+
+        // Surat keterangan kematian
+        if (LetterDeath::where('uuid', $uuid)->exists()) {
+            $data = LetterDeath::where('uuid', $uuid)->firstOrFail();
+
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan kematian <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.death.print', compact('data', 'informations'));
+        }
+
+        // Surat keterangan penghapusan biodata penduduk
+        if (LetterRemoveCitizen::where('uuid', $uuid)->exists()) {
+            $data = LetterRemoveCitizen::where('uuid', $uuid)->firstOrFail();
+
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan penghapusan biodata penduduk <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.removecitizen.print', compact('data', 'informations'));
+        }
+
+        // Surat keterangan karantina mandiri
+        if (LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
+            $data = LetterSelfQuarantine::where('uuid', $uuid)->firstOrFail();
+
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan karantina mandiri <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.selfquarantine.print', compact('data', 'informations'));
         }
     }
 
@@ -687,7 +756,7 @@ class LetterController extends Controller
                 'approval_admin' => "rejected",
             ]);
 
-            $log = [    
+            $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
@@ -766,7 +835,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
     }
 
     public function destroy($uuid)
