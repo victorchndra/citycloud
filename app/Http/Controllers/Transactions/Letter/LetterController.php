@@ -21,6 +21,9 @@ use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBusiness;
 use App\Models\Transactions\Letter\LetterHoliday;
 use App\Models\Transactions\Letter\LetterRecomendation;
+use App\Models\Transactions\Letter\LetterNoAct;
+use App\Models\Transactions\Letter\LetterProcessAct;
+use App\Models\Transactions\Letter\LetterWidow;
 
 class LetterController extends Controller
 {
@@ -39,7 +42,10 @@ class LetterController extends Controller
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($holidayletters)->concat($recomendationletters);
+            $noactletters = LetterNoAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $processactletters = LetterProcessAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $widowletters = LetterWidow::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($holidayletters)->concat($recomendationletters)->concat($noactletters)->concat($processactletters)->concat($widowletters);
             return view('transactions.letters.index',  compact('datas'));
         }elseif( Auth::user()->roles == 'citizens'){
             return view('transactions.letters.list');
@@ -142,6 +148,7 @@ class LetterController extends Controller
             return view('transactions.letters.notbpjs.print',compact('data','informations'));
         }
 
+        //Surat cuti tahunan
         if(LetterHoliday::where('uuid', $uuid)->exists()) {
             $data = LetterHoliday::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
@@ -158,6 +165,63 @@ class LetterController extends Controller
             // selesai
 
             return view('transactions.letters.holiday.print',compact('data','informations'));
+        }
+        
+        //surat belum memiliki akte
+        if(LetterNoAct::where('uuid', $uuid)->exists()) {
+            $data = LetterNoAct::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat pernyataan belum memiliki akta kelahiran <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.noact.print',compact('data','informations'));
+        }
+        
+        //SURAT KETERANGAN AKTE KELAHIRAN DALAM PENGURUSAN
+        if(LetterProcessAct::where('uuid', $uuid)->exists()) {
+            $data = LetterProcessAct::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan akte kelahiran dalam pengurusan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.processact.print',compact('data','informations'));
+        }
+        
+        //SURAT KETERANGAN JANDA
+        if(LetterWidow::where('uuid', $uuid)->exists()) {
+            $data = LetterWidow::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan janda <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.widow.print',compact('data','informations'));
         }
 
         //surat Pensiun
@@ -217,7 +281,7 @@ class LetterController extends Controller
         }
 
         //Surat Keterangan Cuti Tahunan
-        elseif(LetterHoliday::where('uuid', $uuid)->exists()) 
+        if(LetterHoliday::where('uuid', $uuid)->exists()) 
         {
             $informations = Information::get();
             $letterholiday = LetterHoliday::get();
@@ -226,6 +290,40 @@ class LetterController extends Controller
             $citizen = LetterHoliday::where('uuid', $uuid)->get();
             
             return view('transactions.letters.holiday.edit', compact('citizen','informations','position','letterholiday'));
+        }
+        
+        //Surat pernyataan tidak memiliki akta kelahiran
+        if(LetterNoAct::where('uuid', $uuid)->exists()) 
+        {
+            $informations = Information::get();
+            $letternoact = LetterNoAct::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterNoAct::where('uuid', $uuid)->get();
+            
+            return view('transactions.letters.noact.edit', compact('citizen','informations','position'));
+        }
+        
+        //Surat Keterangan Akte Kelahiran Dalam Pengurusan
+        if(LetterProcessAct::where('uuid', $uuid)->exists()) 
+        {
+            $informations = Information::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterProcessAct::where('uuid', $uuid)->get();
+            
+            return view('transactions.letters.processact.edit', compact('citizen','informations','position'));
+        }
+        
+        //Surat surat keterangan janda
+        if(LetterWidow::where('uuid', $uuid)->exists()) 
+        {
+            $informations = Information::get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterWidow::where('uuid', $uuid)->get();
+            
+            return view('transactions.letters.widow.edit', compact('citizen','informations','position'));
         }
         
         //surat Rekomendasi
@@ -282,6 +380,7 @@ class LetterController extends Controller
             return redirect('/letters')->with('success','Surat berhasil dihapus');
         }
         
+        //Surat Keterangan Cuti Tahunan
         if(LetterHoliday::where('uuid', $uuid)->exists()) {
             $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
@@ -290,6 +389,66 @@ class LetterController extends Controller
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
                 'description' => '<em>Menghapus</em> Surat Keterangan Cuti Tahunan <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            $data->delete();
+    
+            
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+        
+        //Surat pernyataan tidak memiliki akta kelahiran
+        if(LetterNoAct::where('uuid', $uuid)->exists()) {
+            $data = LetterNoAct::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat pernyataan tidak memiliki akta kelahiran <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            $data->delete();
+    
+            
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+        
+        //Surat keterangan akte kelahiran dalam pengurusan
+        if(LetterProcessAct::where('uuid', $uuid)->exists()) {
+            $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Akte Kelahiran Dalam Pengurusan <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            $data->delete();
+    
+            
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+        
+        //Surat keterangan janda
+        if(LetterWidow::where('uuid', $uuid)->exists()) {
+            $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Janda <strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];

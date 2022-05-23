@@ -122,8 +122,8 @@
     <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini mengajukan cuti tahunan untuk tahun 2021 selama {{ (strtotime($data->end_date) - strtotime($data->start_date))/(60*60*24) }} ( @php
-                    $x = (strtotime($data->end_date) - strtotime($data->start_date))/(60*60*24);
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini mengajukan cuti tahunan untuk tahun 2021 selama {{ (strtotime($data->end_date) - strtotime($data->start_date))/(60*60*24)+1 }} ( @php
+                    $x = (strtotime($data->end_date) - strtotime($data->start_date))/(60*60*24)+1;
                     $angka = array("", "Satu", "Dua", "Tiga", "Empat", "Lima",
                     "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
                     $temp = "";
