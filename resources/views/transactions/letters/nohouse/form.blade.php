@@ -14,7 +14,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Belum Punya Rumah</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Belum Memiliki Rumah</li>
                     </ol>
                 </nav>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Belum Memiliki Rumah</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
