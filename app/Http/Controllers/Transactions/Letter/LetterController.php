@@ -28,6 +28,7 @@ use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBuilding;
 use App\Models\Transactions\Letter\LetterBusiness;
+use App\Models\Transactions\Letter\LetterDifferenceBirth;
 use App\Models\Transactions\Letter\LetterDomicile;
 use App\Models\Transactions\Letter\LetterFamilyCard;
 use App\Models\Transactions\Letter\LetterNotMarriedYet;
@@ -54,7 +55,7 @@ class LetterController extends Controller
             $buildingletter = LetterBuilding::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();            
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $birthletters = LetterBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $deathletters = LetterDeath::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
@@ -65,8 +66,9 @@ class LetterController extends Controller
             $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($holidayletters)->concat($recomendationletters)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($birthletters)->concat($buildingletter)->concat($recomendationwork); 
+            $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters);
 
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
@@ -85,8 +87,24 @@ class LetterController extends Controller
             $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $birthletters = LetterBirth::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $deathletters = LetterDeath::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $divorceletters = LetterDivorce::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $buildingletters = LetterBuilding::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $poorletters = LetterPoor::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $needyletters = LetterNeedy::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $domicileletters = LetterDomicile::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $datas = $businessletters->concat($notbpjsletters)->concat($recommendationletters)->concat($pensionletters)->concat($recomendationwork);
+
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork);
+
             return view('transactions.letters.indexcitizen',  compact('datas'));
         } elseif (Auth::user()->roles == 'headrt') {
             $businessletters = Citizens::join('letter_businesses', 'citizens.id', '=', 'letter_businesses.citizen_id')
@@ -110,8 +128,10 @@ class LetterController extends Controller
             $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
@@ -495,6 +515,26 @@ class LetterController extends Controller
             return view('transactions.letters.selfquarantine.print', compact('data', 'informations'));
         }
 
+        // Surat keterangan beda tanggal lahir
+        if (LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
+            $data = LetterDifferenceBirth::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan beda tanggal lahir <strong>[' . $data->name . ']</strong>',
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.differencebirth.print', compact('data', 'informations'));
+        }
+
+        // Surat rekomendasi kerja
         if(LetterRecomendationWork::where('uuid', $uuid)->exists()) {
             $data = LetterRecomendationWork::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
@@ -502,7 +542,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat rekomendasi kerja <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Mencetak</em> data surat rekomendasi kerja <strong>[' . $data->name . ']</strong>',
                 'category' => 'cetak',
                 'created_at' => now(),
             ];
@@ -864,7 +904,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         //letter blm pnya rmh
         elseif (LetterNoHouse::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterNoHouse::get()->where('uuid', $uuidValidated)->firstOrFail();
