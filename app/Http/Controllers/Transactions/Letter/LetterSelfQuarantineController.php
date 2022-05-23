@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Transactions\Letter;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterNotBPJS;
-use Illuminate\Support\Facades\DB;
+use App\Models\Transactions\Letter\LetterSelfQuarantine;
 
-class LetterNotBPJSController extends Controller
+class LetterSelfQuarantineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class LetterNotBPJSController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.notbpjs.form', compact('citizen','informations','position'));
+        return view('transactions.letters.selfquarantine.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -49,12 +49,14 @@ class LetterNotBPJSController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'start_date' => 'required',
+                'finish_date' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat belum memiliki bpjs";
+            $validatedData['letter_name']     = "surat keterangan karantina mandiri";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -91,7 +93,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan karantina mandiri <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -99,7 +101,7 @@ class LetterNotBPJSController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNotBPJS::create($validatedData);
+            LetterSelfQuarantine::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -107,12 +109,14 @@ class LetterNotBPJSController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'start_date' => 'required',
+                'finish_date' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat belum memiliki bpjs";
+            $validatedData['letter_name']     = "surat keterangan karantina mandiri";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -148,7 +152,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan karantina mandiri <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -156,7 +160,7 @@ class LetterNotBPJSController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNotBPJS::create($validatedData);
+            LetterSelfQuarantine::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
         }

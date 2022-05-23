@@ -353,7 +353,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-crowd/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -362,14 +362,14 @@
                         </tr>
                         <tr>
                             <td>22</td>
-                            <td>Surat Keterangan Beda</td>
+                            <td>Surat Keterangan Beda Tanggal Lahir</td>
                             <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-differencebirth/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -465,7 +465,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-selfquarantine/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -513,7 +513,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-processact/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -561,7 +561,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-tax/create/"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -593,7 +593,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-removecitizen/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -641,7 +641,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-widow/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -689,7 +689,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-noact/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -786,6 +786,23 @@
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
                                                 <a href="#"
+                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                        </tr>
+
+                           <tr>
+                            <td>47</td>
+                            <td>Surat Rekomendasi Kerja</td>
+                            <td>
+                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                                                data-bs-toggle="dropdown">Aksi</button>
+                                            <div class="dropdown-menu">
+                                                <a href="/letters-job/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>

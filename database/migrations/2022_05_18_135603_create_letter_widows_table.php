@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_deaths', function (Blueprint $table) {
+        Schema::create('letter_widows', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
@@ -36,10 +36,8 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
-            $table->date('death_date')->nullable();
-            $table->time('death_time')->nullable();
-            $table->string('death_place')->nullable();
-            ////////////////////////////////////////
+            // $table->string('process_address')->nullable(); 
+            /////////////tutup data surat/////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
             $table->string('signed_by')->nullable();
@@ -53,6 +51,7 @@ return new class extends Migration
             $table->integer("deleted_by")->nullable();
             $table->timestamps();
             $table->softDeletes();
+            /////////////////////////////////////////
         });
     }
 
@@ -63,6 +62,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_deaths');
+        Schema::dropIfExists('letter_widows');
     }
 };

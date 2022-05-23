@@ -61,14 +61,14 @@
                                             <label>Lokasi Pembangunan</label>
                                             <input type="text" name="place_build" id="place_build"
                                                 class="form-control @error('place_build') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                                placeholder="Lokasi Pembangunan">
                                         </div>
 
                                         <div class="col-md-6 form-group">
                                             <label>Bangunan Digunakan Sebagai</label>
                                             <input type="text" name="use_build" id="use_build"
                                                 class="form-control @error('use_build') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                                placeholder="Bangunan Digunakan Sebagai">
                                         </div>
 
                                         <div class="col-md-6 form-group">

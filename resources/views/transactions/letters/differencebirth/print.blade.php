@@ -84,9 +84,25 @@
                 </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
                 <td width="2">: </td>
-                <td>{{ \Carbon\Carbon::parse($data->date_birth)->diff(\Carbon\Carbon::now())->y }} Tahun</td>
+                <td>{{ $data->nik }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
+                <td width="2">: </td>
+                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="2">: </td>
+                <td>{{ $data->gender }}</td>
+            </tr>
+
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                <td width="2">: </td>
+                <td>{{ $data->job }}</td>
             </tr>
 
             <tr>
@@ -94,11 +110,13 @@
                 <td width="2">: </td>
                 <td>{{ $data->religion }}</td>
             </tr>
+
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Warga Negara</td>
                 <td width="2">: </td>
-                <td>{{ $data->gender }}</td>
+                <td>{{ $data->citizen_status }}</td>
             </tr>
+
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                 <td width="2">: </td>
@@ -110,20 +128,27 @@
 
     <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
-            {{-- <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami dan pernyataan yang bersangkutan pada tanggal <b> {{$data->letter_date}}</b>  benar mempunyai
-                usaha :
-            </td> --}}
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas adalah penduduk Desa {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }} yang telah meninggal dunia pada hari {{ \Carbon\Carbon::parse($data->death_date)->translatedFormat('l') }} tanggal {{ \Carbon\Carbon::parse($data->death_date)->translatedFormat('j F Y') }} Pukul {{ \Carbon\Carbon::parse($data->death_time)->translatedFormat('H:m') }} WIB di {{ $data->death_place }}.<br/>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Orang tersebut menurut laporan RT/RW setempat sesuai dengan data yang ada pada kami adalah benar warga kami yang berdomisili di alamat tersebut diatas, dengan ini
             </td>
         </tr>
     </table>
-            <br>
-            <table align="center" width="600" style="line-height: 1.5;">
+    <table align="center" width="540" style="line-height: 1.5;">
+        <tr>
+            <td width="180"><span style="display:inline-block; width: 35 px;"></span>Memohon</td>
+            <td width="2">: </td>
+            <td><b>{{ ucfirst(trans($data->letter_name)) }}</b></td>
+        </tr>
+        <tr>
+            <td width="180"><span style="display:inline-block; width: 35 px;"></span>Untuk Kepentingan</td>
+            <td width="2">: </td>
+            <td><b>{{ ucfirst(trans($data->used_for)) }}</b></td>
+        </tr>
+    </table>
+    <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} ini kami buat dengan sebenarnya untuk dapat dipergunakan seperlunya.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dikarenakan ada kesalahan pada {{ strtoupper($data->mistake_loc) }} yang mana tercantum tanggal lahir {{ $data->old_date }} sedangkan dalam {{ strtoupper($data->valid_loc) }} tercantum tanggal lahir {{ $data->new_date }}. Data yang benar adalah data yang tercantum pada {{ $data->valid_loc }} dan data yang tercantum merupakan orang yang sama.
             </td>
         </tr>
     </table>
@@ -155,13 +180,13 @@
         @if ( $data->signature == 'wet')
             <tr class="spaceUnder">
                 <td width=""> </td>
-                <td > <center> An. {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
+                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             @endif
             @if ( $data->signature == 'digital')
             <tr>
                 <td> </td>
-                <td > <center> An. {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
+                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             <tr>
 

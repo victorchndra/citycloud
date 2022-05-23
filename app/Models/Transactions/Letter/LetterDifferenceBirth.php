@@ -2,18 +2,17 @@
 
 namespace App\Models\Transactions\Letter;
 
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LetterDeath extends Model
+class LetterDifferenceBirth extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
 
-    
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
 
@@ -50,21 +49,13 @@ class LetterDeath extends Model
         );
     }
 
-    // public function deathDate(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) =>  Carbon::createFromFormat('Y-m-d', $this->attributes['death_date'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-    //     );
-    // }
-
-    // public function dateBirth(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-    //     );
-    // }
+    public function dateBirth(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
 
     public function religion(): Attribute
     {
@@ -94,6 +85,22 @@ class LetterDeath extends Model
     {
         return new Attribute(
             get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
+
+    public function oldDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['old_date'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
+
+    public function newDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['new_date'])->isoFormat('D MMMM Y'),
             // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
     }

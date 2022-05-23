@@ -6,9 +6,9 @@
         <title>{{ $informations->village_name }}</title>
         <meta name="description" content="">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+        
         <link rel="stylesheet" href="">
-
+        
         <style type="text/css">
              @page {
                 size: Legal
@@ -41,16 +41,16 @@
             page-break-after: always;
             }
         </style>
-
+       
     </head>
     <body class="Legal">
     <section class="pagebreak">
         <center>
         <img src="{{ asset('/storage/'. $informations->header)}}" class="img-fluid" width="700">
         </center>
-
+        
         <hr style="border: 2px solid black;">
-
+        
         <div style="line-height: 1;">
             <table align="center" width="460" border="1px">
                 <tr>
@@ -73,20 +73,30 @@
             </td>
         </tr>
     </table>
-
+    
     <div style="line-height: 1; margin-top: 10px;">
         <table align="center" width="540">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
                 <td width="2">: </td>
                 <td>
                     <font style="font-weight: bold; ">{{$data->name}}</font>
                 </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
                 <td width="2">: </td>
-                <td>{{ \Carbon\Carbon::parse($data->date_birth)->diff(\Carbon\Carbon::now())->y }} Tahun</td>
+                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
+                <td width="2">: </td>
+                <td>{{ $data->nik }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="2">: </td>
+                <td>{{ $data->gender }}</td>
             </tr>
 
             <tr>
@@ -94,10 +104,11 @@
                 <td width="2">: </td>
                 <td>{{ $data->religion }}</td>
             </tr>
+
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pendidikan</td>
                 <td width="2">: </td>
-                <td>{{ $data->gender }}</td>
+                <td>{{ $data->last_education}}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
@@ -108,66 +119,59 @@
     </div>
 
 
-    <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
-        <tr>
-            {{-- <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami dan pernyataan yang bersangkutan pada tanggal <b> {{$data->letter_date}}</b>  benar mempunyai
-                usaha :
-            </td> --}}
-            <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas adalah penduduk Desa {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }} yang telah meninggal dunia pada hari {{ \Carbon\Carbon::parse($data->death_date)->translatedFormat('l') }} tanggal {{ \Carbon\Carbon::parse($data->death_date)->translatedFormat('j F Y') }} Pukul {{ \Carbon\Carbon::parse($data->death_time)->translatedFormat('H:m') }} WIB di {{ $data->death_place }}.<br/>
-            </td>
-        </tr>
-    </table>
+    
             <br>
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} ini kami buat dengan sebenarnya untuk dapat dipergunakan seperlunya.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                Nama diatas adalah benar Penduduk Warga Desa Aliantan Kecamatan Kabun Kabupaten Rokan Hulu yang tinggal di {{$data->address}}, Nama tersebut diatas
+                saat ini mengajukan permohonan lamaran kerja untuk menjadi <strong>{{$data->apply_job}}</strong> di Perusahaan <strong>{{$data->place_job}}</strong>. Untuk itu kami berharap agar warga kami 
+                tersebut dapat diterima menjadi Karyawan di Perusahaan yang Bapak/Ibu Pimpin.
+                    <br/>
+                    <br/>
+                Demikianlah {{ $data->letter_name }} ini dibuat untuk dapat dipergunakan sebagaimana mestinya.
             </td>
         </tr>
     </table>
-
-
+   
+ 
     <div style="margin-bttom:10px; overflow:auto;">
             <table align="right" width="320" border="1px" >
                 <tr>
-                    <td  width="">Dikeluarkan </td>
-                    <td width="10 px">: </td>
-                    <td width=""; > {{ $informations->village_name }} </td>
-                     <td></td>
-
+                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $informations->village_name }} {{$data->letter_date}}</td>
+                   
+                     <td></td> 
+                  
                 </tr>
                 <tr>
-                    <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
-                    <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{$data->letter_date}}</td>
-                     <td></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yang Membuat Pernyataan</td>
                 </tr>
+                
             </table>
     </div>
 
 
         @if ( $data->user->position == 'Kepala Desa')
         <table align="right" width="400" border="1px">
-
-
+       
+       
         @if ( $data->signature == 'wet')
             <tr class="spaceUnder">
                 <td width=""> </td>
-                <td > <center> An. {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
+                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             @endif
             @if ( $data->signature == 'digital')
             <tr>
                 <td> </td>
-                <td > <center> An. {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
+                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             <tr>
-
+            
                 <td> </td>
                 <td > <center> <img src="{{ asset('/storage/'. $informations->signature)}}" class="img-fluid" width="100"></center>
-
+               
             </tr>
             @endif
             <tr>
@@ -179,22 +183,22 @@
         <table align="right" width="400" border="1px">
             <tr class="spaceUnder">
                 <td width=""> </td>
-                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR>
+                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR> 
                     {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-
+            
             </td>
             <tr>
                 <td width=""> </td>
                 <td > <center><u><b> {{$data->user->front_title}}   {{strtoupper($data->user->name)}}  {{$data->user->back_title}}  </b></u></center></td>
             </tr>
-
+           
         </table>
         @endif
 
 
         <div style="margin-top:-50px; margin-left:70px;" class="right">
-
-        {!! QrCode::size(100)->generate('Dokumen sah Desa '. $informations->village_name. ' Hari/Tanggal '. $data->letter_date. ' Untuk Keperluan '. $data->letter_name. '-'. $data->name); !!}
+                
+        {!! QrCode::size(100)->generate('Dokumen sah Desa '. $informations->village_name. ' Hari/Tanggal '. $data->letter_date. ' Untuk Keperluan '. $data->letter_name. '-'. $data->name); !!} 
 
                 </div>
             </div>
@@ -218,16 +222,16 @@ document.onkeydown = function (event) {
     return keyFunction(event);
 }
 
-//Disable right click script
-var message="Sorry, right-click has been disabled";
+//Disable right click script 
+var message="Sorry, right-click has been disabled"; 
 
-function clickIE() {if (document.all) {(message);return false;}}
-function clickNS(e) {if
-(document.layers||(document.getElementById&&!document.all)) {
-if (e.which==2||e.which==3) {(message);return false;}}}
-if (document.layers)
-{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;}
-else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;}
+function clickIE() {if (document.all) {(message);return false;}} 
+function clickNS(e) {if 
+(document.layers||(document.getElementById&&!document.all)) { 
+if (e.which==2||e.which==3) {(message);return false;}}} 
+if (document.layers) 
+{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;} 
+else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;} 
 document.oncontextmenu=new Function("return false")
 
 function keyFunction(event){

@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers\Transactions\Letter;
 
-use App\Models\User;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Http\Request;
-use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+//panggil auth
 use Illuminate\Support\Facades\Auth;
-use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterNotBPJS;
+
+//panggilramseyuuid
+use Ramsey\Uuid\Uuid;
+//calldb
 use Illuminate\Support\Facades\DB;
 
-class LetterNotBPJSController extends Controller
+//callmodel
+use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterRecomendationWork;
+use App\Models\Masters\Information;
+use App\Models\Masters\RT;
+use App\Models\Transactions\Letter\LetterRecomendation;
+use App\Models\User;
+use Carbon\Carbon;
+use QrCode;
+class LetterRecomendationWorkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,11 +40,13 @@ class LetterNotBPJSController extends Controller
      */
     public function create()
     {
+        //
         $informations = Information::get();
+       
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.notbpjs.form', compact('citizen','informations','position'));
+        return view('transactions.letters.workrecomend.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -46,24 +57,27 @@ class LetterNotBPJSController extends Controller
      */
     public function store(Request $request)
     {
+        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'apply_job' => 'required',
+                'place_job' => 'required'
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat belum memiliki bpjs";
+            $validatedData['letter_name']     = "surat rekomendasi kerja";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
-            $validatedData['kk'] = $citizen->kk;
             $validatedData['name'] = $citizen->name;
             $validatedData['gender'] = $citizen->gender;
             $validatedData['place_birth'] = $citizen->place_birth;
             $validatedData['date_birth'] = $citizen->date_birth;
             $validatedData['religion'] = $citizen->religion;
             $validatedData['job'] = $citizen->job;
+            $validatedData['last_education'] = $citizen->last_education;
             $validatedData['address'] =  "Dusun ".$citizen->village_sub.", RT ".$citizen->rt." RW ".$citizen->rw." Desa ".$citizen->village;
 
             $validatedData['village_sub'] = $citizen->village_sub;
@@ -91,7 +105,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat Rekomendasi Kerja <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -99,7 +113,7 @@ class LetterNotBPJSController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNotBPJS::create($validatedData);
+            LetterRecomendationWork::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -107,21 +121,23 @@ class LetterNotBPJSController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'apply_job' => 'required',
+                'place_job' => 'required'
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat belum memiliki bpjs";
+            $validatedData['letter_name']     = "surat keterangan usaha";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
-            $validatedData['kk'] = $citizen->kk;
             $validatedData['name'] = $citizen->name;
             $validatedData['gender'] = $citizen->gender;
             $validatedData['place_birth'] = $citizen->place_birth;
             $validatedData['date_birth'] = $citizen->date_birth;
             $validatedData['religion'] = $citizen->religion;
             $validatedData['job'] = $citizen->job;
+            $validatedData['last_education'] = $citizen->last_education;
 
             $validatedData['address'] =  "Dusun ".$citizen->village_sub.", RT ".$citizen->rt." RW ".$citizen->rw." Desa ".$citizen->village;
             $validatedData['village_sub'] = $citizen->village_sub;
@@ -148,7 +164,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat Rekomendasi Kerja<strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -156,9 +172,11 @@ class LetterNotBPJSController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNotBPJS::create($validatedData);
+            LetterRecomendationWork::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
+
+
         }
     }
 
@@ -179,9 +197,16 @@ class LetterNotBPJSController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $uuid)
     {
         //
+        $informations = Information::get();
+        $letterwork = LetterRecomendationWork::get();
+        // $citizen = Citizen::orderBy('name', 'asc')->get();
+        $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+        $citizen = LetterRecomendationWork::where('uuid', $uuid)->get();
+
+        return view('transactions.letters.workrecomend.edit', compact('citizen','informations','position','letterwork'));
     }
 
     /**
@@ -191,9 +216,84 @@ class LetterNotBPJSController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
         //
+        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+            if ($request->get('rejected_notes_admin')) {
+                $data = LetterRecomendationWork::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_admin' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
+            $validatedData = $request->validate([
+                'letter_index' => 'required',
+                'apply_job' => 'required',
+                'place_job' => 'required',
+            ]);
+            $position           = User::findOrFail($request->get('positions'));
+            $validatedData['letter_date']   = $request->get('letter_date');
+            $validatedData['valid_until']   = $request->get('letter_date');
+            $validatedData['signed_by']     = $position->id;
+            $validatedData['signature']     = $request->get('signature');
+    
+    
+            if ($validatedData) {
+    
+                $validatedData['updated_by'] = Auth::user()->id;
+                $letters = LetterRecomendationWork::where('uuid', $uuid)->first()->update($validatedData);
+            }
+    
+            $data = LetterRecomendationWork::get()->where('uuid', $uuid)->firstOrFail();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> Surat Keterangan Izin Membangun Bangunan <strong>[' . $data->name . ']</strong>',
+                'category' => 'edit',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+    
+            return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterRecomendationWork::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        }
     }
 
     /**

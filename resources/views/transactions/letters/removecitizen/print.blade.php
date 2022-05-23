@@ -77,16 +77,32 @@
     <div style="line-height: 1; margin-top: 10px;">
         <table align="center" width="540">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama Lengkap</td>
                 <td width="2">: </td>
                 <td>
                     <font style="font-weight: bold; ">{{$data->name}}</font>
                 </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
                 <td width="2">: </td>
-                <td>{{ \Carbon\Carbon::parse($data->date_birth)->diff(\Carbon\Carbon::now())->y }} Tahun</td>
+                <td>{{ $data->nik }}</td>
+            </tr>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>KK</td>
+                <td width="2">: </td>
+                <td>{{ $data->kk }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
+                <td width="2">: </td>
+                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="2">: </td>
+                <td>{{ $data->gender }}</td>
             </tr>
 
             <tr>
@@ -94,10 +110,11 @@
                 <td width="2">: </td>
                 <td>{{ $data->religion }}</td>
             </tr>
+
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
                 <td width="2">: </td>
-                <td>{{ $data->gender }}</td>
+                <td>{{ $data->job }}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
@@ -115,7 +132,8 @@
                 usaha :
             </td> --}}
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas adalah penduduk Desa {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }} yang telah meninggal dunia pada hari {{ \Carbon\Carbon::parse($data->death_date)->translatedFormat('l') }} tanggal {{ \Carbon\Carbon::parse($data->death_date)->translatedFormat('j F Y') }} Pukul {{ \Carbon\Carbon::parse($data->death_time)->translatedFormat('H:m') }} WIB di {{ $data->death_place }}.<br/>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk Desa {{ $informations->village_name }} Rt.{{ $data->rt }} Rw.{{ $data->rw }} Kecamatan. {{ $informations->sub_district_name }} Kabupaten. {{ $informations->district_name }} Provinsi. {{ $informations->province_name }}, benar belum memiliki kartu BPJS Surat ini
+                dibuat untuk mengambil kartu BPJS.
             </td>
         </tr>
     </table>
@@ -123,7 +141,7 @@
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} ini kami buat dengan sebenarnya untuk dapat dipergunakan seperlunya.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} dibuat dengan sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.
             </td>
         </tr>
     </table>
@@ -155,13 +173,13 @@
         @if ( $data->signature == 'wet')
             <tr class="spaceUnder">
                 <td width=""> </td>
-                <td > <center> An. {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
+                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             @endif
             @if ( $data->signature == 'digital')
             <tr>
                 <td> </td>
-                <td > <center> An. {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
+                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             <tr>
 

@@ -50,6 +50,7 @@ class LetterDeathController extends Controller
             $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'death_date' => 'date|required',
+                'death_time' => 'required',
                 'death_place' => 'required',
             ]);
 
@@ -174,7 +175,7 @@ class LetterDeathController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

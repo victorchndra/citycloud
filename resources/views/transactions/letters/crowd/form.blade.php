@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Usaha</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <h3>Surat Izin Keramaian</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Izin Keramaian you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Izin Keramaian</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Tambah Surat Izin Keramaian</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-pension" method="POST">
+                            <form class="form form-horizontal" action="/letters-crowd" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -59,17 +59,44 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur">
+                                            <label>Hari Acara</label>
+                                            <input type="text" name="day"
+                                                class="form-control @error('day') is-invalid @enderror"
+                                                placeholder="Hari Acara">
                                         </div>
 
+                                        <div class="col-md-12 form-group">
+                                            <label>Tgl Acara</label>
+                                            <input type="date" name="date_crowd" class="form-control @error('date_crowd') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('date_crowd') }}"/>
+                                                @error('date_crowd')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
                                         <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Pekerjaan">
+                                            <label>Mulai Acara</label>
+                                            <input type="text" name="start"
+                                                class="form-control @error('start') is-invalid @enderror"
+                                                placeholder="Tanggal Acara" value="{{Carbon\Carbon::now()->format('Y-m-d')." ".Carbon\Carbon::now()->format('H:i')}}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Nama Acara</label>
+                                            <input type="text" name="acara"
+                                                class="form-control @error('acara') is-invalid @enderror"
+                                                placeholder="Tanggal Acara">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Undangan</label>
+                                            <input type="text" name="invitation"
+                                                class="form-control @error('invitation') is-invalid @enderror"
+                                                placeholder="Tanggal Acara">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Hiburan</label>
+                                            <input type="text" name="entertainment"
+                                                class="form-control @error('entertainment') is-invalid @enderror"
+                                                placeholder="Tanggal Acara">
                                         </div>
 
                                       
