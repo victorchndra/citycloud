@@ -9,6 +9,7 @@ use App\Http\Controllers\Transactions\CitizenController;
 use App\Http\Controllers\HomeController;
 use App\Models\Masters\ageRange;
 use App\Http\Controllers\Transactions\Letter\LetterController;
+
 use App\Http\Controllers\Transactions\Letter\LetterBusinessController;
 use App\Http\Controllers\Transactions\Letter\LetterNotMarriedYetController;
 
@@ -131,6 +132,14 @@ Route::resource("letters-pension", "App\Http\Controllers\Transactions\Letter\Let
 //divorceletter
 Route::resource("letters-divorce", "App\Http\Controllers\Transactions\Letter\LetterDivorceController")->middleware('auth');
 Route::get("approve/divorce-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDivorceController@approve")->name('approve.businessletters');
+
+//rekomendasi kerja
+Route::resource("letters-job", "App\Http\Controllers\Transactions\Letter\LetterRecomendationWorkController")->middleware('auth');
+Route::get("approve/job-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRecomendationWorkController@approve")->name('approve.businessletters');
+
+//surat ramai
+Route::resource("letters-crowd", "App\Http\Controllers\Transactions\Letter\LetterRecomendationWorkController")->middleware('auth');
+Route::get("approve/crowd-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRecomendationWorkController@approve")->name('approve.businessletters');
 
 //buildingletter
 Route::resource("letters-building", "App\Http\Controllers\Transactions\Letter\LetterBuildingController")->middleware('auth');
