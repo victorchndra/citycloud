@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Transactions\Letter;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterNotBPJS;
-use Illuminate\Support\Facades\DB;
+use App\Models\Transactions\Letter\LetterDifferenceBirth;
 
-class LetterNotBPJSController extends Controller
+class LetterDifferenceBirthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class LetterNotBPJSController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.notbpjs.form', compact('citizen','informations','position'));
+        return view('transactions.letters.differencebirth.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -49,12 +49,18 @@ class LetterNotBPJSController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'old_date' => 'required',
+                'mistake_loc' => 'required',
+                'new_date' => 'required',
+                'valid_loc' => 'required',
+                'used_for' => 'required|min:10',
+                'citizen_status' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat belum memiliki bpjs";
+            $validatedData['letter_name']     = "surat keterangan beda tanggal lahir";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -91,7 +97,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan beda tanggal lahir <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -99,20 +105,25 @@ class LetterNotBPJSController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNotBPJS::create($validatedData);
+            LetterDifferenceBirth::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
-        }else{
-
-               $validatedData = $request->validate([
-                'letter_index' => 'required',
+        } else {
+            $validatedData = $request->validate([
+                'letter_index' => 'required','old_date' => 'required',
+                'old_date' => 'required',
+                'mistake_loc' => 'required',
+                'new_date' => 'required',
+                'valid_loc' => 'required',
+                'used_for' => 'required|min:10',
+                'citizen_status' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat belum memiliki bpjs";
+            $validatedData['letter_name']     = "surat keterangan beda tanggal lahir";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -148,7 +159,7 @@ class LetterNotBPJSController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan belum memiliki bpjs <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan beda tanggal lahir <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -156,7 +167,7 @@ class LetterNotBPJSController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterNotBPJS::create($validatedData);
+            LetterDifferenceBirth::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
         }
