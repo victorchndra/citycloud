@@ -10,18 +10,22 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Masters\RT;
 
 //call all letters
+use App\Models\Masters\RW;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
-use App\Models\Masters\RW;
 //calldb
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterTax;
 use App\Models\Transactions\Letter\LetterPoor;
 use App\Models\Transactions\Letter\LetterBirth;
+use App\Models\Transactions\Letter\LetterCrowd;
 use App\Models\Transactions\Letter\LetterDeath;
 use App\Models\Transactions\Letter\LetterNeedy;
+use App\Models\Transactions\Letter\LetterNoAct;
+use App\Models\Transactions\Letter\LetterWidow;
 use App\Models\Transactions\Letter\LetterDivorce;
 use App\Models\Transactions\Letter\LetterHoliday;
 use App\Models\Transactions\Letter\LetterNoHouse;
@@ -29,23 +33,16 @@ use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBuilding;
 use App\Models\Transactions\Letter\LetterBusiness;
-use App\Models\Transactions\Letter\LetterDifferenceBirth;
 use App\Models\Transactions\Letter\LetterDomicile;
 use App\Models\Transactions\Letter\LetterFamilyCard;
-use App\Models\Transactions\Letter\LetterLandOwnershipCard;
-use App\Models\Transactions\Letter\LetterNeedy;
-use App\Models\Transactions\Letter\LetterNoHouse;
-use App\Models\Transactions\Letter\LetterPoor;
+use App\Models\Transactions\Letter\LetterProcessAct;
 use App\Models\Transactions\Letter\LetterNotMarriedYet;
 use App\Models\Transactions\Letter\LetterRecomendation;
-use App\Models\Transactions\Letter\LetterNoAct;
-use App\Models\Transactions\Letter\LetterProcessAct;
-use App\Models\Transactions\Letter\LetterWidow;
 use App\Models\Transactions\Letter\LetterRemoveCitizen;
 use App\Models\Transactions\Letter\LetterSelfQuarantine;
+use App\Models\Transactions\Letter\LetterDifferenceBirth;
+use App\Models\Transactions\Letter\LetterLandOwnershipCard;
 use App\Models\Transactions\Letter\LetterRecomendationWork;
-use App\Models\Transactions\Letter\LetterCrowd;
-use App\Models\Transactions\Letter\LetterTax;
 
 class LetterController extends Controller
 {
@@ -93,21 +90,24 @@ class LetterController extends Controller
     {
 
         if (Auth::user()->roles == 'god' || Auth::user()->roles == 'admin') {
-            $businessletters = LetterBusiness::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $birthletters = LetterBirth::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $deathletters = LetterDeath::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $divorceletters = LetterDivorce::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $buildingletters = LetterBuilding::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $noactletters = LetterNoAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $processactletters = LetterProcessAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $widowletters = LetterWidow::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $divorceletter = LetterDivorce::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $buildingletter = LetterBuilding::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $birthletters = LetterBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $deathletters = LetterDeath::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $poorletters = LetterPoor::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $needyletters = LetterNeedy::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $domicileletters = LetterDomicile::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();                    
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
@@ -124,24 +124,29 @@ class LetterController extends Controller
             return view('transactions.letters.indexcitizen',  compact('businessletters'));
         } elseif (Auth::user()->roles == 'citizens') {
             $businessletters = LetterBusiness::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $recommendationletters = LetterRecomendation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $pensionletters = LetterPension::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $birthletters = LetterBirth::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $deathletters = LetterDeath::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $buildingletters = LetterBuilding::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $divorceletters = LetterDivorce::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $notbpjsletters = LetterNotBPJS::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $pensionletters = LetterPension::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $noactletters = LetterNoAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $processactletters = LetterProcessAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $widowletters = LetterWidow::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $divorceletter = LetterDivorce::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $buildingletter = LetterBuilding::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $recomendationletters = LetterRecomendation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $birthletters = LetterBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $notmarriedyetletters = LetterNotMarriedYet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $deathletters = LetterDeath::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $nohouseletters = LetterNoHouse::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $poorletters = LetterPoor::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $needyletters = LetterNeedy::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $domicileletters = LetterDomicile::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $familycardletters = LetterFamilyCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();                    
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $lettertax = LetterTax::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $crowd= LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
             $landownerletters = LetterLandOwnershipCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
             $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters);
