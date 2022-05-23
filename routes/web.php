@@ -185,3 +185,11 @@ Route::get("approve/removecitizen-letters/{uid}", "App\Http\Controllers\Transact
 // Penghapusan Biodata Penduduk
 Route::resource("letters-selfquarantine", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController")->middleware('auth');
 Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController@approve")->name('auth');
+
+// Letter crowd
+Route::resource("letters-crowd", "App\Http\Controllers\Transactions\Letter\LetterCrowdController")->middleware('auth');
+Route::get("approve/crowd-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterCrowdController@approve")->name('auth');
+
+// Letter tax
+Route::resource("letters-tax", "App\Http\Controllers\Transactions\Letter\LetterTaxController")->middleware('auth');
+Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterTaxController@approve")->name('auth');

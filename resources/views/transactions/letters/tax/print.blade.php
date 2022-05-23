@@ -94,74 +94,44 @@
                 <td>{{ $data->nik }}</td>
             </tr>
             <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="2">: </td>
+                <td>{{ $data->gender }}</td>
+            </tr>
+
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
+                <td width="2">: </td>
+                <td>{{ $data->religion }}</td>
+            </tr>
+
+            <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
                 <td width="2">: </td>
                 <td>{{ $data->job }}</td>
             </tr>
-
-            
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                 <td width="2">: </td>
                 <td>{{ $data->address }}</td>
             </tr>
         </table>
-        
     </div>
+
+
+    
             <br>
             <table align="center" width="600" style="line-height: 1.5;">
-                        <tr>
-                            <td>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Dengan ini mengajukan permohonan izin keramaian pada :
-                            </td>
-                        </tr> 
-                        
+        <tr>
+            <td class="justify">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Bahwa Benar {{ $data->job }} tersebut diatas benar akan memasuki masa pensiun saat {{ $data->job }} 
+                tersebut genap berusia {{$data->age_letter}} tahun 
+                    <br/>
+                    <br/>
+                Demikianlah {{ $data->letter_name }} ini dibuat untuk dapat dipergunakan sebagaimana mestinya.
+            </td>
+        </tr>
     </table>
-    <div style="line-height: 1; margin-top: 10px;">
-        <table align="center" width="540">
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Hari </td>
-                <td width="2">: </td>
-                <td>{{ $data->day }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tanggal </td>
-                <td width="2">: </td>
-                <td>{{ $data->date_crowd }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Mulai </td>
-                <td width="2">: </td>
-                <td>{{ $data->start }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Acara </td>
-                <td width="2">: </td>
-                <td>{{ $data->acara }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Undangan </td>
-                <td width="2">: </td>
-                <td>{{ $data->invitation }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Hiburan </td>
-                <td width="2">: </td>
-                <td>{{ $data->entertainment }}</td>
-            </tr>
-        </div>
-        </table>
-
-        <br>
-        <table align="center" width="600" style="line-height: 1.5;">
-    <tr>
-        <td class="justify">
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Demikian surat permohonan izin keramaian ini kami sampaikan, untuk proses
-            selanjutnya kami serahkan sepenuhnya kepada kebijakan Bapak Kapolsek Kunto
-            Darussalam, atas Perhatian dan bantuanya kami ucapkan terima kasih.
-        </td>
-    </tr>
-</table>
    
  
     <div style="margin-bttom:10px; overflow:auto;">
@@ -178,7 +148,7 @@
                 
             </table>
     </div>
-<br>
+
 
         @if ( $data->user->position == 'Kepala Desa')
         <table align="right" width="400" border="1px">
