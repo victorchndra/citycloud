@@ -573,7 +573,7 @@
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
                                         <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
-                              
+
                                 @if (is_array($data->kk) || is_object($data->kk))
                                 @foreach ($data->kk as $value)
                                 {{$value->family_status}}
@@ -590,7 +590,7 @@
                                             <a href="/citizens/{{ $data->uuid }}/show"
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
                                                 <div class="dropdown-divider"></div>
-                                                
+
                                                 <a href="/citizens/{{ $data->uuid }}/edit"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>

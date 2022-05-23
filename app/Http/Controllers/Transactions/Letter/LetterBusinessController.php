@@ -242,84 +242,64 @@ class LetterBusinessController extends Controller
     public function update(Request $request, $uuid)
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        if ($request->get('rejected_notes_admin')) {
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
-            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_admin' => "rejected",
+            $validatedData = $request->validate([
+                'letter_index' => 'required',
+                'business_variation' => 'required',
+                'business_name' => 'required',
+                'business_place' => 'required',
+                'business_address' => 'required',
+                'agrarian_status' => 'required',
+                'self_status' => 'required',
             ]);
+            $position           = User::findOrFail($request->get('positions'));
+            $validatedData['letter_date']   = $request->get('letter_date');
+            $validatedData['valid_until']   = $request->get('letter_date');
+            $validatedData['signed_by']     = $position->id;
+            $validatedData['signature']     = $request->get('signature');
 
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'tolak',
-            'created_at' => now(),
-        ];
 
-        DB::table('logs')->insert($log);
-        // selesai
+            if ($validatedData) {
 
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+                $validatedData['updated_by'] = Auth::user()->id;
+                $letters = LetterBusiness::where('uuid', $uuid)->first()->update($validatedData);
+            }
+
+                $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mengubah</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
+                    'category' => 'edit',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+
+                return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
+
+            }else{
+                if ($request->get('rejected_notes_rt')) {
+                    $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+                    $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                    $data->update([
+                        'updated_by' =>Auth::user()->id,
+                        'approval_rt' => "rejected",
+                    ]);
+
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'tolak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
         }
-        $validatedData = $request->validate([
-            'letter_index' => 'required',
-            'business_variation' => 'required',
-            'business_name' => 'required',
-            'business_place' => 'required',
-            'business_address' => 'required',
-            'agrarian_status' => 'required',
-            'self_status' => 'required',
-        ]);
-        $position           = User::findOrFail($request->get('positions'));
-        $validatedData['letter_date']   = $request->get('letter_date');
-        $validatedData['valid_until']   = $request->get('letter_date');
-        $validatedData['signed_by']     = $position->id;
-        $validatedData['signature']     = $request->get('signature');
-
-
-        if ($validatedData) {
-
-            $validatedData['updated_by'] = Auth::user()->id;
-            $letters = LetterBusiness::where('uuid', $uuid)->first()->update($validatedData);
-        }
-
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Surat Keterangan Usaha <strong>[' . $data->name . ']</strong>',
-            'category' => 'edit',
-            'created_at' => now(),
-        ];
-
-        DB::table('logs')->insert($log);
-
-        return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
-    }else{
-        if ($request->get('rejected_notes_rt')) {
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
-            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_rt' => "rejected",
-            ]);
-
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'tolak',
-            'created_at' => now(),
-        ];
-
-        DB::table('logs')->insert($log);
-        // selesai
-
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
-    }
-    }
     }
     /**
      * Remove the specified resource from storage.
@@ -350,55 +330,55 @@ class LetterBusinessController extends Controller
     public function approve($uuid)
     {
 
-        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
-        $data->update([
-            'updated_by' =>Auth::user()->id,
-            'approval_admin' => "approved",
-            'rejected_notes_admin' => null,
-        ]);
+        // if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+        //     $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        //     $data->update([
+        //         'updated_by' =>Auth::user()->id,
+        //         'approval_admin' => "approved",
+        //         'rejected_notes_admin' => null,
+        //     ]);
 
-        // tambahkan baris kode ini di setiap controller
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'setuju',
-            'created_at' => now(),
-        ];
+        //     // tambahkan baris kode ini di setiap controller
+        //     $log = [
+        //         'uuid' => Uuid::uuid4()->getHex(),
+        //         'user_id' => Auth::user()->id,
+        //         'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+        //         'category' => 'setuju',
+        //         'created_at' => now(),
+        //     ];
 
-        DB::table('logs')->insert($log);
-        // selesai
+        //     DB::table('logs')->insert($log);
+        //     // selesai
 
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-        }else{
+        //     return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+        // }else{
 
-            $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_rt' => "approved",
-            ]);
+        //     $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
+        //     $data->update([
+        //         'updated_by' =>Auth::user()->id,
+        //         'approval_rt' => "approved",
+        //     ]);
 
-            // $data->update([
-            //     'updated_by' =>Auth::user()->id,
-            //     'approval_rt    ' => "approved",
-            //     'rejected_notes_admin' => null,
-            // ]);
+        //     // $data->update([
+        //     //     'updated_by' =>Auth::user()->id,
+        //     //     'approval_rt    ' => "approved",
+        //     //     'rejected_notes_admin' => null,
+        //     // ]);
 
-            // tambahkan baris kode ini di setiap controller
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-                'category' => 'setuju',
-                'created_at' => now(),
-            ];
+        //     // tambahkan baris kode ini di setiap controller
+        //     $log = [
+        //         'uuid' => Uuid::uuid4()->getHex(),
+        //         'user_id' => Auth::user()->id,
+        //         'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+        //         'category' => 'setuju',
+        //         'created_at' => now(),
+        //     ];
 
-            DB::table('logs')->insert($log);
-            // selesai
+        //     DB::table('logs')->insert($log);
+        //     // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-        }
+        //     return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+        // }
     }
 
 
