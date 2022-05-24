@@ -188,4 +188,8 @@ Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transac
 
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
-Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Surat Keterangan Dispensasi SPP kuliah
+Route::resource("letters-collegedispensation", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController")->middleware('auth');
+Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController@approve")->name('auth');

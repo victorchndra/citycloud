@@ -148,7 +148,7 @@
     <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dikarenakan ada kesalahan pada {{ strtoupper($data->mistake_loc) }} yang mana tercantum tanggal lahir {{ $data->old_date }} sedangkan dalam {{ strtoupper($data->valid_loc) }} tercantum tanggal lahir {{ $data->new_date }}. Data yang benar adalah data yang tercantum pada {{ $data->valid_loc }} dan data yang tercantum merupakan orang yang sama.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dikarenakan ada kesalahan pada {{ strtoupper($data->mistake_loc) }} yang mana tercantum tanggal lahir {{ \Carbon\Carbon::parse($data->old_date)->translatedFormat('d M Y') }} sedangkan dalam {{ strtoupper($data->valid_loc) }} tercantum tanggal lahir {{ \Carbon\Carbon::parse($data->new_date)->translatedFormat('d M Y') }}. Data yang benar adalah data yang tercantum pada {{ $data->valid_loc }} dan data yang tercantum merupakan orang yang sama.
             </td>
         </tr>
     </table>
@@ -166,7 +166,7 @@
                 <tr>
                     <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{$data->letter_date}}</td>
+                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                      <td></td>
                 </tr>
             </table>

@@ -28,6 +28,7 @@ use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBuilding;
 use App\Models\Transactions\Letter\LetterBusiness;
+use App\Models\Transactions\Letter\LetterCollegeDispensation;
 use App\Models\Transactions\Letter\LetterDifferenceBirth;
 use App\Models\Transactions\Letter\LetterDomicile;
 use App\Models\Transactions\Letter\LetterFamilyCard;
@@ -61,8 +62,9 @@ class LetterController extends Controller
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($collegedispensationletters);
 
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
@@ -96,8 +98,9 @@ class LetterController extends Controller
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($collegedispensationletters);
 
             return view('transactions.letters.indexcitizen',  compact('datas'));
         } elseif (Auth::user()->roles == 'headrt') {
@@ -124,8 +127,9 @@ class LetterController extends Controller
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork);
+            $datas = $businessletters->concat($notbpjsletters)->concat($pensionletters)->concat($recommendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletters)->concat($divorceletters)->concat($notmarriedyetletters)->concat($deathletters)->concat($needyletters)->concat($poorletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($collegedispensationletters);
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
@@ -488,6 +492,44 @@ class LetterController extends Controller
 
             return view('transactions.letters.workrecomend.print',compact('data','informations'));
         }
+
+        // Surat Dispensasi SPP Kuliah
+        if(LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
+            $data = LetterCollegeDispensation::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan dispensasi SPP kuliah <strong>[' . $data->name . ']</strong>',
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.collegedispensation.print',compact('data','informations'));
+        }
+
+        // Surat Belum Menikah
+        if(LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
+            $data = LetterNotMarriedYet::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat keterangan belum menikah <strong>[' . $data->name . ']</strong>',
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.notmarriedyet.print',compact('data','informations'));
+        }
     }
 
     public function edit($uuid, Request $request)
@@ -647,6 +689,26 @@ class LetterController extends Controller
             $citizen = LetterRecomendationWork::where('uuid', $uuid)->get();
 
             return view('transactions.letters.workrecomend.edit', compact('citizen','informations','position','letterwork'));
+        }
+
+        //surat karantina mandiri
+        if(LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterwork = LetterSelfQuarantine::get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterSelfQuarantine::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.selfquarantine.edit', compact('citizen','informations','position','letterwork'));
+        }
+
+        //surat beda tanggal lahir
+        if(LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterwork = LetterDifferenceBirth::get();
+            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $citizen = LetterDifferenceBirth::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.differencebirth.edit', compact('citizen','informations','position','letterwork'));
         }
     }
 
@@ -910,6 +972,7 @@ class LetterController extends Controller
         if (LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
             $data = LetterNotMarriedYet::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
+            $data->deleted_at = now();
             $data->save();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -1066,6 +1129,82 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             $data->delete();
 
+
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        // Surat Belum Memiliki BPJS
+        if(LetterNotBPJS::where('uuid', $uuid)->exists()) {
+            $data = LetterNotBPJS::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Belum Memiliki BPJS<strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
+
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        // Surat Keterangan Karantina Mandiri
+        if(LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
+            $data = LetterSelfQuarantine::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Karantina Mandiri<strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
+
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        // Surat Keterangan Beda Tanggal Lahir
+        if(LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
+            $data = LetterDifferenceBirth::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Beda Tanggal Lahir<strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
+
+            return redirect('/letters')->with('success','Surat berhasil dihapus');
+        }
+
+        // Surat Keterangan Dispensasi SPP Kuliah
+        if(LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
+            $data = LetterCollegeDispensation::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Dispensasi SPP Kuliah<strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
 
             return redirect('/letters')->with('success','Surat berhasil dihapus');
         }

@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LetterNotMarriedYet extends Model
+class LetterCollegeDispensation extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
+
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
 
@@ -77,6 +78,14 @@ class LetterNotMarriedYet extends Model
         return new Attribute(
             get: fn ($value) => strtoupper($value),
             set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
     }
 

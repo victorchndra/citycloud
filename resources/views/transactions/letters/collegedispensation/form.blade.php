@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Kematian</h3>
+                <h3>Surat Keterangan Usaha</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Kematian</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Kematian</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-death" method="POST">
+                            <form class="form form-horizontal" action="/letters-collegedispensation" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -55,28 +55,81 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-7 form-group">
+                                            <label>Surat Ditujukan Kepada</label>
+                                            <input type="text" name="receiver"
+                                                class="form-control @error('receiver') is-invalid @enderror"
+                                                placeholder="Nama Penerima">
+                                        </div>
+
+                                        <div class="col-md-5 form-group">
+                                            <label>Perguruan Tinggi</label>
+                                            <input type="text" name="college"
+                                                class="form-control @error('college') is-invalid @enderror"
+                                                placeholder="Nama Perguruan Tinggi">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>NIM</label>
+                                            <input type="text" name="nim"
+                                                class="form-control @error('nim') is-invalid @enderror"
+                                                placeholder="NIM">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Jurusan</label>
+                                            <input type="text" name="major"
+                                                class="form-control @error('major') is-invalid @enderror"
+                                                placeholder="Jurusan">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Semester</label>
+                                            <input type="number" name="semester"
+                                                class="form-control @error('semester') is-invalid @enderror"
+                                                placeholder="0">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Pembayaran tahap ke</label>
+                                            <input type="number" name="stage"
+                                                class="form-control @error('stage') is-invalid @enderror"
+                                                placeholder="0">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Tahun Ajaran</label>
+                                            <input type="text" name="academic_year"
+                                                class="form-control @error('academic_year') is-invalid @enderror"
+                                                placeholder="(cth : 2022/2023)">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Nominal Pembayaran</label>
+                                            <input type="number" name="nominal"
+                                                class="form-control @error('nominal') is-invalid @enderror"
+                                                placeholder="(cth : Rp 1500000)">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Waktu Pembayaran</label>
+                                            <select class="form-control select2" name="pay_month" style="width: 100%;" required>
+                                                <option selected="selected" value="">Pilih Waktu Pembayaran</option>
+                                                <option value="Januari">Januari</option>
+                                                <option value="Februari">Februari</option>
+                                                <option value="Maret">Maret</option>
+                                                <option value="April">April</option>
+                                                <option value="Mei">Mei</option>
+                                                <option value="Juni">Juni</option>
+                                                <option value="Juli">Juli</option>
+                                                <option value="Agustus">Agustus</option>
+                                                <option value="September">September</option>
+                                                <option value="Oktober">Oktober</option>
+                                                <option value="November">November</option>
+                                                <option value="Desember">Desember</option>
                                             </select>
-                                        </div>
-
-                                        <div class="col-md-4 form-group">
-                                            <label>Tanggal Meninggal</label>
-                                            <input type="date" name="death_date"
-                                                class="form-control @error('death_date') is-invalid @enderror"
-                                                placeholder="Tanggal Meninggal">
-                                        </div>
-
-                                        <div class="col-md-4 form-group">
-                                            <label>Waktu Meninggal</label>
-                                            <input type="time" name="death_time"
-                                                class="form-control @error('death_time') is-invalid @enderror"
-                                                placeholder="Waktu Meninggal">
-                                        </div>
-
-                                        <div class="col-md-4 form-group">
-                                            <label>Tempat</label>
-                                            <input type="text" name="death_place"
-                                                class="form-control @error('death_place') is-invalid @enderror"
-                                                placeholder="Tempat Meninggal">
                                         </div>
 
                                         <div class="col-md-12 form-group">
@@ -131,7 +184,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-death" method="POST">
+                        <form class="form form-horizontal" action="/letters-collegedispensation" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -170,6 +223,8 @@
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
+
+
                                     </div>
 
                                 </div>
@@ -182,7 +237,6 @@
         </div>
     </section>
 </div>
-
 <!-- select2js -->
 <script src="{{asset('/js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('/js/select2/select2.full.min.js')}}" defer></script>
@@ -213,5 +267,5 @@
     });
 
 
-</script>
+    </script>
 @endsection
