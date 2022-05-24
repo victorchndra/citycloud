@@ -206,3 +206,11 @@ Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transac
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
 Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Missing Letter
+Route::resource("letters-missing", "App\Http\Controllers\Transactions\Letter\LetterMissingController")->middleware('auth');
+Route::get("approve/missing-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMissingController@approve")->name('auth');
+
+// Move Letter
+Route::resource("letters-move", "App\Http\Controllers\Transactions\Letter\LetterMoveController")->middleware('auth');
+Route::get("approve/move-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMoveController@approve")->name('auth');
