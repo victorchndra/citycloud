@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Usaha</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <h3>Surat NPWP</h3>
+                <p class="text-subtitle text-muted">Multiple Surat NPWP you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat NPWP</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Edit Surat NPWP</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-selfquarantine/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-pension/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -57,25 +57,20 @@
                                             </select>
                                         </div>
 
+                                        
                                         <div class="col-md-6 form-group">
-                                            <label>Dari tanggal</label>
-                                            <input type="date" name="start_date"
-                                                class="form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Mulai" value="{{ old('start_date', $c->start_date) }}">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Sampai tanggal</label>
-                                            <input type="date" name="finish_date"
-                                                class="form-control @error('finish_date') is-invalid @enderror"
-                                                placeholder="Selesai" value="{{ old('finish_date', $c->finish_date) }}">
+                                            <label>Permintaan</label>
+                                            @foreach($lettertax as $information)
+                                            <input type="text" name="request"
+                                                class="form-control @error('request') is-invalid @enderror"
+                                                placeholder="Umur Anda" value="{{ $information->request}}">
+                                                @endforeach
                                         </div>
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}">
+                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}"> 
                                         </div>
-
 
 
                                         <div class="col-md-12 form-group">
@@ -85,10 +80,10 @@
                                                 @foreach($position as $positions)
                                                 <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
                                                     {{ $positions->position }}</option>
-
+                                                    
                                                 @endforeach
                                             </select>
-
+                                          
                                         <div class="col-md-12">
                                             <div class="form-group">
 
@@ -108,14 +103,14 @@
 
                                             </div>
                                         </div>
-
+                                
                                             <hr>
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
 
-
+                                       
 
                                     </div>
                             </form>

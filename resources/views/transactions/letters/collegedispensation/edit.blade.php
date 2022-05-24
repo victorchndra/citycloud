@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-selfquarantine/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-collegedispensation/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -57,18 +57,80 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Dari tanggal</label>
-                                            <input type="date" name="start_date"
-                                                class="form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Mulai" value="{{ old('start_date', $c->start_date) }}">
+                                        {{-- start --}}
+
+                                        <div class="col-md-7 form-group">
+                                            <label>Surat Ditujukan Kepada</label>
+                                            <input type="text" name="receiver"
+                                                class="form-control @error('receiver') is-invalid @enderror"
+                                                placeholder="Nama Penerima" value="{{ old('receiver', $c->receiver) }}">
+                                        </div>
+
+                                        <div class="col-md-5 form-group">
+                                            <label>Perguruan Tinggi</label>
+                                            <input type="text" name="college"
+                                                class="form-control @error('college') is-invalid @enderror"
+                                                placeholder="Nama Perguruan Tinggi" value="{{ old('college', $c->college) }}">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Sampai tanggal</label>
-                                            <input type="date" name="finish_date"
-                                                class="form-control @error('finish_date') is-invalid @enderror"
-                                                placeholder="Selesai" value="{{ old('finish_date', $c->finish_date) }}">
+                                            <label>NIM</label>
+                                            <input type="text" name="nim"
+                                                class="form-control @error('nim') is-invalid @enderror"
+                                                placeholder="NIM" value="{{ old('nim', $c->nim) }}">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Jurusan</label>
+                                            <input type="text" name="major"
+                                                class="form-control @error('major') is-invalid @enderror"
+                                                placeholder="Jurusan" value="{{ old('major', $c->major) }}">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Semester</label>
+                                            <input type="number" name="semester"
+                                                class="form-control @error('semester') is-invalid @enderror"
+                                                placeholder="0" value="{{ old('semester', $c->semester) }}">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Pembayaran tahap ke</label>
+                                            <input type="number" name="stage"
+                                                class="form-control @error('stage') is-invalid @enderror"
+                                                placeholder="0" value="{{ old('stage', $c->stage) }}">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Tahun Ajaran</label>
+                                            <input type="text" name="academic_year"
+                                                class="form-control @error('academic_year') is-invalid @enderror"
+                                                placeholder="(cth : 2022/2023)" value="{{ old('academic_year', $c->academic_year) }}">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Nominal Pembayaran</label>
+                                            <input type="number" name="nominal"
+                                                class="form-control @error('nominal') is-invalid @enderror"
+                                                placeholder="(cth : Rp 1500000)" value="{{ old('nominal', $c->nominal) }}">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Waktu Pembayaran</label>
+                                            <select class="form-control select2" name="pay_month" style="width: 100%;" required>
+                                                <option value="Januari" @if(!empty($c) && $c->pay_month =='Januari'){{ 'selected' }}@endif>Januari</option>
+                                                <option value="Februari" @if(!empty($c) && $c->pay_month =='Februari'){{ 'selected' }}@endif>Februari</option>
+                                                <option value="Maret" @if(!empty($c) && $c->pay_month =='Maret'){{ 'selected' }}@endif>Maret</option>
+                                                <option value="April" @if(!empty($c) && $c->pay_month =='April'){{ 'selected' }}@endif>April</option>
+                                                <option value="Mei" @if(!empty($c) && $c->pay_month =='Mei'){{ 'selected' }}@endif>Mei</option>
+                                                <option value="Juni" @if(!empty($c) && $c->pay_month =='Juni'){{ 'selected' }}@endif>Juni</option>
+                                                <option value="Juli" @if(!empty($c) && $c->pay_month =='Juli'){{ 'selected' }}@endif>Juli</option>
+                                                <option value="Agustus" @if(!empty($c) && $c->pay_month =='Agustus'){{ 'selected' }}@endif>Agustus</option>
+                                                <option value="September" @if(!empty($c) && $c->pay_month =='September'){{ 'selected' }}@endif>September</option>
+                                                <option value="Oktober" @if(!empty($c) && $c->pay_month =='Oktober'){{ 'selected' }}@endif>Oktober</option>
+                                                <option value="November" @if(!empty($c) && $c->pay_month =='November'){{ 'selected' }}@endif>November</option>
+                                                <option value="Desember" @if(!empty($c) && $c->pay_month =='Desember'){{ 'selected' }}@endif>Desember</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-md-12 form-group">

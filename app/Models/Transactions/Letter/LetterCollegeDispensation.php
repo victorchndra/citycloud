@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LetterNotMarriedYet extends Model
+class LetterCollegeDispensation extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
+
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
 

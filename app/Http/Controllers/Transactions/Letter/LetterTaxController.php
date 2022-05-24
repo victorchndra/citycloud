@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers\Transactions\Letter;
 
-use App\Models\User;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+//panggil auth
 use Illuminate\Support\Facades\Auth;
-use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterSelfQuarantine;
 
-class LetterSelfQuarantineController extends Controller
+//panggilramseyuuid
+use Ramsey\Uuid\Uuid;
+//calldb
+use Illuminate\Support\Facades\DB;
+
+//callmodel
+use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterTax;
+use App\Models\Masters\Information;
+use App\Models\User;
+use Carbon\Carbon;
+use QrCode;
+
+class LetterTaxController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,11 +39,12 @@ class LetterSelfQuarantineController extends Controller
      */
     public function create()
     {
+        //
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.selfquarantine.form', compact('citizen','informations','position'));
+        return view('transactions.letters.tax.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -46,20 +55,19 @@ class LetterSelfQuarantineController extends Controller
      */
     public function store(Request $request)
     {
+        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'start_date' => 'required',
-                'finish_date' => 'required',
+                'request' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan karantina mandiri";
+            $validatedData['letter_name']     = "surat NPWP";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
-            $validatedData['kk'] = $citizen->kk;
             $validatedData['name'] = $citizen->name;
             $validatedData['gender'] = $citizen->gender;
             $validatedData['place_birth'] = $citizen->place_birth;
@@ -93,7 +101,7 @@ class LetterSelfQuarantineController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan karantina mandiri <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat NPWP <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -101,7 +109,7 @@ class LetterSelfQuarantineController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterSelfQuarantine::create($validatedData);
+            LetterTax::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -109,17 +117,15 @@ class LetterSelfQuarantineController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'start_date' => 'required',
-                'finish_date' => 'required',
+                'request' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan karantina mandiri";
+            $validatedData['letter_name']     = "surat NPWP";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
-            $validatedData['kk'] = $citizen->kk;
             $validatedData['name'] = $citizen->name;
             $validatedData['gender'] = $citizen->gender;
             $validatedData['place_birth'] = $citizen->place_birth;
@@ -152,7 +158,7 @@ class LetterSelfQuarantineController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan karantina mandiri <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat NPWP <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -160,10 +166,13 @@ class LetterSelfQuarantineController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterSelfQuarantine::create($validatedData);
+            LetterTax::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
+
+
         }
+
     }
 
     /**
@@ -172,9 +181,24 @@ class LetterSelfQuarantineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
         //
+        $data = LetterTax::where('uuid', $uuid)->firstOrFail();
+        $informations = Information::first();
+                 // tambahkan baris kode ini di setiap controller
+                 $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat NPWP <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+        return view('transactions.letters.tax.print',compact('data','informations'));
     }
 
     /**
@@ -183,9 +207,16 @@ class LetterSelfQuarantineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
         //
+        $informations = Information::get();
+        $lettertax = LetterTax::get();
+        // $citizen = Citizen::orderBy('name', 'asc')->get();
+        $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+        $citizen = LetterTax::where('uuid', $uuid)->get();
+
+        return view('transactions.letters.tax.edit', compact('citizen','informations','position','lettertax'));
     }
 
     /**
@@ -197,37 +228,80 @@ class LetterSelfQuarantineController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+            if ($request->get('rejected_notes_admin')) {
+                $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_admin' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'start_date' => 'required',
-                'finish_date' => 'required',
+                'request' => 'required',
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-
-
+    
+    
             if ($validatedData) {
+    
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterSelfQuarantine::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterTax::where('uuid', $uuid)->first()->update($validatedData);
             }
-
-            $data = LetterSelfQuarantine::get()->where('uuid', $uuid)->firstOrFail();
+    
+            $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat Keterangan Karantina Mandiri <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat NPWP <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
-
+    
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
-
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
         }
     }
 
@@ -237,8 +311,24 @@ class LetterSelfQuarantineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         //
+        $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> Surat keterangan pensiun <strong>[' . $data->name . ']</strong>',
+            'category' => 'hapus',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        $data->delete();
+
+
+        return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 }

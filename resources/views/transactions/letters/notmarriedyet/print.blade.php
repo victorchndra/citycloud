@@ -77,27 +77,21 @@
     <div style="line-height: 1; margin-top: 10px;">
         <table align="center" width="540">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama Lengkap</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
                 <td width="2">: </td>
                 <td>
                     <font style="font-weight: bold; ">{{$data->name}}</font>
                 </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
-                <td width="2">: </td>
-                <td>{{ $data->nik }}</td>
-            </tr>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>KK</td>
-                <td width="2">: </td>
-                <td>{{ $data->kk }}</td>
-            </tr>
-            <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
                 <td width="2">: </td>
                 <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
+                <td width="2">: </td>
+                <td>{{ $data->nik }}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
@@ -132,16 +126,14 @@
                 usaha :
             </td> --}}
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk Desa {{ $informations->village_name }} Rt.{{ $data->rt }} Rw.{{ $data->rw }} Kecamatan. {{ $informations->sub_district_name }} Kabupaten. {{ $informations->district_name }} Provinsi. {{ $informations->province_name }}, benar belum memiliki kartu BPJS Surat ini
-                dibuat untuk mengambil kartu BPJS.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah penduduk Desa {{ $informations->village_name }} Kecamatan. {{ $informations->sub_district_name }} Kabupaten. {{ $informations->district_name }} yang tinggal di RT.{{ $data->rt }} RW.{{ $data->rw }} Desa {{ $informations->village_name }}. Nama tersebut menurut pendataan dan penelitian dari data yang ada pada kantor desa {{ $informations->village_name }} bahwasanya nama tersebut diatas benar <b>Belum Pernah Menikah.</b>
             </td>
         </tr>
     </table>
-            <br>
-            <table align="center" width="600" style="line-height: 1.5;">
+    <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} dibuat dengan sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} ini kami buat dengan sebenarnya untuk dapat dipergunakan seperlunya.
             </td>
         </tr>
     </table>
@@ -159,7 +151,7 @@
                 <tr>
                     <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{$data->letter_date}}</td>
+                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                      <td></td>
                 </tr>
             </table>
@@ -197,7 +189,7 @@
         <table align="right" width="400" border="1px">
             <tr class="spaceUnder">
                 <td width=""> </td>
-                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR>
+                <td > <center>KEPALA DESA {{strtoupper($informations->village_name)}}<BR>
                     {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
 
             </td>

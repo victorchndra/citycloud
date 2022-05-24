@@ -203,14 +203,30 @@ Route::get("approve/removecitizen-letters/{uid}", "App\Http\Controllers\Transact
 Route::resource("letters-selfquarantine", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController")->middleware('auth');
 Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController@approve")->name('auth');
 
+// Letter crowd
+Route::resource("letters-crowd", "App\Http\Controllers\Transactions\Letter\LetterCrowdController")->middleware('auth');
+Route::get("approve/crowd-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterCrowdController@approve")->name('auth');
+
+// Letter tax
+Route::resource("letters-tax", "App\Http\Controllers\Transactions\Letter\LetterTaxController")->middleware('auth');
+Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterTaxController@approve")->name('auth');
+
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
-Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
 
-// Missing Letter
+// Surat keterangan Hilang
 Route::resource("letters-missing", "App\Http\Controllers\Transactions\Letter\LetterMissingController")->middleware('auth');
 Route::get("approve/missing-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMissingController@approve")->name('auth');
 
-// Move Letter
+// Surat Keterangan Pindah
 Route::resource("letters-move", "App\Http\Controllers\Transactions\Letter\LetterMoveController")->middleware('auth');
 Route::get("approve/move-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMoveController@approve")->name('auth');
+Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Surat Keterangan Dispensasi SPP kuliah
+Route::resource("letters-collegedispensation", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController")->middleware('auth');
+Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController@approve")->name('auth');
+
+//landOwneshipLetter
+Route::resource("letters-landownership", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController")->middleware('auth');
+Route::get("approve/landownership-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController@approve")->name('auth');

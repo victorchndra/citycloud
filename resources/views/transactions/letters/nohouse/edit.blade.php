@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Belum Punya Rumah</h3>
+                    <h3>Surat Keterangan Belum Memiliki Rumah</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Belum Punya Rumah</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Belum Memiliki Rumah</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Belum Punya Rumah</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Belum Memiliki Rumah</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

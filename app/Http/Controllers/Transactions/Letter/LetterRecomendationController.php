@@ -68,7 +68,7 @@ class LetterRecomendationController extends Controller
             $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'status_prilaku' => 'required',
-                'letter_rt' => 'required'
+                
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -92,6 +92,8 @@ class LetterRecomendationController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
+            
+            $validatedData['letter_rt'] = $citizen->rt;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
@@ -127,7 +129,7 @@ class LetterRecomendationController extends Controller
             $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'status_prilaku' => 'required',
-                'letter_rt' => 'required'
+                
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -151,6 +153,8 @@ class LetterRecomendationController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
+            
+            $validatedData['letter_rt'] = $citizen->rt;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";

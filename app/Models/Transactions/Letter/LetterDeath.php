@@ -13,6 +13,7 @@ class LetterDeath extends Model
     use HasFactory;
     use SoftDeletes;//add soft delete
 
+    
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
 
@@ -86,14 +87,6 @@ class LetterDeath extends Model
         return new Attribute(
             get: fn ($value) => strtoupper($value),
             set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function letterDate(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
     }
 
