@@ -137,15 +137,17 @@
         <div style="line-height: 1; margin-top: 10px;">
             <table align="center" width="540">
                 <tr>
-                    <td width="180"><span
-                            style="display:inline-block; width: 30 px;"></span>1.&nbsp;&nbsp;&nbsp;Pernyataan Keterangan
-                        <strong>{{ $data->status_prilaku }}</strong> yang bersangkutan <br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; di ketahui oleh Lurah Umban Sari
+                    <td width="1"><span style="display:inline-block; width: 30 px;"></span>1.</td>
+
+                    <td>Pernyataan Keterangan <strong>{{ $data->status_prilaku }}</strong> yang bersangkutan di
+                        ketahui oleh Lurah {{ $informations->village_name }}.
                     </td>
                 </tr>
                 <tr>
-                    <td width="180"><span style="display:inline-block; width: 30 px;"></span>2.&nbsp;&nbsp;&nbsp;Surat
-                        Pengantar dari Ketua RT. {{ $data->letter_rt }}</td>
+                    <td width="1"><span style="display:inline-block; width: 30 px;"></span>2.</td>
+                    <td>Surat
+                        Pengantar dari Ketua RT. {{ $data->letter_rt }}.
+                    </td>
                 </tr>
             </table>
         </div>
@@ -155,20 +157,23 @@
                 <td class="justify" style="text-align: justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ternyata yang bersangkutan ”
                     <strong>
-                    @if ($data->status_prilaku == 'BERKELAKUAN BAIK')
-                        <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Tidak Pernah
-                            Terlibat Partai Terlarang, Tidak Terlibat Dalam Tindakan Kriminal, Serta Tidak Pernah
-                            Membuat Keributan Di Lingkungan Tempat Tinggalnya</span>
-                    @else 
-                        <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Pernah Terlibat
-                            Partai Terlarang, Terlibat Dalam Tindakan Kriminal, Serta Pernah Membuat Keributan Di
-                            Lingkungan Tempat Tinggalnya</span>
-                    @endif
-                    ”
+                        @if ($data->status_prilaku == 'BERKELAKUAN BAIK')
+                            <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Tidak Pernah
+                                Terlibat Partai Terlarang, Tidak Terlibat Dalam Tindakan Kriminal, Serta Tidak Pernah
+                                Membuat Keributan Di Lingkungan Tempat Tinggalnya</span>
+                        @else
+                            <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Pernah
+                                Terlibat
+                                Partai Terlarang, Terlibat Dalam Tindakan Kriminal, Serta Pernah Membuat Keributan Di
+                                Lingkungan Tempat Tinggalnya</span>
+                        @endif
+                        ”
                     </strong>
 
-                    . <br> Rekomendasi ini diberikan untuk melengkapi persyaratan memperoleh SURAT KETERANGAN CATATAN
-                    KEPOLISIAN (SKCK) dari Bapak Kepala Kapolsek {{ $informations->sub_district_name }}.
+                    . <br> Rekomendasi ini diberikan untuk melengkapi persyaratan memperoleh <strong>SURAT KETERANGAN
+                        CATATAN
+                        KEPOLISIAN (SKCK) </strong> dari Bapak Kepala Kapolsek
+                    {{ $informations->sub_district_name }}.
                     <br><br>Demikian Rekomendasi ini kami berikan untuk dapat dipergunakan seperlunya.
                 </td>
             </tr>

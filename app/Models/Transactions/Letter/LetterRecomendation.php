@@ -89,14 +89,7 @@ class LetterRecomendation extends Model
             // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
     }
-
-    public function letterRt(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
+    
 
     public function statusPrilaku(): Attribute
     {

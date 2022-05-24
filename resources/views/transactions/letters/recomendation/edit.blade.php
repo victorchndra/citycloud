@@ -63,10 +63,7 @@
 
                                                     <select
                                                         class="form-control @error('status_prilaku')  @enderror"
-                                                        name="status_prilaku" id="status_prilaku" required>
-                                                        <option value="Tidak ada"
-                                                            @if (!empty($c) && $c->status_prilaku == 'Tidak ada') {{ 'selected' }} @endif>
-                                                            Tidak ada</option>
+                                                        name="status_prilaku" id="status_prilaku" required>                                                        
                                                         <option value="Berkelakuan Baik"
                                                             @if (!empty($c) && $c->status_prilaku == 'Berkelakuan Baik') {{ 'selected' }} @endif>
                                                             Berkelakuan Baik</option>

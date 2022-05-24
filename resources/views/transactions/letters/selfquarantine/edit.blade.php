@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-business/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-selfquarantine/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -58,87 +58,25 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Jenis Usaha</label>
-
-                                                <input type="text" name="business_variation" class="form-control @error('business_variation') is-invalid @enderror" 
-                                                placeholder="cth: Grosir/Eceran, Rumah Makan" required value="{{ old('business_variation', $c->business_variation) }}"/>
-                                                    @error('business_variation')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Nama Merk/Usaha</label>
-                                            
-                                            <input type="text" name="business_name" class="form-control @error('business_name') is-invalid @enderror" 
-                                                placeholder="cth: Abadi Jaya, Mandiri Bangunan" required value="{{ old('business_name', $c->business_name) }}"/>
-                                                    @error('business_name')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Alamat usaha</label>
-                                            <input type="text" name="business_address" class="form-control @error('business_address') is-invalid @enderror" 
-                                                placeholder="Alamat usaha" required value="{{ old('business_address', $c->business_address) }}"/>
-                                                    @error('business_address')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Tempat usaha</label>
-                                            <input type="text" name="business_place" class="form-control @error('business_place') is-invalid @enderror" 
-                                                placeholder="Tempat usaha" required value="{{ old('business_place', $c->business_place) }}"/>
-                                                    @error('business_place')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            
-                                            <select class="form-control @error('agrarian_status') is-invalid @enderror"
-                                            name="agrarian_status" id="agrarian_status" required>
-                                            <option value="Tidak ada" @if(!empty($c) && $c->agrarian_status =='TIDAK ADA'){{ 'selected' }}@endif>TIDAK ADA</option>
-                                            <option value="Sertifikat Hak Milik" @if(!empty($c) && $c->agrarian_status =='SERTIFIKAT HAK MILIK'){{ 'selected' }}@endif>SERTIFIKAT HAK MILIK</option>
-                                            <option value="HGB" @if(!empty($c) && $c->agrarian_status=='HGB'){{ 'selected' }}@endif>HGB</option>
-                                            <option value="SKRT" @if(!empty($c) && $c->agrarian_status =='SKRT'){{ 'selected' }}@endif>SKRT</option>
-                                            <option value="SKGK" @if(!empty($c) && $c->agrarian_status == 'SKGK'){{ 'selected' }}@endif>SKGK</option>
-                                            </select>
-
-                                         
+                                            <label>Dari tanggal</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Mulai" value="{{ old('start_date', $c->start_date) }}">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            
-                                            <select class="form-control @error('self_status') is-invalid @enderror"
-                                            name="self_status" id="self_status" required>
-                                            <option value="Sewa" @if(!empty($c) && $c->self_status =='SEWA'){{ 'selected' }}@endif>Sewa</option>
-                                            <option value="Pinjam Pakai" @if(!empty($c) && $c->self_status =='PINJAM PAKAI'){{ 'selected' }}@endif>Pinjam Pakai</option>
-                                            <option value="Milik Sendiri" @if(!empty($c) && $c->self_status=='MILIK SENDIRI'){{ 'selected' }}@endif>Milik Sendiri</option>
-                                            <option value="Milik Orang Tua" @if(!empty($c) && $c->self_status =='MILIK ORANG TUA'){{ 'selected' }}@endif>Milik Orang Tua</option>
-                                            <option value="Milik Perusahaan" @if(!empty($c) && $c->self_status == 'MILIK PERUSAHAAN'){{ 'selected' }}@endif>Milik Perusahaan</option>
-                                            </select>
+                                            <label>Sampai tanggal</label>
+                                            <input type="date" name="finish_date"
+                                                class="form-control @error('finish_date') is-invalid @enderror"
+                                                placeholder="Selesai" value="{{ old('finish_date', $c->finish_date) }}">
                                         </div>
-
-
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}"> 
+                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}">
                                         </div>
 
-                                        
+
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
@@ -147,10 +85,10 @@
                                                 @foreach($position as $positions)
                                                 <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
                                                     {{ $positions->position }}</option>
-                                                    
+
                                                 @endforeach
                                             </select>
-                                          
+
                                         <div class="col-md-12">
                                             <div class="form-group">
 
@@ -170,14 +108,14 @@
 
                                             </div>
                                         </div>
-                                
+
                                             <hr>
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
 
-                                       
+
 
                                     </div>
                             </form>

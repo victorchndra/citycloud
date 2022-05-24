@@ -195,9 +195,40 @@ class LetterSelfQuarantineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+            $validatedData = $request->validate([
+                'letter_index' => 'required',
+                'start_date' => 'required',
+                'finish_date' => 'required',
+            ]);
+            $position           = User::findOrFail($request->get('positions'));
+            $validatedData['letter_date']   = $request->get('letter_date');
+            $validatedData['valid_until']   = $request->get('letter_date');
+            $validatedData['signed_by']     = $position->id;
+            $validatedData['signature']     = $request->get('signature');
+
+
+            if ($validatedData) {
+                $validatedData['updated_by'] = Auth::user()->id;
+                $letters = LetterSelfQuarantine::where('uuid', $uuid)->first()->update($validatedData);
+            }
+
+            $data = LetterSelfQuarantine::get()->where('uuid', $uuid)->firstOrFail();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> Surat Keterangan Karantina Mandiri <strong>[' . $data->name . ']</strong>',
+                'category' => 'edit',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+
+            return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
+
+        }
     }
 
     /**

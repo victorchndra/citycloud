@@ -60,25 +60,13 @@
 
                                         <div class="col-md-6 form-group">
                                             <label>Pilih Status</label>
-                                            <select class="form-control" name="status_prilaku">
-                                                <option value="Tidak ada">Tidak Ada</option>
+                                            <select class="form-control" name="status_prilaku">                                                
                                                 <option value="Berkelakuan Baik">Berkelakuan Baik</option>
                                                 <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
                                             </select>
-                                        </div>
+                                        </div>                                                                            
 
                                         <div class="col-md-6 form-group">
-                                            <label>Surat Pengantar RT</label>
-                                                <div class="col-sm-9">
-                                                    <select name="letter_rt" id="rt" class="form-control">
-                                                        @foreach($rts as $rt)
-                                                            <option value="{{ $rt->name }}" @if($rtSelected == $rt->name) {{ 'selected' }} @endif> {{ $rt->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                        </div>
-
-                                        <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
                                                 @error('letter_date')
