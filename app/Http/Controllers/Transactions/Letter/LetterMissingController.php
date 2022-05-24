@@ -291,6 +291,7 @@ class LetterMissingController extends Controller
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
     }
+}
         
 
     /**
