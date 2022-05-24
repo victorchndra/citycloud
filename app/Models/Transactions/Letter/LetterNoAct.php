@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterCrowd extends Model
+class LetterNoAct extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -23,7 +23,7 @@ class LetterCrowd extends Model
             get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
-    }   
+    }
 
     public function name(): Attribute
     {
@@ -82,15 +82,7 @@ class LetterCrowd extends Model
         );
     }
 
-    public function day(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    
-    public function dateCrowd(): Attribute
+    public function businessVariation(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
@@ -98,28 +90,7 @@ class LetterCrowd extends Model
         );
     }
 
-    public function start(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function acara(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function invitation(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function entertainment(): Attribute
+    public function businessName(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
@@ -127,7 +98,37 @@ class LetterCrowd extends Model
         );
     }
 
+    public function businessAddress(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
 
+    public function businessPlace(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function agrarianStatus(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function selfStatus(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
 
 
     public function letterDate(): Attribute
@@ -151,14 +152,14 @@ class LetterCrowd extends Model
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
-    
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
+
 }

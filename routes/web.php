@@ -119,15 +119,32 @@ Route::get("approve/{uid}", [LetterController::class, 'approve'])->name('approve
 
 //businessletters
 Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
+Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');
 
 //holidayletters
 Route::resource("letters-holiday", "App\Http\Controllers\Transactions\Letter\LetterHolidayController")->middleware('auth');
+Route::get("approve/holiday-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterHolidayController@approve")->name('approve.holidayletters');
+
+//no act letters
+Route::resource("letters-noact", "App\Http\Controllers\Transactions\Letter\LetterNoActController")->middleware('auth');
+Route::get("approve/noact-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterNoActController@approve")->name('approve.noactletters');
+
+//process act letters
+Route::resource("letters-processact", "App\Http\Controllers\Transactions\Letter\LetterProcessActController")->middleware('auth');
+Route::get("approve/processact-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterProcessActController@approve")->name('approve.processactletters');
+
+//widowletters
+Route::resource("letters-widow", "App\Http\Controllers\Transactions\Letter\LetterwidowController")->middleware('auth');
+Route::get("approve/widow-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterWidowController@approve")->name('approve.widowletters');
 
 //recomendationletters
 Route::resource("letters-recomendation", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController")->middleware('auth');
+Route::get("approve/recomendation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterRecomendationController@approve")->name('approve.businessletters');
 
 //pensionletter
 Route::resource("letters-pension", "App\Http\Controllers\Transactions\Letter\LetterPensionController")->middleware('auth');
+Route::get("approve/pension-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterPensionController@approve")->name('approve.businessletters');
+
 
 //divorceletter
 Route::resource("letters-divorce", "App\Http\Controllers\Transactions\Letter\LetterDivorceController")->middleware('auth');
@@ -186,6 +203,13 @@ Route::get("approve/removecitizen-letters/{uid}", "App\Http\Controllers\Transact
 Route::resource("letters-selfquarantine", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController")->middleware('auth');
 Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterSelfQuarantineController@approve")->name('auth');
 
+// Letter crowd
+Route::resource("letters-crowd", "App\Http\Controllers\Transactions\Letter\LetterCrowdController")->middleware('auth');
+Route::get("approve/crowd-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterCrowdController@approve")->name('auth');
+
+// Letter tax
+Route::resource("letters-tax", "App\Http\Controllers\Transactions\Letter\LetterTaxController")->middleware('auth');
+Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterTaxController@approve")->name('auth');
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
 Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
@@ -193,3 +217,7 @@ Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transa
 // Surat Keterangan Dispensasi SPP kuliah
 Route::resource("letters-collegedispensation", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController")->middleware('auth');
 Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController@approve")->name('auth');
+
+//landOwneshipLetter
+Route::resource("letters-landownership", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController")->middleware('auth');
+Route::get("approve/landownership-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController@approve")->name('auth');

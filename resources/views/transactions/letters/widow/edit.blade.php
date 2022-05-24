@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Belum Memiliki Rumah</h3>
+                    <h3>Surat Keterangan Janda</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Belum Memiliki Rumah</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Janda</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,12 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Belum Memiliki Rumah</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Janda</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-nohouse/{{ $c->uuid }}"
+                                    <form class="form-sample" action="/letters-widow/{{ $c->uuid }}"
                                         method="POST">
                                         @method('put')
                                         @csrf
@@ -44,7 +44,7 @@
                                                         <input type="text" name="letter_index"
                                                             class="form-control @error('letter_index') is-invalid @enderror"
                                                             placeholder="No Surat"
-                                                            value="  {{ $information->letter_index }}">
+                                                            value="  {{ $c->letter_index }}">
                                                     @endforeach
                                                 </div>
 
@@ -59,30 +59,20 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-6 form-group">
-                                                    <label>Peruntukan Surat</label>
+                                                <div class="col-md-12 form-group">
+                                                    <label>Tanggal Surat</label>
+                                                    
+                                                    <input type="date" name="letter_date"
+                                                    class="form-control @error('letter_date') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->letter_date }}" />
 
-                                                    <input type="text" name="letter_for"
-                                                        class="form-control @error('letter_for') is-invalid @enderror"
-                                                        placeholder="cth: Pemasangan KWH Listrik" required
-                                                        value="{{ old('letter_for', $c->letter_for) }}" />
-                                                    @error('letter_for')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
+                                                    @error('letter_date')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                
-
-                                                <div class="col-md-6 form-group">
-                                                    <label>Tgl Surat</label>
-                                                    <input type="date"
-                                                        class="form-control @error('letter_date') is-invalid @enderror"
-                                                        name="letter_date" id="date" required
-                                                        value="{{ $c->letter_date }}">
-                                                </div>
-
-
 
                                                 <div class="col-md-12 form-group">
                                                     <label>Ditandatangani Oleh</label>

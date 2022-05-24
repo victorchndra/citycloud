@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterCrowd extends Model
+class LetterLandOwnershipCard extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -23,7 +23,7 @@ class LetterCrowd extends Model
             get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
-    }   
+    }
 
     public function name(): Attribute
     {
@@ -82,7 +82,7 @@ class LetterCrowd extends Model
         );
     }
 
-    public function day(): Attribute
+    public function letterStreet(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
@@ -90,7 +90,7 @@ class LetterCrowd extends Model
         );
     }
     
-    public function dateCrowd(): Attribute
+    public function letterRw(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
@@ -98,28 +98,7 @@ class LetterCrowd extends Model
         );
     }
 
-    public function start(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function acara(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function invitation(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function entertainment(): Attribute
+    public function letterRt(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
@@ -127,8 +106,115 @@ class LetterCrowd extends Model
         );
     }
 
+    public function letterVilage(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
 
+    public function letterSubDistricts(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
 
+    public function letterDistricts(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterProvince(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterNorth(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterEast(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterWest(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterSouth(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterTotalArea(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterFatherName(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+    public function letterFatherNameBin(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+    public function letterYear(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterEvidence1(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterEvidence2(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
 
     public function letterDate(): Attribute
     {
@@ -136,27 +222,18 @@ class LetterCrowd extends Model
             get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
             // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
         );
-    }
-
-    public function validUntil(): Attribute
-    {
-        return new Attribute(
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['valid_until'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-        );
-    }
+    }   
 
 
     public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
-    
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');

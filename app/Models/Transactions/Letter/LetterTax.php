@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
-
-class LetterCrowd extends Model
+class LetterTax extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -82,53 +81,6 @@ class LetterCrowd extends Model
         );
     }
 
-    public function day(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    
-    public function dateCrowd(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function start(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function acara(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function invitation(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    public function entertainment(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-
-
 
     public function letterDate(): Attribute
     {
@@ -151,7 +103,6 @@ class LetterCrowd extends Model
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
-    
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');

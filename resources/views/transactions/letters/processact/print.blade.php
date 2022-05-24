@@ -55,12 +55,13 @@
         <hr style="border: 2px solid black;">
 
         <div style="line-height: 1;">
-            <table align="center" width="460" border="1px">
+            <table align="center" width="550" border="1px">
                 <tr>
                     <td>
                         <center>
                             <font style="font-weight: bold; text-decoration: underline;">
-                                {{ strtoupper($data->letter_name) }}</font>
+                                {{ strtoupper($data->letter_name) }}
+                            </font>
                             <br>
                             Nomor : {{ $data->letter_index }}
                         </center>
@@ -72,11 +73,10 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-
                 <td>
-                    <span>Dengan Hormat,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
-                    {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
-                    {{ $informations->district_name }}, dengan ini memberikan Rekomendasi kepada :
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
+                    {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten
+                    {{ $informations->district_name }}, dengan ini menerangkan bahwa :
                 </td>
             </tr>
         </table>
@@ -84,22 +84,25 @@
         <div style="line-height: 1; margin-top: 10px;">
             <table align="center" width="540">
                 <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->nik }}</td>
+                </tr>
+
+                <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
                     <td width="2">: </td>
                     <td>
                         <font style="font-weight: bold; ">{{ $data->name }}</font>
                     </td>
                 </tr>
+
                 <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
                     <td width="2">: </td>
                     <td>{{ $data->place_birth }}, {{ $data->date_birth }}</td>
                 </tr>
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->nik }}</td>
-                </tr>
+
                 <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
                     <td width="2">: </td>
@@ -117,64 +120,36 @@
                     <td width="2">: </td>
                     <td>{{ $data->job }}</td>
                 </tr>
+
                 <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                     <td width="2">: </td>
                     <td>{{ $data->address }}</td>
                 </tr>
+
+
             </table>
         </div>
 
+        <br>
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami, hingga saat
-                    dikeluarkan Rekomendasi ini serta diperjelas oleh :
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menerangkan bahwa yang besangkutan
+                    diatas benar warga Desa {{ $informations->village_name }} Kecamatan
+                    {{ $informations->sub_district_name }} Kabupaten
+                    {{ $informations->district_name }}, benar bahwa AKTE KELAHIRAN yang bersangkutan
+                    masih dalam proses di {{ $data->process_address }}.
                 </td>
             </tr>
         </table>
-        <div style="line-height: 1; margin-top: 10px;">
-            <table align="center" width="540">
-                <tr>
-                    <td width="1"><span style="display:inline-block; width: 30 px;"></span>1.</td>
-
-                    <td>Pernyataan Keterangan <strong>{{ $data->status_prilaku }}</strong> yang bersangkutan di
-                        ketahui oleh Lurah {{ $informations->village_name }}.
-                    </td>
-                </tr>
-                <tr>
-                    <td width="1"><span style="display:inline-block; width: 30 px;"></span>2.</td>
-                    <td>Surat
-                        Pengantar dari Ketua RT. {{ $data->letter_rt }}.
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ternyata yang bersangkutan ”
-                    <strong>
-                        @if ($data->status_prilaku == 'BERKELAKUAN BAIK')
-                            <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Tidak Pernah
-                                Terlibat Partai Terlarang, Tidak Terlibat Dalam Tindakan Kriminal, Serta Tidak Pernah
-                                Membuat Keributan Di Lingkungan Tempat Tinggalnya</span>
-                        @else
-                            <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Pernah
-                                Terlibat
-                                Partai Terlarang, Terlibat Dalam Tindakan Kriminal, Serta Pernah Membuat Keributan Di
-                                Lingkungan Tempat Tinggalnya</span>
-                        @endif
-                        ”
-                    </strong>
-
-                    . <br> Rekomendasi ini diberikan untuk melengkapi persyaratan memperoleh <strong>SURAT KETERANGAN
-                        CATATAN
-                        KEPOLISIAN (SKCK) </strong> dari Bapak Kepala Kapolsek
-                    {{ $informations->sub_district_name }}.
-                    <br><br>Demikian Rekomendasi ini kami berikan untuk dapat dipergunakan seperlunya.
+                <td class="justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian Surat Keterangan ini dibuat
+                    dengan sebenarnya dan diberikan kepada yang
+                    bersangkutan untuk dapat dipergunakan sebagaimana perlunya.
                 </td>
             </tr>
         </table>
@@ -264,8 +239,6 @@
         </div>
         </div>
     </section>
-
-
 
 
 </body>

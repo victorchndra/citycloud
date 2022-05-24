@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterCrowd;
+use App\Models\Transactions\Letter\LetterWidow;
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
-class LetterCrowdController extends Controller
+
+class LetterWidowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,13 +40,11 @@ class LetterCrowdController extends Controller
      */
     public function create()
     {
-        //
-        
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-
-        return view('transactions.letters.crowd.form', compact('citizen','informations','position'));
+        
+        return view('transactions.letters.widow.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -56,22 +55,17 @@ class LetterCrowdController extends Controller
      */
     public function store(Request $request)
     {
-        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+
+            
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'day' => 'required',
-                'date_crowd' => 'required',
-                'start' => 'required',
-                'acara' => 'required',
-                'invitation' => 'required',
-                'entertainment' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-
-            $validatedData['letter_name']     = "surat izin keramaian";
+    
+            $validatedData['letter_name']     = "surat keterangan janda";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -92,49 +86,43 @@ class LetterCrowdController extends Controller
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-
+    
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
-
-
+    
+    
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "approved";
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
-
+    
+    
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat izin keramaian<strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan janda <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
             // selesai
-
-            LetterCrowd::create($validatedData);
-
+    
+            LetterWidow::create($validatedData);
+    
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
         }else{
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'day' => 'required',
-                'date_crowd' => 'required',
-                'start' => 'required',
-                'acara' => 'required',
-                'invitation' => 'required',
-                'entertainment' => 'required',
             ]);
-
+    
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-
-            $validatedData['letter_name']     = "surat keterangan pensiun";
+    
+            $validatedData['letter_name']     = "surat keterangan janda";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -143,7 +131,7 @@ class LetterCrowdController extends Controller
             $validatedData['date_birth'] = $citizen->date_birth;
             $validatedData['religion'] = $citizen->religion;
             $validatedData['job'] = $citizen->job;
-
+            
             $validatedData['address'] =  "Dusun ".$citizen->village_sub.", RT ".$citizen->rt." RW ".$citizen->rw." Desa ".$citizen->village;
             $validatedData['village_sub'] = $citizen->village_sub;
             $validatedData['rt'] = $citizen->rt;
@@ -152,33 +140,33 @@ class LetterCrowdController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
-
+           
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
-
+    
             $validatedData['letter_date']   = date('Y-m-d');
             $validatedData['valid_until']   = date('Y-m-d');
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "waiting";
-
+    
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
-
+    
+    
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat izin keramaian <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan janda <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
             // selesai
-
-            LetterCrowd::create($validatedData);
-
+    
+            LetterWidow::create($validatedData);
+    
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
@@ -193,7 +181,22 @@ class LetterCrowdController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = LetterWidow::where('uuid', $uuid)->firstOrFail();
+
+        $informations = Information::first();
+                 // tambahkan baris kode ini di setiap controller
+                 $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat keterangan janda <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+        
+                DB::table('logs')->insert($log);
+                // selesai
+   
+        return view('transactions.letters.widow.print',compact('data','informations'));
     }
 
     /**
@@ -202,16 +205,14 @@ class LetterCrowdController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($uuid)
+    public function edit($uuid,Request $request)
     {
-        //
         $informations = Information::get();
-        $lettercrowd = LetterCrowd::where('uuid', $uuid)->get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterCrowd::where('uuid', $uuid)->get();
-
-        return view('transactions.letters.crowd.edit', compact('citizen','informations','position','lettercrowd'));
+        $citizen = LetterWidow::where('uuid', $uuid)->get();
+        
+        return view('transactions.letters.widow.edit', compact('citizen','informations','position'));
     }
 
     /**
@@ -223,16 +224,15 @@ class LetterCrowdController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-        //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             if ($request->get('rejected_notes_admin')) {
-                $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
                     'approval_admin' => "rejected",
                 ]);
-    
+            
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
@@ -240,39 +240,33 @@ class LetterCrowdController extends Controller
                 'category' => 'tolak',
                 'created_at' => now(),
             ];
-    
+        
             DB::table('logs')->insert($log);
             // selesai
-    
+        
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
             }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'day' => 'required',
-                'date_crowd' => 'required',
-                'start' => 'required',
-                'acara' => 'required',
-                'invitation' => 'required',
-                'entertainment' => 'required',
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-    
+        
     
             if ($validatedData) {
     
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterCrowd::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterWidow::where('uuid', $uuid)->first()->update($validatedData);
             }
     
-            $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat Izin Keramaian <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat keterangan janda <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -282,13 +276,13 @@ class LetterCrowdController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
                     'approval_rt' => "rejected",
                 ]);
-    
+            
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
@@ -296,14 +290,14 @@ class LetterCrowdController extends Controller
                 'category' => 'tolak',
                 'created_at' => now(),
             ];
-    
+        
             DB::table('logs')->insert($log);
             // selesai
-    
+        
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
         }
-    }
+        }
 
     /**
      * Remove the specified resource from storage.
@@ -311,15 +305,15 @@ class LetterCrowdController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uuid)
+    public function destroy($id)
     {
-        $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat Izin Keramaian <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat keterangan janda <strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];
@@ -327,7 +321,60 @@ class LetterCrowdController extends Controller
         DB::table('logs')->insert($log);
         $data->delete();
 
-
+        
         return redirect('/letters')->with('success','Surat berhasil dihapus');
+    }
+
+    public function approve($uuid)
+    {
+        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+        $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
+        $data->update([
+            'updated_by' =>Auth::user()->id,
+            'approval_admin' => "approved",
+            'rejected_notes_admin' => null,
+        ]);
+    
+        // tambahkan baris kode ini di setiap controller
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+            'category' => 'setuju',
+            'created_at' => now(),
+        ];
+    
+        DB::table('logs')->insert($log);
+        // selesai
+    
+        return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+        }else{
+            
+            $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
+            $data->update([
+                'updated_by' =>Auth::user()->id,
+                'approval_rt' => "approved",
+            ]);
+        
+            // $data->update([
+            //     'updated_by' =>Auth::user()->id,
+            //     'approval_rt    ' => "approved",
+            //     'rejected_notes_admin' => null,
+            // ]);
+        
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'setuju',
+                'created_at' => now(),
+            ];
+        
+            DB::table('logs')->insert($log);
+            // selesai
+        
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+        }
     }
 }

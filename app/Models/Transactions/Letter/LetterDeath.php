@@ -13,6 +13,7 @@ class LetterDeath extends Model
     use HasFactory;
     use SoftDeletes;//add soft delete
 
+    
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
 
