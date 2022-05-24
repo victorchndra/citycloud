@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-business/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-collegedispensation/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -57,88 +57,88 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Jenis Usaha</label>
+                                        {{-- start --}}
 
-                                                <input type="text" name="business_variation" class="form-control @error('business_variation') is-invalid @enderror" 
-                                                placeholder="cth: Grosir/Eceran, Rumah Makan" required value="{{ old('business_variation', $c->business_variation) }}"/>
-                                                    @error('business_variation')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
+                                        <div class="col-md-7 form-group">
+                                            <label>Surat Ditujukan Kepada</label>
+                                            <input type="text" name="receiver"
+                                                class="form-control @error('receiver') is-invalid @enderror"
+                                                placeholder="Nama Penerima" value="{{ old('receiver', $c->receiver) }}">
+                                        </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Nama Merk/Usaha</label>
-                                            
-                                            <input type="text" name="business_name" class="form-control @error('business_name') is-invalid @enderror" 
-                                                placeholder="cth: Abadi Jaya, Mandiri Bangunan" required value="{{ old('business_name', $c->business_name) }}"/>
-                                                    @error('business_name')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Alamat usaha</label>
-                                            <input type="text" name="business_address" class="form-control @error('business_address') is-invalid @enderror" 
-                                                placeholder="Alamat usaha" required value="{{ old('business_address', $c->business_address) }}"/>
-                                                    @error('business_address')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Tempat usaha</label>
-                                            <input type="text" name="business_place" class="form-control @error('business_place') is-invalid @enderror" 
-                                                placeholder="Tempat usaha" required value="{{ old('business_place', $c->business_place) }}"/>
-                                                    @error('business_place')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                 </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            
-                                            <select class="form-control @error('agrarian_status') is-invalid @enderror"
-                                            name="agrarian_status" id="agrarian_status" required>
-                                            <option value="Tidak ada" @if(!empty($c) && $c->agrarian_status =='TIDAK ADA'){{ 'selected' }}@endif>TIDAK ADA</option>
-                                            <option value="Sertifikat Hak Milik" @if(!empty($c) && $c->agrarian_status =='SERTIFIKAT HAK MILIK'){{ 'selected' }}@endif>SERTIFIKAT HAK MILIK</option>
-                                            <option value="HGB" @if(!empty($c) && $c->agrarian_status=='HGB'){{ 'selected' }}@endif>HGB</option>
-                                            <option value="SKRT" @if(!empty($c) && $c->agrarian_status =='SKRT'){{ 'selected' }}@endif>SKRT</option>
-                                            <option value="SKGK" @if(!empty($c) && $c->agrarian_status == 'SKGK'){{ 'selected' }}@endif>SKGK</option>
-                                            </select>
-
-                                         
+                                        <div class="col-md-5 form-group">
+                                            <label>Perguruan Tinggi</label>
+                                            <input type="text" name="college"
+                                                class="form-control @error('college') is-invalid @enderror"
+                                                placeholder="Nama Perguruan Tinggi" value="{{ old('college', $c->college) }}">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            
-                                            <select class="form-control @error('self_status') is-invalid @enderror"
-                                            name="self_status" id="self_status" required>
-                                            <option value="Sewa" @if(!empty($c) && $c->self_status =='SEWA'){{ 'selected' }}@endif>Sewa</option>
-                                            <option value="Pinjam Pakai" @if(!empty($c) && $c->self_status =='PINJAM PAKAI'){{ 'selected' }}@endif>Pinjam Pakai</option>
-                                            <option value="Milik Sendiri" @if(!empty($c) && $c->self_status=='MILIK SENDIRI'){{ 'selected' }}@endif>Milik Sendiri</option>
-                                            <option value="Milik Orang Tua" @if(!empty($c) && $c->self_status =='MILIK ORANG TUA'){{ 'selected' }}@endif>Milik Orang Tua</option>
-                                            <option value="Milik Perusahaan" @if(!empty($c) && $c->self_status == 'MILIK PERUSAHAAN'){{ 'selected' }}@endif>Milik Perusahaan</option>
-                                            </select>
+                                            <label>NIM</label>
+                                            <input type="text" name="nim"
+                                                class="form-control @error('nim') is-invalid @enderror"
+                                                placeholder="NIM" value="{{ old('nim', $c->nim) }}">
                                         </div>
 
+                                        <div class="col-md-6 form-group">
+                                            <label>Jurusan</label>
+                                            <input type="text" name="major"
+                                                class="form-control @error('major') is-invalid @enderror"
+                                                placeholder="Jurusan" value="{{ old('major', $c->major) }}">
+                                        </div>
 
+                                        <div class="col-md-2 form-group">
+                                            <label>Semester</label>
+                                            <input type="number" name="semester"
+                                                class="form-control @error('semester') is-invalid @enderror"
+                                                placeholder="0" value="{{ old('semester', $c->semester) }}">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Pembayaran tahap ke</label>
+                                            <input type="number" name="stage"
+                                                class="form-control @error('stage') is-invalid @enderror"
+                                                placeholder="0" value="{{ old('stage', $c->stage) }}">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Tahun Ajaran</label>
+                                            <input type="text" name="academic_year"
+                                                class="form-control @error('academic_year') is-invalid @enderror"
+                                                placeholder="(cth : 2022/2023)" value="{{ old('academic_year', $c->academic_year) }}">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Nominal Pembayaran</label>
+                                            <input type="number" name="nominal"
+                                                class="form-control @error('nominal') is-invalid @enderror"
+                                                placeholder="(cth : Rp 1500000)" value="{{ old('nominal', $c->nominal) }}">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Waktu Pembayaran</label>
+                                            <select class="form-control select2" name="pay_month" style="width: 100%;" required>
+                                                <option value="Januari" @if(!empty($c) && $c->pay_month =='Januari'){{ 'selected' }}@endif>Januari</option>
+                                                <option value="Februari" @if(!empty($c) && $c->pay_month =='Februari'){{ 'selected' }}@endif>Februari</option>
+                                                <option value="Maret" @if(!empty($c) && $c->pay_month =='Maret'){{ 'selected' }}@endif>Maret</option>
+                                                <option value="April" @if(!empty($c) && $c->pay_month =='April'){{ 'selected' }}@endif>April</option>
+                                                <option value="Mei" @if(!empty($c) && $c->pay_month =='Mei'){{ 'selected' }}@endif>Mei</option>
+                                                <option value="Juni" @if(!empty($c) && $c->pay_month =='Juni'){{ 'selected' }}@endif>Juni</option>
+                                                <option value="Juli" @if(!empty($c) && $c->pay_month =='Juli'){{ 'selected' }}@endif>Juli</option>
+                                                <option value="Agustus" @if(!empty($c) && $c->pay_month =='Agustus'){{ 'selected' }}@endif>Agustus</option>
+                                                <option value="September" @if(!empty($c) && $c->pay_month =='September'){{ 'selected' }}@endif>September</option>
+                                                <option value="Oktober" @if(!empty($c) && $c->pay_month =='Oktober'){{ 'selected' }}@endif>Oktober</option>
+                                                <option value="November" @if(!empty($c) && $c->pay_month =='November'){{ 'selected' }}@endif>November</option>
+                                                <option value="Desember" @if(!empty($c) && $c->pay_month =='Desember'){{ 'selected' }}@endif>Desember</option>
+                                            </select>
+                                        </div>
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}"> 
+                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}">
                                         </div>
 
-                                        
+
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
@@ -147,10 +147,10 @@
                                                 @foreach($position as $positions)
                                                 <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
                                                     {{ $positions->position }}</option>
-                                                    
+
                                                 @endforeach
                                             </select>
-                                          
+
                                         <div class="col-md-12">
                                             <div class="form-group">
 
@@ -170,14 +170,14 @@
 
                                             </div>
                                         </div>
-                                
+
                                             <hr>
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             </div>
                                         </div>
 
-                                       
+
 
                                     </div>
                             </form>
