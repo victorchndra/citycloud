@@ -221,3 +221,7 @@ Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Tr
 //landOwneshipLetter
 Route::resource("letters-landownership", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController")->middleware('auth');
 Route::get("approve/landownership-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController@approve")->name('auth');
+
+// Surat Keterangan Beda Nama
+Route::resource("letters-difference-name", "App\Http\Controllers\Transactions\Letter\LetterDifferenceNameController")->middleware('auth');
+Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceNameController@approve")->name('auth');
