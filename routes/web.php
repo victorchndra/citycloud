@@ -213,3 +213,7 @@ Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Lette
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
 Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Surat Keterangan Ghoib
+Route::resource("letters-magic", "App\Http\Controllers\Transactions\Letter\LetterMagicController")->middleware('auth');
+Route::get("approve/magic-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMagicController@approve")->name('auth');

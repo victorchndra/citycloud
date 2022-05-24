@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat NPWP</h3>
-                <p class="text-subtitle text-muted">Multiple Surat NPWP you can use</p>
+                <h3>Surat Keterangan Ghoib</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Ghoib you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat NPWP</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ghoib</li>
                     </ol>
                 </nav>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Surat NPWP</h4>
+                        <h4 class="card-title">Edit Surat Keterangan Ghoib</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -47,7 +47,7 @@
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                            <label>Pilih Suami</label>
                                             <select disabled id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 @foreach($citizen as $citizens)
@@ -56,20 +56,45 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        
+                                        <div class="col-md-12 form-group">
+                                            <label>Pilih Istri</label>
+                                            <select disabled id="citizen_couple_id" class="form-control select2" name="citizen_couple_id"
+                                                style="width: 100%;" required  >
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->coupleUser->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
                                         
                                         <div class="col-md-6 form-group">
-                                            <label>Permintaan</label>
-                                            @foreach($lettertax as $information)
-                                            <input type="text" name="request"
-                                                class="form-control @error('request') is-invalid @enderror"
-                                                placeholder="Umur Anda" value="{{ $information->request}}">
+                                            <label>Jumlah Anak</label>   
+                                            @foreach($lettermagic as $information)   
+                                            <input type="text" name="children"
+                                                class="form-control @error('children') is-invalid @enderror"
+                                                placeholder="Umur Anda" value="{{ $information->children}}">
+                                              
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Menikah</label>   
+                                            <input type="date" name="date_marriage"
+                                                class="form-control @error('date_marriage') is-invalid @enderror"
+                                                placeholder="Umur Anda" value="{{ $information->date_marriage}}">
+                                              
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Sejak Menghilang</label>   
+                                            <input type="date" name="date_gone"
+                                                class="form-control @error('date_gone') is-invalid @enderror"
+                                                placeholder="Umur Anda" value="{{ $information->date_gone}}">
                                               
                                         </div>
 
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{ $information->letter_date}}"> 
+                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$information->letter_date}}"> 
                                         </div>
                                         @endforeach
 

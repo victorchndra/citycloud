@@ -128,7 +128,7 @@ class LetterRecomendationWorkController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "surat rekomendasi kerja";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -263,7 +263,7 @@ class LetterRecomendationWorkController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat Keterangan Izin Membangun Bangunan <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Rekomendasi Kerja<strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -302,8 +302,24 @@ class LetterRecomendationWorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         //
+        $data = LetterRecomendationWork::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> Surat Keterangan Rekomendasi Kerja <strong>[' . $data->name . ']</strong>',
+            'category' => 'hapus',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        $data->delete();
+
+
+        return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 }
