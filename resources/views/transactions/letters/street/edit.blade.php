@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat NPWP</h3>
-                <p class="text-subtitle text-muted">Multiple Surat NPWP you can use</p>
+                <h3>Surat Keterangan Jalan</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Surat Keterangan Jalan you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat NPWP</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Surat Keterangan Jalan</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Surat NPWP</h4>
+                        <h4 class="card-title">Edit Surat Surat Keterangan Jalan</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-tax/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-street/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -59,19 +59,35 @@
 
                                         
                                         <div class="col-md-6 form-group">
-                                            <label>Permintaan</label>
-                                            @foreach($lettertax as $information)
-                                            <input type="text" name="request"
-                                                class="form-control @error('request') is-invalid @enderror"
-                                                placeholder="Umur Anda" value="{{ $information->request}}">
-                                              
+                                            <label>Barang yang di angkut</label>
+                                            {{-- @foreach($letterstreet as $ls) --}}
+                                            <input type="text" name="goods"
+                                                class="form-control @error('goods') is-invalid @enderror"
+                                                placeholder="Barang yang di angkut" value="{{ $ls->goods }}">
                                         </div>
-
+                                        <div class="col-md-6 form-group">
+                                            <label>Jumlah Barang yang di angkut</label>
+                                            <input type="text" name="count_goods"
+                                                class="form-control @error('count_goods') is-invalid @enderror"
+                                                placeholder="Jumlah Barang yang di angkut" value="{{ $ls->count_goods }}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tujuan</label>
+                                            <input type="text" name="purpose"
+                                                class="form-control @error('purpose') is-invalid @enderror"
+                                                placeholder="Tujuan" value="{{ $ls->purpose }}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Berangkat</label>
+                                            <input type="text" name="depart"
+                                                class="form-control @error('depart') is-invalid @enderror"
+                                                placeholder="Berangkat" value="{{ $ls->depart }}">
+                                        </div>
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{ $information->letter_date}}"> 
+                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{ $ls->letter_date}}"> 
                                         </div>
-                                        @endforeach
+                                        {{-- @endforeach --}}
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
