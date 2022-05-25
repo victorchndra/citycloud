@@ -60,10 +60,11 @@ class LetterStreetController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'goods' => 'required',
                 'purpose' => 'required',
-                'children' => 'required',
-                'date_marriage' => 'required',
-                'date_gone' => 'required'
+                'count_goods' => 'required',
+                'depart' => 'required',
+                
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -121,10 +122,11 @@ class LetterStreetController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'citizen_couple_id' => 'required',
-                'children' => 'required',
-                'date_marriage' => 'required',
-                'date_gone' => 'required'
+                'goods' => 'required',
+                'purpose' => 'required',
+                'count_goods' => 'required',
+                'depart' => 'required',
+                
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -165,7 +167,7 @@ class LetterStreetController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat NPWP <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat Keterangan Jalan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -187,9 +189,24 @@ class LetterStreetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
         //
+        $data = LetterStreet::where('uuid', $uuid)->firstOrFail();
+        $informations = Information::first();
+                 // tambahkan baris kode ini di setiap controller
+                 $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat Keterangan Jalan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+        return view('transactions.letters.street.print',compact('data','informations'));
     }
 
     /**
@@ -198,9 +215,16 @@ class LetterStreetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
         //
+        $informations = Information::get();
+        $letterstreet = LetterStreet::get();
+        // $citizen = Citizen::orderBy('name', 'asc')->get();
+        $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+        $citizen = Citizens::where('uuid', $uuid)->get();
+
+        return view('transactions.letters.street.edit', compact('citizen','informations','position','letterstreet'));
     }
 
     /**
@@ -210,9 +234,86 @@ class LetterStreetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
         //
+        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+            if ($request->get('rejected_notes_admin')) {
+                $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_admin' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
+            $validatedData = $request->validate([
+                'letter_index' => 'required',
+                'goods' => 'required',
+                'purpose' => 'required',
+                'count_goods' => 'required',
+                'depart' => 'required',
+            ]);
+            $position           = User::findOrFail($request->get('positions'));
+            $validatedData['letter_date']   = $request->get('letter_date');
+            $validatedData['valid_until']   = $request->get('letter_date');
+            $validatedData['signed_by']     = $position->id;
+            $validatedData['signature']     = $request->get('signature');
+    
+    
+            if ($validatedData) {
+    
+                $validatedData['updated_by'] = Auth::user()->id;
+                $letters = LetterStreet::where('uuid', $uuid)->first()->update($validatedData);
+            }
+    
+            $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> Surat Keterangan Jalan <strong>[' . $data->name . ']</strong>',
+                'category' => 'edit',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+    
+            return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        }
     }
 
     /**
@@ -221,8 +322,24 @@ class LetterStreetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         //
+        $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> Surat keterangan Jalan <strong>[' . $data->name . ']</strong>',
+            'category' => 'hapus',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        $data->delete();
+
+
+        return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 }

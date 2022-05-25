@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat NPWP</h3>
-                <p class="text-subtitle text-muted">Multiple Surat NPWP you can use</p>
+                <h3>Surat Keterangan Jalan</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Jalan you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat NPWP</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Jalan</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat NPWP</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Jalan</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-tax" method="POST">
+                            <form class="form form-horizontal" action="/letters-street" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -59,10 +59,28 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Permintaan</label>
-                                            <input type="text" name="request"
-                                                class="form-control @error('request') is-invalid @enderror"
-                                                placeholder="Permintaan">
+                                            <label>Barang yang di angkut</label>
+                                            <input type="text" name="goods"
+                                                class="form-control @error('goods') is-invalid @enderror"
+                                                placeholder="Barang yang di angkut">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Jumlah Barang yang di angkut</label>
+                                            <input type="text" name="count_goods"
+                                                class="form-control @error('count_goods') is-invalid @enderror"
+                                                placeholder="Jumlah Barang yang di angkut">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tujuan</label>
+                                            <input type="text" name="purpose"
+                                                class="form-control @error('purpose') is-invalid @enderror"
+                                                placeholder="Tujuan">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Berangkat</label>
+                                            <input type="date" name="depart"
+                                                class="form-control @error('depart') is-invalid @enderror"
+                                                placeholder="Berangkat">
                                         </div>
 
                                       
