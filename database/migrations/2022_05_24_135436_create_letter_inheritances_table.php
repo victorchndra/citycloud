@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_difference_births', function (Blueprint $table) {
+        Schema::create('letter_inheritances', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
@@ -36,12 +36,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
-            $table->date('old_date')->nullable();
-            $table->string('mistake_loc')->nullable();
-            $table->date('new_date')->nullable();
-            $table->string('valid_loc')->nullable();
-            $table->string('used_for')->nullable();
-            $table->string('citizen_status')->nullable();
+            $table->string('letter_family_status')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
@@ -56,6 +51,7 @@ return new class extends Migration
             $table->integer("deleted_by")->nullable();
             $table->timestamps();
             $table->softDeletes();
+            /////////////////////////////////////////
         });
     }
 
@@ -66,6 +62,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_difference_births');
+        Schema::dropIfExists('letter_inheritances');
     }
 };

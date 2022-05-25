@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Transactions\Letter;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 //panggil auth
 use Illuminate\Support\Facades\Auth;
 
@@ -14,13 +15,13 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterTax;
+use App\Models\Transactions\Letter\LetterMagic;
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
-class LetterTaxController extends Controller
+class LetterMagicController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +45,7 @@ class LetterTaxController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.tax.form', compact('citizen','informations','position'));
+        return view('transactions.letters.magic.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -59,13 +60,16 @@ class LetterTaxController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'request' => 'required',
+                'citizen_couple_id' => 'required',
+                'children' => 'required',
+                'date_marriage' => 'required',
+                'date_gone' => 'required'
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat NPWP";
+            $validatedData['letter_name']     = "Surat Keterangan Ghoib";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -101,7 +105,7 @@ class LetterTaxController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat NPWP <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat Keterangan Ghoib <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -109,7 +113,7 @@ class LetterTaxController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterTax::create($validatedData);
+            LetterMagic::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -117,13 +121,16 @@ class LetterTaxController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'request' => 'required',
+                'citizen_couple_id' => 'required',
+                'children' => 'required',
+                'date_marriage' => 'required',
+                'date_gone' => 'required'
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat NPWP";
+            $validatedData['letter_name']     = "Surat Keterangan Ghoib";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -158,7 +165,7 @@ class LetterTaxController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat NPWP <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat Keterangan Ghoib <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -166,13 +173,12 @@ class LetterTaxController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterTax::create($validatedData);
+            LetterMagic::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }
-
     }
 
     /**
@@ -184,13 +190,13 @@ class LetterTaxController extends Controller
     public function show($uuid)
     {
         //
-        $data = LetterTax::where('uuid', $uuid)->firstOrFail();
+        $data = LetterMagic::where('uuid', $uuid)->firstOrFail();
         $informations = Information::first();
                  // tambahkan baris kode ini di setiap controller
                  $log = [
                     'uuid' => Uuid::uuid4()->getHex(),
                     'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data surat NPWP <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'description' => '<em>Mencetak</em> data surat Keterangan Ghoib <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                     'category' => 'cetak',
                     'created_at' => now(),
                 ];
@@ -198,7 +204,7 @@ class LetterTaxController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-        return view('transactions.letters.tax.print',compact('data','informations'));
+        return view('transactions.letters.magic.print',compact('data','informations'));
     }
 
     /**
@@ -211,12 +217,12 @@ class LetterTaxController extends Controller
     {
         //
         $informations = Information::get();
-        $lettertax = LetterTax::get();
+        $lettermagic = LetterMagic::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterTax::where('uuid', $uuid)->get();
+        $citizen = LetterMagic::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.tax.edit', compact('citizen','informations','position','lettertax'));
+        return view('transactions.letters.magic.edit', compact('citizen','informations','position','lettermagic'));
     }
 
     /**
@@ -231,7 +237,7 @@ class LetterTaxController extends Controller
         //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             if ($request->get('rejected_notes_admin')) {
-                $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterMagic::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -253,7 +259,10 @@ class LetterTaxController extends Controller
             }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'request' => 'required',
+                'citizen_couple_id' => 'required',
+                'children' => 'required',
+                'date_marriage' => 'required',
+                'date_gone' => 'required'
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
@@ -265,14 +274,14 @@ class LetterTaxController extends Controller
             if ($validatedData) {
     
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterTax::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterMagic::where('uuid', $uuid)->first()->update($validatedData);
             }
     
-            $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterMagic::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat NPWP <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Ghoib <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -282,7 +291,7 @@ class LetterTaxController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterMagic::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -314,13 +323,13 @@ class LetterTaxController extends Controller
     public function destroy($uuid)
     {
         //
-        $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterMagic::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat NPWP <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat keterangan ghoib <strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];

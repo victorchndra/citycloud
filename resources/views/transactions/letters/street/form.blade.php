@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Izin Membangun Bangunan</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Izin Membangun Bangunan you can use</p>
+                <h3>Surat NPWP</h3>
+                <p class="text-subtitle text-muted">Multiple Surat NPWP you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Izin Membangun Bangunan</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat NPWP</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Izin Membangun Bangunan</h4>
+                        <h4 class="card-title">Tambah Surat NPWP</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-building" method="POST">
+                            <form class="form form-horizontal" action="/letters-tax" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -57,34 +57,16 @@
                                             </select>
                                             </select>
                                         </div>
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Pembangunan</label>
-                                            <input type="text" name="place_build" id="place_build"
-                                                class="form-control @error('place_build') is-invalid @enderror"
-                                                placeholder="Lokasi Pembangunan">
-                                        </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Bangunan Digunakan Sebagai</label>
-                                            <input type="text" name="use_build" id="use_build"
-                                                class="form-control @error('use_build') is-invalid @enderror"
-                                                placeholder="Bangunan Digunakan Sebagai">
+                                            <label>Permintaan</label>
+                                            <input type="text" name="request"
+                                                class="form-control @error('request') is-invalid @enderror"
+                                                placeholder="Permintaan">
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Pemilik Bangunan</label>
-                                            <input type="text" name="building_owner" id="building_owner"
-                                                class="form-control @error('building_owner') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
-                                        </div>
+                                      
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Bukti Penguasaan Tanah</label>
-                                            <input type="text" name="proof_mastery" id="proof_mastery"
-                                                class="form-control @error('proof_mastery') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
-                                        </div>
-                                        
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -154,11 +136,25 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-                                              
+
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-                                  
+
                                             </select>
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Age</label>
+                                            <input type="text" name="age_letter"
+                                                class="form-control @error('age_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Job</label>
+                                            <input type="text" name="job_letter"
+                                                class="form-control @error('job_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda">
                                         </div>
 
 
@@ -184,7 +180,7 @@
                                             </select>
                                         </div>
 
-                                      
+
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -201,7 +197,7 @@
                                             </div>
                                         </div>
 
-                                      
+
                                     </div>
 
                                     </div>

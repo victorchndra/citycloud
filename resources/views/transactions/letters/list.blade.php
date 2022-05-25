@@ -97,7 +97,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-difference-name/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -625,7 +625,7 @@
                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
-                                                <a href="#"
+                                                <a href="/letters-inheritance/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>
@@ -803,6 +803,22 @@
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
                                                 <a href="/letters-job/create"
+                                                    class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                        </tr>
+                           <tr>
+                            <td>48</td>
+                            <td>Surat Keterangan Ghoib</td>
+                            <td>
+                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                                                data-bs-toggle="dropdown">Aksi</button>
+                                            <div class="dropdown-menu">
+                                                <a href="/letters-magic/create"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Buat Surat</a>
                                             </div>
                                         </div>

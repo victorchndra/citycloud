@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterRecomendationWork extends Model
+class LetterInheritance extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -81,24 +81,8 @@ class LetterRecomendationWork extends Model
             set: fn ($value) => strtolower($value),
         );
     }
-    
-    // public function letterDate(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-    //     );
-    // }
 
-    public function apply_job(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function place_job(): Attribute
+    public function letterFamilyStatus(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
@@ -106,6 +90,14 @@ class LetterRecomendationWork extends Model
         );
     }
     
+    public function letterDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
+
     public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
