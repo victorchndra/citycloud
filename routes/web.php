@@ -213,7 +213,7 @@ Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Lette
 
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
-Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
 
 // Surat Keterangan Ghoib
 Route::resource("letters-magic", "App\Http\Controllers\Transactions\Letter\LetterMagicController")->middleware('auth');
@@ -226,7 +226,10 @@ Route::get("approve/missing-letters/{uid}", "App\Http\Controllers\Transactions\L
 // Surat Keterangan Pindah
 Route::resource("letters-move", "App\Http\Controllers\Transactions\Letter\LetterMoveController")->middleware('auth');
 Route::get("approve/move-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMoveController@approve")->name('auth');
-Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Surat Keterangan KTP Dalam Proses
+Route::resource("letters-processktp", "App\Http\Controllers\Transactions\Letter\LetterProcessKtpController")->middleware('auth');
+Route::get("approve/processktp-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterProcessKtpController@approve")->name('auth');
 
 // Surat Keterangan Dispensasi SPP kuliah
 Route::resource("letters-collegedispensation", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController")->middleware('auth');

@@ -221,19 +221,20 @@ class LetterProcessActController extends Controller
                     'approval_admin' => "rejected",
                 ]);
             
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-                'category' => 'tolak',
-                'created_at' => now(),
-            ];
-        
-            DB::table('logs')->insert($log);
-            // selesai
-        
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'tolak',
+                    'created_at' => now(),
+                ];
+            
+                DB::table('logs')->insert($log);
+                // selesai
+            
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
             }
+            
             $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'process_address' => 'required',
@@ -265,26 +266,26 @@ class LetterProcessActController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
-                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
-                $data->update([
-                    'updated_by' =>Auth::user()->id,
-                    'approval_rt' => "rejected",
-                ]);
+                    $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
+                    $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                    $data->update([
+                        'updated_by' =>Auth::user()->id,
+                        'approval_rt' => "rejected",
+                    ]);
+                
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'tolak',
+                    'created_at' => now(),
+                ];
             
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-                'category' => 'tolak',
-                'created_at' => now(),
-            ];
-        
-            DB::table('logs')->insert($log);
-            // selesai
-        
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
-        }
+                DB::table('logs')->insert($log);
+                // selesai
+            
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
         }
     }
 
