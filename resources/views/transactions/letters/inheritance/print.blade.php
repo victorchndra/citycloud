@@ -81,6 +81,28 @@
         </table>
 
         <div style="line-height: 1; margin-top: 10px;">
+            <table align="center" width="540"  style="border: 1px solid black; border-collapse: collapse;">
+            <tr >
+                <th style="border: 1px solid black; border-collapse: collapse;"><center>#</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse;"><center>NAMA</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse;" width="300px"><center>TANGGAL LAHIR</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse;"><center>JENIS KELAMIN</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse;"><center>HUBUNGAN KELUARGA</center></th>
+            <tr>
+            @foreach($families as $key => $family)
+            <tr>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$loop->iteration}}</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->name}}</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{!!$family->date_birth!!}</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->gender}}</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->family_status}}</center></td>
+            <tr>
+            @endforeach
+            </table>
+        </div>
+        
+
+        <div style="line-height: 1; margin-top: 10px;">
             <table align="center" width="540">
                 <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
