@@ -816,6 +816,46 @@ class LetterController extends Controller
 
             return view('transactions.letters.street.print',compact('data','informations'));
         }
+
+        // show surat jual beli tanah
+        if(LetterLandTransaction::where('uuid', $uuid)->exists()) {
+
+            $data = LetterLandTransaction::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data Surat Keterangan Jual Beli Tanah<strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.landtransaction.print',compact('data','informations'));
+        }
+
+        //surat remove citizen
+        if(LetterRemoveCitizen::where('uuid', $uuid)->exists()) {
+
+            $data = LetterRemoveCitizen::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data Surat Keterangan Penghapusan Biodata Penduduk<strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.removecitizen.print',compact('data','informations'));
+        }
     }
 
     public function edit($uuid, Request $request)
