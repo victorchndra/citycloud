@@ -14,7 +14,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ahli Waris/li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ahli Waris</li>
                     </ol>
                 </nav>
             </div>
