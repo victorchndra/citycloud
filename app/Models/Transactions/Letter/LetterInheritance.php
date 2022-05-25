@@ -89,6 +89,32 @@ class LetterInheritance extends Model
             set: fn ($value) => strtolower($value),
         );
     }
+
+    public function letterDeathDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterDeathLoc(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterGraveLoc(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+
     
     public function letterDate(): Attribute
     {

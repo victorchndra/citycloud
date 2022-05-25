@@ -78,28 +78,7 @@
                     {{ $informations->district_name }}, dengan ini menerangkan bahwa :
                 </td>
             </tr>
-        </table>
-
-        <div style="line-height: 1; margin-top: 10px;">
-            <table align="center" width="540"  style="border: 1px solid black; border-collapse: collapse;">
-            <tr >
-                <th style="border: 1px solid black; border-collapse: collapse;"><center>#</center></th>
-                <th style="border: 1px solid black; border-collapse: collapse;"><center>NAMA</center></th>
-                <th style="border: 1px solid black; border-collapse: collapse;" width="300px"><center>TANGGAL LAHIR</center></th>
-                <th style="border: 1px solid black; border-collapse: collapse;"><center>JENIS KELAMIN</center></th>
-                <th style="border: 1px solid black; border-collapse: collapse;"><center>HUBUNGAN KELUARGA</center></th>
-            <tr>
-            @foreach($families as $key => $family)
-            <tr>
-                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$loop->iteration}}</center></td>
-                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->name}}</center></td>
-                <td style="border: 1px solid black; border-collapse: collapse;"><center>{!!$family->date_birth!!}</center></td>
-                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->gender}}</center></td>
-                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->family_status}}</center></td>
-            <tr>
-            @endforeach
-            </table>
-        </div>
+        </table>        
         
 
         <div style="line-height: 1; margin-top: 10px;">
@@ -149,26 +128,47 @@
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah Benar Lahir di <b>
-                        Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang mana
-                    merupakan anak dari salah satu seorang warga kami yang tinggal di <b> Desa
-                        {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}</b>
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Adalah benar Penduduk <b>
+                        Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}, Kecamatan {{ $informations->sub_district_name }}, Kota
+                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> dan sudah meninggal pada tanggal <b> {{ $data->letter_death_date }}</b> di <b>{{ $data->letter_death_loc }}</b> dan telah dikebumikan di <b>{{ $data->letter_grave_loc }}</b>. Selanjutnya, diterangkan bahwa daftar nama berikut merupakan ahli waris yang sah dari Almarhum <b>{{ $data->name }}</b> dan kami bertanggung jawab atas pernyataan ini.
                 </td>
             </tr>
 
 
         </table>
 
+        <div style="line-height: 1; margin-top: 10px;">
+            <table align="center" width="540"  style="border: 1px solid black; border-collapse: collapse;">
+            <tr >
+                <th style="border: 1px solid black; border-collapse: collapse; width:1cm"><center>No</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse; width:10cm"><center>NAMA</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse;" width="300px"><center>TANGGAL LAHIR</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse; width:3cm"><center>JENIS KELAMIN</center></th>
+                <th style="border: 1px solid black; border-collapse: collapse; width:4cm"><center>HUBUNGAN KELUARGA</center></th>
+            <tr>
+            @foreach($families as $key => $family)
+            <tr>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$loop->iteration}}.</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{$family->name}}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{!!$family->date_birth!!}</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->gender}}</center></td>
+                <td style="border: 1px solid black; border-collapse: collapse;"><center>{{$family->family_status}}</center></td>
+            <tr>
+            @endforeach
+            </table>
+        </div>
+        <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
                 <td class="justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
+                    Demikianlah {{ $data->letter_name }} ini kami buat dan kami berikan kepada yang bersangkutan untuk dapat dipergunakan sebagaimana mestinya.
                 </td>
             </tr>
         </table>
+
+        
 
 
         <div style="margin-bttom:10px; overflow:auto;">
