@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Izin Membangun Bangunan</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Izin Membangun Bangunan you can use</p>
+                <h3>Surat Keterangan Pindah</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Izin Membangun Bangunan</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pindah</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Izin Membangun Bangunan</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Pindah</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-building" method="POST">
+                            <form class="form form-horizontal" action="/letters-move" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -57,32 +57,12 @@
                                             </select>
                                             </select>
                                         </div>
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Pembangunan</label>
-                                            <input type="text" name="place_build" id="place_build"
-                                                class="form-control @error('place_build') is-invalid @enderror"
-                                                placeholder="Lokasi Pembangunan">
-                                        </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Bangunan Digunakan Sebagai</label>
-                                            <input type="text" name="use_build" id="use_build"
-                                                class="form-control @error('use_build') is-invalid @enderror"
-                                                placeholder="Bangunan Digunakan Sebagai">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Pemilik Bangunan</label>
-                                            <input type="text" name="building_owner" id="building_owner"
-                                                class="form-control @error('building_owner') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Bukti Penguasaan Tanah</label>
-                                            <input type="text" name="proof_mastery" id="proof_mastery"
-                                                class="form-control @error('proof_mastery') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
+                                        <div class="col-md-12 form-group">
+                                            <label>Pindah ke -</label>
+                                            <input type="text" name="move_to"
+                                                class="form-control @error('move_to') is-invalid @enderror"
+                                                placeholder="Alamat Sekarang">
                                         </div>
                                         
                                         <div class="col-md-12 form-group">
@@ -137,7 +117,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-holiday" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -161,29 +141,33 @@
                                             </select>
                                         </div>
 
-
                                         <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
+                                            <label>Mulai</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Tanggal Mulai Cuti">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
+                                            <label>Hingga</label>
+                                            <input type="date" name="end_date"
+                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="Tanggal Akhir Cuti">
                                         </div>
 
+                                        <div class="col-md-12 form-group">
+                                            <label>Alamat Selama Cuti</label>
+                                            <input type="text" name="address_letter"
+                                                class="form-control @error('address_letter') is-invalid @enderror"
+                                                placeholder="Alamat Selama Cuti">
+                                        </div>
+                                        
+                                        {{-- <div class="col-md-12 form-group">
+                                            <label>Cuti Selama</label>
+                                            <input type="text" name="day"
+                                                class="form-control @error('day') is-invalid @enderror"
+                                                placeholder="Cuti Selama">
+                                        </div> --}}
                                       
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

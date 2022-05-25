@@ -6,9 +6,9 @@
         <title>{{ $informations->village_name }}</title>
         <meta name="description" content="">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        
+
         <link rel="stylesheet" href="">
-        
+
         <style type="text/css">
              @page {
                 size: Legal
@@ -41,16 +41,16 @@
             page-break-after: always;
             }
         </style>
-       
+
     </head>
     <body class="Legal">
     <section class="pagebreak">
         <center>
         <img src="{{ asset('/storage/'. $informations->header)}}" class="img-fluid" width="700">
         </center>
-        
+
         <hr style="border: 2px solid black;">
-        
+
         <div style="line-height: 1;">
             <table align="center" width="460" border="1px">
                 <tr>
@@ -73,20 +73,15 @@
             </td>
         </tr>
     </table>
-    
+
     <div style="line-height: 1; margin-top: 10px;">
         <table align="center" width="540">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
                 <td width="2">: </td>
                 <td>
                     <font style="font-weight: bold; ">{{$data->name}}</font>
                 </td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
-                <td width="2">: </td>
-                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
@@ -94,9 +89,20 @@
                 <td>{{ $data->nik }}</td>
             </tr>
             <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
+                <td width="2">: </td>
+                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+            </tr>
+            <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
                 <td width="2">: </td>
                 <td>{{ $data->gender }}</td>
+            </tr>
+
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                <td width="2">: </td>
+                <td>{{ $data->job }}</td>
             </tr>
 
             <tr>
@@ -106,10 +112,11 @@
             </tr>
 
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Warga Negara</td>
                 <td width="2">: </td>
-                <td>{{ $data->job }}</td>
+                <td>{{ $data->citizen_status }}</td>
             </tr>
+
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                 <td width="2">: </td>
@@ -119,47 +126,57 @@
     </div>
 
 
-    
-            <br>
-            <table align="center" width="600" style="line-height: 1.5;">
+    <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                Adalah penduduk yang berdomisili di wilayah kami yaitu di Lingkungan RT.003
-                RW.001 Desa. Bagan Tujuh Kecamatan. Kunto Darussalam Kabupaten. Rokan Hulu
-                Provinsi Riau Surat ini dibuat dan diberikan atas permintaan yang bersangkutan diatas
-                untuk <b>{{$data->request}}</b>
-                <br>
-               <p> Demikian Surat Keterangan Permohonan NPWP ini dibuat dengan sebenarnya dan
-diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.</p>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Orang tersebut menurut laporan RT/RW setempat sesuai dengan data yang ada pada kami adalah benar warga kami yang berdomisili di alamat tersebut diatas, dengan ini
             </td>
         </tr>
     </table>
-   
- 
+    <table align="center" width="540" style="line-height: 1.5;">
+        <tr>
+            <td width="180"><span style="display:inline-block; width: 35 px;"></span>Memohon</td>
+            <td width="2">: </td>
+            <td><b>{{ ucfirst(trans($data->letter_name)) }}</b></td>
+        </tr>
+        <tr>
+            <td width="180"><span style="display:inline-block; width: 35 px;"></span>Untuk Kepentingan</td>
+            <td width="2">: </td>
+            <td><b>{{ ucfirst(trans($data->used_for)) }}</b></td>
+        </tr>
+    </table>
+    <table align="center" width="600" style="line-height: 1.5;">
+        <tr>
+            <td class="justify">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dikarenakan ada kesalahan pada {{ strtoupper($data->mistake_loc) }} yang mana tercantum nama {{ $data->old_name }} sedangkan dalam {{ strtoupper($data->valid_loc) }} tercantum nama {{ $data->new_name }}. Data yang benar adalah data yang tercantum pada {{ $data->valid_loc }} dan data yang tercantum merupakan orang yang sama.
+            </td>
+        </tr>
+    </table>
+
+
     <div style="margin-bttom:10px; overflow:auto;">
-        <table align="right" width="320" border="1px" >
-            <tr>
-                <td  width="">Dikeluarkan di </td>
-                <td width="10 px">: </td>
-                <td width=""; > {{ $informations->village_name }} </td>
-                 <td></td> 
-              
-            </tr>
-            <tr>
-                <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
-                <td style=" border-bottom: 1px solid #000;">: </td>
-                <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
-                 <td></td>
-            </tr>
-        </table>
-</div>
+            <table align="right" width="320" border="1px" >
+                <tr>
+                    <td  width="">Dikeluarkan </td>
+                    <td width="10 px">: </td>
+                    <td width=""; > {{ $informations->village_name }} </td>
+                     <td></td>
+
+                </tr>
+                <tr>
+                    <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
+                    <td style=" border-bottom: 1px solid #000;">: </td>
+                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+                     <td></td>
+                </tr>
+            </table>
+    </div>
 
 
         @if ( $data->user->position == 'Kepala Desa')
         <table align="right" width="400" border="1px">
-       
-       
+
+
         @if ( $data->signature == 'wet')
             <tr class="spaceUnder">
                 <td width=""> </td>
@@ -172,10 +189,10 @@ diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perluny
                 <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
             </td>
             <tr>
-            
+
                 <td> </td>
                 <td > <center> <img src="{{ asset('/storage/'. $informations->signature)}}" class="img-fluid" width="100"></center>
-               
+
             </tr>
             @endif
             <tr>
@@ -187,22 +204,22 @@ diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perluny
         <table align="right" width="400" border="1px">
             <tr class="spaceUnder">
                 <td width=""> </td>
-                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR> 
+                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR>
                     {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-            
+
             </td>
             <tr>
                 <td width=""> </td>
                 <td > <center><u><b> {{$data->user->front_title}}   {{strtoupper($data->user->name)}}  {{$data->user->back_title}}  </b></u></center></td>
             </tr>
-           
+
         </table>
         @endif
 
 
         <div style="margin-top:-50px; margin-left:70px;" class="right">
-                
-        {!! QrCode::size(100)->generate('Dokumen sah Desa '. $informations->village_name. ' Hari/Tanggal '. $data->letter_date. ' Untuk Keperluan '. $data->letter_name. '-'. $data->name); !!} 
+
+        {!! QrCode::size(100)->generate('Dokumen sah Desa '. $informations->village_name. ' Hari/Tanggal '. $data->letter_date. ' Untuk Keperluan '. $data->letter_name. '-'. $data->name); !!}
 
                 </div>
             </div>
@@ -226,16 +243,16 @@ document.onkeydown = function (event) {
     return keyFunction(event);
 }
 
-//Disable right click script 
-var message="Sorry, right-click has been disabled"; 
+//Disable right click script
+var message="Sorry, right-click has been disabled";
 
-function clickIE() {if (document.all) {(message);return false;}} 
-function clickNS(e) {if 
-(document.layers||(document.getElementById&&!document.all)) { 
-if (e.which==2||e.which==3) {(message);return false;}}} 
-if (document.layers) 
-{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;} 
-else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;} 
+function clickIE() {if (document.all) {(message);return false;}}
+function clickNS(e) {if
+(document.layers||(document.getElementById&&!document.all)) {
+if (e.which==2||e.which==3) {(message);return false;}}}
+if (document.layers)
+{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;}
+else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;}
 document.oncontextmenu=new Function("return false")
 
 function keyFunction(event){

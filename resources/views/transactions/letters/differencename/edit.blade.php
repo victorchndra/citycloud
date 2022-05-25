@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-collegedispensation/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-difference-name/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -57,79 +57,44 @@
                                             </select>
                                         </div>
 
-                                        {{-- start --}}
-
-                                        <div class="col-md-7 form-group">
-                                            <label>Surat Ditujukan Kepada</label>
-                                            <input type="text" name="receiver"
-                                                class="form-control @error('receiver') is-invalid @enderror"
-                                                placeholder="Nama Penerima" value="{{ old('receiver', $c->receiver) }}">
+                                        <div class="col-md-6 form-group">
+                                            <label>Nama Salah</label>
+                                            <input type="text" name="old_name"
+                                                class="form-control @error('old_name') is-invalid @enderror"
+                                                placeholder="Tanggal Lahir Lama" value="{{ old('old_name', $c->old_name) }}">
                                         </div>
-
-                                        <div class="col-md-5 form-group">
-                                            <label>Perguruan Tinggi</label>
-                                            <input type="text" name="college"
-                                                class="form-control @error('college') is-invalid @enderror"
-                                                placeholder="Nama Perguruan Tinggi" value="{{ old('college', $c->college) }}">
+                                        <div class="col-md-6 form-group">
+                                            <label>Letak Salah</label>
+                                            <input type="text" name="mistake_loc"
+                                                class="form-control @error('mistake_loc') is-invalid @enderror"
+                                                placeholder="(cth : Buku Nikah / ...)" value="{{ old('mistake_loc', $c->mistake_loc) }}">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>NIM</label>
-                                            <input type="text" name="nim"
-                                                class="form-control @error('nim') is-invalid @enderror"
-                                                placeholder="NIM" value="{{ old('nim', $c->nim) }}">
+                                            <label>Nama Benar</label>
+                                            <input type="text" name="new_name"
+                                                class="form-control @error('new_name') is-invalid @enderror"
+                                                placeholder="Tanggal Lahir Baru" value="{{ old('new_name', $c->old_name) }}">
                                         </div>
-
                                         <div class="col-md-6 form-group">
-                                            <label>Jurusan</label>
-                                            <input type="text" name="major"
-                                                class="form-control @error('major') is-invalid @enderror"
-                                                placeholder="Jurusan" value="{{ old('major', $c->major) }}">
+                                            <label>Letak Benar</label>
+                                            <input type="text" name="valid_loc"
+                                                class="form-control @error('valid_loc') is-invalid @enderror"
+                                                placeholder="(cth: KTP / KK / ...)" value="{{ old('valid_loc', $c->valid_loc) }}">
                                         </div>
 
-                                        <div class="col-md-2 form-group">
-                                            <label>Semester</label>
-                                            <input type="number" name="semester"
-                                                class="form-control @error('semester') is-invalid @enderror"
-                                                placeholder="0" value="{{ old('semester', $c->semester) }}">
+                                        <div class="col-md-12 form-group">
+                                            <label>Untuk Kepentingan</label>
+                                            <input type="text" name="used_for"
+                                                class="form-control @error('used_for') is-invalid @enderror"
+                                                placeholder="Kepentingan Surat" value="{{ old('used_for', $c->used_for) }}">
                                         </div>
 
-                                        <div class="col-md-2 form-group">
-                                            <label>Pembayaran tahap ke</label>
-                                            <input type="number" name="stage"
-                                                class="form-control @error('stage') is-invalid @enderror"
-                                                placeholder="0" value="{{ old('stage', $c->stage) }}">
-                                        </div>
-
-                                        <div class="col-md-2 form-group">
-                                            <label>Tahun Ajaran</label>
-                                            <input type="text" name="academic_year"
-                                                class="form-control @error('academic_year') is-invalid @enderror"
-                                                placeholder="(cth : 2022/2023)" value="{{ old('academic_year', $c->academic_year) }}">
-                                        </div>
-
-                                        <div class="col-md-3 form-group">
-                                            <label>Nominal Pembayaran</label>
-                                            <input type="number" name="nominal"
-                                                class="form-control @error('nominal') is-invalid @enderror"
-                                                placeholder="(cth : Rp 1500000)" value="{{ old('nominal', $c->nominal) }}">
-                                        </div>
-
-                                        <div class="col-md-3 form-group">
-                                            <label>Waktu Pembayaran</label>
-                                            <select class="form-control select2" name="pay_month" style="width: 100%;" required>
-                                                <option value="Januari" @if(!empty($c) && $c->pay_month =='Januari'){{ 'selected' }}@endif>Januari</option>
-                                                <option value="Februari" @if(!empty($c) && $c->pay_month =='Februari'){{ 'selected' }}@endif>Februari</option>
-                                                <option value="Maret" @if(!empty($c) && $c->pay_month =='Maret'){{ 'selected' }}@endif>Maret</option>
-                                                <option value="April" @if(!empty($c) && $c->pay_month =='April'){{ 'selected' }}@endif>April</option>
-                                                <option value="Mei" @if(!empty($c) && $c->pay_month =='Mei'){{ 'selected' }}@endif>Mei</option>
-                                                <option value="Juni" @if(!empty($c) && $c->pay_month =='Juni'){{ 'selected' }}@endif>Juni</option>
-                                                <option value="Juli" @if(!empty($c) && $c->pay_month =='Juli'){{ 'selected' }}@endif>Juli</option>
-                                                <option value="Agustus" @if(!empty($c) && $c->pay_month =='Agustus'){{ 'selected' }}@endif>Agustus</option>
-                                                <option value="September" @if(!empty($c) && $c->pay_month =='September'){{ 'selected' }}@endif>September</option>
-                                                <option value="Oktober" @if(!empty($c) && $c->pay_month =='Oktober'){{ 'selected' }}@endif>Oktober</option>
-                                                <option value="November" @if(!empty($c) && $c->pay_month =='November'){{ 'selected' }}@endif>November</option>
-                                                <option value="Desember" @if(!empty($c) && $c->pay_month =='Desember'){{ 'selected' }}@endif>Desember</option>
+                                        <div class="col-md-12 form-group">
+                                            <label>Warga Negara</label>
+                                            <select id="citizenStatus" class="form-control select2" name="citizen_status" style="width: 100%;" required>
+                                                <option value="WNI">WNI</option>
+                                                <option value="WNA">WNA</option>
                                             </select>
                                         </div>
 
@@ -137,8 +102,6 @@
                                             <label>Tgl Surat</label>
                                             <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{$c->letter_date}}">
                                         </div>
-
-
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

@@ -10,9 +10,9 @@ use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterRemoveCitizen;
+use App\Models\Transactions\Letter\LetterDifferenceName;
 
-class LetterRemoveCitizenController extends Controller
+class LetterDifferenceNameController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class LetterRemoveCitizenController extends Controller
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.removecitizen.form', compact('citizen','informations','position'));
+        return view('transactions.letters.differencename.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -49,12 +49,18 @@ class LetterRemoveCitizenController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'old_name' => 'required',
+                'mistake_loc' => 'required',
+                'new_name' => 'required',
+                'valid_loc' => 'required',
+                'used_for' => 'required|min:10',
+                'citizen_status' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan penghapusan biodata penduduk";
+            $validatedData['letter_name']     = "surat keterangan beda nama";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -91,7 +97,7 @@ class LetterRemoveCitizenController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan penghapusan biodata penduduk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan beda nama <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -99,20 +105,25 @@ class LetterRemoveCitizenController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterRemoveCitizen::create($validatedData);
+            LetterDifferenceName::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
-        }else{
-
-               $validatedData = $request->validate([
+        } else {
+            $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'old_name' => 'required',
+                'mistake_loc' => 'required',
+                'new_name' => 'required',
+                'valid_loc' => 'required',
+                'used_for' => 'required|min:10',
+                'citizen_status' => 'required',
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan penghapusan biodata penduduk";
+            $validatedData['letter_name']     = "surat keterangan beda nama";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['kk'] = $citizen->kk;
@@ -148,7 +159,7 @@ class LetterRemoveCitizenController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan penghapusan biodata penduduk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan beda nama <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -156,7 +167,7 @@ class LetterRemoveCitizenController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterRemoveCitizen::create($validatedData);
+            LetterDifferenceName::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
         }
@@ -196,6 +207,12 @@ class LetterRemoveCitizenController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'old_name' => 'required',
+                'mistake_loc' => 'required',
+                'new_name' => 'required',
+                'valid_loc' => 'required',
+                'used_for' => 'required|min:10',
+                'citizen_status' => 'required',
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
@@ -207,14 +224,14 @@ class LetterRemoveCitizenController extends Controller
             if ($validatedData) {
 
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterRemoveCitizen::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterDifferenceName::where('uuid', $uuid)->first()->update($validatedData);
             }
 
-            $data = LetterRemoveCitizen::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterDifferenceName::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat keterangan penghapusan biodata penduduk <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Beda Nama <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -222,7 +239,6 @@ class LetterRemoveCitizenController extends Controller
             DB::table('logs')->insert($log);
 
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
-
         }
     }
 

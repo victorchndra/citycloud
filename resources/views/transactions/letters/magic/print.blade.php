@@ -89,22 +89,15 @@
                 <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
-                <td width="2">: </td>
-                <td>{{ $data->nik }}</td>
-            </tr>
-            <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
                 <td width="2">: </td>
                 <td>{{ $data->gender }}</td>
             </tr>
-
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
                 <td width="2">: </td>
                 <td>{{ $data->religion }}</td>
             </tr>
-
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
                 <td width="2">: </td>
@@ -115,6 +108,11 @@
                 <td width="2">: </td>
                 <td>{{ $data->address }}</td>
             </tr>
+            
+
+           
+
+            
         </table>
     </div>
 
@@ -125,13 +123,14 @@
         <tr>
             <td class="justify">
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                Adalah penduduk yang berdomisili di wilayah kami yaitu di Lingkungan RT.003
-                RW.001 Desa. Bagan Tujuh Kecamatan. Kunto Darussalam Kabupaten. Rokan Hulu
-                Provinsi Riau Surat ini dibuat dan diberikan atas permintaan yang bersangkutan diatas
-                untuk <b>{{$data->request}}</b>
-                <br>
-               <p> Demikian Surat Keterangan Permohonan NPWP ini dibuat dengan sebenarnya dan
-diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.</p>
+                Bahwa nama tersebut diatas benar adalah penduduk Desa Aliantan Kecamatan 
+                Kabun Kabupaten Rokan Hulu, telah Menikah dengan seorang 
+                {{$data->coupleUser->gender}}
+                yang bernama
+ <b>{{$data->coupleUser->name}}</b> pada tanggal {{ \Carbon\Carbon::parse($data->date_marriage)->translatedFormat('d M Y') }} dan telah dikaruniai {{$data->children}} orang anak.
+            <p>Akan tetapi sejak tanggal {{ \Carbon\Carbon::parse($data->date_gone)->translatedFormat('d M Y') }} sampai Sekarang nama tersebut diatas
+                telah pergi meninggalkan istrinya serta tidak pernah kembali lagi dan sampai sekarang ini
+                tidak diketahui dimana tempat tinggalnya.</p>
             </td>
         </tr>
     </table>

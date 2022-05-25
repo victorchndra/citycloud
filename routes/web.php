@@ -210,8 +210,22 @@ Route::get("approve/crowd-letters/{uid}", "App\Http\Controllers\Transactions\Let
 // Letter tax
 Route::resource("letters-tax", "App\Http\Controllers\Transactions\Letter\LetterTaxController")->middleware('auth');
 Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterTaxController@approve")->name('auth');
+
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
+Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Surat Keterangan Ghoib
+Route::resource("letters-magic", "App\Http\Controllers\Transactions\Letter\LetterMagicController")->middleware('auth');
+Route::get("approve/magic-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMagicController@approve")->name('auth');
+
+// Surat keterangan Hilang
+Route::resource("letters-missing", "App\Http\Controllers\Transactions\Letter\LetterMissingController")->middleware('auth');
+Route::get("approve/missing-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMissingController@approve")->name('auth');
+
+// Surat Keterangan Pindah
+Route::resource("letters-move", "App\Http\Controllers\Transactions\Letter\LetterMoveController")->middleware('auth');
+Route::get("approve/move-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMoveController@approve")->name('auth');
 Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
 
 // Surat Keterangan Dispensasi SPP kuliah
@@ -225,3 +239,7 @@ Route::get("approve/landownership-letters/{uid}", "App\Http\Controllers\Transact
 //inheritanceLetter
 Route::resource("letters-inheritance", "App\Http\Controllers\Transactions\Letter\LetterInheritanceController")->middleware('auth');
 Route::get("approve/inheritance-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterInheritanceController@approve")->name('auth');
+
+// Surat Keterangan Beda Nama
+Route::resource("letters-difference-name", "App\Http\Controllers\Transactions\Letter\LetterDifferenceNameController")->middleware('auth');
+Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceNameController@approve")->name('auth');

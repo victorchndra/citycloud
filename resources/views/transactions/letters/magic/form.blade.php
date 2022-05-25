@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Izin Membangun Bangunan</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Izin Membangun Bangunan you can use</p>
+                <h3>Surat Keterangan Ghoib</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Ghoib you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Izin Membangun Bangunan</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ghoib</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Izin Membangun Bangunan</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Ghoib</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-building" method="POST">
+                            <form class="form form-horizontal" action="/letters-magic" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -46,7 +46,7 @@
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                            <label>Pilih Suami</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 <option selected="selected" value="">Ketik Nama atau NIK</option>
@@ -57,33 +57,39 @@
                                             </select>
                                             </select>
                                         </div>
+                                        
+                                        <div class="col-md-12 form-group">
+                                            <label>Pilih Istri</label>
+                                            <select id="citizen_couple_id" class="form-control select2" name="citizen_couple_id"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </select>
+                                        </div>                                        
                                         <div class="col-md-6 form-group">
-                                            <label>Lokasi Pembangunan</label>
-                                            <input type="text" name="place_build" id="place_build"
-                                                class="form-control @error('place_build') is-invalid @enderror"
-                                                placeholder="Lokasi Pembangunan">
+                                            <label>Jumlah Anak</label>
+                                            <input type="text" name="children"
+                                                class="form-control @error('children') is-invalid @enderror"
+                                                placeholder="Jumlah Anak" value="{{ old('children') }}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Menikah</label>
+                                            <input type="date" name="date_marriage"
+                                                class="form-control @error('date_marriage') is-invalid @enderror"
+                                                placeholder="Jumlah Anak" value="{{ old('date_marriage') }}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Sejak Menghilang</label>
+                                            <input type="date" name="date_gone"
+                                                class="form-control @error('date_gone') is-invalid @enderror"
+                                                placeholder="Jumlah Anak" value="{{ old('date_gone') }}">
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Bangunan Digunakan Sebagai</label>
-                                            <input type="text" name="use_build" id="use_build"
-                                                class="form-control @error('use_build') is-invalid @enderror"
-                                                placeholder="Bangunan Digunakan Sebagai">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Pemilik Bangunan</label>
-                                            <input type="text" name="building_owner" id="building_owner"
-                                                class="form-control @error('building_owner') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Bukti Penguasaan Tanah</label>
-                                            <input type="text" name="proof_mastery" id="proof_mastery"
-                                                class="form-control @error('proof_mastery') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
-                                        </div>
+                                      
                                         
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
@@ -154,11 +160,25 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-                                              
+
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-                                  
+
                                             </select>
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Age</label>
+                                            <input type="text" name="age_letter"
+                                                class="form-control @error('age_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Job</label>
+                                            <input type="text" name="job_letter"
+                                                class="form-control @error('job_letter') is-invalid @enderror"
+                                                placeholder="Umur Anda">
                                         </div>
 
 
@@ -184,7 +204,7 @@
                                             </select>
                                         </div>
 
-                                      
+
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -201,7 +221,7 @@
                                             </div>
                                         </div>
 
-                                      
+
                                     </div>
 
                                     </div>

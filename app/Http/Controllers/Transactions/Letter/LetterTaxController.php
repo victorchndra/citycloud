@@ -320,7 +320,7 @@ class LetterTaxController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat keterangan pensiun <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat NPWP <strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];

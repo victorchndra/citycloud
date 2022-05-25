@@ -145,19 +145,22 @@
    
  
     <div style="margin-bttom:10px; overflow:auto;">
-            <table align="right" width="320" border="1px" >
-                <tr>
-                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $informations->village_name }} {{$data->letter_date}}</td>
-                   
-                     <td></td> 
-                  
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yang Membuat Pernyataan</td>
-                </tr>
-                
-            </table>
-    </div>
+        <table align="right" width="320" border="1px" >
+            <tr>
+                <td  width="">Dikeluarkan di </td>
+                <td width="10 px">: </td>
+                <td width=""; > {{ $informations->village_name }} </td>
+                 <td></td> 
+              
+            </tr>
+            <tr>
+                <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
+                <td style=" border-bottom: 1px solid #000;">: </td>
+                <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+                 <td></td>
+            </tr>
+        </table>
+</div>
 
 
         @if ( $data->user->position == 'Kepala Desa')

@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Permohonan Cuti Tahunan</h3>
+                    <h3>Surat Keterangan Hilang</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Permohonan Cuti Tahunan</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Hilang</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,12 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Permohonan Cuti Tahunan</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Hilang</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-holiday/{{ $c->uuid }}"
+                                    <form class="form-sample" action="/letters-missing/{{ $c->uuid }}"
                                         method="POST">
                                         @method('put')
                                         @csrf
@@ -59,48 +59,51 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-6 form-group">
-                                                    <label>Dari</label>
+                                                <div class="col-md-12 form-group">
+                                                    <label>Barang Hilang</label>
+                                                    
+                                                    <input type="text" name="missing_item"
+                                                    class="form-control @error('missing_item') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->missing_item }}" />
 
-                                                    <input type="date" name="start_date"
-                                                        class="form-control @error('start_date') is-invalid @enderror"
-                                                        placeholder="cth: 01/01/2022" required
-                                                        value="{{ old('start_date', $c->start_date) }}" />
-                                                    @error('start_date')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
+                                                    @error('missing_item')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label>Atas Nama</label>
+                                                    
+                                                    <input type="text" name="on_behalf"
+                                                    class="form-control @error('on_behalf') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->on_behalf }}" />
+
+                                                    @error('on_behalf')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label>Status</label>
+                                                    
+                                                    <input type="text" name="status"
+                                                    class="form-control @error('status') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->status }}" />
+
+                                                    @error('status')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
                                                 
-                                                <div class="col-md-6 form-group">
-                                                    <label>Hingga</label>
-
-                                                    <input type="date" name="end_date"
-                                                        class="form-control @error('end_date') is-invalid @enderror"
-                                                        placeholder="cth: 01/01/2022" required
-                                                        value="{{ old('end_date', $c->end_date) }}" />
-                                                    @error('end_date')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="col-md-6 form-group">
-                                                    <label>Alamat Selama Cuti</label>
-
-                                                    <input type="text" name="address_letter"
-                                                        class="form-control @error('address_letter') is-invalid @enderror"
-                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
-                                                        value="{{ old('address_letter', $c->address_letter) }}" />
-                                                    @error('address_letter')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
                                                 <div class="col-md-12 form-group">
                                                     <label>Tanggal Surat</label>
                                                     

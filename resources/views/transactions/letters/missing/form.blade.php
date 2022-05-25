@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Izin Membangun Bangunan</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Izin Membangun Bangunan you can use</p>
+                <h3>Surat Keterangan Hilang</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Izin Membangun Bangunan</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Hilang</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Izin Membangun Bangunan</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Hilang</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-building" method="POST">
+                            <form class="form form-horizontal" action="/letters-missing" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -57,34 +57,40 @@
                                             </select>
                                             </select>
                                         </div>
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Pembangunan</label>
-                                            <input type="text" name="place_build" id="place_build"
-                                                class="form-control @error('place_build') is-invalid @enderror"
-                                                placeholder="Lokasi Pembangunan">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Bangunan Digunakan Sebagai</label>
-                                            <input type="text" name="use_build" id="use_build"
-                                                class="form-control @error('use_build') is-invalid @enderror"
-                                                placeholder="Bangunan Digunakan Sebagai">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Pemilik Bangunan</label>
-                                            <input type="text" name="building_owner" id="building_owner"
-                                                class="form-control @error('building_owner') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Bukti Penguasaan Tanah</label>
-                                            <input type="text" name="proof_mastery" id="proof_mastery"
-                                                class="form-control @error('proof_mastery') is-invalid @enderror"
-                                                placeholder="Isi Bagian Kosong">
+                                        
+                                        <div class="col-md-12 form-group">
+                                            <label>Barang hilang</label>
+                                            <input type="text" name="missing_item" class="form-control @error('missing_item') is-invalid @enderror" placeholder="cth : Surat Tanah" required value="{{ old('missing_item') }}"/>
+                                            @error('missing_item')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
                                         
+                                        <div class="col-md-6 form-group">
+                                            <label>Atas Nama</label>
+                                            <select id="on_behalf" class="form-control select2" name="on_behalf"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->name }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Status</label>
+                                            <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" placeholder="cth : Keluarga" required value="{{ old('status') }}"/>
+                                                @error('status')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
+
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -137,7 +143,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-noact" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -160,30 +166,6 @@
                                             </select>
                                             </select>
                                         </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
-
                                       
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

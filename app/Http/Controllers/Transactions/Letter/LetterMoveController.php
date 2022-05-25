@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers\Transactions\Letter;
 
-use App\Models\User;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterRemoveCitizen;
+use Illuminate\Http\Request;
 
-class LetterRemoveCitizenController extends Controller
+
+//panggil auth
+use Illuminate\Support\Facades\Auth;
+
+//panggilramseyuuid
+use Ramsey\Uuid\Uuid;
+//calldb
+use Illuminate\Support\Facades\DB;
+
+//callmodel
+use App\Models\Transactions\Citizens;
+use App\Models\Transactions\Letter\LetterMove;
+use App\Models\Masters\Information;
+use App\Models\User;
+use Carbon\Carbon;
+use QrCode;
+
+
+class LetterMoveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,8 +45,8 @@ class LetterRemoveCitizenController extends Controller
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-
-        return view('transactions.letters.removecitizen.form', compact('citizen','informations','position'));
+        
+        return view('transactions.letters.move.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -47,17 +58,22 @@ class LetterRemoveCitizenController extends Controller
     public function store(Request $request)
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+
+            
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'move_to' => 'required',
             ]);
+            
+            // $jarak = $validatedData['end_date']->diff($validatedData['start_date']);
+            // $validatedData['day'] = $jarak->d;
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-
-            $validatedData['letter_name']     = "surat keterangan penghapusan biodata penduduk";
+    
+            $validatedData['letter_name']     = "surat keterangan pindah";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
-            $validatedData['kk'] = $citizen->kk;
             $validatedData['name'] = $citizen->name;
             $validatedData['gender'] = $citizen->gender;
             $validatedData['place_birth'] = $citizen->place_birth;
@@ -73,56 +89,57 @@ class LetterRemoveCitizenController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
+            $validatedData['kk'] = $citizen->kk;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-
+    
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
-
-
+    
+    
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "approved";
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
-
+    
+    
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan penghapusan biodata penduduk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan pindah <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
             // selesai
-
-            LetterRemoveCitizen::create($validatedData);
-
+    
+            LetterMove::create($validatedData);
+    
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
         }else{
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'move_to' => 'required',
             ]);
-
+    
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-
-            $validatedData['letter_name']     = "surat keterangan penghapusan biodata penduduk";
+    
+            $validatedData['letter_name']     = "surat keterangan pindah";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
-            $validatedData['kk'] = $citizen->kk;
             $validatedData['name'] = $citizen->name;
             $validatedData['gender'] = $citizen->gender;
             $validatedData['place_birth'] = $citizen->place_birth;
             $validatedData['date_birth'] = $citizen->date_birth;
             $validatedData['religion'] = $citizen->religion;
             $validatedData['job'] = $citizen->job;
-
+            
             $validatedData['address'] =  "Dusun ".$citizen->village_sub.", RT ".$citizen->rt." RW ".$citizen->rw." Desa ".$citizen->village;
             $validatedData['village_sub'] = $citizen->village_sub;
             $validatedData['rt'] = $citizen->rt;
@@ -131,35 +148,39 @@ class LetterRemoveCitizenController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
-
+            $validatedData['kk'] = $citizen->kk;
+           
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
-
+    
             $validatedData['letter_date']   = date('Y-m-d');
             $validatedData['valid_until']   = date('Y-m-d');
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "waiting";
-
+    
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-
-
+    
+    
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan penghapusan biodata penduduk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data keterangan hilang <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
             // selesai
-
-            LetterRemoveCitizen::create($validatedData);
-
+    
+            LetterMove::create($validatedData);
+    
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
+
+
         }
+       
     }
 
     /**
@@ -194,37 +215,80 @@ class LetterRemoveCitizenController extends Controller
     public function update(Request $request, $uuid)
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+            if ($request->get('rejected_notes_admin')) {
+                $data = LetterMove::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_admin' => "rejected",
+                ]);
+            
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+        
+            DB::table('logs')->insert($log);
+            // selesai
+        
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'move_to' => 'required',
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-
-
+        
+    
             if ($validatedData) {
-
+    
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterRemoveCitizen::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterMove::where('uuid', $uuid)->first()->update($validatedData);
             }
-
-            $data = LetterRemoveCitizen::get()->where('uuid', $uuid)->firstOrFail();
+    
+            $data = LetterMove::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat keterangan penghapusan biodata penduduk <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat keterangan pindah <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
-
+    
             DB::table('logs')->insert($log);
-
+    
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
-
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterMove::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+            
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+        
+            DB::table('logs')->insert($log);
+            // selesai
+        
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
     }
+}
 
     /**
      * Remove the specified resource from storage.
