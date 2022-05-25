@@ -221,3 +221,7 @@ Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Tr
 //landOwneshipLetter
 Route::resource("letters-landownership", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController")->middleware('auth');
 Route::get("approve/landownership-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterLandOwnershipController@approve")->name('auth');
+
+//inheritanceLetter
+Route::resource("letters-inheritance", "App\Http\Controllers\Transactions\Letter\LetterInheritanceController")->middleware('auth');
+Route::get("approve/inheritance-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterInheritanceController@approve")->name('auth');

@@ -33,8 +33,6 @@ use App\Models\Transactions\Letter\LetterNotBPJS;
 use App\Models\Transactions\Letter\LetterPension;
 use App\Models\Transactions\Letter\LetterBuilding;
 use App\Models\Transactions\Letter\LetterBusiness;
-use App\Models\Transactions\Letter\LetterCollegeDispensation;
-use App\Models\Transactions\Letter\LetterDifferenceBirth;
 use App\Models\Transactions\Letter\LetterDomicile;
 use App\Models\Transactions\Letter\LetterFamilyCard;
 use App\Models\Transactions\Letter\LetterProcessAct;
@@ -42,6 +40,8 @@ use App\Models\Transactions\Letter\LetterNotMarriedYet;
 use App\Models\Transactions\Letter\LetterRecomendation;
 use App\Models\Transactions\Letter\LetterRemoveCitizen;
 use App\Models\Transactions\Letter\LetterSelfQuarantine;
+use App\Models\Transactions\Letter\LetterDifferenceBirth;
+use App\Models\Transactions\Letter\LetterInheritance;
 use App\Models\Transactions\Letter\LetterLandOwnershipCard;
 use App\Models\Transactions\Letter\LetterRecomendationWork;
 
@@ -72,12 +72,12 @@ class LetterController extends Controller
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $lettertax = LetterTax::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $crowd= LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $crowd = LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $landownerletters = LetterLandOwnershipCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($landownerletters);
+            $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($crowd)->concat($inheritanceletters);
 
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
@@ -114,12 +114,13 @@ class LetterController extends Controller
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $lettertax = LetterTax::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $crowd= LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $crowd = LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $landownerletters = LetterLandOwnershipCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($crowd);
+            $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($crowd)->concat($inheritanceletters);
+
             return view('transactions.letters.indexcitizen',  compact('datas'));
         } elseif (Auth::user()->roles == 'headrt') {
             $businessletters = Citizens::join('letter_businesses', 'citizens.id', '=', 'letter_businesses.citizen_id')
@@ -148,13 +149,13 @@ class LetterController extends Controller
             $removecitizenletters = LetterRemoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $selfquarantineletters = LetterSelfQuarantine::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $lettertax = LetterTax::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $crowd= LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $crowd = LetterCrowd::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencebirthletters = LetterDifferenceBirth::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $recomendationwork = LetterRecomendationWork::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $landownerletters = LetterLandOwnershipCard::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($crowd);
+            $datas = $businessletters->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($crowd)->concat($inheritanceletters);
+
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
@@ -216,7 +217,7 @@ class LetterController extends Controller
         }
 
         //Surat cuti tahunan
-        if(LetterHoliday::where('uuid', $uuid)->exists()) {
+        if (LetterHoliday::where('uuid', $uuid)->exists()) {
             $data = LetterHoliday::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -235,7 +236,7 @@ class LetterController extends Controller
         }
 
         //surat belum memiliki akte
-        if(LetterNoAct::where('uuid', $uuid)->exists()) {
+        if (LetterNoAct::where('uuid', $uuid)->exists()) {
             $data = LetterNoAct::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -250,11 +251,11 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.noact.print',compact('data','informations'));
+            return view('transactions.letters.noact.print', compact('data', 'informations'));
         }
 
         //SURAT KETERANGAN AKTE KELAHIRAN DALAM PENGURUSAN
-        if(LetterProcessAct::where('uuid', $uuid)->exists()) {
+        if (LetterProcessAct::where('uuid', $uuid)->exists()) {
             $data = LetterProcessAct::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -269,11 +270,11 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.processact.print',compact('data','informations'));
+            return view('transactions.letters.processact.print', compact('data', 'informations'));
         }
 
         //SURAT KETERANGAN JANDA
-        if(LetterWidow::where('uuid', $uuid)->exists()) {
+        if (LetterWidow::where('uuid', $uuid)->exists()) {
             $data = LetterWidow::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -288,7 +289,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.widow.print',compact('data','informations'));
+            return view('transactions.letters.widow.print', compact('data', 'informations'));
         }
 
         //surat Pensiun
@@ -577,7 +578,7 @@ class LetterController extends Controller
         }
 
         // Surat rekomendasi kerja
-        if(LetterRecomendationWork::where('uuid', $uuid)->exists()) {
+        if (LetterRecomendationWork::where('uuid', $uuid)->exists()) {
             $data = LetterRecomendationWork::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -592,49 +593,11 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.workrecomend.print',compact('data','informations'));
-        }
-
-        // Surat Dispensasi SPP Kuliah
-        if(LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
-            $data = LetterCollegeDispensation::where('uuid', $uuid)->firstOrFail();
-            $informations = Information::first();
-            // tambahkan baris kode ini di setiap controller
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat keterangan dispensasi SPP kuliah <strong>[' . $data->name . ']</strong>',
-                'category' => 'cetak',
-                'created_at' => now(),
-            ];
-
-            DB::table('logs')->insert($log);
-            // selesai
-
-            return view('transactions.letters.collegedispensation.print',compact('data','informations'));
-        }
-
-        // Surat Belum Menikah
-        if(LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
-            $data = LetterNotMarriedYet::where('uuid', $uuid)->firstOrFail();
-            $informations = Information::first();
-            // tambahkan baris kode ini di setiap controller
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat keterangan belum menikah <strong>[' . $data->name . ']</strong>',
-                'category' => 'cetak',
-                'created_at' => now(),
-            ];
-
-            DB::table('logs')->insert($log);
-            // selesai
-
-            return view('transactions.letters.notmarriedyet.print',compact('data','informations'));
+            return view('transactions.letters.workrecomend.print', compact('data', 'informations'));
         }
 
         //surat keramaian
-        if(LetterCrowd::where('uuid', $uuid)->exists()) {
+        if (LetterCrowd::where('uuid', $uuid)->exists()) {
             $data = LetterCrowd::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -649,11 +612,11 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.crowd.print',compact('data','informations'));
+            return view('transactions.letters.crowd.print', compact('data', 'informations'));
         }
 
         //surat npwp
-        if(LetterTax::where('uuid', $uuid)->exists()) {
+        if (LetterTax::where('uuid', $uuid)->exists()) {
             $data = LetterTax::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
@@ -668,10 +631,27 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.tax.print',compact('data','informations'));
+            return view('transactions.letters.tax.print', compact('data', 'informations'));
+        }
+        //surat ahli waris
+        if (LetterInheritance::where('uuid', $uuid)->exists()) {
+            $data = LetterInheritance::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data surat ahli waris <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.inheritance.print', compact('data', 'informations'));
         }
     }
-
     public function edit($uuid, Request $request)
     {
         //surat Pensiun
@@ -704,8 +684,7 @@ class LetterController extends Controller
             return view('transactions.letters.building.edit', compact('citizen', 'informations', 'position', 'letterbuilding'));
         }
         //Surat Keterangan Cuti Tahunan
-        if(LetterHoliday::where('uuid', $uuid)->exists())
-        {
+        if (LetterHoliday::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             $letterholiday = LetterHoliday::get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
@@ -716,37 +695,34 @@ class LetterController extends Controller
         }
 
         //Surat pernyataan tidak memiliki akta kelahiran
-        if(LetterNoAct::where('uuid', $uuid)->exists())
-        {
+        if (LetterNoAct::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             $letternoact = LetterNoAct::get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterNoAct::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.noact.edit', compact('citizen','informations','position'));
+            return view('transactions.letters.noact.edit', compact('citizen', 'informations', 'position'));
         }
 
         //Surat Keterangan Akte Kelahiran Dalam Pengurusan
-        if(LetterProcessAct::where('uuid', $uuid)->exists())
-        {
+        if (LetterProcessAct::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterProcessAct::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.processact.edit', compact('citizen','informations','position'));
+            return view('transactions.letters.processact.edit', compact('citizen', 'informations', 'position'));
         }
 
         //Surat surat keterangan janda
-        if(LetterWidow::where('uuid', $uuid)->exists())
-        {
+        if (LetterWidow::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterWidow::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.widow.edit', compact('citizen','informations','position'));
+            return view('transactions.letters.widow.edit', compact('citizen', 'informations', 'position'));
         }
 
 
@@ -877,61 +853,57 @@ class LetterController extends Controller
             $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterLandOwnershipCard::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.landownership.edit', compact('citizen', 'informations', 'position', 'letterlandownership','rts','rtSelected',
-            'rws','rwSelected'));
+            return view('transactions.letters.landownership.edit', compact(
+                'citizen',
+                'informations',
+                'position',
+                'letterlandownership',
+                'rts',
+                'rtSelected',
+                'rws',
+                'rwSelected'
+            ));
         }
 
         //surat rekomendasi kerja
-        if(LetterRecomendationWork::where('uuid', $uuid)->exists()) {
+        if (LetterRecomendationWork::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             $letterwork = LetterRecomendationWork::get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterRecomendationWork::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.workrecomend.edit', compact('citizen','informations','position','letterwork'));
+            return view('transactions.letters.workrecomend.edit', compact('citizen', 'informations', 'position', 'letterwork'));
         }
-
-        //surat karantina mandiri
-        if(LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
-            $informations = Information::get();
-            $letterwork = LetterSelfQuarantine::get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-            $citizen = LetterSelfQuarantine::where('uuid', $uuid)->get();
-
-            return view('transactions.letters.selfquarantine.edit', compact('citizen','informations','position','letterwork'));
-        }
-
-        //surat beda tanggal lahir
-        if(LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
-            $informations = Information::get();
-            $letterwork = LetterDifferenceBirth::get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-            $citizen = LetterDifferenceBirth::where('uuid', $uuid)->get();
-
-            return view('transactions.letters.differencebirth.edit', compact('citizen','informations','position','letterwork'));
-        }
-
         //surat izin keramaian
-        if(LetterCrowd::where('uuid', $uuid)->exists()) {
+        if (LetterCrowd::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             $lettercrowd = LetterCrowd::where('uuid', $uuid)->get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterCrowd::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.crowd.edit', compact('citizen','informations','position','lettercrowd'));
+            return view('transactions.letters.crowd.edit', compact('citizen', 'informations', 'position', 'lettercrowd'));
         }
-
         //surat npwp
-        if(LetterTax::where('uuid', $uuid)->exists()) {
+        if (LetterTax::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
             $lettertax = LetterTax::where('uuid', $uuid)->get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
-            $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterTax::where('uuid', $uuid)->get();
 
-            return view('transactions.letters.tax.edit', compact('citizen','informations','position','lettertax'));
+            return view('transactions.letters.tax.edit', compact('citizen', 'informations', 'position', 'lettertax'));
+        }
+        //surat ahli waris
+        if (LetterInheritance::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterinheritance = LetterInheritance::where('uuid', $uuid)->get();
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
+            $citizen = LetterInheritance::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.inheritance.edit', compact('citizen', 'informations', 'position', 'letterinheritance'));
         }
     }
 
@@ -1067,19 +1039,18 @@ class LetterController extends Controller
             // selesai
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
-        }
-        elseif (LetterRecomendationWork::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
+        } elseif (LetterRecomendationWork::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterRecomendationWork::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
             $data->update([
-                'updated_by' =>Auth::user()->id,
+                'updated_by' => Auth::user()->id,
                 'approval_admin' => "rejected",
             ]);
 
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
                 'category' => 'tolak',
                 'created_at' => now(),
             ];
@@ -1102,7 +1073,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
                 'category' => 'tolak',
                 'created_at' => now(),
             ];
@@ -1125,7 +1096,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
                 'category' => 'tolak',
                 'created_at' => now(),
             ];
@@ -1148,7 +1119,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
                 'category' => 'tolak',
                 'created_at' => now(),
             ];
@@ -1202,7 +1173,28 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
+        // Rejected : Surat keterangan ahli waris
+        elseif (LetterInheritance::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
+            $data = LetterInheritance::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_admin' => "rejected",
+            ]);
 
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
     }
 
     public function destroy($uuid)
@@ -1228,7 +1220,7 @@ class LetterController extends Controller
         }
 
         //Surat Keterangan Cuti Tahunan
-        if(LetterHoliday::where('uuid', $uuid)->exists()) {
+        if (LetterHoliday::where('uuid', $uuid)->exists()) {
             $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
@@ -1248,7 +1240,7 @@ class LetterController extends Controller
         }
 
         //Surat pernyataan tidak memiliki akta kelahiran
-        if(LetterNoAct::where('uuid', $uuid)->exists()) {
+        if (LetterNoAct::where('uuid', $uuid)->exists()) {
             $data = LetterNoAct::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
@@ -1264,11 +1256,11 @@ class LetterController extends Controller
             $data->delete();
 
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
         //Surat keterangan akte kelahiran dalam pengurusan
-        if(LetterProcessAct::where('uuid', $uuid)->exists()) {
+        if (LetterProcessAct::where('uuid', $uuid)->exists()) {
             $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
@@ -1284,11 +1276,11 @@ class LetterController extends Controller
             $data->delete();
 
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
         //Surat keterangan janda
-        if(LetterWidow::where('uuid', $uuid)->exists()) {
+        if (LetterWidow::where('uuid', $uuid)->exists()) {
             $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
@@ -1304,7 +1296,7 @@ class LetterController extends Controller
             $data->delete();
 
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
         if (LetterRecomendation::where('uuid', $uuid)->exists()) {
@@ -1347,7 +1339,6 @@ class LetterController extends Controller
         if (LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
             $data = LetterNotMarriedYet::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
-            $data->deleted_at = now();
             $data->save();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -1489,7 +1480,7 @@ class LetterController extends Controller
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
-        if(LetterRecomendationWork::where('uuid', $uuid)->exists()) {
+        if (LetterRecomendationWork::where('uuid', $uuid)->exists()) {
             $data = LetterRecomendationWork::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
@@ -1505,29 +1496,10 @@ class LetterController extends Controller
             $data->delete();
 
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
-        // Surat Belum Memiliki BPJS
-        if(LetterNotBPJS::where('uuid', $uuid)->exists()) {
-            $data = LetterNotBPJS::get()->where('uuid', $uuid)->firstOrFail();
-            $data->deleted_by = Auth::user()->id;
-            $data->save();
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Belum Memiliki BPJS<strong>[' . $data->name . ']</strong>',
-                'category' => 'hapus',
-                'created_at' => now(),
-            ];
-
-            DB::table('logs')->insert($log);
-            $data->delete();
-
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
-        }
-
-        if(LetterCrowd::where('uuid', $uuid)->exists()) {
+        if (LetterCrowd::where('uuid', $uuid)->exists()) {
             $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
@@ -1542,36 +1514,18 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             $data->delete();
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
+
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
-        // Surat Keterangan Karantina Mandiri
-        if(LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
-            $data = LetterSelfQuarantine::get()->where('uuid', $uuid)->firstOrFail();
-            $data->deleted_by = Auth::user()->id;
-            $data->save();
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Keterangan Karantina Mandiri<strong>[' . $data->name . ']</strong>',
-                'category' => 'hapus',
-                'created_at' => now(),
-            ];
-
-            DB::table('logs')->insert($log);
-            $data->delete();
-
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
-        }
-
-        if(LetterTax::where('uuid', $uuid)->exists()) {
+        if (LetterTax::where('uuid', $uuid)->exists()) {
             $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Keterangan Pajak<strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menghapus</em> Surat Izin Keramaian<strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];
@@ -1579,26 +1533,8 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             $data->delete();
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
-        }
 
-        // Surat Keterangan Beda Tanggal Lahir
-        if(LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
-            $data = LetterDifferenceBirth::get()->where('uuid', $uuid)->firstOrFail();
-            $data->deleted_by = Auth::user()->id;
-            $data->save();
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Keterangan Beda Tanggal Lahir<strong>[' . $data->name . ']</strong>',
-                'category' => 'hapus',
-                'created_at' => now(),
-            ];
-
-            DB::table('logs')->insert($log);
-            $data->delete();
-
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
         if (LetterLandOwnershipCard::where('uuid', $uuid)->exists()) {
             $data = LetterLandOwnershipCard::get()->where('uuid', $uuid)->firstOrFail();
@@ -1615,24 +1551,24 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             $data->delete();
 
-            return redirect('/letters')->with('success','Surat berhasil dihapus');
-        }
 
-        // Surat Keterangan Dispensasi SPP Kuliah
-        if(LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
-            $data = LetterCollegeDispensation::get()->where('uuid', $uuid)->firstOrFail();
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
+        }
+        if (LetterInheritance::where('uuid', $uuid)->exists()) {
+            $data = LetterInheritance::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
             $data->save();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Keterangan Dispensasi SPP Kuliah<strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menghapus</em> Surat Ahli Waris <strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];
 
             DB::table('logs')->insert($log);
             $data->delete();
+
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
@@ -1794,8 +1730,7 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterDomicile::where('uuid', $uuid)->exists()) {
+            } elseif (LetterDomicile::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterDomicile::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
@@ -1817,8 +1752,7 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterFamilyCard::where('uuid', $uuid)->exists()) {
+            } elseif (LetterFamilyCard::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterFamilyCard::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
@@ -1840,8 +1774,7 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterCrowd::where('uuid', $uuid)->exists()) {
+            } elseif (LetterCrowd::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
@@ -1863,8 +1796,7 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterTax::where('uuid', $uuid)->exists()) {
+            } elseif (LetterTax::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
@@ -1886,10 +1818,31 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterLandOwnershipCard::where('uuid', $uuid)->exists()) {
+            } elseif (LetterLandOwnershipCard::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterLandOwnershipCard::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_admin' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            } elseif (LetterInheritance::where('uuid', $uuid)->exists()) {
+                // Approve : Surat belum menerima bpjs
+                $data = LetterInheritance::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
                     'updated_by' => Auth::user()->id,
                     'approval_admin' => "approved",
@@ -1939,6 +1892,5 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }
-
     }
 }
