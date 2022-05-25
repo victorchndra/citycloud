@@ -46,6 +46,7 @@ use App\Models\Transactions\Letter\LetterSelfQuarantine;
 use App\Models\Transactions\Letter\LetterDifferenceBirth;
 use App\Models\Transactions\Letter\LetterInheritance;
 use App\Models\Transactions\Letter\LetterLandOwnershipCard;
+use App\Models\Transactions\Letter\LetterLandTransaction;
 use App\Models\Transactions\Letter\LetterRecomendationWork;
 use App\Models\Transactions\Letter\LetterMissing;
 use App\Models\Transactions\Letter\LetterMove;
@@ -90,15 +91,13 @@ class LetterController extends Controller
             $lettermagic = LetterMagic::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $letterstreet = LetterStreet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
+            $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
             $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->
             concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->
             concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->
-            concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->
-            concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->
-            concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->
-            concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->SortByDesc('created_at');
-            
+            concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->concat($landtransactionletters)->SortByDesc('created_at');
+
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
             return view('transactions.letters.list');
@@ -148,11 +147,12 @@ class LetterController extends Controller
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $lettermagic = LetterMagic::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();        
+            $lettermagic = LetterMagic::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $letterstreet = LetterStreet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
-            $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters);;
+            $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
+            $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->concat($landtransactionletters)->SortByDesc('created_at');
 
             return view('transactions.letters.indexcitizen',  compact('datas'));
 
@@ -200,9 +200,10 @@ class LetterController extends Controller
             $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $lettermagic = LetterMagic::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $letterstreet = LetterStreet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
-            $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters);
-            
+            $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
+            $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->concat($landtransactionletters)->SortByDesc('created_at');
+
             return view('transactions.letters.indexcitizen',  compact('datas'));
         }
     }
@@ -376,7 +377,7 @@ class LetterController extends Controller
 
             return view('transactions.letters.move.print',compact('data','informations'));
         }
-        
+
         //SURAT KETERANGAN KTP DALAM PROSES
         if(LetterProcessKtp::where('uuid', $uuid)->exists()) {
             $data = LetterProcessKtp::where('uuid', $uuid)->firstOrFail();
@@ -813,7 +814,7 @@ class LetterController extends Controller
             return view('transactions.letters.street.print',compact('data','informations'));
         }
     }
-    
+
     public function edit($uuid, Request $request)
     {
         // edit surat Pensiun
@@ -844,7 +845,7 @@ class LetterController extends Controller
             $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
             $citizen = LetterBuilding::where('uuid', $uuid)->get();
             return view('transactions.letters.building.edit', compact('citizen', 'informations', 'position', 'letterbuilding'));
-        }        
+        }
 
         // edit Surat Keterangan Cuti Tahunan
         if(LetterHoliday::where('uuid', $uuid)->exists()){
@@ -868,7 +869,7 @@ class LetterController extends Controller
 
             return view('transactions.letters.noact.edit', compact('citizen', 'informations', 'position'));
         }
-    
+
         // edit Surat Keterangan Akte Kelahiran Dalam Pengurusan
         if(LetterProcessAct::where('uuid', $uuid)->exists())
         {
@@ -880,7 +881,7 @@ class LetterController extends Controller
             return view('transactions.letters.processact.edit', compact('citizen', 'informations', 'position'));
         }
 
-        
+
         // edit Surat surat keterangan janda
         if(LetterWidow::where('uuid', $uuid)->exists())
         {
@@ -913,15 +914,15 @@ class LetterController extends Controller
 
             return view('transactions.letters.move.edit', compact('citizen','informations','position'));
         }
-        
+
         //edit Surat Keterangan Ktp Dalam Proses
-        if(LetterProcessKtp::where('uuid', $uuid)->exists()) 
+        if(LetterProcessKtp::where('uuid', $uuid)->exists())
         {
             $informations = Information::get();
             // $citizen = Citizen::orderBy('name', 'asc')->get();
             $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
             $citizen = LetterProcessKtp::where('uuid', $uuid)->get();
-            
+
             return view('transactions.letters.processktp.edit', compact('citizen','informations','position'));
         }
 
@@ -1167,6 +1168,7 @@ class LetterController extends Controller
 
             return view('transactions.letters.differencename.edit', compact('citizen', 'informations', 'position', 'lettercollegedispensation'));
         }
+
         // edit surat keterangan jalan
         if (LetterStreet::where('uuid', $uuid)->exists()) {
             $informations = Information::get();
@@ -1176,6 +1178,17 @@ class LetterController extends Controller
             $citizen = LetterStreet::where('uuid', $uuid)->get();
 
             return view('transactions.letters.street.edit', compact('citizen', 'informations', 'position', 'letterstreet'));
+        }
+
+        // edit surat keterangan jual beli tanah
+        if (LetterLandTransaction::where('uuid', $uuid)->exists()) {
+            $informations = Information::get();
+            $letterlandtransaction= LetterLandTransaction::where('uuid', $uuid);
+            // $citizen = Citizen::orderBy('name', 'asc')->get();
+            $position = User::where('position', 'kepala desa')->orWhere('position', 'sekretaris desa')->get();
+            $citizen = LetterLandTransaction::where('uuid', $uuid)->get();
+
+            return view('transactions.letters.landtransaction.edit', compact('citizen', 'informations', 'position', 'letterlandtransaction'));
         }
     }
 
@@ -1633,7 +1646,7 @@ class LetterController extends Controller
 
             return redirect('/letters')->with('success','Surat berhasil dihapus');
         }
-        
+
         // SURAT KETERANGAN KTP DALAM PROSES
         if(LetterProcessKtp::where('uuid', $uuid)->exists()) {
             $data = LetterProcessKtp::get()->where('uuid', $uuid)->firstOrFail();
@@ -1646,11 +1659,11 @@ class LetterController extends Controller
                 'category' => 'hapus',
                 'created_at' => now(),
             ];
-    
+
             DB::table('logs')->insert($log);
             $data->delete();
-    
-            
+
+
             return redirect('/letters')->with('success','Surat berhasil dihapus');
         }
 
@@ -2002,6 +2015,25 @@ class LetterController extends Controller
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
+
+        // Surat Keterangan Jual Beli Tanah
+        if(LetterLandTransaction::where('uuid', $uuid)->exists()) {
+            $data = LetterLandTransaction::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Jual Beli Tanah<strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
+
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
+        }
     }
 
     public function approve($uuid)
@@ -2318,7 +2350,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
         } else {
 
             // Auth else
