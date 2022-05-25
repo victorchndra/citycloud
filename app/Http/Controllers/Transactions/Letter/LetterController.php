@@ -838,9 +838,9 @@ class LetterController extends Controller
         }
 
         //surat remove citizen
-        if(LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
+        if(LetterRemoveCitizen::where('uuid', $uuid)->exists()) {
 
-            $data = LetterCollegeDispensation::where('uuid', $uuid)->firstOrFail();
+            $data = LetterRemoveCitizen::where('uuid', $uuid)->firstOrFail();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
             $log = [
