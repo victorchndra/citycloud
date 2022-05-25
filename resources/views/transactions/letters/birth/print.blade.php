@@ -127,12 +127,12 @@
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
+                <td class="justify" style="text-align: justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Nama tersebut diatas adalah Benar Lahir di <b>
                         Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
                         {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b> yang mana
                     merupakan anak dari salah satu seorang warga kami yang tinggal di <b> Desa
-                        {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}</b>
+                        {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}</b>.
                 </td>
             </tr>
 
@@ -161,7 +161,7 @@
                 <tr>
                     <td style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ $data->letter_date }}</td>
+                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                     <td></td>
                 </tr>
             </table>

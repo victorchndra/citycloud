@@ -90,7 +90,7 @@
                                                         style="width: 100%;" required>
                                                         @foreach ($rws as $rw)
                                                             <option value="{{ $rw->name }}"
-                                                                @if ($rwSelected == $rw->name) {{ 'selected' }} @endif>
+                                                                @if ($rwSelected == $rw->name) value="{{ old('letter_vilage', $c->letter_vilage) }}" @endif>
                                                                 {{ $rw->name }}</option>
                                                         @endforeach
                                                     </select>
