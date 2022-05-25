@@ -91,8 +91,14 @@ class LetterController extends Controller
             $letterstreet = LetterStreet::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             
-            $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters);
-
+            $datas = $businessletters->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->
+            concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->
+            concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->
+            concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->
+            concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->
+            concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->
+            concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->SortByDesc('created_at');
+            
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
             return view('transactions.letters.list');
