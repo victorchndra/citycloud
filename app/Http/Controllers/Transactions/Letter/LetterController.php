@@ -759,7 +759,10 @@ class LetterController extends Controller
         }
         //surat ahli waris
         if (LetterInheritance::where('uuid', $uuid)->exists()) {
-            $data = LetterInheritance::where('uuid', $uuid)->firstOrFail();
+            $data =  LetterInheritance::join('citizens', 'letter_inheritances.citizen_id', '=', 'citizens.id')
+            ->where('letter_inheritances.uuid', $uuid)->firstOrFail();
+
+            $families = Citizens::where('kk','=',$data->kk)->orderBy('family_status','desc')->get();
             $informations = Information::first();
             // tambahkan baris kode ini di setiap controller
             $log = [
@@ -773,7 +776,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return view('transactions.letters.inheritance.print', compact('data', 'informations'));
+            return view('transactions.letters.inheritance.print', compact('data', 'informations','families'));
         }
 
         if(LetterMagic::where('uuid', $uuid)->exists()) {
