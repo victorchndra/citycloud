@@ -43,7 +43,7 @@ class LetterProcessActController extends Controller
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        
+
         return view('transactions.letters.processact.form', compact('citizen','informations','position'));
     }
 
@@ -57,7 +57,7 @@ class LetterProcessActController extends Controller
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
 
-            
+
             $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'process_address' => 'required',
@@ -65,7 +65,7 @@ class LetterProcessActController extends Controller
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-    
+
             $validatedData['letter_name']     = "surat keterangan akte kelahiran dalam pengurusan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
@@ -88,17 +88,17 @@ class LetterProcessActController extends Controller
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-    
+
             $validatedData['letter_date']   = $request->get('letter_date');
             $validatedData['valid_until']   = $request->get('letter_date');
-    
-    
+
+
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "approved";
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-    
-    
+
+
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -107,12 +107,12 @@ class LetterProcessActController extends Controller
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-    
+
             DB::table('logs')->insert($log);
             // selesai
-    
+
             LetterProcessAct::create($validatedData);
-    
+
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
         }else{
@@ -121,10 +121,10 @@ class LetterProcessActController extends Controller
                 'letter_index' => 'required',
                 'process_address' => 'required',
             ]);
-    
+
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
-    
+
             $validatedData['letter_name']     = "surat keterangan akte kelahiran dalam pengurusan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
@@ -134,7 +134,7 @@ class LetterProcessActController extends Controller
             $validatedData['date_birth'] = $citizen->date_birth;
             $validatedData['religion'] = $citizen->religion;
             $validatedData['job'] = $citizen->job;
-            
+
             $validatedData['address'] =  "Dusun ".$citizen->village_sub.", RT ".$citizen->rt." RW ".$citizen->rw." Desa ".$citizen->village;
             $validatedData['village_sub'] = $citizen->village_sub;
             $validatedData['rt'] = $citizen->rt;
@@ -143,19 +143,19 @@ class LetterProcessActController extends Controller
             $validatedData['sub_districts'] = $citizen->sub_districts;
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
-           
+
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
-    
+
             $validatedData['letter_date']   = date('Y-m-d');
             $validatedData['valid_until']   = date('Y-m-d');
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "waiting";
-    
+
             $validatedData['created_by'] = Auth::user()->id;
             $validatedData['uuid'] = Uuid::uuid4()->getHex();
-    
-    
+
+
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -164,12 +164,12 @@ class LetterProcessActController extends Controller
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
-    
+
             DB::table('logs')->insert($log);
             // selesai
-    
+
             LetterProcessAct::create($validatedData);
-    
+
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
@@ -193,13 +193,13 @@ class LetterProcessActController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
         $informations = Information::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
         $citizen = LetterProcessAct::where('uuid', $uuid)->get();
-        
+
         return view('transactions.letters.processact.edit', compact('citizen','informations','position'));
     }
 
@@ -220,7 +220,7 @@ class LetterProcessActController extends Controller
                     'updated_by' =>Auth::user()->id,
                     'approval_admin' => "rejected",
                 ]);
-            
+
                 $log = [
                     'uuid' => Uuid::uuid4()->getHex(),
                     'user_id' => Auth::user()->id,
@@ -228,13 +228,13 @@ class LetterProcessActController extends Controller
                     'category' => 'tolak',
                     'created_at' => now(),
                 ];
-            
+
                 DB::table('logs')->insert($log);
                 // selesai
-            
+
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
             }
-            
+
             $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'process_address' => 'required',
@@ -244,14 +244,14 @@ class LetterProcessActController extends Controller
             $validatedData['valid_until']   = $request->get('letter_date');
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
-        
-    
+
+
             if ($validatedData) {
-    
+
                 $validatedData['updated_by'] = Auth::user()->id;
                 $letters = LetterProcessAct::where('uuid', $uuid)->first()->update($validatedData);
             }
-    
+
             $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -260,9 +260,9 @@ class LetterProcessActController extends Controller
                 'category' => 'edit',
                 'created_at' => now(),
             ];
-    
+
             DB::table('logs')->insert($log);
-    
+
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
@@ -272,7 +272,7 @@ class LetterProcessActController extends Controller
                         'updated_by' =>Auth::user()->id,
                         'approval_rt' => "rejected",
                     ]);
-                
+
                 $log = [
                     'uuid' => Uuid::uuid4()->getHex(),
                     'user_id' => Auth::user()->id,
@@ -280,10 +280,10 @@ class LetterProcessActController extends Controller
                     'category' => 'tolak',
                     'created_at' => now(),
                 ];
-            
+
                 DB::table('logs')->insert($log);
                 // selesai
-            
+
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
             }
         }
@@ -311,7 +311,7 @@ class LetterProcessActController extends Controller
         DB::table('logs')->insert($log);
         $data->delete();
 
-        
+
         return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 
@@ -325,7 +325,7 @@ class LetterProcessActController extends Controller
             'approval_admin' => "approved",
             'rejected_notes_admin' => null,
         ]);
-    
+
         // tambahkan baris kode ini di setiap controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
@@ -334,25 +334,25 @@ class LetterProcessActController extends Controller
             'category' => 'setuju',
             'created_at' => now(),
         ];
-    
+
         DB::table('logs')->insert($log);
         // selesai
-    
+
         return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }else{
-            
+
             $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
             $data->update([
                 'updated_by' =>Auth::user()->id,
                 'approval_rt' => "approved",
             ]);
-        
+
             // $data->update([
             //     'updated_by' =>Auth::user()->id,
             //     'approval_rt    ' => "approved",
             //     'rejected_notes_admin' => null,
             // ]);
-        
+
             // tambahkan baris kode ini di setiap controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
@@ -361,10 +361,10 @@ class LetterProcessActController extends Controller
                 'category' => 'setuju',
                 'created_at' => now(),
             ];
-        
+
             DB::table('logs')->insert($log);
             // selesai
-        
+
             return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
         }
     }
