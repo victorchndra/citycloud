@@ -48,7 +48,7 @@ class LetterInheritanceController extends Controller
         
         $informations = Information::get();
        
-        $citizen = Citizens::orderBy('name', 'asc')->where('family_status','=','kepala keluarga')->get();
+        $citizen = Citizens::orderBy('name', 'asc')->where('family_status','=','kepala keluarga')->whereNotNull('death_date')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
         return view('transactions.letters.inheritance.form', compact('citizen','informations','position'));
@@ -66,6 +66,8 @@ class LetterInheritanceController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'letter_death_loc' => 'required',
+                'letter_grave_loc' => 'required',
                 
             ]);
 
@@ -92,6 +94,7 @@ class LetterInheritanceController extends Controller
             $validatedData['province'] = $citizen->province;
 
             $validatedData['letter_family_status'] = $citizen->family_status;
+            $validatedData['letter_death_date'] = $citizen->death_date;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');

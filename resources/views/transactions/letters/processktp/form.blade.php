@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Ahli Waris</h3>
+                <h3>Surat Keterangan KTP Dalam Proses</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ahli Waris</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan KTP Dalam Proses</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Ahli Waris</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan KTP Dalam Proses</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-inheritance" method="POST">
+                            <form class="form form-horizontal" action="/letters-processktp" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -55,22 +55,23 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Tempat Pengurusan KTP</label>
+                                            <input type="text" name="process_address"
+                                                class="form-control @error('process_address') is-invalid @enderror"
+                                                placeholder="Cth : Dinas Kependudukan">
                                         </div>
                                         
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Meninggal</label>
-                                            <input type="text" name="letter_death_loc"
-                                                class="form-control @error('letter_death_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Meninggal">
+                                        <div class="col-md-12 form-group">
+                                            <label>Keperluan dibuatnya Surat</label>
+                                            <input type="text" name="need_for"
+                                                class="form-control @error('need_for') is-invalid @enderror"
+                                                placeholder="Cth : proses pengambilan Dana Bantuan Sosial Tunai memalui PT. POS INDONESIA">
                                         </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Pemakaman</label>
-                                            <input type="text" name="letter_grave_loc"
-                                                class="form-control @error('letter_grave_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Pemakaman">
-                                        </div>
-
+                                        
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -123,7 +124,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-inheritance" method="POST">
+                        <form class="form form-horizontal" action="/letters-holiday" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -140,28 +141,41 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-
+                                              
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-
+                                  
                                             </select>
                                             </select>
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Lokasi Meninggal</label>
-                                            <input type="text" name="letter_death_loc"
-                                                class="form-control @error('letter_death_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Meninggal">
+                                            <label>Mulai</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Tanggal Mulai Cuti">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Lokasi Pemakaman</label>
-                                            <input type="text" name="letter_grave_loc"
-                                                class="form-control @error('letter_grave_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Pemakaman">
+                                            <label>Hingga</label>
+                                            <input type="date" name="end_date"
+                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="Tanggal Akhir Cuti">
                                         </div>
 
-
+                                        <div class="col-md-12 form-group">
+                                            <label>Alamat Selama Cuti</label>
+                                            <input type="text" name="address_letter"
+                                                class="form-control @error('address_letter') is-invalid @enderror"
+                                                placeholder="Alamat Selama Cuti">
+                                        </div>
+                                        
+                                        {{-- <div class="col-md-12 form-group">
+                                            <label>Cuti Selama</label>
+                                            <input type="text" name="day"
+                                                class="form-control @error('day') is-invalid @enderror"
+                                                placeholder="Cuti Selama">
+                                        </div> --}}
+                                      
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -178,7 +192,7 @@
                                             </div>
                                         </div>
 
-
+                                      
                                     </div>
 
                                     </div>

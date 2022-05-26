@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterNeedy extends Model
+class LetterProcessKtp extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -23,7 +23,7 @@ class LetterNeedy extends Model
             get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
-    }   
+    }
 
     public function name(): Attribute
     {
@@ -81,30 +81,73 @@ class LetterNeedy extends Model
             set: fn ($value) => strtolower($value),
         );
     }
-    
-    // public function letterDate(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-    //     );
-    // }
 
-    // public function letterRt(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => strtoupper($value),
-    //         set: fn ($value) => strtolower($value),
-    //     );
-    // }
-
-    public function letterStatus(): Attribute
+    public function businessVariation(): Attribute
     {
         return new Attribute(
             get: fn ($value) => strtoupper($value),
             set: fn ($value) => strtolower($value),
         );
     }
+
+    public function businessName(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function businessAddress(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function businessPlace(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function agrarianStatus(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function selfStatus(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+
+    public function letterDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
+
+    public function validUntil(): Attribute
+    {
+        return new Attribute(
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['valid_until'])->isoFormat('D MMMM Y'),
+            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+        );
+    }
+
+
     public function createdUser()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
@@ -113,9 +156,10 @@ class LetterNeedy extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
+
 }

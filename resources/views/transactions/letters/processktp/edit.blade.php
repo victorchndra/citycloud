@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends("layouts.app")
 @section('content')
     <!-- select 2 -->
     <link rel="stylesheet" href="{{ asset('/css/addons/select2/select2.css') }}">
@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Ahli Waris</h3>
+                    <h3>Surat Keterangan KTP Dalam Proses</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ahli Waris</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan KTP Dalam Proses</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,13 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Ahli Waris</h4>
+                            <h4 class="card-title">Edit Surat Keterangan KTP Dalam Proses</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-inheritance/{{ $c->uuid }}" method="POST">
+                                    <form class="form-sample" action="/letters-processktp/{{ $c->uuid }}"
+                                        method="POST">
                                         @method('put')
                                         @csrf
                                         <div class="form-body">
@@ -43,7 +44,7 @@
                                                         <input type="text" name="letter_index"
                                                             class="form-control @error('letter_index') is-invalid @enderror"
                                                             placeholder="No Surat"
-                                                            value="  {{ $information->letter_index }}">
+                                                            value="  {{ $c->letter_index }}">
                                                     @endforeach
                                                 </div>
 
@@ -58,28 +59,28 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-6 form-group">
-                                                    <label>Lokasi Meninggal</label>
+                                                <div class="col-md-12 form-group">
+                                                    <label>Tempat Pengurusan KTP </label>
 
-                                                    <input type="text" name="letter_death_loc"
-                                                        class="form-control @error('letter_death_loc') is-invalid @enderror"
-                                                        placeholder="Lokasi Meninggal" required
-                                                        value="{{ old('letter_death_loc', $c->letter_death_loc) }}" />
-                                                    @error('letter_death_loc')
+                                                    <input type="text" name="process_address"
+                                                        class="form-control @error('process_address') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('process_address', $c->process_address) }}" />
+                                                    @error('process_address')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
+                                                
+                                                <div class="col-md-12 form-group">
+                                                    <label>Keperluan dibuatnya Surat </label>
 
-                                                <div class="col-md-6 form-group">
-                                                    <label>Lokasi Pemakanan</label>
-
-                                                    <input type="text" name="letter_grave_loc"
-                                                        class="form-control @error('letter_grave_loc') is-invalid @enderror"
-                                                        placeholder="Lokasi Pemakaman" required
-                                                        value="{{ old('letter_grave_loc', $c->letter_grave_loc) }}" />
-                                                    @error('letter_grave_loc')
+                                                    <input type="text" name="need_for"
+                                                        class="form-control @error('need_for') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('need_for', $c->need_for) }}" />
+                                                    @error('need_for')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -87,14 +88,19 @@
                                                 </div>
 
                                                 <div class="col-md-12 form-group">
-                                                    <label>Tgl Surat</label>
-                                                    <input type="date"
-                                                        class="form-control @error('letter_date') is-invalid @enderror"
-                                                        name="letter_date" id="date" required
-                                                        value="{{ $c->letter_date }}">
+                                                    <label>Tanggal Surat</label>
+                                                    
+                                                    <input type="date" name="letter_date"
+                                                    class="form-control @error('letter_date') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->letter_date }}" />
+
+                                                    @error('letter_date')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-
-
 
                                                 <div class="col-md-12 form-group">
                                                     <label>Ditandatangani Oleh</label>

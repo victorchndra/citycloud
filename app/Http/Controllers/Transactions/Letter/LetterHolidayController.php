@@ -291,29 +291,29 @@ class LetterHolidayController extends Controller
         DB::table('logs')->insert($log);
 
         return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
-    }else{
-        if ($request->get('rejected_notes_rt')) {
-            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
-            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_rt' => "rejected",
-            ]);
-        
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'tolak',
-            'created_at' => now(),
-        ];
-    
-        DB::table('logs')->insert($log);
-        // selesai
-    
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
-    }
-    }
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+                
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'tolak',
+                    'created_at' => now(),
+                ];
+            
+                DB::table('logs')->insert($log);
+                // selesai
+            
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
+        }
     }
 
     /**

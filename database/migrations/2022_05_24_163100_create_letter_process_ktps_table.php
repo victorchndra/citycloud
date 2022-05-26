@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_streets', function (Blueprint $table) {
+        Schema::create('letter_process_ktps', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
@@ -36,10 +36,8 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
-            $table->string('goods')->nullable();
-            $table->string('purpose')->nullable();
-            $table->string('count_goods')->nullable();
-            $table->string('depart')->nullable();
+            $table->string('process_address')->nullable();
+            $table->string('need_for')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
@@ -54,6 +52,7 @@ return new class extends Migration
             $table->integer("deleted_by")->nullable();
             $table->timestamps();
             $table->softDeletes();
+            /////////////////////////////////////////
         });
     }
 
@@ -64,6 +63,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_streets');
+        Schema::dropIfExists('letter_process_ktps');
     }
 };

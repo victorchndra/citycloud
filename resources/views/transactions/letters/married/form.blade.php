@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Ahli Waris</h3>
+                <h3>Surat Keterangan Usaha</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Ahli Waris</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Ahli Waris</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-inheritance" method="POST">
+                            <form class="form form-horizontal" action="/letters-not-bpjs" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -55,20 +55,7 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                        
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Meninggal</label>
-                                            <input type="text" name="letter_death_loc"
-                                                class="form-control @error('letter_death_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Meninggal">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Pemakaman</label>
-                                            <input type="text" name="letter_grave_loc"
-                                                class="form-control @error('letter_grave_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Pemakaman">
+                                            </select>
                                         </div>
 
                                         <div class="col-md-12 form-group">
@@ -123,7 +110,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-inheritance" method="POST">
+                        <form class="form form-horizontal" action="/letters-not-bpjs" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -147,21 +134,6 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Meninggal</label>
-                                            <input type="text" name="letter_death_loc"
-                                                class="form-control @error('letter_death_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Meninggal">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Lokasi Pemakaman</label>
-                                            <input type="text" name="letter_grave_loc"
-                                                class="form-control @error('letter_grave_loc') is-invalid @enderror"
-                                                placeholder="Lokasi Pemakaman">
-                                        </div>
-
-
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -181,7 +153,7 @@
 
                                     </div>
 
-                                    </div>
+                                </div>
                             </form>
                             @endif
                         </div>
