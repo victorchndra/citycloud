@@ -98,6 +98,21 @@
                 <td width="2">: </td>
                 <td>{{ $data->gender }}</td>
             </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
+                <td width="2">: </td>
+                <td>{{ $data->religion }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                <td width="2">: </td>
+                <td>{{ $data->job }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
+                <td width="2">: </td>
+                <td>{{ $data->address }}</td>
+            </tr>
 
            
         </table>
@@ -110,35 +125,14 @@
         <tr>
             <td class="justify">
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                Bahwa benar yang bersangkutan adalah warga masyarakat {{$informations->village_name}}, yang
-sepengetahuan kami beradat istiadat baik serta bermaksud melakukan perjalanan dengan :
- Nama tersebut diatas benar pembawa <b>{{$data->goods}} {{$data->count_goods}}</b> dari {{$data->address}} dengan tujuan . Dengan
-menggunakan .
+                Nama tersebut diatas adalah penduduk Desa {{$informations->village_name}} Kecamatan  {{ $informations->sub_district_name }}
+                yang tinggal di {{$data->address}} dan menurut
+                pernyataan yang bersangkutan tanggal {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }} benar mempunyai penghasilan
+                Rp.{{$data->income}} per bulan.
 
             </td>
         </tr>
     </table>
-
-    <div style="line-height: 1; margin-top: 10px;">
-        <table align="center" width="540">
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tujuan</td>
-                <td width="2">: </td>
-                <td>{{ $data->purpose }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Berangkat</td>
-                <td width="2">: </td>
-                <td>{{ \Carbon\Carbon::parse($data->depart)->translatedFormat('d M Y') }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Keterangan</td>
-                <td width="2">: </td>
-                <td> {{$data->goods}} {{$data->count_goods}}</td>
-            </tr>
-        </table>
-    </div>
-
     <br>
     <table align="center" width="600" style="line-height: 1.5;">
 <tr>
