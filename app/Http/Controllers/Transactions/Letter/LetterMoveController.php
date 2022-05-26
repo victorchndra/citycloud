@@ -71,7 +71,7 @@ class LetterMoveController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan pindah";
+            $validatedData['letter_name']     = "Surat Keterangan Pernyataan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -108,7 +108,7 @@ class LetterMoveController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan pindah <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Pernyataan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -130,7 +130,7 @@ class LetterMoveController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan pindah";
+            $validatedData['letter_name']     = "Surat Keterangan Pernyataan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -166,7 +166,7 @@ class LetterMoveController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data keterangan hilang <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Pernyataan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -257,7 +257,7 @@ class LetterMoveController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat keterangan pindah <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Pernyataan <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -274,21 +274,21 @@ class LetterMoveController extends Controller
                     'approval_rt' => "rejected",
                 ]);
             
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-                'category' => 'tolak',
-                'created_at' => now(),
-            ];
-        
-            DB::table('logs')->insert($log);
-            // selesai
-        
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'tolak',
+                    'created_at' => now(),
+                ];
+            
+                DB::table('logs')->insert($log);
+                // selesai
+            
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
         }
     }
-}
 
     /**
      * Remove the specified resource from storage.

@@ -61,7 +61,7 @@
                         <center>
                             <font style="font-weight: bold; text-decoration: underline;">
                                 {{ strtoupper($data->letter_name) }}</font>
-                        <br>
+                            <br>
                             Nomor : {{ $data->letter_index }}
                         </center>
                     </td>
@@ -69,7 +69,7 @@
             </table>
         </div>
         </div>
-        
+
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
                 <td>
@@ -126,12 +126,12 @@
         <table align="center" width="600" style="line-height: 1; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini menyatakan dengan sebenar-benarnya
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini menyatakan dengan sebenar-benarnya
                     bahwa sebidang Tanah yang terletak di <b>
                         Jalan {{ $data->letter_street }}, RT. {{ $data->letter_rt }}, RW.
                         {{ $data->letter_rw }}, Desa/ Kelurahan {{ $data->letter_sub_districts }}, Kota
                         {{ $data->letter_districts }}, Provinsi {{ $data->letter_province }}</b>, Dengan
-                    batas - batas tanah sebagai berikut
+                    batas - batas tanah sebagai berikut : 
                 </td>
             </tr>
         </table>
@@ -167,7 +167,7 @@
         <table align="center" width="600" style="line-height: 1; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Dengan luas total
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan luas total
                     <b>{{ $data->letter_total_area }} M² </b> (<b>{{ $data->letter_total_area }} Meter
                         Persegi)</b> benar milik saya pribadi yang mana diperoleh dari pembagian waris orang tua atas
                     nama <b> {{ $data->letter_father_name }} </b> bin <b>{{ $data->letter_father_name_bin }}</b>
@@ -204,7 +204,7 @@
         <table align="center" width="600" style="line-height: 1;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikianlah {{ $data->letter_name }} ini
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikianlah <b>{{ $data->letter_name }}</b> ini
                         saya buat dan saya tanda tangani dalam keadaan sehat dan pikiran waras tanpa paksaan dan tekanan
                         dari pihak manapun untuk dipergunakan sebagaimana mestinya.
                 </td>
@@ -215,14 +215,14 @@
             <table align="center" width="500" border="1px" style="text-align: center">
                 <tr style="font-weight: bolder">
                     <td width="10" style="padding-bottom: 1.5cm"">Yang Membuat Pernyataan </td>
-                    <td width="10" style="padding-bottom: 1.5cm">Saksi 1</td>
-                    <td width="10" style="padding-bottom: 1.5cm">Saksi 2</td>                
+                    <td width=" 10" style="padding-bottom: 1.5cm">Saksi 1</td>
+                    <td width="10" style="padding-bottom: 1.5cm">Saksi 2</td>
                 </tr>
                 <tr style="font-weight: bolder">
                     <td width="10"><u>{{ $data->name }}</u></td>
                     <td width="10"><u>{{ $data->letter_evidence1 }}</u></td>
                     <td width="10"><u>{{ $data->letter_evidence2 }}</u></td>
-                    
+
                 </tr>
 
             </table>
@@ -233,10 +233,10 @@
                 <td class="justify" style="text-align: justify">
                     **Catatan : <br> Saksi Memberikan Tanda Tangan dan Cap Jempol
                 </td>
-            </tr>            
+            </tr>
         </table>
 
-    
+
         <div style="margin-bttom:10px; overflow:auto;">
             <table align="right" width="320" border="1px" style="text-align: center">
                 <tr>
@@ -249,7 +249,8 @@
                 <tr>
                     <td style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ $data->letter_date }}</td>
+                    <td style=" border-bottom: 1px solid #000;">
+                        {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                     <td></td>
                 </tr>
             </table>
@@ -287,8 +288,8 @@
                 <tr>
                     <td width=""> </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <u><b> {{ $data->user->front_title }} {{ strtoupper($data->user->name) }}
-                                    {{ $data->user->back_title }} </b></u>
+                        <u><b> {{ $data->user->front_title }} {{ strtoupper($data->user->name) }}
+                                {{ $data->user->back_title }} </b></u>
                     </td>
                 </tr>
             </table>
@@ -297,21 +298,22 @@
                 <tr class="spaceUnder">
                     <td width=""> </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        An. KEPALA DESA {{ strtoupper($informations->village_name) }}<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            {{ strtoupper($data->user->position) }} {{ strtoupper($informations->village_name) }}
-                        
+                        An. KEPALA DESA
+                        {{ strtoupper($informations->village_name) }}<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {{ strtoupper($data->user->position) }} {{ strtoupper($informations->village_name) }}
+
 
                     </td>
                 <tr>
                     <td width=""> </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <u><b> {{ $data->user->front_title }} {{ strtoupper($data->user->name) }}
-                                    {{ $data->user->back_title }} </b></u>
+                                {{ $data->user->back_title }} </b></u>
                     </td>
                 </tr>
 
             </table>
-            
+
         @endif
         <br>
         <div style="margin-top:-50px; margin-left:70px;" class="right">

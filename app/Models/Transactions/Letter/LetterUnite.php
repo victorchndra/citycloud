@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterHoliday extends Model
+class LetterUnite extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -23,7 +23,7 @@ class LetterHoliday extends Model
             get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
-    }   
+    }
 
     public function name(): Attribute
     {
@@ -50,13 +50,13 @@ class LetterHoliday extends Model
         );
     }
 
-    public function dateBirth(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-        );
-    }
+    // public function dateBirth(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
+    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+    //     );
+    // }
 
     public function religion(): Attribute
     {
@@ -82,27 +82,60 @@ class LetterHoliday extends Model
         );
     }
 
+    public function businessVariation(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function businessName(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function businessAddress(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function businessPlace(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function agrarianStatus(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function selfStatus(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+
     // public function letterDate(): Attribute
     // {
     //     return new Attribute(
     //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
     //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-    //     );
-    // }
-    
-    // public function startDate(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->isoFormat('D MMMM Y'),
-    //     );
-    // }
-    
-    // public function endDate(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->isoFormat('D MMMM Y'),
     //     );
     // }
 
@@ -123,10 +156,15 @@ class LetterHoliday extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
-    
+
+    public function coupleUser()
+    {
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'couple_id', 'id');
+    }
+
 }

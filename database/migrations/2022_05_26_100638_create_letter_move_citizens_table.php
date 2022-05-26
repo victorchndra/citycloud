@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_land_transactions', function (Blueprint $table) {
+        Schema::create('letter_move_citizens', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
@@ -36,19 +36,13 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
-            $table->string('sc_name'); //sc = second party (pihak kedua)
-            $table->integer('sc_age');
-            $table->string('sc_job');
-            $table->string('sc_address');
-            $table->string('sc_id_card');
-            $table->string('land_location');
-            $table->string('land_village');
-            $table->string('land_sub_district');
-            $table->string('surface_area');
-            $table->string('land_price');
-            $table->string('payment');
-            $table->string('my_witness_name');
-            $table->string('sc_witness_name');
+            $table->string('citizenship')->nullable();
+            $table->string('village_to')->nullable();
+            $table->string('sub_districts_to')->nullable();
+            $table->string('districts_to')->nullable();
+            $table->string('province_to')->nullable();
+            $table->string('reason')->nullable();
+            $table->string('followers')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
@@ -63,6 +57,7 @@ return new class extends Migration
             $table->integer("deleted_by")->nullable();
             $table->timestamps();
             $table->softDeletes();
+            /////////////////////////////////////////
         });
     }
 
@@ -73,6 +68,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_land_transactions');
+        Schema::dropIfExists('letter_move_citizens');
     }
 };

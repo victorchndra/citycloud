@@ -118,6 +118,26 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
+                                            <label>Kelurahan Tanah</label>
+                                            <input type="text" name="land_village" class="form-control @error('land_village') is-invalid @enderror" placeholder="Kelurahan Tanah" required value="{{ old('land_village') }}"/>
+                                            @error('land_village')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Kecamatan Tanah</label>
+                                            <input type="text" name="land_sub_district" class="form-control @error('land_sub_district') is-invalid @enderror" placeholder="Kecamatan Tanah" required value="{{ old('land_sub_district') }}"/>
+                                            @error('land_sub_district')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
                                             <label>Luas Tanah</label>
                                             <input type="text" name="surface_area" class="form-control @error('surface_area') is-invalid @enderror" placeholder="Luas Tanah (cth: 900 meter persegi)" required value="{{ old('surface_area', $c->surface_area) }}"/>
                                             @error('surface_area')

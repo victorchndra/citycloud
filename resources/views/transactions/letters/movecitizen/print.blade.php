@@ -55,7 +55,7 @@
         <hr style="border: 2px solid black;">
 
         <div style="line-height: 1;">
-            <table align="center" width="500" border="1px">
+            <table align="center" width="460" border="1px">
                 <tr>
                     <td>
                         <center>
@@ -72,10 +72,9 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
-                    {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
-                    {{ $informations->district_name }}, dengan ini menerangkan bahwa :
+                <td>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten /Kota {{ $informations->district_name }} dengan ini menerangkan bahwa:
+                    
                 </td>
             </tr>
         </table>
@@ -90,11 +89,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->place_birth }}, {{ $data->date_birth }}</td>
-                </tr>
-                <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
                     <td width="2">: </td>
                     <td>{{ $data->nik }}</td>
@@ -103,6 +97,16 @@
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
                     <td width="2">: </td>
                     <td>{{ $data->gender }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->place_birth }}, {{ $data->date_birth }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Kewarganegaraan </td>
+                    <td width="2">: </td>
+                    <td>{{ $data->citizenship }}</td>
                 </tr>
 
                 <tr>
@@ -116,34 +120,113 @@
                     <td width="2">: </td>
                     <td>{{ $data->job }}</td>
                 </tr>
+            </table>
+        </div>
+
+        <div style="line-height: 1; margin-top: 10px;">
+            <table align="center" width="540">
                 <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Daerah Asal -</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Desa / Kelurahan</td>
                     <td width="2">: </td>
-                    <td>{{ $data->address }}</td>
+                    <td>{{ $data->village }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Kecamatan</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->sub_districts }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Kabupaten /Kota</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->districts }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Provinsi</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->province }}</td>
                 </tr>
             </table>
         </div>
 
+        <div style="line-height: 1; margin-top: 10px;">
+            <table align="center" width="540">
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pindah ke -</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Desa / Kelurahan</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->village_to }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Kecamatan</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->sub_districts_to }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Kabupaten /Kota</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->districts_to }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Provinsi</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->province_to }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alasan Pindah</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->reason }}</td>
+                </tr>
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pengikut</td>
+                    <td width="2">: </td>
+                </tr>
+            </table>
+        </div>
+
+        <br>
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk <b> Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }},
-                     Kecamatan {{ $informations->sub_district_name }}, Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>. Surat
-                        ini dibuat dan diberikan atas permintaan yang bersangkutan diatas untuk <b> {{ $data->letter_for }}</b>.
-                </td>
-            </tr>               
+                <th>#</th>
+                <th>Nama</th>
+                <th>TTL</th>
+                <th>NIK</th>
+                <th>SHDK</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Contoh Nama</td>
+                <td>Contoh TTL</td>
+                <td>Contoh NIK</td>
+                <td>Contoh SHDK</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Contoh Nama</td>
+                <td>Contoh TTL</td>
+                <td>Contoh NIK</td>
+                <td>Contoh SHDK</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Contoh Nama</td>
+                <td>Contoh TTL</td>
+                <td>Contoh NIK</td>
+                <td>Contoh SHDK</td>
+            </tr>
         </table>
 
-
-        <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
+        <table align="center" width="600" style="line-height: 1.5; margin-top:10px">
             <tr>
-                <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Demikianlah <b>{{ $data->letter_name }}</b> ini dibuat dengan
-                    sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai
-                    mana perlunya.
+                <td class="justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikianlah surat permohonan ini kami
+                    buat dengan sebenarnya, untuk dapat
+                    dipergunakan seperlunya.
                 </td>
             </tr>
         </table>
@@ -161,7 +244,8 @@
                 <tr>
                     <td style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+                    <td style=" border-bottom: 1px solid #000;">
+                        {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                     <td></td>
                 </tr>
             </table>
@@ -234,9 +318,6 @@
         </div>
     </section>
 
-
-
-    
 
 </body>
 

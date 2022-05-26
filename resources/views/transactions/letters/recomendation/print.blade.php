@@ -73,8 +73,8 @@
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
 
-                <td>
-                    <span>Dengan Hormat,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
+                <td style="text-align: justify">
+                    <span>Dengan Hormat,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
                     {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
                     {{ $informations->district_name }}, dengan ini memberikan Rekomendasi kepada :
                 </td>
@@ -128,34 +128,19 @@
 
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami, hingga saat
-                    dikeluarkan Rekomendasi ini serta diperjelas oleh :
-                </td>
+                <td class="justify" style="text-align: justify">
+                    Menurut pendataan kami, hingga saat dikeluarkan Rekomendasi ini serta diperjelas oleh :
+                    <br>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>1. Pernyataan Keterangan <strong>{{ $data->status_prilaku }}</strong> yang bersangkutan di ketahui oleh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lurah  {{ $informations->village_name }}.
+                    <br> 
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>2. Surat Pengantar dari Ketua RT. {{ $data->letter_rt }}.
             </tr>
-        </table>
-        <div style="line-height: 1; margin-top: 10px;">
-            <table align="center" width="540">
-                <tr>
-                    <td width="1"><span style="display:inline-block; width: 30 px;"></span>1.</td>
-
-                    <td>Pernyataan Keterangan <strong>{{ $data->status_prilaku }}</strong> yang bersangkutan di
-                        ketahui oleh Lurah {{ $informations->village_name }}.
-                    </td>
-                </tr>
-                <tr>
-                    <td width="1"><span style="display:inline-block; width: 30 px;"></span>2.</td>
-                    <td>Surat
-                        Pengantar dari Ketua RT. {{ $data->letter_rt }}.
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br>
-        <table align="center" width="600" style="line-height: 1.5;">
+        </table>        
+        
+        <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ternyata yang bersangkutan ”
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ternyata yang bersangkutan ”
                     <strong>
                         @if ($data->status_prilaku == 'BERKELAKUAN BAIK')
                             <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Tidak Pernah
@@ -167,14 +152,17 @@
                                 Partai Terlarang, Terlibat Dalam Tindakan Kriminal, Serta Pernah Membuat Keributan Di
                                 Lingkungan Tempat Tinggalnya</span>
                         @endif
-                        ”
-                    </strong>
+                        ”. 
+                    </strong>Rekomendasi ini diberikan untuk melengkapi persyaratan memperoleh <strong>SURAT KETERANGAN CATATAN KEPOLISIAN (SKCK) </strong> dari Bapak Kepala Kapolsek
+                    {{ $informations->sub_district_name }}.                    
+                </td>
+            </tr>
+        </table>
 
-                    . <br> Rekomendasi ini diberikan untuk melengkapi persyaratan memperoleh <strong>SURAT KETERANGAN
-                        CATATAN
-                        KEPOLISIAN (SKCK) </strong> dari Bapak Kepala Kapolsek
-                    {{ $informations->sub_district_name }}.
-                    <br><br>Demikian Rekomendasi ini kami berikan untuk dapat dipergunakan seperlunya.
+        <table align="center" width="600" style="line-height: 1.5;margin-top: 10px;">
+            <tr>
+                <td class="justify" style="text-align: justify">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikianlah<b> {{ $data->letter_name }}</b> ini kami berikan untuk dapat dipergunakan seperlunya.
                 </td>
             </tr>
         </table>
@@ -192,7 +180,8 @@
                 <tr>
                     <td style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+                    <td style=" border-bottom: 1px solid #000;">
+                        {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                     <td></td>
                 </tr>
             </table>

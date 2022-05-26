@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Usaha</h3>
+                <h3>	Surat Keterangan Rujuk</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Usaha</li>
+                        <li class="breadcrumb-item active" aria-current="page">	Surat Keterangan Rujuk</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Tambah 	Surat Keterangan Rujuk</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-not-bpjs" method="POST">
+                            <form class="form form-horizontal" action="/letters-unite" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -45,8 +45,8 @@
                                             @endforeach
                                         </div>
 
-                                        <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                        <div class="col-md-6 form-group">
+                                            <label>Pilih Suami</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 <option selected="selected" value="">Ketik Nama atau NIK</option>
@@ -56,6 +56,39 @@
                                                 @endforeach
                                             </select>
                                             </select>
+                                        </div>
+                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Pilih Istri</label>
+                                            <select id="couple_id" class="form-control select2" name="couple_id"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Saksi 1</label>
+                                            <input type="text" name="witness1" class="form-control @error('witness1') is-invalid @enderror" placeholder="Nama Saksi 1" required value="{{ old('witness1') }}"/>
+                                                @error('witness1')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Saksi 2</label>
+                                            <input type="text" name="witness2" class="form-control @error('witness2') is-invalid @enderror" placeholder="Nama Saksi 2" required value="{{ old('witness2') }}"/>
+                                                @error('witness2')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                         </div>
 
                                         <div class="col-md-12 form-group">
@@ -110,7 +143,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-not-bpjs" method="POST">
+                        <form class="form form-horizontal" action="/letters-noact" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -127,13 +160,13 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-
+                                              
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-
+                                  
                                             </select>
                                             </select>
                                         </div>
-
+                                      
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -150,10 +183,10 @@
                                             </div>
                                         </div>
 
-
+                                      
                                     </div>
 
-                                </div>
+                                    </div>
                             </form>
                             @endif
                         </div>

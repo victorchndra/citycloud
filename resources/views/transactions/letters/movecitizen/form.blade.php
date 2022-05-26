@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Domisili</h3>
+                <h3>Surat Keterangan Pindah</h3>
                 <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Domisili</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pindah</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Domisili</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Pindah</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
-                            <form class="form form-horizontal" action="/letters-domicile" method="POST">
+                            <form class="form form-horizontal" action="/letters-movecitizen" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -56,8 +56,55 @@
                                                 @endforeach
                                             </select>
                                             </select>
-                                        </div>                                        
+                                        </div>
 
+                                        <div class="col-md-12 form-group">
+                                            <label>Kewarganegaraan</label>
+                                            <select id="citizenship" class="form-control select2" name="citizenship"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Pilih Kewarganegaraan</option>
+                                                <option value="WNI"> WNI </option>
+                                                <option value="WNA"> WNA </option>
+                                            </select>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Desa / Kelurahan</label>
+                                            <input type="text" name="village_to"
+                                                class="form-control @error('village_to') is-invalid @enderror"
+                                                placeholder="Desa / Kelurahan pindah">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Kecamatan</label>
+                                            <input type="text" name="sub_districts_to"
+                                                class="form-control @error('sub_districts_to') is-invalid @enderror"
+                                                placeholder="Kecamatan pindah">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Kabupaten /Kota</label>
+                                            <input type="text" name="districts_to"
+                                                class="form-control @error('districts_to') is-invalid @enderror"
+                                                placeholder="Kabupaten /Kota pindah">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Provinsi</label>
+                                            <input type="text" name="province_to"
+                                                class="form-control @error('province_to') is-invalid @enderror"
+                                                placeholder="Provinsi Pindah">
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <label>Alasan Pindah</label>
+                                            <input type="text" name="reason"
+                                                class="form-control @error('reason') is-invalid @enderror"
+                                                placeholder="Alasan Pindah">
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <label>Pengikut</label>
+                                            <input type="text" name="followers"
+                                                class="form-control @error('followers') is-invalid @enderror"
+                                                placeholder="Alasan Pindah">
+                                        </div>
+                                        
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
                                             <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
@@ -110,7 +157,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-business" method="POST">
+                        <form class="form form-horizontal" action="/letters-holiday" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -134,17 +181,33 @@
                                             </select>
                                         </div>
 
+                                        <div class="col-md-6 form-group">
+                                            <label>Mulai</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Tanggal Mulai Cuti">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Hingga</label>
+                                            <input type="date" name="end_date"
+                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="Tanggal Akhir Cuti">
+                                        </div>
+
                                         <div class="col-md-12 form-group">
-                                            <label>Tgl Surat</label>
-                                            <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
-                                                @error('letter_date')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                                            <label>Alamat Selama Cuti</label>
+                                            <input type="text" name="address_letter"
+                                                class="form-control @error('address_letter') is-invalid @enderror"
+                                                placeholder="Alamat Selama Cuti">
                                         </div>
                                         
-
+                                        {{-- <div class="col-md-12 form-group">
+                                            <label>Cuti Selama</label>
+                                            <input type="text" name="day"
+                                                class="form-control @error('day') is-invalid @enderror"
+                                                placeholder="Cuti Selama">
+                                        </div> --}}
                                       
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

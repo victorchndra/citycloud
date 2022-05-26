@@ -72,8 +72,8 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
+                <td  style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
                     {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
                     {{ $informations->district_name }}, dengan ini menerangkan bahwa :
                 </td>
@@ -162,8 +162,7 @@
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
                 <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Demikianlah {{ $data->letter_name }} ini kami buat dan kami berikan kepada yang bersangkutan untuk dapat dipergunakan sebagaimana mestinya.
+                    <td class="justify" style="text-align: justify"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikianlah <b>{{ $data->letter_name }}</b>, ini kami buat dan kami berikan kepada yang bersangkutan untuk dapat dipergunakan sebagaimana mestinya.
                 </td>
             </tr>
         </table>

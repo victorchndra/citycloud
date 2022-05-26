@@ -45,70 +45,41 @@
     </head>
     <body class="Legal">
     <section class="pagebreak">
-        <center>
-        <img src="{{ asset('/storage/'. $informations->header)}}" class="img-fluid" width="700">
-        </center>
-
-        <hr style="border: 2px solid black;">
-
-        <div style="line-height: 1;">
-            <table align="center" width="460" border="1px">
-                <tr>
-                    <td>
-                        <center>
-                            <font style="font-weight: bold; text-decoration: underline;">{{strtoupper($data->letter_name)}}</font>
-                            <br>
-                            Nomor : {{ $data->letter_index }}
-                        </center>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        </div>
-        <br>
-        <table align="center" width="600" style="line-height: 1.5;">
+    <div style="line-height: 1; margin-top:2rem;">
+        <table align="center" width="460" border="1px">
+            <tr>
+                <td>
+                    <center>
+                        <font style="font-weight: bold; text-decoration: none;">{{strtoupper($data->letter_name)}}</font>
+                        {{-- <br> --}}
+                        {{-- Nomor : {{ $data->letter_index }} --}}
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <table align="center" width="645" style="line-height: 1.5;">
         <tr>
             <td>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa  {{ $informations->village_name }} Kecamatan  {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }}, dengan ini menerangkan bahwa :
+                Yang bertanda tangan dibawah ini :
             </td>
         </tr>
     </table>
 
     <div style="line-height: 1; margin-top: 10px;">
-        <table align="center" width="540">
+        <table align="center" width="645">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama Lengkap</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
                 <td width="2">: </td>
                 <td>
                     <font style="font-weight: bold; ">{{$data->name}}</font>
                 </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
                 <td width="2">: </td>
-                <td>{{ $data->nik }}</td>
-            </tr>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>KK</td>
-                <td width="2">: </td>
-                <td>{{ $data->kk }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
-                <td width="2">: </td>
-                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
-                <td width="2">: </td>
-                <td>{{ $data->gender }}</td>
-            </tr>
-
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
-                <td width="2">: </td>
-                <td>{{ $data->religion }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->date_birth)->diffForHumans(null, true) }}</td>
             </tr>
 
             <tr>
@@ -122,101 +93,159 @@
                 <td>{{ $data->address }}</td>
             </tr>
         </table>
+        <table align="center" width="645" style="line-height: 1.5;">
+            <tr>
+                <td>
+                    Dalam hal ini bertindak atas nama diri pribadi yang selanjutnya disebut <b>PIHAK PERTAMA.</b>
+                </td>
+            </tr>
+        </table>
     </div>
 
+    <div style="line-height: 1; margin-top: 10px;">
+        <table align="center" width="645">
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
+                <td width="2">: </td>
+                <td>
+                    <font style="font-weight: bold; ">{{ strtoupper($data->sc_name) }}</font>
+                </td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
+                <td width="2">: </td>
+                <td>{{ $data->sc_age }} tahun</td>
+            </tr>
 
-    <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                <td width="2">: </td>
+                <td>{{ strtoupper($data->sc_job) }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
+                <td width="2">: </td>
+                <td>{{ strtoupper($data->sc_address) }}</td>
+            </tr>
+        </table>
+        <table align="center" width="645" style="line-height: 1.5;">
+            <tr>
+                <td>
+                    Dalam hal ini bertindak atas nama diri pribadi yang selanjutnya disebut <b>PIHAK KEDUA.</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table align="center" width="645" style="line-height: 1.5; margin-top: 10px;">
         <tr>
-            {{-- <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami dan pernyataan yang bersangkutan pada tanggal <b> {{$data->letter_date}}</b>  benar mempunyai
-                usaha :
-            </td> --}}
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk Desa {{ $informations->village_name }} Rt.{{ $data->rt }} Rw.{{ $data->rw }} Kecamatan. {{ $informations->sub_district_name }} Kabupaten. {{ $informations->district_name }} Provinsi. {{ $informations->province_name }}, benar belum memiliki kartu BPJS Surat ini
-                dibuat untuk mengambil kartu BPJS.
+                Kedua belah pihak dengan ini menerangkan bahwa <b>PIHAK PERTAMA</b> selaku pemilik sah telah setuju untuk menjual kepada <b>PIHAK KEDUA</b> berupa :
             </td>
         </tr>
     </table>
-            <br>
-            <table align="center" width="600" style="line-height: 1.5;">
+    <table align="center" width="645" style="line-height: 1.5; margin-top: 10px;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} dibuat dengan sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.
+                Sebidang tanah kaplingan yang terletak di Jalan {{ $data->land_location }} kelurahan {{ $data->land_village }} kecamatan {{ $data->land_sub_district }} dengan luas tanah kurang lebih {{ $data->surface_area }} dengan harga Rp. {{ number_format($data->land_price,0,',','.') }} (
+                    @php
+                        function penyebut($nilai) {
+                            $nilai = abs($nilai);
+                            $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+                            $temp = "";
+                            if ($nilai < 12) {
+                                $temp = " ". $huruf[$nilai];
+                            } else if ($nilai <20) {
+                                $temp = penyebut($nilai - 10). " belas";
+                            } else if ($nilai < 100) {
+                                $temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+                            } else if ($nilai < 200) {
+                                $temp = " seratus" . penyebut($nilai - 100);
+                            } else if ($nilai < 1000) {
+                                $temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+                            } else if ($nilai < 2000) {
+                                $temp = " seribu" . penyebut($nilai - 1000);
+                            } else if ($nilai < 1000000) {
+                                $temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+                            } else if ($nilai < 1000000000) {
+                                $temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+                            } else if ($nilai < 1000000000000) {
+                                $temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
+                            } else if ($nilai < 1000000000000000) {
+                                $temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
+                            }
+                            return $temp;
+                        }
+                        echo penyebut($data->land_price) . ' rupiah';
+                    @endphp
+                ) secara {{ $data->payment }}.
             </td>
         </tr>
     </table>
+    <table align="center" width="645" style="line-height: 1.5; margin-top: 10px;">
+        <tr>
+            <td class="justify">
+                Selanjutnya kedua belah pihak bersepakat bahwa perjanjian penjualan antara <b>PIHAK PERTAMA</b> dan <b>PIHAK KEDUA</b> ini berlaku sejak tanggal penandatanganan surat perjanjian ini.
+            </td>
+        </tr>
+    </table>
+    <br>
 
-
-    <div style="margin-bttom:10px; overflow:auto;">
-            <table align="right" width="320" border="1px" >
-                <tr>
-                    <td  width="">Dikeluarkan </td>
-                    <td width="10 px">: </td>
-                    <td width=""; > {{ $informations->village_name }} </td>
-                     <td></td>
-
-                </tr>
-                <tr>
-                    <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
-                    <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
-                     <td></td>
-                </tr>
-            </table>
+    <div style="margin-bttom:10px; overflow:auto; ">
+        <table align="center" width="645">
+            <tr>
+                <td colspan="3" style="text-align: right;">{{ $informations->village_name }}, {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center"><b>PIHAK PERTAMA</b></td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td style="text-align: center"><b>PIHAK KEDUA</b></td>
+            </tr>
+            <tr>
+                <td style="text-align: center; display:flex; justify-content:center;">
+                    <div style="padding: 5px; border:1px ridge black; width:80px;">
+                        Materai<br/>6000
+                    </div>
+                </td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align: center">{{ ucfirst(trans(strtolower($data->name))) }}</td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td style="text-align: center">{{ ucfirst(trans(strtolower($data->sc_name))) }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center;"><b>SAKSI-SAKSI</b></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align: center;"><b>SAKSI I</b></td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td style="text-align: center;"><b>SAKSI II</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="height:80px;">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">({{ $data->my_witness_name }})</td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td style="text-align: center;">({{ $data->sc_witness_name }})</td>
+            </tr>
+        </table>
     </div>
 
 
-        @if ( $data->user->position == 'Kepala Desa')
-        <table align="right" width="400" border="1px">
-
-
-        @if ( $data->signature == 'wet')
-            <tr class="spaceUnder">
-                <td width=""> </td>
-                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-            </td>
-            @endif
-            @if ( $data->signature == 'digital')
-            <tr>
-                <td> </td>
-                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-            </td>
-            <tr>
-
-                <td> </td>
-                <td > <center> <img src="{{ asset('/storage/'. $informations->signature)}}" class="img-fluid" width="100"></center>
-
-            </tr>
-            @endif
-            <tr>
-                <td width=""> </td>
-                <td > <center><u><b> {{$data->user->front_title}}   {{strtoupper($data->user->name)}} {{$data->user->back_title}}  </b></u></center></td>
-            </tr>
-        </table>
-        @else
-        <table align="right" width="400" border="1px">
-            <tr class="spaceUnder">
-                <td width=""> </td>
-                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR>
-                    {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-
-            </td>
-            <tr>
-                <td width=""> </td>
-                <td > <center><u><b> {{$data->user->front_title}}   {{strtoupper($data->user->name)}}  {{$data->user->back_title}}  </b></u></center></td>
-            </tr>
-
-        </table>
-        @endif
-
-
-        <div style="margin-top:-50px; margin-left:70px;" class="right">
+        <div style="margin-top:50px; margin-left:70px;" class="right">
 
         {!! QrCode::size(100)->generate('Dokumen sah Desa '. $informations->village_name. ' Hari/Tanggal '. $data->letter_date. ' Untuk Keperluan '. $data->letter_name. '-'. $data->name); !!}
 
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
     </body>
 </html>

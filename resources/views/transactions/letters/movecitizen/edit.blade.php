@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Pernyataan</h3>
+                    <h3>Surat Keterangan Pindah</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pernyataan</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pindah</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,12 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Pernyataan</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Pindah</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-move/{{ $c->uuid }}"
+                                    <form class="form-sample" action="/letters-movecitizen/{{ $c->uuid }}"
                                         method="POST">
                                         @method('put')
                                         @csrf
@@ -60,13 +60,98 @@
                                                 </div>
 
                                                 <div class="col-md-12 form-group">
-                                                    <label>Pindah Ke- </label>
+                                                    <label>Kewarganegaraan</label>
+                                                    <select id="citizenship" class="form-control" name="citizenship"
+                                                    style="width: 100%;" required>
+                                                        <option selected="selected" value="{{ old('citizenship', $c->citizenship) }}">{{ $c->citizenship }}</option>
+                                                        <option value="WNI">WNI</option>
+                                                        <option value="WNA">WNA</option>
+                                                    </select>
+                                                    @error('citizenship')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
 
-                                                    <input type="text" name="move_to"
-                                                        class="form-control @error('move_to') is-invalid @enderror"
+                                                <div class="col-md-3 form-group">
+                                                    <label>Desa / Kelurahan </label>
+
+                                                    <input type="text" name="village_to"
+                                                        class="form-control @error('village_to') is-invalid @enderror"
                                                         placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
-                                                        value="{{ old('move_to', $c->move_to) }}" />
-                                                    @error('move_to')
+                                                        value="{{ old('village_to', $c->village_to) }}" />
+                                                    @error('village_to')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-3 form-group">
+                                                    <label>Kecamatan</label>
+
+                                                    <input type="text" name="sub_districts_to"
+                                                        class="form-control @error('sub_districts_to') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('sub_districts_to', $c->sub_districts_to) }}" />
+                                                    @error('sub_districts_to')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-md-3 form-group">
+                                                    <label>Kabupaten /Kota</label>
+
+                                                    <input type="text" name="districts_to"
+                                                        class="form-control @error('districts_to') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('districts_to', $c->districts_to) }}" />
+                                                    @error('districts_to')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-md-3 form-group">
+                                                    <label>Provinsi</label>
+
+                                                    <input type="text" name="province_to"
+                                                        class="form-control @error('province_to') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('province_to', $c->province_to) }}" />
+                                                    @error('province_to')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-md-12 form-group">
+                                                    <label>Alasan Pindah</label>
+
+                                                    <input type="text" name="reason"
+                                                        class="form-control @error('reason') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('reason', $c->reason) }}" />
+                                                    @error('reason')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-md-12 form-group">
+                                                    <label>Pengikut</label>
+
+                                                    <input type="text" name="followers"
+                                                        class="form-control @error('followers') is-invalid @enderror"
+                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
+                                                        value="{{ old('followers', $c->followers) }}" />
+                                                    @error('followers')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -90,7 +175,7 @@
 
                                                 <div class="col-md-12 form-group">
                                                     <label>Ditandatangani Oleh</label>
-                                                    <select id="positions" class="form-control" name="positions"
+                                                    <select id="citizenship" class="form-control" name="positions"
                                                         style="width: 100%;" required>
                                                         @foreach ($position as $positions)
                                                             <option

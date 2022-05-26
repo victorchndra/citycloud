@@ -7,14 +7,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Surat Keterangan Pernyataan</h3>
+                    <h3>Surat Keterangan Rujuk</h3>
                     <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pernyataan</li>
+                            <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Rujuk</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +27,12 @@
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Surat Keterangan Pernyataan</h4>
+                            <h4 class="card-title">Edit Surat Keterangan Rujuk</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 @foreach ($citizen as $c)
-                                    <form class="form-sample" action="/letters-move/{{ $c->uuid }}"
+                                    <form class="form-sample" action="/letters-unite/{{ $c->uuid }}"
                                         method="POST">
                                         @method('put')
                                         @csrf
@@ -48,31 +48,58 @@
                                                     @endforeach
                                                 </div>
 
-                                                <div class="col-md-12 form-group">
-                                                    <label>Pilih Penduduk</label>
-                                                    <select disabled id="citizens" class="form-control select2"
-                                                        name="citizens" style="width: 100%;" required>
-                                                        @foreach ($citizen as $citizens)
-                                                            <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
-                                                                {{ $citizens->name }}</option>
+                                                <div class="col-md-6 form-group">
+                                                    <label>Suami</label>
+                                                    <select disabled id="citizens" class="form-control select2" name="citizens"
+                                                        style="width: 100%;" required>
+                                                        @foreach($citizen as $citizens)
+                                                        <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                            {{ $citizens->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-md-6 form-group">
+                                                    <label>Istri</label>
+                                                    <select disabled id="couple_id" class="form-control select2" name="couple_id"
+                                                        style="width: 100%;" required  >
+                                                        @foreach($citizen as $citizens)
+                                                        <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                            {{ $citizens->coupleUser->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-12 form-group">
-                                                    <label>Pindah Ke- </label>
+                                                <div class="col-md-6 form-group">
+                                                    <label>Saksi 1</label>
+                                                    
+                                                    <input type="text" name="witness1"
+                                                    class="form-control @error('witness1') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->witness1 }}" />
 
-                                                    <input type="text" name="move_to"
-                                                        class="form-control @error('move_to') is-invalid @enderror"
-                                                        placeholder="cth: Abadi Jaya, Mandiri Bangunan" required
-                                                        value="{{ old('move_to', $c->move_to) }}" />
-                                                    @error('move_to')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
+                                                    @error('witness1')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
+                                                
+                                                <div class="col-md-6 form-group">
+                                                    <label>Saksi 2</label>
+                                                    
+                                                    <input type="text" name="witness2"
+                                                    class="form-control @error('witness2') is-invalid @enderror"
+                                                    placeholder="cth: 01/01/2022" required
+                                                    value="{{ $c->witness2 }}" />
 
+                                                    @error('witness2')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                
                                                 <div class="col-md-12 form-group">
                                                     <label>Tanggal Surat</label>
                                                     
