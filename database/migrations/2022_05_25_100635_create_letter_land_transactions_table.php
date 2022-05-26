@@ -42,6 +42,8 @@ return new class extends Migration
             $table->string('sc_address');
             $table->string('sc_id_card');
             $table->string('land_location');
+            $table->string('land_village');
+            $table->string('land_sub_district');
             $table->string('surface_area');
             $table->string('land_price');
             $table->string('payment');
