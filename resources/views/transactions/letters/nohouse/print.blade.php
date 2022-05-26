@@ -72,8 +72,8 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
+                <td  style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
                     {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
                     {{ $informations->district_name }}, dengan ini menerangkan bahwa :
                 </td>
@@ -128,28 +128,20 @@
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Adalah penduduk yang berdomisili di
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Adalah penduduk yang berdomisili di
                     wilayah kami yaitu di Lingkungan <b> RT. {{ $data->rt }}, RW. {{ $data->rw }},
-                    Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>.
-                </td>
-            </tr>
-            <tr>
-                <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Sepanjang pengetahuan dan penelitian
-                    kami bahwa yang namanya tersebut diatas
-                    memang benar sampai saat ini belum memiliki rumah tempat tinggal, dan surat
+                    Desa {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kota {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>.                    
+                    <span>&nbsp;&nbsp;&nbsp;</span> Sepanjang pengetahuan dan penelitian kami bahwa yang namanya tersebut diatas memang benar sampai saat ini belum memiliki rumah tempat tinggal, dan surat
                     keterangan ini diberikan untuk keperluan : <b> {{ $data->letter_for }}</b>.
                 </td>
-            </tr>
+            </tr>            
         </table>
 
 
-        <table align="center" width="600" style="line-height: 1.5;">
+        <table align="center" width="600" style="line-height: 1.5;margin-top: 10px;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikianlah<b> {{ $data->letter_name }}</b> ini kami berikan untuk dapat dipergunakan seperlunya.
                 </td>
             </tr>
         </table>

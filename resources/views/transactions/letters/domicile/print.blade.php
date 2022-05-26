@@ -72,8 +72,8 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
+                <td  style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
                     {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
                     {{ $informations->district_name }}, dengan ini menerangkan bahwa :
                 </td>
@@ -128,20 +128,15 @@
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Bahwa data yang dimaksud diatas adalah
-                    benar Berdomisili di <b>
-                        Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}, Kecamatan {{ $informations->sub_district_name }},
-                        Kota
-                        {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>.                    
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Bahwa data yang dimaksud diatas adalah benar Berdomisili di <b> Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }}, Kecamatan {{ $informations->sub_district_name }}, Kota {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>.                    
                 </td>
             </tr>
         </table> 
               
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
-                    Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
+                <td class="justify" style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikianlah {{ $data->letter_name }} ini kami berikan untuk dapat dipergunakan seperlunya.
                 </td>
             </tr>
         </table>
