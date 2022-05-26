@@ -6,7 +6,8 @@
         <title>{{ $informations->village_name }}</title>
         <meta name="description" content="">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        
+        <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="">
         
         <style type="text/css">
@@ -98,6 +99,21 @@
                 <td width="2">: </td>
                 <td>{{ $data->gender }}</td>
             </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
+                <td width="2">: </td>
+                <td>{{ $data->religion }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                <td width="2">: </td>
+                <td>{{ $data->job }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
+                <td width="2">: </td>
+                <td>{{ $data->address }}</td>
+            </tr>
 
            
         </table>
@@ -110,10 +126,8 @@
         <tr>
             <td class="justify">
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                Bahwa benar yang bersangkutan adalah warga masyarakat {{$informations->village_name}}, yang
-sepengetahuan kami beradat istiadat baik serta bermaksud melakukan perjalanan dengan :
- Nama tersebut diatas benar pembawa <b>{{$data->goods}} {{$data->count_goods}}</b> dari {{$data->address}} dengan tujuan . Dengan
-menggunakan .
+                Bahwa benar yang bersangkutan adalah warga masyarakat Desa{{$informations->village_name}}, yang
+                sepengetahuan kami beradat istiadat baik serta bermaksud melakukan perjalanan dengan:
 
             </td>
         </tr>
@@ -122,23 +136,44 @@ menggunakan .
     <div style="line-height: 1; margin-top: 10px;">
         <table align="center" width="540">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tujuan</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tanggal Berangkat</td>
                 <td width="2">: </td>
-                <td>{{ $data->purpose }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->date_depart)->translatedFormat('d M Y') }}</td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Berangkat</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat yang dituju</td>
                 <td width="2">: </td>
-                <td>{{ \Carbon\Carbon::parse($data->depart)->translatedFormat('d M Y') }}</td>
+                <td>{{$data->purpose_address}}</td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Keterangan</td>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Keperluan</td>
                 <td width="2">: </td>
-                <td> {{$data->goods}} {{$data->count_goods}}</td>
+                <td> {{$data->need}}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pengikut</td>
+                <td width="2">: </td>
+            </tr>
+            
+        </table>
+        <table class="table" width="100">
+            <tr>
+                <th>#</th>
+                <th>NAMA</th>
+                <th>TTL</th>
+                <th>NIK</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{$data->followerUser->name}}</td>
+                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+                <td>{{ $data->nik }}</td>
             </tr>
         </table>
     </div>
-
+    
+  
+ 
     <br>
     <table align="center" width="600" style="line-height: 1.5;">
 <tr>
