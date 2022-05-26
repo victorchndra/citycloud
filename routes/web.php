@@ -265,3 +265,7 @@ Route::get("approve/income-letters/{uid}", "App\Http\Controllers\Transactions\Le
 
 // Surat Keterangan Jual Beli Tanah
 Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\Letter\LetterLandTransactionController")->middleware('auth');
+
+//surat menikah
+Route::resource("letters-marriage", "App\Http\Controllers\Transactions\Letter\LetterMarriageController")->middleware('auth');
+Route::get("approve/letters-marriage/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMarriageController@approve")->name('approve.businessletters');
