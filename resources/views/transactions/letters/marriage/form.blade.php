@@ -613,60 +613,345 @@
                                             @enderror
                                         </div>
 
-                                        <div class="row">
-                                            <label>Pindah Nikah</label>
-                                            <div class="col-md-12">
-                                                <div class="form-group inline">
 
-                                                    <div class="form-check inline">
-                                                        <input class="form-check-input" type="radio" value="ya"
-                                                            type="radio" onclick="javascript:yesnoMove();" name="yesnoPindah"
-                                                            id="yesMoveCheck" />
-                                                        <label class="form-check-label" for="ya">
-                                                            Ya
-                                                        </label>
-                                                    </div>
+                                             <!-- MOVE SECTION -->
 
-                                                    <div class="form-check inline">
-                                                        <input class="form-check-input" type="radio" value="bukan"
-                                                            type="radio" onclick="javascript:yesnoMove();" name="yesnoPindah"
-                                                            id="noMoveCheck" />
-                                                        <label class="form-check-label" for="bukan">
-                                                            Tidak
-                                                        </label>
-                                                    </div>
+                                             <div class="col-md-12">
+                                            <div class="form-group inline">
+                                                <label>Pindah Nikah?</label>
 
+                                                <div class="form-check inline">
+                                                    <input class="form-check-input" type="radio" value="tidak"
+                                                        type="radio" onclick="javascript:yesnoMove();" name="yesnoPindah"
+                                                        id="noMoveCheck" />
+                                                    <label class="form-check-label" for="tidak">
+                                                       Tidak
+                                                    </label>
                                                 </div>
+
+                                                <div class="form-check inline">
+                                                    <input class="form-check-input" type="radio" value="ya"
+                                                        type="radio" onclick="javascript:yesnoMove();" name="yesnoPindah"
+                                                        id="yesMoveCheck" />
+                                                    <label class="form-check-label" for="ya">
+                                                        Ya
+                                                    </label>
+                                                </div>
+
                                             </div>
                                         </div>
 
+                                        <div id="move_citizen" class="col-md-12 form-group">
+                                            <div class="row">
 
-                                        <div class="row">
-                                            <label>Buat Surat Ket. Kematian?</label>
-                                            <div class="col-md-12">
-                                                <div class="form-group inline">
+                                            <div class="col-md-12 form-group">
+                                            <label>No Surat</label>
+                                            @foreach($informations as $information)
+                                            <input type="text" name="letter_index_move"
+                                                class="form-control @error('letter_index_move') is-invalid @enderror"
+                                                placeholder="No Surat" value="  {{ $information->letter_index_move  }}">
+                                            @endforeach
+                                        </div>
 
-                                                    <div class="form-check inline">
-                                                        <input class="form-check-input" type="radio" value="ya"
-                                                            type="radio" onclick="javascript:yesnoDeath();" name="yesnoDeath"
-                                                            id="yesDeathCheck" />
-                                                        <label class="form-check-label" for="ya">
-                                                            Ya
-                                                        </label>
+                                                <div class="col-md-3 form-group">
+                                                    <label>Pindah ke Desa</label>
+                                                    <input type="text" name="move_village"
+                                                        class="form-control @error('move_village') is-invalid @enderror"
+                                                        placeholder="Pindah ke "
+                                                        value="{{ old('move_village') }}" />
+                                                    @error('move_village')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                     </div>
-
-                                                    <div class="form-check inline">
-                                                        <input class="form-check-input" type="radio" value="bukan"
-                                                            type="radio" onclick="javascript:yesnoDeath();" name="yesnoDeath"
-                                                            id="noDeathCheck" />
-                                                        <label class="form-check-label" for="bukan">
-                                                            Tidak
-                                                        </label>
-                                                    </div>
-
+                                                    @enderror
                                                 </div>
+
+
+                                                <div class="col-md-3 form-group">
+                                                    <label>Pindah ke Kecamatan</label>
+                                                    <input type="text" name="move_sub_districts"
+                                                        class="form-control @error('move_sub_districts') is-invalid @enderror"
+                                                        placeholder="Nama Ibu"
+                                                        value="{{ old('move_sub_districts') }}" />
+                                                    @error('move_sub_districts')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+
+                                                <div class="col-md-3 form-group">
+                                                    <label>Pindah ke Kabupaten</label>
+                                                    <input type="text" name="move_districts"
+                                                        class="form-control @error('move_districts') is-invalid @enderror"
+                                                        placeholder="Nama Ibu"
+                                                        value="{{ old('move_districts') }}" />
+                                                    @error('move_districts')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-3 form-group">
+                                                    <label>Pindah ke Provinsi</label>
+                                                    <input type="text" name="move_province"
+                                                        class="form-control @error('move_province') is-invalid @enderror"
+                                                        placeholder="Nama Ibu"
+                                                        value="{{ old('move_province') }}" />
+                                                    @error('move_province')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                        
                                             </div>
                                         </div>
+
+                                        <!-- MOVE SECTION END -->
+
+
+                                           <!-- DEATH SECTION -->
+
+                                           <div class="col-md-12">
+                                            <div class="form-group inline">
+                                                <label>Buat Surat Ket. Kematian</label>
+
+                                                <div class="form-check inline">
+                                                    <input class="form-check-input" type="radio" value="tidak"
+                                                        type="radio" onclick="javascript:yesnoDeath();" name="yesnoMeninggal"
+                                                        id="noDeathCheck" />
+                                                    <label class="form-check-label" for="tidak">
+                                                       Tidak
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check inline">
+                                                    <input class="form-check-input" type="radio" value="ya"
+                                                        type="radio" onclick="javascript:yesnoDeath();" name="yesnoMeninggal"
+                                                        id="yesDeathCheck" />
+                                                    <label class="form-check-label" for="ya">
+                                                        Ya
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div id="death_citizen" class="col-md-12 form-group">
+                                            <div class="row">
+
+                                            <div class="col-md-12 form-group">
+                                            <label>No Surat</label>
+                                            @foreach($informations as $information)
+                                            <input type="text" name="letter_index_move"
+                                                class="form-control @error('letter_index_move') is-invalid @enderror"
+                                                placeholder="No Surat" value="  {{ $information->letter_index_move  }}">
+                                            @endforeach
+                                        </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label>Tgl Meninggal</label>
+                                                    <input type="date" name="death_date"
+                                                        class="form-control @error('death_date') is-invalid @enderror"
+                                                        placeholder="Pindah ke "
+                                                        value="{{ old('death_date') }}" />
+                                                    @error('death_date')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+
+                                                <div class="col-md-6 form-group">
+                                                    <label>Lokasi Meninggal</label>
+                                                    <input type="text" name="death_location"
+                                                        class="form-control @error('death_location') is-invalid @enderror"
+                                                        placeholder="Lokasi Meninggal"
+                                                        value="{{ old('death_location') }}" />
+                                                    @error('death_location')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+
+                                               <!-- NESTED EX SECTION -->
+                                                <div class="col-md-12">
+                                            <div class="form-group inline">
+                                                <label>Status Mantan</label>
+                                                <div class="form-check inline">
+                                                    <input class="form-check-input" type="radio" value="warga"
+                                                        type="radio" onclick="javascript:yesnoEx();" name="yesnoMantan"
+                                                        id="yesExCheck" />
+                                                    <label class="form-check-label" for="warga">
+                                                        Warga
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check inline">
+                                                    <input class="form-check-input" type="radio" value="bukan"
+                                                        type="radio" onclick="javascript:yesnoEx();" name="yesnoMantan"
+                                                        id="noExCheck" />
+                                                    <label class="form-check-label" for="bukan">
+                                                        Bukan Warga
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div id="ex_citizen" class="col-md-12 form-group">
+                                            <label>Pilih Mantan (Pemohon)</label>
+                                            <select id="ex" class="form-control select2" name="ex"
+                                                style="width: 100%;">
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($ex as $exs)
+                                                <option value="{{ $exs->id }}">{{ $exs->nik }} -
+                                                    {{ $exs->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                        <div id="ex_not" class="col-md-12 form-group">
+                                            <div class="row">
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Nama Mantan</label>
+                                                    <input type="text" name="ex_name"
+                                                        class="form-control @error('ex_name') is-invalid @enderror"
+                                                        placeholder="Nama Mantan"
+                                                        value="{{ old('ex_name') }}" />
+                                                    @error('ex_name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Bin</label>
+                                                    <input type="text" name="ex_bin"
+                                                        class="form-control @error('ex_bin') is-invalid @enderror"
+                                                        placeholder="Bin" value="{{ old('ex_bin') }}" />
+                                                    @error('ex_bin')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>NIK</label>
+                                                    <input type="text" name="ex_nik"
+                                                        class="form-control @error('ex_nik') is-invalid @enderror"
+                                                        placeholder="Nik Mantan"
+                                                        value="{{ old('ex_nik') }}" />
+                                                    @error('ex_nik')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Tempat Lahir</label>
+                                                    <input type="text" name="ex_place_birth"
+                                                        class="form-control @error('ex_place_birth') is-invalid @enderror"
+                                                        placeholder="Tempat Lahir Mantan"
+                                                        value="{{ old('ex_place_birth') }}" />
+                                                    @error('ex_place_birth')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Tgl Lahir</label>
+                                                    <input type="date" name="ex_date_birth"
+                                                        class="form-control @error('ex_date_birth') is-invalid @enderror"
+                                                        placeholder="Bin"
+                                                        value="{{ old('ex_date_birth') }}" />
+                                                    @error('ex_date_birth')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Kewarganegaraan</label>
+                                                    <input type="text" name="ex_citizenship"
+                                                        class="form-control @error('ex_citizenship') is-invalid @enderror"
+                                                        placeholder="Kewarganegaraan:WNI/WNA"
+                                                        value="{{ old('ex_citizenship') }}" />
+                                                    @error('ex_citizenship')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Agama</label>
+                                                    <input type="text" name="ex_religion"
+                                                        class="form-control @error('ex_religion') is-invalid @enderror"
+                                                        placeholder="Agama Mantan"
+                                                        value="{{ old('ex_religion') }}" />
+                                                    @error('ex_religion')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Pekerjaan</label>
+                                                    <input type="text" name="ex_job"
+                                                        class="form-control @error('ex_job') is-invalid @enderror"
+                                                        placeholder="Pekerjaan"
+                                                        value="{{ old('ex_job') }}" />
+                                                    @error('ex_job')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    <label>Alamat</label>
+                                                    <input type="text" name="ex_address"
+                                                        class="form-control @error('ex_address') is-invalid @enderror"
+                                                        placeholder="Alamat Mantan"
+                                                        value="{{ old('ex_address') }}" />
+                                                    @error('ex_address')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    <!-- NESTED EX SECTION END -->
+
+
+                                        
+                                            </div>
+                                        </div>
+
+                                        <!-- DEATH SECTION END -->
 
 
 
@@ -798,6 +1083,12 @@
 
         document.getElementById('couple_citizen').style.display = 'none';
         document.getElementById('couple_not').style.display = 'none';
+
+        document.getElementById('move_citizen').style.display = 'none';
+        document.getElementById('death_citizen').style.display = 'none';
+
+        document.getElementById('ex_citizen').style.display = 'none';
+        document.getElementById('ex_not').style.display = 'none';
     }
 
     function yesnoFather() {
@@ -836,6 +1127,40 @@
         }
     }
 
+
+    function yesnoMove() {
+        if (document.getElementById('yesMoveCheck').checked) {
+            document.getElementById('move_citizen').style.display = 'block';
+           
+        } else if (document.getElementById('noMoveCheck').checked) {
+            document.getElementById('move_citizen').style.display = 'none';
+        }
+    }
+
+    function yesnoDeath() {
+        if (document.getElementById('yesDeathCheck').checked) {
+            document.getElementById('death_citizen').style.display = 'block';
+           
+        } else if (document.getElementById('noDeathCheck').checked) {
+            document.getElementById('death_citizen').style.display = 'none';
+        }
+    }
+
+    function yesnoEx() {
+        if (document.getElementById('yesExCheck').checked) {
+
+            document.getElementById('ex_citizen').style.display = 'block';
+            document.getElementById('ex_not').style.display = 'none';
+
+        } else if (document.getElementById('noExCheck').checked) {
+            document.getElementById('ex_not').style.display = 'block';
+            document.getElementById('ex_citizen').style.display = 'none';
+        }
+    }
+
+
+    
+
 </script>
 
 
@@ -858,6 +1183,12 @@
         $("#couple").select2({
             maximumSelectionLength: 3
         });
+
+
+        $("#ex").select2({
+            maximumSelectionLength: 3
+        });
+
 
 
     });

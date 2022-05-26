@@ -56,6 +56,7 @@ use App\Models\Transactions\Letter\LetterStreet;
 use App\Models\Transactions\Letter\LetterStreetCitizen;
 use App\Models\Transactions\Letter\LetterUnite;
 use App\Models\Transactions\Letter\LetterIncome;
+use App\Models\Transactions\Letter\LetterMarriage;
 
 class LetterController extends Controller
 {
@@ -100,11 +101,16 @@ class LetterController extends Controller
             $uniteletters = LetterUnite::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $letterincome = LetterIncome::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
+            $lettermarriage = LetterMarriage::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+
             $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreet)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->
             concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->
             concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->
-            concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->concat($landtransactionletters)->concat($uniteletters)->concat($movecitizenletters)->SortByDesc('created_at');
+            concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->
+            concat($differencebirthletters)->concat($recomendationwork)->concat($noactletters)->concat($processactletters)->concat($widowletters)->
+            concat($landownerletters)->concat($collegedispensationletters)->concat($missingletters)->concat($moveletters)->concat($crowd)->
+            concat($differencenameletters)->concat($inheritanceletters)->concat($processktpletters)->concat($landtransactionletters)->
+            concat($uniteletters)->concat($movecitizenletters)->concat($lettermarriage)->SortByDesc('created_at');
 
             return view('transactions.letters.index',  compact('datas'));
         } elseif (Auth::user()->roles == 'citizens') {
@@ -2345,6 +2351,25 @@ class LetterController extends Controller
 
             DB::table('logs')->insert($log);
             $data->delete();
+
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
+        }
+
+        if (LetterMarriage::where('uuid', $uuid)->exists()) {
+            $data = LetterMarriage::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Menikah <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            $data->delete();
+
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }

@@ -48,9 +48,10 @@ class LetterMarriageController extends Controller
              $father = Citizens::orderBy('name', 'asc')->get();
              $mother = Citizens::orderBy('name', 'asc')->get();
              $couple = Citizens::orderBy('name', 'asc')->get();
+             $ex = Citizens::orderBy('name', 'asc')->get();
              $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->orderBy('position','desc')->get();
      
-             return view('transactions.letters.marriage.form', compact('citizen','father','mother','couple','informations','position'));    
+             return view('transactions.letters.marriage.form', compact('citizen','father','mother','couple','ex','informations','position'));    
     }
 
     /**
@@ -71,6 +72,7 @@ class LetterMarriageController extends Controller
             $father           = Citizens::find($request->get('father'));//data tidak wajib ada pake find
             $mother           = Citizens::find($request->get('mother'));//data tidak wajib ada pake find
             $couple           = Citizens::find($request->get('couple'));//data tidak wajib ada pake find
+            $ex           = Citizens::find($request->get('ex'));//data tidak wajib ada pake find
             $position           = User::findOrFail($request->get('positions'));//data wajib ada pake firstorfail
 
             $validatedData['letter_name']     = "surat keterangan menikah";
@@ -143,17 +145,41 @@ class LetterMarriageController extends Controller
             }
           
             $validatedData['marriage_date']     = $request->get('marriage_date');
-            $validatedData['yesnoMove']     = $request->get('yesnoMove');
-            $validatedData['yesnoDeath']     = $request->get('yesnoDeath');
+           
+            $validatedData['yesnoPindah']     = $request->get('yesnoPindah');
+            $validatedData['letter_index_move']     = $request->get('letter_index_move');
+            $validatedData['move_village']     = $request->get('move_village');
+            $validatedData['move_sub_districts']     = $request->get('move_sub_districts');
+            $validatedData['move_districts']     = $request->get('move_districts');
+            $validatedData['move_province']     = $request->get('move_province');
 
+            $validatedData['yesnoMeninggal']     = $request->get('yesnoMeninggal');
+            $validatedData['letter_index_death']     = $request->get('letter_index_death');
+            $validatedData['death_date']     = $request->get('death_date');
+            $validatedData['death_location']     = $request->get('death_location');
+
+
+            if($request->get('yesnoMantan') == 'warga'){
+                $validatedData['yesnoMantan']     = $request->get('yesnoMantan');
+                $validatedData['ex_id']     = $ex->id;
+            }else{
+                $validatedData['ex_id']     = null;
+                $validatedData['yesnoMantan']     = $request->get('yesnoMantan');
+                $validatedData['ex_name']     = $request->get('ex_name');
+                $validatedData['ex_bin']     = $request->get('ex_bin');
+                $validatedData['ex_nik']     = $request->get('ex_nik');
+                $validatedData['ex_place_birth']     = $request->get('ex_place_birth');
+                $validatedData['ex_date_birth']     = $request->get('ex_date_birth');
+                $validatedData['ex_citizenship']     = $request->get('ex_citizenship');
+                $validatedData['ex_religion']     = $request->get('ex_religion');
+                $validatedData['ex_job']     = $request->get('ex_job');
+                $validatedData['ex_address']     = $request->get('ex_address');
+            }
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
 
             $validatedData['letter_date']   = $request->get('letter_date');
-            $validatedData['valid_until']   = $request->get('letter_date');
-
-
             $validatedData['approval_rt']     = "waiting";
             $validatedData['approval_admin']     = "approved";
             $validatedData['created_by'] = Auth::user()->id;
@@ -164,7 +190,7 @@ class LetterMarriageController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat keterangan menikah <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];

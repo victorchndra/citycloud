@@ -77,21 +77,19 @@ return new class extends Migration
             $table->date('marriage_date')->nullable();
             $table->string('dowry')->nullable();
 
-            $table->string('yesnoMove',10)->nullable();
-            $table->string('no_recomendation',30)->nullable();
-
+            $table->string('yesnoPindah',10)->nullable();
+            $table->string('letter_index_move',30)->nullable();
             $table->string('move_village',30)->nullable();
             $table->string('move_sub_districts',30)->nullable();
             $table->string('move_districts',30)->nullable();
             $table->string('move_province',30)->nullable();
 
-
-            $table->string('yesnoDeath',10)->nullable();
-            $table->string('death_no',30)->nullable();
+            $table->string('yesnoMeninggal',10)->nullable();
+            $table->string('letter_index_death',30)->nullable();
             $table->date('death_date')->nullable();
             $table->string('death_location',30)->nullable();
 
-            $table->string('ex_option',10)->nullable();
+            $table->string('yesnoMantan',10)->nullable();
             $table->string('ex_id')->nullable();
             $table->string('ex_name')->nullable();
             $table->string('ex_nik',30)->nullable();
