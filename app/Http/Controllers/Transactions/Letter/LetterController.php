@@ -857,6 +857,26 @@ class LetterController extends Controller
             return view('transactions.letters.landtransaction.print',compact('data','informations'));
         }
 
+        //surat Dispensasi SPP Kuliah
+        if(LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
+
+            $data = LetterCollegeDispensation::where('uuid', $uuid)->firstOrFail();
+            $informations = Information::first();
+            // tambahkan baris kode ini di setiap controller
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mencetak</em> data Surat Keterangan Dispensasi SPP Kuliah<strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'cetak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return view('transactions.letters.collegedispensation.print',compact('data','informations'));
+        }
+
         //surat remove citizen
         if(LetterRemoveCitizen::where('uuid', $uuid)->exists()) {
 
@@ -2484,7 +2504,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
         } else {
 
             // Auth else

@@ -45,20 +45,12 @@
     </head>
     <body class="Legal">
     <section class="pagebreak">
-        <center>
-        <img src="{{ asset('/storage/'. $informations->header)}}" class="img-fluid" width="700">
-        </center>
-
-        <hr style="border: 2px solid black;">
-
-        <div style="line-height: 1;">
+        <div style="line-height: 1; margin-top:5rem;">
             <table align="center" width="460" border="1px">
                 <tr>
                     <td>
                         <center>
                             <font style="font-weight: bold; text-decoration: underline;">{{strtoupper($data->letter_name)}}</font>
-                            <br>
-                            Nomor : {{ $data->letter_index }}
                         </center>
                     </td>
                 </tr>
@@ -69,57 +61,48 @@
         <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa  {{ $informations->village_name }} Kecamatan  {{ $informations->sub_district_name }} Kabupaten {{ $informations->district_name }}, dengan ini menerangkan bahwa :
+                Kepada <br>Yth. {{ $data->receiver }}<br>{{ $data->college }}<br>di<br>Tempat
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table align="center" width="600" style="line-height: 1.5;">
+        <tr>
+            <td>
+                Yang bertanda tangan dibawah ini :
             </td>
         </tr>
     </table>
 
-    <div style="line-height: 1; margin-top: 10px;">
-        <table align="center" width="540">
+    <div style="line-height: 1;">
+        <table align="center" width="600">
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama Lengkap</td>
+                <td width="120"><span style="display:inline-block; width: 35 px;"></span>Nama</td>
                 <td width="2">: </td>
                 <td>
                     <font style="font-weight: bold; ">{{$data->name}}</font>
                 </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>NIK</td>
+                <td width="120"><span style="display:inline-block; width: 35 px;"></span>NIM</td>
                 <td width="2">: </td>
-                <td>{{ $data->nik }}</td>
-            </tr>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>KK</td>
-                <td width="2">: </td>
-                <td>{{ $data->kk }}</td>
+                <td>
+                    <font style="font-weight: bold; ">{{$data->nim}}</font>
+                </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
+                <td width="120"><span style="display:inline-block; width: 35 px;"></span>Jurusan</td>
                 <td width="2">: </td>
-                <td>{{$data->place_birth}}, {{$data->date_birth}}</td>
+                <td>
+                    <font style="font-weight: bold; ">{{$data->major}}</font>
+                </td>
             </tr>
             <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
+                <td width="120"><span style="display:inline-block; width: 35 px;"></span>Semester</td>
                 <td width="2">: </td>
-                <td>{{ $data->gender }}</td>
-            </tr>
-
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
-                <td width="2">: </td>
-                <td>{{ $data->religion }}</td>
-            </tr>
-
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
-                <td width="2">: </td>
-                <td>{{ $data->job }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
-                <td width="2">: </td>
-                <td>{{ $data->address }}</td>
+                <td>
+                    <font style="font-weight: bold; ">{{$data->semester}}</font>
+                </td>
             </tr>
         </table>
     </div>
@@ -127,96 +110,79 @@
 
     <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
-            {{-- <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menurut pendataan kami dan pernyataan yang bersangkutan pada tanggal <b> {{$data->letter_date}}</b>  benar mempunyai
-                usaha :
-            </td> --}}
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk Desa {{ $informations->village_name }} Rt.{{ $data->rt }} Rw.{{ $data->rw }} Kecamatan. {{ $informations->sub_district_name }} Kabupaten. {{ $informations->district_name }} Provinsi. {{ $informations->province_name }}, benar belum memiliki kartu BPJS Surat ini
-                dibuat untuk mengambil kartu BPJS.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Dengan ini mengajukan kiranya diijinkan untuk dispensasi pembayaran Uang Kuliah Tahap {{ $data->stage }} pada semester @if ($data->semester % 2 == 0) {{ 'Genap' }} @else {{ 'Ganjil' }} @endif Tahun Akademik {{ $data->academic_year }} sebesar Rp. {{ number_format($data->nominal,0,',','.') }} (
+                    @php
+                        function penyebut($nilai) {
+                            $nilai = abs($nilai);
+                            $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+                            $temp = "";
+                            if ($nilai < 12) {
+                                $temp = " ". $huruf[$nilai];
+                            } else if ($nilai <20) {
+                                $temp = penyebut($nilai - 10). " belas";
+                            } else if ($nilai < 100) {
+                                $temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+                            } else if ($nilai < 200) {
+                                $temp = " seratus" . penyebut($nilai - 100);
+                            } else if ($nilai < 1000) {
+                                $temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+                            } else if ($nilai < 2000) {
+                                $temp = " seribu" . penyebut($nilai - 1000);
+                            } else if ($nilai < 1000000) {
+                                $temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+                            } else if ($nilai < 1000000000) {
+                                $temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+                            } else if ($nilai < 1000000000000) {
+                                $temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
+                            } else if ($nilai < 1000000000000000) {
+                                $temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
+                            }
+                            return $temp;
+                        }
+                        echo penyebut($data->nominal) . ' rupiah';
+                    @endphp
+                ) dan akan dibayar pada bulan {{ $data->pay_month }}. Apabila dalam jangka waktu yang telah ditentukan belum bisa membayar SPP maka saya bersedia dikenakan sanksi sesuai dengan aturan lembaga yang berlaku.
             </td>
         </tr>
     </table>
-            <br>
-            <table align="center" width="600" style="line-height: 1.5;">
+    <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian {{ $data->letter_name }} dibuat dengan sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian, atas permakluman dan kebijaksanaan Bapak/Ibu saya sampaikan terima kasih.
             </td>
         </tr>
     </table>
 
-
     <div style="margin-bttom:10px; overflow:auto;">
-            <table align="right" width="320" border="1px" >
-                <tr>
-                    <td  width="">Dikeluarkan </td>
-                    <td width="10 px">: </td>
-                    <td width=""; > {{ $informations->village_name }} </td>
-                     <td></td>
-
-                </tr>
-                <tr>
-                    <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
-                    <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{$data->letter_date}}</td>
-                     <td></td>
-                </tr>
-            </table>
+        <table align="center" width="600">
+            <tr>
+                <td colspan="3" style="text-align: right;">{{ $informations->village_name }}, {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">Mengetahui,</td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td style="text-align: center;"><b>Pemohon,</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="height:80px;"></div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                <td style="text-align: center; text-decoration:underline;"><b>({{ ucfirst(trans(strtolower($data->name))) }})</b><br>NIM: {{ $data->nim }}</td>
+            </tr>
+        </table>
     </div>
 
-
-        @if ( $data->user->position == 'Kepala Desa')
-        <table align="right" width="400" border="1px">
-
-
-        @if ( $data->signature == 'wet')
-            <tr class="spaceUnder">
-                <td width=""> </td>
-                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-            </td>
-            @endif
-            @if ( $data->signature == 'digital')
-            <tr>
-                <td> </td>
-                <td > <center>  {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-            </td>
-            <tr>
-
-                <td> </td>
-                <td > <center> <img src="{{ asset('/storage/'. $informations->signature)}}" class="img-fluid" width="100"></center>
-
-            </tr>
-            @endif
-            <tr>
-                <td width=""> </td>
-                <td > <center><u><b> {{$data->user->front_title}}   {{strtoupper($data->user->name)}} {{$data->user->back_title}}  </b></u></center></td>
-            </tr>
-        </table>
-        @else
-        <table align="right" width="400" border="1px">
-            <tr class="spaceUnder">
-                <td width=""> </td>
-                <td > <center>An. KEPALA DESA {{strtoupper($informations->village_name)}}<BR>
-                    {{strtoupper($data->user->position)}} {{strtoupper($informations->village_name)}} </center>
-
-            </td>
-            <tr>
-                <td width=""> </td>
-                <td > <center><u><b> {{$data->user->front_title}}   {{strtoupper($data->user->name)}}  {{$data->user->back_title}}  </b></u></center></td>
-            </tr>
-
-        </table>
-        @endif
-
-
-        <div style="margin-top:-50px; margin-left:70px;" class="right">
+    <div style="margin-top:50px; margin-left:70px;" class="right">
 
         {!! QrCode::size(100)->generate('Dokumen sah Desa '. $informations->village_name. ' Hari/Tanggal '. $data->letter_date. ' Untuk Keperluan '. $data->letter_name. '-'. $data->name); !!}
 
-                </div>
-            </div>
-        </section>
+    </div>
+    </section>
 
     </body>
 </html>
