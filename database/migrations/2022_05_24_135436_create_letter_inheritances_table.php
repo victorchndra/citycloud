@@ -37,6 +37,9 @@ return new class extends Migration
             //////////////////////////////////////
             ///////////////data surat////////////////
             $table->string('letter_family_status')->nullable();
+            $table->string('letter_death_date')->nullable();
+            $table->string('letter_death_loc')->nullable();
+            $table->string('letter_grave_loc')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();

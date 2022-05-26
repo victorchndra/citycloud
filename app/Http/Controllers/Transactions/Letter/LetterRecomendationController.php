@@ -270,8 +270,7 @@ class LetterRecomendationController extends Controller
             }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'status_prilaku' => 'required',
-                'letter_rt' => 'required'
+                'status_prilaku' => 'required',                
 
             ]);
             $position           = User::findOrFail($request->get('positions'));

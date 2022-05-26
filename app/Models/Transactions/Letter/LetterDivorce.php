@@ -100,13 +100,13 @@ class LetterDivorce extends Model
 
 
 
-    public function letterDate(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-        );
-    }
+    // public function letterDate(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
+    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+    //     );
+    // }
 
     public function validUntil(): Attribute
     {
@@ -125,6 +125,10 @@ class LetterDivorce extends Model
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+    public function wifeUser()
+    {
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'citizen_couple_id', 'id');
     }
     
     public function user()

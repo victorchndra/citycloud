@@ -89,14 +89,39 @@ class LetterInheritance extends Model
             set: fn ($value) => strtolower($value),
         );
     }
-    
-    public function letterDate(): Attribute
+
+    public function letterDeathDate(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
         );
     }
+
+    public function letterDeathLoc(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+    public function letterGraveLoc(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => strtoupper($value),
+            set: fn ($value) => strtolower($value),
+        );
+    }
+
+
+    
+    // public function letterDate(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
+    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
+    //     );
+    // }
 
     public function createdUser()
     {

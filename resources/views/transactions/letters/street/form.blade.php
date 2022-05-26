@@ -137,89 +137,89 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
-                                @csrf
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-12 form-group ">
-                                            <label>No Surat</label>
-                                            @foreach($informations as $information)
-                                            <input readonly type="text" name="letter_index"
-                                                class="form-control @error('letter_index') is-invalid @enderror"
-                                                placeholder="No Surat" value="  {{ $information->letter_index  }}">
+                        <form class="form form-horizontal" action="/letters-street" method="POST">
+                            @csrf
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label>No Surat</label>
+                                        @foreach($informations as $information)
+                                        <input type="text" name="letter_index"
+                                            class="form-control @error('letter_index') is-invalid @enderror"
+                                            placeholder="No Surat" value="  {{ $information->letter_index  }}">
+                                        @endforeach
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label>Pilih Penduduk</label>
+                                        <select id="citizens" class="form-control select2" name="citizens"
+                                            style="width: 100%;" required>
+                                            <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                            @foreach($citizen as $citizens)
+                                            <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                {{ $citizens->name }}</option>
                                             @endforeach
-                                        </div>
+                                        </select>
+                                        </select>
+                                    </div>
 
-                                        <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
-                                            <select id="citizens" class="form-control select2" name="citizens"
-                                                style="width: 100%;" required>
+                                    <div class="col-md-6 form-group">
+                                        <label>Barang yang di angkut</label>
+                                        <input type="text" name="goods"
+                                            class="form-control @error('goods') is-invalid @enderror"
+                                            placeholder="Barang yang di angkut">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Jumlah Barang yang di angkut</label>
+                                        <input type="text" name="count_goods"
+                                            class="form-control @error('count_goods') is-invalid @enderror"
+                                            placeholder="Jumlah Barang yang di angkut">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Tujuan</label>
+                                        <input type="text" name="purpose"
+                                            class="form-control @error('purpose') is-invalid @enderror"
+                                            placeholder="Tujuan">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Berangkat</label>
+                                        <input type="date" name="depart"
+                                            class="form-control @error('depart') is-invalid @enderror"
+                                            placeholder="Berangkat">
+                                    </div>
 
-                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+                                  
 
-                                            </select>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
-                                        </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
-
-
-                                        <div class="col-md-12 form-group">
-                                            <label>Ditandatangani Oleh</label>
-                                            <select id="positions" class="form-control" name="positions"
-                                                style="width: 100%;" required>
-
-                                                @foreach($position as $positions)
-                                                <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
-                                                    {{ $positions->position }}</option>
-                                                @endforeach
-                                            </select>
-                                            <hr>
-                                            <div class="col-sm-12 d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                                    <div class="col-md-12 form-group">
+                                        <label>Tgl Surat</label>
+                                        <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
+                                            @error('letter_date')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
                                             </div>
+                                            @enderror
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label>Ditandatangani Oleh</label>
+                                        <select id="positions" class="form-control" name="positions"
+                                            style="width: 100%;" required>
+                                            <option value="">Pilih Jabatan</option>
+                                            @foreach($position as $positions)
+                                            <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
+                                                {{ $positions->position }}</option>
+                                            @endforeach
+                                        </select>
+                                        <hr>
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         </div>
-
-
                                     </div>
 
-                                    </div>
-                            </form>
+                                   
+
+                                </div>
+                        </form>
                             @endif
                         </div>
                     </div>

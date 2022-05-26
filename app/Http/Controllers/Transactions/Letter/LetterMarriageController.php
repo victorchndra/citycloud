@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Transactions\Letter;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LetterMarriedController extends Controller
+class LetterMarriageController extends Controller
 {
     /**
      * Display a listing of the resource.

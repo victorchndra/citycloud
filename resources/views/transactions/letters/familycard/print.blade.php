@@ -72,8 +72,8 @@
         <br>
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
-                <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
+                <td style="text-align: justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
                     {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kota
                     {{ $informations->district_name }}, dengan ini menerangkan bahwa :
                 </td>
@@ -128,7 +128,7 @@
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk <b> Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }},
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas penduduk <b> Desa {{ $informations->village_name }}, RT. {{ $data->rt }}, RW. {{ $data->rw }},
                      Kecamatan {{ $informations->sub_district_name }}, Kota
                         {{ $informations->district_name }}, Provinsi {{ $informations->province_name }}</b>. Surat
                         ini dibuat dan diberikan atas permintaan yang bersangkutan diatas untuk <b> {{ $data->letter_for }}</b>.
@@ -137,10 +137,10 @@
         </table>
 
 
-        <table align="center" width="600" style="line-height: 1.5;">
+        <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify" style="text-align: justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     Demikianlah <b>{{ $data->letter_name }}</b> ini dibuat dengan
                     sebenarnya dan diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai
                     mana perlunya.
@@ -161,7 +161,7 @@
                 <tr>
                     <td style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ $data->letter_date }}</td>
+                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                     <td></td>
                 </tr>
             </table>

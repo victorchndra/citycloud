@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_divorces', function (Blueprint $table) {
-            $table->id();
-            $table->string('uuid')->unique();
+        Schema::create('letter_incomes', function (Blueprint $table) {
+            $table->id();$table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
             $table->string('letter_name')->nullable();
             $table->integer('citizen_id')->nullable();
@@ -36,9 +35,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
-            $table->integer('citizen_couple_id')->nullable();
-            $table->string('date_marriage')->nullable();
-            $table->string('date_number_marriage')->nullable();           
+            $table->string('income')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
@@ -63,6 +60,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_divorces');
+        Schema::dropIfExists('letter_incomes');
     }
 };
