@@ -220,7 +220,7 @@ class LetterMagicController extends Controller
         $lettermagic = LetterMagic::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterMagic::where('uuid', $uuid)->get();
+        $citizen = Citizens::where('uuid', $uuid)->get();
 
         return view('transactions.letters.magic.edit', compact('citizen','informations','position','lettermagic'));
     }

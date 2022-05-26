@@ -114,9 +114,6 @@
     </div>
 
 
-    
-    @foreach($citizens as $data)
-    @if(family_status == "istri"){
     <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
         <tr>
             <td class="justify">
@@ -131,39 +128,38 @@
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
                 <td width="2">: </td>
                 <td>
-                    <font style="font-weight: bold; ">{{$data->name}}</font>
+                    <font style="font-weight: bold; ">{{$data->wifeUser->name}}</font>
                 </td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
                 <td width="2">: </td>
-                <td>{{$data->place_birth}}, {{$data->age}}</td>
+                <td>{{$data->place_birth}}, {{$data->wifeUser->age}}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
                 <td width="2">: </td>
-                <td>{{ $data->religion }}</td>
+                <td>{{ $data->wifeUser->religion }}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pendidikan</td>
                 <td width="2">: </td>
-                <td>{{ $data->last_education}}</td>
+                <td>{{ $data->wifeUser->last_education}}</td>
             </tr>
 
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
                 <td width="2">: </td>
-                <td>{{ $data->job }}</td>
+                <td>{{ $data->wifeUser->job }}</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
                 <td width="2">: </td>
-                <td>{{ $data->address }}</td>
+                <td>{{ $data->wifeUser->address }}</td>
             </tr>
         </table>
     </div>
-}
-@endforeach
+
             <br>
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>

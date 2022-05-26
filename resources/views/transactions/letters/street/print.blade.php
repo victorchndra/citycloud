@@ -99,22 +99,7 @@
                 <td>{{ $data->gender }}</td>
             </tr>
 
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
-                <td width="2">: </td>
-                <td>{{ $data->religion }}</td>
-            </tr>
-
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
-                <td width="2">: </td>
-                <td>{{ $data->job }}</td>
-            </tr>
-            <tr>
-                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
-                <td width="2">: </td>
-                <td>{{ $data->address }}</td>
-            </tr>
+           
         </table>
     </div>
 
@@ -125,16 +110,45 @@
         <tr>
             <td class="justify">
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                Adalah penduduk yang berdomisili di wilayah kami yaitu di Lingkungan RT.003
-                RW.001 Desa. Bagan Tujuh Kecamatan. Kunto Darussalam Kabupaten. Rokan Hulu
-                Provinsi Riau Surat ini dibuat dan diberikan atas permintaan yang bersangkutan diatas
-                untuk <b>{{$data->request}}</b>
-                <br>
-               <p> Demikian Surat Keterangan Permohonan NPWP ini dibuat dengan sebenarnya dan
-diberikan kepada yang bersangkutan untuk dapat dipergunakan sebagai mana perlunya.</p>
+                Bahwa benar yang bersangkutan adalah warga masyarakat {{$informations->village_name}}, yang
+sepengetahuan kami beradat istiadat baik serta bermaksud melakukan perjalanan dengan :
+ Nama tersebut diatas benar pembawa <b>{{$data->goods}} {{$data->count_goods}}</b> dari {{$data->address}} dengan tujuan . Dengan
+menggunakan .
+
             </td>
         </tr>
     </table>
+
+    <div style="line-height: 1; margin-top: 10px;">
+        <table align="center" width="540">
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tujuan</td>
+                <td width="2">: </td>
+                <td>{{ $data->purpose }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Berangkat</td>
+                <td width="2">: </td>
+                <td>{{ \Carbon\Carbon::parse($data->depart)->translatedFormat('d M Y') }}</td>
+            </tr>
+            <tr>
+                <td width="180"><span style="display:inline-block; width: 35 px;"></span>Keterangan</td>
+                <td width="2">: </td>
+                <td> {{$data->goods}} {{$data->count_goods}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+    <table align="center" width="600" style="line-height: 1.5;">
+<tr>
+    <td class="justify">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        Demikianlah surat keterangan jalan ini dibuat untuk dapat dipergunakan sebagaimana
+        mestinya.
+    </td>
+</tr>
+</table>
    
  
     <div style="margin-bttom:10px; overflow:auto;">

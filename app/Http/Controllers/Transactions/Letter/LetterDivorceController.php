@@ -58,6 +58,7 @@ class LetterDivorceController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'citizen_couple_id' => 'required',
                 'date_marriage' => 'required',
                 'date_number_marriage' => 'required',
             ]);
@@ -65,7 +66,7 @@ class LetterDivorceController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan pensiun";
+            $validatedData['letter_name']     = "surat permohonan cerai";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -101,7 +102,7 @@ class LetterDivorceController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan usaha <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat permohonan cerai <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -117,6 +118,7 @@ class LetterDivorceController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
+                'citizen_couple_id' => 'required',
                 'date_marriage' => 'required',
                 'date_number_marriage' => 'required',
             ]);
@@ -124,7 +126,7 @@ class LetterDivorceController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "surat permohonan cerai";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -159,7 +161,7 @@ class LetterDivorceController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat pengajuan cerai <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat permohonan cerai <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -182,9 +184,24 @@ class LetterDivorceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
         //
+        $data = LetterDivorce::where('uuid', $uuid)->firstOrFail();
+        $informations = Information::first();
+                 // tambahkan baris kode ini di setiap controller
+                 $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Mencetak</em> data surat Permohonan Cerai<strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'category' => 'cetak',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+        return view('transactions.letters.cerai.print',compact('data','informations'));
     }
 
     /**
@@ -193,9 +210,16 @@ class LetterDivorceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
         //
+        $informations = Information::get();
+        $letterdivorce = LetterDivorce::where('id', $uuid)->get();
+        // $citizen = Citizen::orderBy('name', 'asc')->get();
+        $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
+        $citizen = Citizens::where('uuid', $uuid)->get();
+
+        return view('transactions.letters.cerai.edit', compact('citizen','informations','position','letterdivorce'));
     }
 
     /**
@@ -205,9 +229,84 @@ class LetterDivorceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
         //
+        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
+            if ($request->get('rejected_notes_admin')) {
+                $data = LetterDivorce::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_admin' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            }
+            $validatedData = $request->validate([
+                'letter_index' => 'required',
+                'date_marriage' => 'required',
+                'date_number_marriage' => 'required',
+            ]);
+            $position           = User::findOrFail($request->get('positions'));
+            $validatedData['letter_date']   = $request->get('letter_date');
+            $validatedData['valid_until']   = $request->get('letter_date');
+            $validatedData['signed_by']     = $position->id;
+            $validatedData['signature']     = $request->get('signature');
+    
+    
+            if ($validatedData) {
+    
+                $validatedData['updated_by'] = Auth::user()->id;
+                $letters = LetterDivorce::where('uuid', $uuid)->first()->update($validatedData);
+            }
+    
+            $data = LetterDivorce::get()->where('uuid', $uuid)->firstOrFail();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> Surat Permohonan Cerai <strong>[' . $data->name . ']</strong>',
+                'category' => 'edit',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+    
+            return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
+        }else{
+            if ($request->get('rejected_notes_rt')) {
+                $data = LetterDivorce::get()->where('uuid', $uuid)->firstOrFail();
+                $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+                $data->update([
+                    'updated_by' =>Auth::user()->id,
+                    'approval_rt' => "rejected",
+                ]);
+    
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+    
+            DB::table('logs')->insert($log);
+            // selesai
+    
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        }
     }
 
     /**
@@ -216,8 +315,24 @@ class LetterDivorceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         //
+        $data = LetterDivorce::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> Surat Permohonan cerai <strong>[' . $data->name . ']</strong>',
+            'category' => 'hapus',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        $data->delete();
+
+
+        return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 }

@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
+            $table->integer('citizen_couple_id')->nullable();
             $table->string('date_marriage')->nullable();
             $table->string('date_number_marriage')->nullable();           
             ////////////////////////////////////////

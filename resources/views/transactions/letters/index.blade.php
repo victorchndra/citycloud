@@ -60,7 +60,7 @@
 
 
                         <tr>
-                            <td> {{ $key + 1 }}</td>
+                            <td> {{ $loop->iteration }}</td>
                             <td>{{ $data->name }} <b>(@if($data->gender == 'PEREMPUAN'){{'P'}}@else{{'L'}}@endif)</b></td>
                             <td>{{ $data->letter_name}}</td>
                             <td>

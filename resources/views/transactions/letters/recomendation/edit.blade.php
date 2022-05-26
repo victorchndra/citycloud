@@ -72,20 +72,9 @@
                                                             Berkelakuan Tidak Baik</option>
                                                     </select>
                                                 </div>
+                                                
 
                                                 <div class="col-md-6 form-group">
-                                                    <label>Surat Pengantar</label>
-                                                    <select id="letter_rt" class="form-control" name="letter_rt"
-                                                        style="width: 100%;" required>
-                                                        @foreach ($rts as $rt)
-                                                            <option value="{{ $rt->name }}"
-                                                                @if ($rtSelected == $rt->name) {{ 'selected' }} @endif>
-                                                                {{ $rt->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-12 form-group">
                                                     <label>Tgl Surat</label>
                                                     <input type="date"
                                                         class="form-control @error('letter_date') is-invalid @enderror"

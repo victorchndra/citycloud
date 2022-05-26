@@ -119,7 +119,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-tax" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -144,41 +144,13 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
+                                            <label>Permintaan</label>
+                                            <input type="text" name="request"
+                                                class="form-control @error('request') is-invalid @enderror"
+                                                placeholder="Permintaan">
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
-                                        </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
-                                        </div>
+                
 
 
                                         <div class="col-md-12 form-group">

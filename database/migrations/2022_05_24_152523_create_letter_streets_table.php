@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('letter_streets', function (Blueprint $table) {
-            $table->id();$table->string('uuid')->unique();
+            $table->id();
+            $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
             $table->string('letter_name')->nullable();
             $table->integer('citizen_id')->nullable();

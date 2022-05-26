@@ -213,7 +213,7 @@ Route::get("approve/tax-letters/{uid}", "App\Http\Controllers\Transactions\Lette
 
 // Surat Keterangan Beda Tanggal Lahir
 Route::resource("letters-differencebirth", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController")->middleware('auth');
-Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+Route::get("approve/selfquarantine-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
 
 // Surat Keterangan Ghoib
 Route::resource("letters-magic", "App\Http\Controllers\Transactions\Letter\LetterMagicController")->middleware('auth');
@@ -251,10 +251,17 @@ Route::get("approve/inheritance-letters/{uid}", "App\Http\Controllers\Transactio
 Route::resource("letters-difference-name", "App\Http\Controllers\Transactions\Letter\LetterDifferenceNameController")->middleware('auth');
 Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceNameController@approve")->name('auth');
 
-// Surat Keterangan Beda Nama
+// Surat Keterangan Jalan
 Route::resource("letters-street", "App\Http\Controllers\Transactions\Letter\LetterStreetController")->middleware('auth');
 Route::get("approve/street-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterStreetController@approve")->name('auth');
 
 // Surat Keterangan Rujuk/Cerai
 Route::resource("letters-unite", "App\Http\Controllers\Transactions\Letter\LetterUniteController")->middleware('auth');
 Route::get("approve/unite-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterUniteController@approve")->name('auth');
+
+// Surat Keterangan Penghasilan
+Route::resource("letters-income", "App\Http\Controllers\Transactions\Letter\LetterIncomeController")->middleware('auth');
+Route::get("approve/income-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterIncomeController@approve")->name('auth');
+
+// Surat Keterangan Jual Beli Tanah
+Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\Letter\LetterLandTransactionController")->middleware('auth');
