@@ -223,10 +223,17 @@ Route::get("approve/magic-letters/{uid}", "App\Http\Controllers\Transactions\Let
 Route::resource("letters-missing", "App\Http\Controllers\Transactions\Letter\LetterMissingController")->middleware('auth');
 Route::get("approve/missing-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMissingController@approve")->name('auth');
 
-// Surat Keterangan Pindah
+// Surat Keterangan Pernyataan
 Route::resource("letters-move", "App\Http\Controllers\Transactions\Letter\LetterMoveController")->middleware('auth');
 Route::get("approve/move-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMoveController@approve")->name('auth');
-Route::get("approve/differencebirth-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterDifferenceBirthController@approve")->name('auth');
+
+// Surat Keterangan Pindah
+Route::resource("letters-movecitizen", "App\Http\Controllers\Transactions\Letter\LetterMoveCitizenController")->middleware('auth');
+Route::get("approve/movecitizen-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMoveCitizenController@approve")->name('auth');
+
+// Surat Keterangan KTP Dalam Proses
+Route::resource("letters-processktp", "App\Http\Controllers\Transactions\Letter\LetterProcessKtpController")->middleware('auth');
+Route::get("approve/processktp-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterProcessKtpController@approve")->name('auth');
 
 // Surat Keterangan Dispensasi SPP kuliah
 Route::resource("letters-collegedispensation", "App\Http\Controllers\Transactions\Letter\LetterCollegeDispensationController")->middleware('auth');
@@ -248,8 +255,13 @@ Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Tr
 Route::resource("letters-street", "App\Http\Controllers\Transactions\Letter\LetterStreetController")->middleware('auth');
 Route::get("approve/street-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterStreetController@approve")->name('auth');
 
+// Surat Keterangan Rujuk/Cerai
+Route::resource("letters-unite", "App\Http\Controllers\Transactions\Letter\LetterUniteController")->middleware('auth');
+Route::get("approve/unite-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterUniteController@approve")->name('auth');
+
 // Surat Keterangan Penghasilan
 Route::resource("letters-income", "App\Http\Controllers\Transactions\Letter\LetterIncomeController")->middleware('auth');
 Route::get("approve/income-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterIncomeController@approve")->name('auth');
+
 // Surat Keterangan Jual Beli Tanah
 Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\Letter\LetterLandTransactionController")->middleware('auth');

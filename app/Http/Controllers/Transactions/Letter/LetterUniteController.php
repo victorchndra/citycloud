@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterHoliday;
+use App\Models\Transactions\Letter\LetterUnite;
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
-class LetterHolidayController extends Controller
+class LetterUniteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,12 +41,11 @@ class LetterHolidayController extends Controller
      */
     public function create()
     {
-        
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
         
-        return view('transactions.letters.holiday.form', compact('citizen','informations','position'));
+        return view('transactions.letters.unite.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -62,9 +61,9 @@ class LetterHolidayController extends Controller
             
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'start_date' => 'required',
-                'end_date' => 'required',
-                'address_letter' => 'required',
+                'couple_id' => 'required',
+                'witness1' => 'required',
+                'witness2' => 'required',
             ]);
             
             // $jarak = $validatedData['end_date']->diff($validatedData['start_date']);
@@ -73,7 +72,7 @@ class LetterHolidayController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan Permohonan Cuti Tahunan";
+            $validatedData['letter_name']     = "Surat Keterangan Rujuk";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -109,7 +108,7 @@ class LetterHolidayController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data Surat Keterangan Permohonan Cuti Tahunan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Rujuk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -117,7 +116,7 @@ class LetterHolidayController extends Controller
             DB::table('logs')->insert($log);
             // selesai
     
-            LetterHoliday::create($validatedData);
+            LetterUnite::create($validatedData);
     
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -125,15 +124,14 @@ class LetterHolidayController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'start_date' => 'required',
-                'end_date' => 'required',
-                'address_letter' => 'required',
+                'couple_id' => 'required',
+                'witness' => 'required',
             ]);
     
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "Surat Keterangan Rujuk";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -168,7 +166,7 @@ class LetterHolidayController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data Surat Keterangan Permohonan Cuti Tahunan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Rujuk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -176,7 +174,7 @@ class LetterHolidayController extends Controller
             DB::table('logs')->insert($log);
             // selesai
     
-            LetterHoliday::create($validatedData);
+            LetterUnite::create($validatedData);
     
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
@@ -191,25 +189,9 @@ class LetterHolidayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id)
     {
-        $data = LetterHoliday::where('uuid', $uuid)->firstOrFail();
-
-        $informations = Information::first();
-                 // tambahkan baris kode ini di setiap controller
-                 $log = [
-                    'uuid' => Uuid::uuid4()->getHex(),
-                    'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data Surat Keterangan Permohonan Cuti Tahunan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-                    'category' => 'cetak',
-                    'created_at' => now(),
-                ];
-        
-                DB::table('logs')->insert($log);
-                // selesai
-   
-        return view('transactions.letters.holiday.print',compact('data','informations'));
-
+        //
     }
 
     /**
@@ -218,15 +200,9 @@ class LetterHolidayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($uuid,Request $request)
+    public function edit($id)
     {
-        $informations = Information::get();
-        $letterholiday = LetterHoliday::get();
-        // $citizen = Citizen::orderBy('name', 'asc')->get();
-        $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
-        $citizen = LetterHoliday::where('uuid', $uuid)->get();
-        
-        return view('transactions.letters.holiday.edit', compact('citizen','informations','position','letterholiday'));
+        //
     }
 
     /**
@@ -240,7 +216,7 @@ class LetterHolidayController extends Controller
     {
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
         if ($request->get('rejected_notes_admin')) {
-            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterUnite::get()->where('uuid', $uuid)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
             $data->update([
                 'updated_by' =>Auth::user()->id,
@@ -262,9 +238,8 @@ class LetterHolidayController extends Controller
         }
         $validatedData = $request->validate([
             'letter_index' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'address_letter' => 'required',
+            'witness1' => 'required',
+            'witness2' => 'required',
         ]);
         $position           = User::findOrFail($request->get('positions'));
         $validatedData['letter_date']   = $request->get('letter_date');
@@ -276,14 +251,14 @@ class LetterHolidayController extends Controller
         if ($validatedData) {
 
             $validatedData['updated_by'] = Auth::user()->id;
-            $letters = LetterHoliday::where('uuid', $uuid)->first()->update($validatedData);
+            $letters = LetterUnite::where('uuid', $uuid)->first()->update($validatedData);
         }
 
-        $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterUnite::get()->where('uuid', $uuid)->firstOrFail();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Surat Keterangan Permohonan Cuti Tahunan <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Mengubah</em> Surat Keterangan Rujuk <strong>[' . $data->name . ']</strong>',
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -293,7 +268,7 @@ class LetterHolidayController extends Controller
         return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterUnite::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -315,6 +290,7 @@ class LetterHolidayController extends Controller
             }
         }
     }
+            
 
     /**
      * Remove the specified resource from storage.
@@ -322,77 +298,8 @@ class LetterHolidayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uuid)
+    public function destroy($id)
     {
-        $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
-        $data->deleted_by = Auth::user()->id;
-        $data->save();
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat Keterangan Permohonan Cuti Tahunan <strong>[' . $data->name . ']</strong>',
-            'category' => 'hapus',
-            'created_at' => now(),
-        ];
-
-        DB::table('logs')->insert($log);
-        $data->delete();
-
-        
-        return redirect('/letters')->with('success','Surat berhasil dihapus');
-    }
-
-    public function approve($uuid)
-    {
-
-        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
-        $data->update([
-            'updated_by' =>Auth::user()->id,
-            'approval_admin' => "approved",
-            'rejected_notes_admin' => null,
-        ]);
-    
-        // tambahkan baris kode ini di setiap controller
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'setuju',
-            'created_at' => now(),
-        ];
-    
-        DB::table('logs')->insert($log);
-        // selesai
-    
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-        }else{
-            
-            $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_rt' => "approved",
-            ]);
-        
-            // $data->update([
-            //     'updated_by' =>Auth::user()->id,
-            //     'approval_rt    ' => "approved",
-            //     'rejected_notes_admin' => null,
-            // ]);
-        
-            // tambahkan baris kode ini di setiap controller
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-                'category' => 'setuju',
-                'created_at' => now(),
-            ];
-        
-            DB::table('logs')->insert($log);
-            // selesai
-        
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-        }
+        //
     }
 }

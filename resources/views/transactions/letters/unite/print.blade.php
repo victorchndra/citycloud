@@ -74,9 +74,7 @@
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
                 <td>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
-                    {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten
-                    {{ $informations->district_name }}, dengan ini menerangkan bahwa :
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Saya yang bertanda tangan di bawah ini:
                 </td>
             </tr>
         </table>
@@ -94,26 +92,7 @@
                 <tr>
                     <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
                     <td width="2">: </td>
-                    <td>{{ $data->place_birth }}, {{ $data->date_birth }}</td>
-                </tr>
-
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Jenis Kelamin</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->gender }}</td>
-                </tr>
-
-
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->job }}</td>
-                </tr>
-
-                <tr>
-                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
-                    <td width="2">: </td>
-                    <td>{{ $data->religion }}</td>
+                    <td>{{ $data->place_birth }}, {{ \Carbon\Carbon::parse($data->date_birth)->translatedFormat('d M Y') }}</td>
                 </tr>
 
                 <tr>
@@ -122,6 +101,53 @@
                     <td>{{ $data->address }}</td>
                 </tr>
 
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->job }}</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <br>
+
+        <table align="center" width="600" style="line-height: 1.5;">
+            <tr>
+                <td>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menyatakan dengan ini untuk rujuk kembali dengan
+                    mantan istri saya yang bernama:
+                </td>
+            </tr>
+        </table>
+
+        <div style="line-height: 1; margin-top: 10px;">
+            <table align="center" width="540">
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Nama </td>
+                    <td width="2">: </td>
+                    <td>
+                        <font style="font-weight: bold; ">{{ $data->coupleUser->name }}</font>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Tempat/tanggal lahir</td>
+                    <td width="2">: </td>
+                    <td>{{ strtoupper($data->coupleUser->place_birth) }}, {!! $data->coupleUser->date_birth !!} </td>
+                </tr>
+
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Alamat</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->coupleUser->address }}</td>
+                </tr>
+
+                <tr>
+                    <td width="180"><span style="display:inline-block; width: 35 px;"></span>Pekerjaan</td>
+                    <td width="2">: </td>
+                    <td>{{ $data->coupleUser->job }}</td>
+                </tr>
 
             </table>
         </div>
@@ -131,23 +157,34 @@
         <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
             <tr>
                 <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Benar nama tersebut diatas menurut
-                    sepengetahuan kami adalah warga desa kami yang berstatus seorang <strong>(@php
-                        if ($data->gender == 'PEREMPUAN') {
-                            echo 'JANDA';
-                        }else{
-                            echo 'DUDA';
-                        }
-                    @endphp)
-                    </strong>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Dengan perjanjian yang telah disepakati sebagai
+                    berikut:
+                    <ol>
+                        <li>Kedua belah pihak tidak akan mengulangi kesalahan yang sama. </li>
+                        <li>Semua aset kekayaan. dirubah menjadi atas nama istri, Yaitu {{ $data->coupleUser->name }}.</li>
+                        <li>Semua hal yang berkaitan dengan masalah pernikahan dibicarakan secara kekeluargaan. </li>
+                    </ol>
                 </td>
             </tr>
         </table>
+
         <table align="center" width="600" style="line-height: 1.5;">
             <tr>
                 <td class="justify">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian surat keterangan ini kami
-                    buat dengan sebenarnya, dan untuk dipergunakan sebagaimana mestinya
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Demikian surat pernyataan ini saya
+                    buat dengan sesungguhnya dalam keadaan sadar dan atas kemauan sendiri serta tidak ada paksaan dari pihak manapun. Atas perhatian dan kerjasama Bapak/Ibu, saya ucapkan terimakasih.
+                </td>
+            </tr>
+        </table>
+
+        <table align="center" width="600" style="line-height: 1.5; margin-top: 10px;">
+            <tr>
+                <td class="justify">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Saksi-saksi :
+                    <ol>
+                        <li>{{ $data->witness1 }} </li>
+                        <li>{{ $data->witness2 }} </li>
+                    </ol>
                 </td>
             </tr>
         </table>
@@ -171,8 +208,19 @@
             </table>
         </div>
 
-
-        @if ($data->user->position == 'Kepala Desa')
+        <table align="right" width="400" border="1px">
+            <tr class="spaceUnder">
+                <td width=""> </td>
+                <td > <center>Yang membuat pernyataan </center>
+            
+            </td>
+            <tr>
+                <td width=""> </td>
+                <td > <center><u><b> {{strtoupper($data->name)}}</b></u></center></td>
+            </tr>
+           
+        </table>
+        {{-- @if ($data->user->position == 'Kepala Desa')
             <table align="right" width="400" border="1px">
 
 
@@ -227,7 +275,8 @@
                 </tr>
 
             </table>
-        @endif
+        @endif --}}
+
 
 
         <div style="margin-top:-50px; margin-left:70px;" class="right">
