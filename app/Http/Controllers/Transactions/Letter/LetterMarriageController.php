@@ -67,11 +67,11 @@ class LetterMarriageController extends Controller
                 'marriage_status' => 'required',
             ]);
 
-            $citizen           = Citizens::findOrFail($request->get('citizen'));
-            $father           = Citizens::findOrFail($request->get('father'));
-            $mother           = Citizens::findOrFail($request->get('mother'));
-            $couple           = Citizens::findOrFail($request->get('couple'));
-            $position           = User::findOrFail($request->get('positions'));
+            $citizen           = Citizens::findOrFail($request->get('citizen')); //data wajib ada pake firstorfail
+            $father           = Citizens::find($request->get('father'));//data tidak wajib ada pake find
+            $mother           = Citizens::find($request->get('mother'));//data tidak wajib ada pake find
+            $couple           = Citizens::find($request->get('couple'));//data tidak wajib ada pake find
+            $position           = User::findOrFail($request->get('positions'));//data wajib ada pake firstorfail
 
             $validatedData['letter_name']     = "surat keterangan menikah";
             $validatedData['citizen_id']     = $citizen->id;
@@ -91,17 +91,57 @@ class LetterMarriageController extends Controller
             $validatedData['districts'] = $citizen->districts;
             $validatedData['province'] = $citizen->province;
 
-            $validatedData['yesnoAyah']     = $request->get('yesnoAyah');
-            $validatedData['father_id']     = $father->id;
+            if($request->get('yesnoAyah') == 'warga'){
+                $validatedData['yesnoAyah']     = $request->get('yesnoAyah');
+                $validatedData['father_id']     = $father->id;
+            }else{
+                $validatedData['father_id']     = null;
+                $validatedData['yesnoAyah']     = $request->get('yesnoAyah');
+                $validatedData['father_name']     = $request->get('father_name');
+                $validatedData['father_bin']     = $request->get('father_bin');
+                $validatedData['father_nik']     = $request->get('father_nik');
+                $validatedData['father_place_birth']     = $request->get('father_place_birth');
+                $validatedData['father_date_birth']     = $request->get('father_date_birth');
+                $validatedData['father_citizenship']     = $request->get('father_citizenship');
+                $validatedData['father_religion']     = $request->get('father_religion');
+                $validatedData['father_job']     = $request->get('father_job');
+                $validatedData['father_address']     = $request->get('father_address');
+            }
 
+            if($request->get('yesnoIbu') == 'warga'){
+                $validatedData['yesnoIbu']     = $request->get('yesnoIbu');
+                $validatedData['mother_id']     = $mother->id;
+            }else{
+                $validatedData['mother_id']     = null;
+                $validatedData['yesnoIbu']     = $request->get('yesnoIbu');
+                $validatedData['mother_name']     = $request->get('mother_name');
+                $validatedData['mother_bin']     = $request->get('mother_bin');
+                $validatedData['mother_nik']     = $request->get('mother_nik');
+                $validatedData['mother_place_birth']     = $request->get('mother_place_birth');
+                $validatedData['mother_date_birth']     = $request->get('mother_date_birth');
+                $validatedData['mother_citizenship']     = $request->get('mother_citizenship');
+                $validatedData['mother_religion']     = $request->get('mother_religion');
+                $validatedData['mother_job']     = $request->get('mother_job');
+                $validatedData['mother_address']     = $request->get('mother_address');
+            }
 
-            $validatedData['yesnoIbu']     = $request->get('yesnoIbu');
-            $validatedData['mother_id']     = $mother->id;
-
-
-            $validatedData['yesnoCalon']     = $request->get('yesnoCalon');
-            $validatedData['couple_id']     = $couple->id;
-
+            if($request->get('yesnoCalon') == 'warga'){
+                $validatedData['yesnoCalon']     = $request->get('yesnoCalon');
+                $validatedData['couple_id']     = $couple->id;
+            }else{
+                $validatedData['couple_id']     = null;
+                $validatedData['yesnoCalon']     = $request->get('yesnoCalon');
+                $validatedData['couple_name']     = $request->get('couple_name');
+                $validatedData['couple_bin']     = $request->get('couple_bin');
+                $validatedData['couple_nik']     = $request->get('couple_nik');
+                $validatedData['couple_place_birth']     = $request->get('couple_place_birth');
+                $validatedData['couple_date_birth']     = $request->get('couple_date_birth');
+                $validatedData['couple_citizenship']     = $request->get('couple_citizenship');
+                $validatedData['couple_religion']     = $request->get('couple_religion');
+                $validatedData['couple_job']     = $request->get('couple_job');
+                $validatedData['couple_address']     = $request->get('couple_address');
+            }
+          
             $validatedData['marriage_date']     = $request->get('marriage_date');
             $validatedData['yesnoMove']     = $request->get('yesnoMove');
             $validatedData['yesnoDeath']     = $request->get('yesnoDeath');

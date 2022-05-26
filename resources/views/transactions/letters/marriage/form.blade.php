@@ -309,11 +309,11 @@
 
                                                 <div class="col-md-4 form-group">
                                                     <label>NIK</label>
-                                                    <input type="text" name="father_nik"
-                                                        class="form-control @error('father_nik') is-invalid @enderror"
+                                                    <input type="text" name="mother_nik"
+                                                        class="form-control @error('mother_nik') is-invalid @enderror"
                                                         placeholder="Nik Ibu"
-                                                        value="{{ old('father_nik') }}" />
-                                                    @error('father_nik')
+                                                        value="{{ old('mother_nik') }}" />
+                                                    @error('mother_nik')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
