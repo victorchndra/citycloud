@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Surat Keterangan Pensiun</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Pensiun you can use</p>
+                <h3>Surat Permohonan Cerai</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Permohonan Cerai you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Pensiun</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Permohonan Cerai</li>
                     </ol>
                 </nav>
             </div>
@@ -27,12 +27,12 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Surat Keterangan Pensiun</h4>
+                        <h4 class="card-title">Edit Surat Permohonan Cerai</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                         @foreach ($citizen as $c)
-                        <form class="form-sample" action="/letters-pension/{{ $c->uuid }}" method="POST">
+                        <form class="form-sample" action="/letters-divorce/{{ $c->uuid }}" method="POST">
                             @method('put')
                                 @csrf
                                 <div class="form-body">
@@ -47,7 +47,7 @@
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                            <label>Suami</label>
                                             <select disabled id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 @foreach($citizen as $citizens)
@@ -56,25 +56,35 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
-                                        
-                                        <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            @foreach($letterpension as $information)
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda" value="{{ $information->age_letter}}">
+                                        <div class="col-md-12 form-group">
+                                            <label>Istri</label>
+                                            <select disabled id="citizen_couple_id" class="form-control select2" name="citizen_couple_id"
+                                                style="width: 100%;" required>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->wifeUser->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->wifeUser->name }}</option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+
+                                        @foreach($letterdivorce as $cerai)
+                                        <div class="col-md-12 form-group">
+                                            <label>Tanggal Nikah</label>
+                                            <input type="date" name="date_marriage" class="form-control @error('date_marriage') is-invalid @enderror" placeholder="Y-m-d" required" value="{{$cerai->date_marriage}}" />
+                                                @error('date_marriage')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            @foreach($letterpension as $information)
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Pekerjaan Anda" value="{{ $information->job_letter }}">
-                                            @endforeach
+                                            <label>Akta Nikah Nomor</label>
+                                            <input type="text" name="date_number_marriage"
+                                                class="form-control @error('date_number_marriage') is-invalid @enderror"
+                                                placeholder="Isi Bagian Kosong" value="{{$cerai->date_number_marriage}}">
                                         </div>
+                                        @endforeach
 
                                    
 

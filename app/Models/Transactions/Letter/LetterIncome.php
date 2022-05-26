@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
-class LetterDivorce extends Model
+class LetterIncome extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -81,24 +81,6 @@ class LetterDivorce extends Model
         );
     }
 
-    public function date_marriage(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    
-    public function number_marriage(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-
-
 
     // public function letterDate(): Attribute
     // {
@@ -121,15 +103,11 @@ class LetterDivorce extends Model
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
-    
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    public function wifeUser()
-    {
-        return $this->belongsTo('App\Models\Transactions\Citizens', 'citizen_couple_id', 'id');
-    }
+    
     
     public function user()
     {

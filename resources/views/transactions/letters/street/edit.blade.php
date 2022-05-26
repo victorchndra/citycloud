@@ -57,37 +57,42 @@
                                             </select>
                                         </div>
 
-                                        
                                         <div class="col-md-6 form-group">
                                             <label>Barang yang di angkut</label>
-                                            {{-- @foreach($letterstreet as $ls) --}}
+                                          
+                                            @foreach($letterstreet as $information)
                                             <input type="text" name="goods"
                                                 class="form-control @error('goods') is-invalid @enderror"
-                                                placeholder="Barang yang di angkut" value="{{ $ls->goods }}">
+                                                placeholder="Barang yang di angkut" value="{{ $information->goods}}">
+                                              
                                         </div>
+
                                         <div class="col-md-6 form-group">
                                             <label>Jumlah Barang yang di angkut</label>
                                             <input type="text" name="count_goods"
                                                 class="form-control @error('count_goods') is-invalid @enderror"
-                                                placeholder="Jumlah Barang yang di angkut" value="{{ $ls->count_goods }}">
+                                                placeholder="Jumlah Barang yang di angkut" value="{{ $information->count_goods }}">
                                         </div>
+
                                         <div class="col-md-6 form-group">
                                             <label>Tujuan</label>
                                             <input type="text" name="purpose"
                                                 class="form-control @error('purpose') is-invalid @enderror"
-                                                placeholder="Tujuan" value="{{ $ls->purpose }}">
+                                                placeholder="Tujuan" value="{{ $information->purpose }}">
                                         </div>
+
                                         <div class="col-md-6 form-group">
                                             <label>Berangkat</label>
                                             <input type="text" name="depart"
                                                 class="form-control @error('depart') is-invalid @enderror"
-                                                placeholder="Berangkat" value="{{ $ls->depart }}">
+                                                placeholder="Berangkat" value="{{ $information->depart }}">
                                         </div>
+
                                         <div class="col-md-12 form-group">
                                             <label>Tgl Surat</label>
-                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{ $ls->letter_date}}"> 
+                                            <input type="date" class="form-control @error('letter_date') is-invalid @enderror" name="letter_date" id="date" required value="{{ $information->letter_date}}"> 
                                         </div>
-                                        {{-- @endforeach --}}
+                                        @endforeach
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
