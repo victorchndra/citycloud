@@ -58,8 +58,8 @@
             </ul>
           </div>
     
-        <!-- <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <li class="nav-item">
+        <!-- <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="mdi mdi mdi-email menu-icon"></i>
             <span class="menu-title">Surat</span>
             <i class="menu-arrow"></i>
@@ -69,13 +69,13 @@
               <li class="nav-item"> <a class="nav-link" href="/letters">Surat Keluar</a></li>
               <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a></li>
             </ul>
-          </div>
+          </div> -->
           <li class="nav-item">
             <a class="nav-link" href="/log">
                 <i class="mdi mdi-history menu-icon"></i>
                 <span class="menu-title">Aktivitas</span>
             </a>
-        </li> -->
+        </li>
         
         </li>
 
