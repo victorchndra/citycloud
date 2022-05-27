@@ -79,6 +79,7 @@ class ProfileController extends Controller
         $thisId = \Auth::user()->id;
         $data = User::findOrFail($thisId);
 
+        
         if (!empty($request->get('password'))) {
             $request->validate([
                 'name' => 'required',
@@ -119,14 +120,23 @@ class ProfileController extends Controller
             $data->save();
 
             DB::commit();
-            
-            return redirect()->route('citizens.index')->with('status', 'Data Profil berhasil diupdate!');
 
+            $log = [
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Mengubah</em> Data Profil <strong>[' . $data->name . '] [' . $data->username . ']</strong>', //name = nama tag di view (file index)
+                'category' => 'edit',
+                'created_at' => now(),
+            ];
+        
+            DB::table('logs')->insert($log);
+            
+
+            return redirect('/profiles')->with('success','Data berhasil diperbarui');
         } catch (\Throwable $th) {
             throw $th;
 
             DB::rollback();
-            return redirect()->route('profiles.index', [$uid])->with('status', 'FAILED');
+            return redirect('profiles', [$uid])->with('status', 'FAILED');
         }
     }
 

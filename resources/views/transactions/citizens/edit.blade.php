@@ -389,16 +389,14 @@
                             <div class="col-sm-9">
                                 <select class="form-control" name="disability">
 
-                                    <option value="tidak" selected>Tidak</option>
-                                    <option value="tuna rungu">Tuna Rungu</option>
-                                    <option value="tuna wicara">Tuna Wicara</option>
-                                    <option value="tuna daksa">Tuna Daksa</option>
-                                    <option value="tuna netra">Tuna Netra</option>
-                                    <option value="tuna laras">Tuna Laras</option>
-                                    <option value="tuna grahita">Tuna Grahita</option>
-                                    <option value="tuna ganda">Tuna Ganda</option>
-
-
+                                    <option value="tidak" @if(!empty($c) && $c->disability =='tidak'){{ 'selected' }}@endif>Tidak</option>
+                                    <option value="tuna rungu" @if(!empty($c) && $c->disability =='Tuna Rungu'){{ 'selected' }}@endif>Tuna Rungu</option>
+                                    <option value="tuna wicara" @if(!empty($c) && $c->disability=='Tuna Wicara'){{ 'selected' }}@endif>Tuna Wicara</option>
+                                    <option value="tuna daksa" @if(!empty($c) && $c->disability =='Tuna Daksa'){{ 'selected' }}@endif>Tuna Daksa</option>
+                                    <option value="tuna netra" @if(!empty($c) && $c->disability =='Tuna Netra'){{ 'selected' }}@endif>Tuna Netra</option>
+                                    <option value="tuna grahita" @if(!empty($c) && $c->disability == 'Tuna Grahita'){{ 'selected' }}@endif>Tuna Grahita</option>
+                                    <option value="tuna laras" @if(!empty($c) && $c->disability == 'Tuna Laras'){{ 'selected' }}@endif>Tuna Laras</option>
+                                    <option value="tuna ganda" @if(!empty($c) && $c->disability == 'Tuna Ganda'){{ 'selected' }}@endif>Tuna Ganda</option>
 
                                 </select>
                             </div>
