@@ -103,7 +103,7 @@
     </li>
     @endif
 
-    @if ( Auth::user()->roles == 'citizens' || Auth::user()->roles == 'headrt')
+    @if ( Auth::user()->roles == 'citizens' || Auth::user()->roles == 'ketua rt')
       <ul class="nav">
         
       <li class="nav-item sidebar-category">
