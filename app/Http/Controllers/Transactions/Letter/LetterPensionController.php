@@ -333,59 +333,7 @@ class LetterPensionController extends Controller
         return redirect('/letters')->with('success','Surat berhasil dihapus');
     }
 
-    public function approve($uuid)
-    {
-
-        if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
-        $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
-        $data->update([
-            'updated_by' =>Auth::user()->id,
-            'approval_admin' => "approved",
-            'rejected_notes_admin' => null,
-        ]);
-
-        // tambahkan baris kode ini di setiap controller
-        $log = [
-            'uuid' => Uuid::uuid4()->getHex(),
-            'user_id' => Auth::user()->id,
-            'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-            'category' => 'setuju',
-            'created_at' => now(),
-        ];
-
-        DB::table('logs')->insert($log);
-        // selesai
-
-        return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-        }else{
-
-            $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
-            $data->update([
-                'updated_by' =>Auth::user()->id,
-                'approval_rt' => "approved",
-            ]);
-
-            // $data->update([
-            //     'updated_by' =>Auth::user()->id,
-            //     'approval_rt    ' => "approved",
-            //     'rejected_notes_admin' => null,
-            // ]);
-
-            // tambahkan baris kode ini di setiap controller
-            $log = [
-                'uuid' => Uuid::uuid4()->getHex(),
-                'user_id' => Auth::user()->id,
-                'description' => '<em>Menyetujui </em> '.$data->letter_name .' <strong>[' . $data->name . ']</strong>',
-                'category' => 'setuju',
-                'created_at' => now(),
-            ];
-
-            DB::table('logs')->insert($log);
-            // selesai
-
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-        }
-    }
+   
 
 
 }

@@ -27,7 +27,7 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah Surat Keterangan Usaha</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Pensiun</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -162,29 +162,6 @@
                                             <input type="text" name="job_letter"
                                                 class="form-control @error('job_letter') is-invalid @enderror"
                                                 placeholder="Umur Anda">
-                                        </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
                                         </div>
 
 
