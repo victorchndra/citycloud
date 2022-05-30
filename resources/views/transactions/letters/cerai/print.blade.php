@@ -164,30 +164,41 @@
             <table align="center" width="600" style="line-height: 1.5;">
         <tr>
             <td class="justify">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Bahwa Benar {{ $data->job }} tersebut diatas benar akan memasuki masa pensiun saat {{ $data->job }} 
-                tersebut genap berusia {{$data->age_letter}} tahun 
-                    <br/>
-                    <br/>
-                Demikianlah {{ $data->letter_name }} ini dibuat untuk dapat dipergunakan sebagaimana mestinya.
-            </td>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            Adapun alasan /dalil-dalil permohonan Pemohon Sebagai Berikut : 
+                    </td>
+                    
         </tr>
+        <br/>
+                    <td>1. Bahwa Pemohon dan Termohon adalah suami istri yang telah Melangsungkan pernikahan pada tanggal {{ \Carbon\Carbon::parse($data->date_marriage)->translatedFormat('d M Y') }} 
+                    dan di catat oleh Pegawai Pencatat Nikah Kantor Urusan Agama Kecamatan {{ $informations->sub_district_name }} 
+                sesuai dengan kutipan Akta Nikah Nomor {{$data->date_number_marriage}} tanggal {{ \Carbon\Carbon::parse($data->date_marriage)->translatedFormat('d M Y') }}  
+                <br/>
+            <br/>
+            2.Bahwa Perkawinan antara pemohon dan Termohon Dilangsungkan berdasarkan kedua belah pihak dengan tujuan membentuk rumah tangga 
+        yang sakinah, mawaddah , warahmah yang di ridhoi oleh Allah SWT</td>
+                
+               
     </table>
    
  
     <div style="margin-bttom:10px; overflow:auto;">
-            <table align="right" width="320" border="1px" >
-                <tr>
-                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $informations->village_name }} {{$data->letter_date}}</td>
-                   
-                     <td></td> 
-                  
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yang Membuat Pernyataan</td>
-                </tr>
-                
-            </table>
-    </div>
+        <table align="right" width="320" border="1px" >
+            <tr>
+                <td  width="">Dikeluarkan di </td>
+                <td width="10 px">: </td>
+                <td width=""; > {{ $informations->village_name }} </td>
+                 <td></td> 
+              
+            </tr>
+            <tr>
+                <td  style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
+                <td style=" border-bottom: 1px solid #000;">: </td>
+                <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+                 <td></td>
+            </tr>
+        </table>
+</div>
 
 
         @if ( $data->user->position == 'Kepala Desa')
