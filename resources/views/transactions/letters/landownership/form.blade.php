@@ -301,11 +301,11 @@
                                                 <div class="col-md-6 form-group">
                                                     <label>RW</label>
                                                     <div class="col-sm-9">
-                                                        <select name="letter_rt" id="rt" class="form-control">
+                                                        <select name="letter_rw" id="rw" class="form-control">
                                                             @foreach ($rws as $rw)
                                                                 <option value="{{ $rw->name }}"
                                                                     @if ($rwSelected == $rw->name) {{ 'selected' }} @endif>
-                                                                    {{ $rt->name }}</option>
+                                                                    {{ $rw->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -400,41 +400,18 @@
 
                                                 <div class="col-md-6 form-group">
                                                     <label>Saksi 1</label>
-                                                    <select id="letter_evidence1" class="form-control select2"
-                                                        name="letter_evidence1" style="width: 100%;" required>
-
-                                                        <option value="{{ Auth::user()->citizens_id }}">
-                                                            {{ Auth::user()->name }} - {{ Auth::user()->username }}
-                                                        </option>
-
-                                                    </select>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-6 form-group">
-                                                    <label>Saksi 2</label>
-                                                    <select id="letter_evidence2" class="form-control select2"
-                                                        name="letter_evidence2" style="width: 100%;" required>
-
-                                                        <option value="{{ Auth::user()->citizens_id }}">
-                                                            {{ Auth::user()->name }} - {{ Auth::user()->username }}
-                                                        </option>
-
-                                                    </select>
-                                                    </select>
+                                                    <input type="text" name="letter_evidence1"
+                                                        class="form-control @error('letter_evidence1') is-invalid @enderror"
+                                                        placeholder="Saksi 1">
                                                 </div>
 
                                                 <div class="col-md-12 form-group">
-                                                    <label>Tgl Surat</label>
-                                                    <input type="date" name="letter_date"
-                                                        class="form-control @error('letter_date') is-invalid @enderror"
-                                                        placeholder="Y-m-d" required value="{{ old('letter_date') }}" />
-                                                    @error('letter_date')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                    <label>Saksi 2</label>
+                                                    <input type="text" name="letter_evidence2"
+                                                        class="form-control @error('letter_evidence2') is-invalid @enderror"
+                                                        placeholder="Saksi 2">
                                                 </div>
+
 
                                                 <div class="col-md-12 form-group">
                                                     <label>Ditandatangani Oleh</label>

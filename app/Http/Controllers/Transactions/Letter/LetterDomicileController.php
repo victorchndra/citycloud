@@ -171,7 +171,7 @@ class LetterDomicileController extends Controller
 
             LetterDomicile::create($validatedData);
 
-            return redirect('/letters-domicile')->with('success','Surat berhasil ditambahkan');
+            return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }

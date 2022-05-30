@@ -183,7 +183,7 @@ class LetterBirthController extends Controller
 
             LetterBirth::create($validatedData);
 
-            return redirect('/letters-birth')->with('success','Surat berhasil ditambahkan');
+            return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }
