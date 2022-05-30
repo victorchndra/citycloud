@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\DB;
 
 //callmodel
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\Letter\LetterStreet;
+use App\Models\Transactions\Letter\LetterStreetGoods;
 use App\Models\Masters\Information;
 use App\Models\User;
 use Carbon\Carbon;
 use QrCode;
 
-class LetterStreetController extends Controller
+class LetterStreetGoodsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,12 +40,11 @@ class LetterStreetController extends Controller
      */
     public function create()
     {
-        //
         $informations = Information::get();
         $citizen = Citizens::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
 
-        return view('transactions.letters.street.form', compact('citizen','informations','position'));
+        return view('transactions.letters.streetgoods.form', compact('citizen','informations','position'));
     }
 
     /**
@@ -60,10 +59,10 @@ class LetterStreetController extends Controller
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'dates_go' => 'required',
-                'address_go' => 'required',
-                'necessity' => 'required',
-                'followers' => 'required',
+                'goods' => 'required',
+                'purpose' => 'required',
+                'count_goods' => 'required',
+                'depart' => 'required',
                 
             ]);
 
@@ -106,7 +105,7 @@ class LetterStreetController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data Surat Keterangan Jalan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Jalan Barang <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -114,7 +113,7 @@ class LetterStreetController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterStreet::create($validatedData);
+            LetterStreetGoods::create($validatedData);
 
             return redirect('/letters')->with('success','Surat berhasil ditambahkan');
 
@@ -122,10 +121,11 @@ class LetterStreetController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'dates_go' => 'required',
-                'address_go' => 'required',
-                'necessity' => 'required',
-                'followers' => 'required',
+                'goods' => 'required',
+                'purpose' => 'required',
+                'count_goods' => 'required',
+                'depart' => 'required',
+                
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -166,7 +166,7 @@ class LetterStreetController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data Surat Keterangan Jalan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data surat Keterangan Jalan Barang <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -174,7 +174,7 @@ class LetterStreetController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            LetterStreet::create($validatedData);
+            LetterStreetGoods::create($validatedData);
 
             return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
@@ -188,24 +188,9 @@ class LetterStreetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id)
     {
         //
-        $data = LetterStreet::where('uuid', $uuid)->firstOrFail();
-        $informations = Information::first();
-                 // tambahkan baris kode ini di setiap controller
-                 $log = [
-                    'uuid' => Uuid::uuid4()->getHex(),
-                    'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data surat Keterangan Jalan <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
-                    'category' => 'cetak',
-                    'created_at' => now(),
-                ];
-
-                DB::table('logs')->insert($log);
-                // selesai
-
-        return view('transactions.letters.street.print',compact('data','informations'));
     }
 
     /**
@@ -216,14 +201,13 @@ class LetterStreetController extends Controller
      */
     public function edit($uuid)
     {
-        //
         $informations = Information::get();
-        $streetletter = LetterStreet::get();
+        $streetgoodsletter = LetterStreetGoods::get();
         // $citizen = Citizen::orderBy('name', 'asc')->get();
         $position = User::where('position','kepala desa')->orWhere('position','sekretaris desa')->get();
         $citizen = Citizens::where('uuid', $uuid)->get();
 
-        return view('transactions.letters.street.edit', compact('citizen','informations','position','streetletter'));
+        return view('transactions.letters.streetgoods.edit', compact('citizen','informations','position','streetgoodsletter'));
     }
 
     /**
@@ -238,7 +222,7 @@ class LetterStreetController extends Controller
         //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             if ($request->get('rejected_notes_admin')) {
-                $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -260,10 +244,10 @@ class LetterStreetController extends Controller
             }
             $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'dates_go' => 'required',
-                'address_go' => 'required',
-                'necessity' => 'required',
-                'followers' => 'required',
+                'goods' => 'required',
+                'purpose' => 'required',
+                'count_goods' => 'required',
+                'depart' => 'required',
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
@@ -275,14 +259,14 @@ class LetterStreetController extends Controller
             if ($validatedData) {
     
                 $validatedData['updated_by'] = Auth::user()->id;
-                $letters = LetterStreet::where('uuid', $uuid)->first()->update($validatedData);
+                $letters = LetterStreetGoods::where('uuid', $uuid)->first()->update($validatedData);
             }
     
-            $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+            $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat Keterangan Jalan <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Jalan Barang <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -292,7 +276,7 @@ class LetterStreetController extends Controller
             return redirect('/letters')->with('success', 'Data berhasil diperbarui!');
         }else{
             if ($request->get('rejected_notes_rt')) {
-                $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+                $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
                 $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
                 $data->update([
                     'updated_by' =>Auth::user()->id,
@@ -321,16 +305,16 @@ class LetterStreetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uuid)
+    public function destroy($id)
     {
         //
-        $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
+        $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
         $data->deleted_by = Auth::user()->id;
         $data->save();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat keterangan Jalan <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat keterangan Jalan Barang <strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];

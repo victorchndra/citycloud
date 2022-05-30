@@ -255,6 +255,10 @@ Route::get("approve/collegedispensation-letters/{uid}", "App\Http\Controllers\Tr
 Route::resource("letters-street", "App\Http\Controllers\Transactions\Letter\LetterStreetController")->middleware('auth');
 Route::get("approve/street-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterStreetController@approve")->name('auth');
 
+// Surat Keterangan Jalan Barang
+Route::resource("letters-streetgoods", "App\Http\Controllers\Transactions\Letter\LetterStreetGoodsController")->middleware('auth');
+Route::get("approve/streetgoods-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterStreetGoodsController@approve")->name('auth');
+
 // Surat Keterangan Rujuk/Cerai
 Route::resource("letters-unite", "App\Http\Controllers\Transactions\Letter\LetterUniteController")->middleware('auth');
 Route::get("approve/unite-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterUniteController@approve")->name('auth');

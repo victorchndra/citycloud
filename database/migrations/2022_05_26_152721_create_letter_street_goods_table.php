@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('letter_streets', function (Blueprint $table) {
+        Schema::create('letter_street_goods', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->string('letter_index')->nullable();
@@ -36,10 +36,10 @@ return new class extends Migration
             $table->string('province')->nullable();
             //////////////////////////////////////
             ///////////////data surat////////////////
-            $table->string('dates_go')->nullable();
-            $table->string('address_go')->nullable();
-            $table->string('necessity')->nullable();
-            $table->string('followers')->nullable();
+            $table->string('goods')->nullable();
+            $table->string('purpose')->nullable();
+            $table->string('count_goods')->nullable();
+            $table->string('depart')->nullable();
             ////////////////////////////////////////
             ////////////////data wajib//////////////
             $table->string('signature')->nullable();
@@ -64,6 +64,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('letter_streets');
+        Schema::dropIfExists('letter_street_goods');
     }
 };

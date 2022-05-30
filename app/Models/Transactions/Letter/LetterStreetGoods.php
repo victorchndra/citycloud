@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //call soft delete
 use Illuminate\Database\Eloquent\Casts\Attribute; // mau nulis acessor dan mutator di laravel 9? pake ini
 use Carbon\Carbon;
 
-class LetterStreet extends Model
+class LetterStreetGoods extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
