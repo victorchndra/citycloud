@@ -137,7 +137,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-street" method="POST">
+                        <form class="form form-horizontal" action="/letters-streetgoods" method="POST">
                             @csrf
                             <div class="form-body">
                                 <div class="row">
@@ -190,15 +190,7 @@
 
                                   
 
-                                    <div class="col-md-12 form-group">
-                                        <label>Tgl Surat</label>
-                                        <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
-                                            @error('letter_date')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                    </div>
+    
 
                                     <div class="col-md-12 form-group">
                                         <label>Ditandatangani Oleh</label>

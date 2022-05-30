@@ -271,7 +271,7 @@ Route::resource("letters-income", "App\Http\Controllers\Transactions\Letter\Lett
 Route::get("approve/income-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterIncomeController@approve")->name('auth');
 
 // Surat Keterangan jalan Citizen
-// Route::resource("letters-citizen", "App\Http\Controllers\Transactions\Letter\LetterStreetCitizenController")->middleware('auth');
+Route::resource("letters-citizen", "App\Http\Controllers\Transactions\Letter\LetterStreetCitizenController")->middleware('auth');
 Route::get("approve/citizen-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterStreetCitizenController@approve")->name('auth');
 // Surat Keterangan Jual Beli Tanah
 Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\Letter\LetterLandTransactionController")->middleware('auth');

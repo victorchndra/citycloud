@@ -1919,6 +1919,28 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
+        // Rejected : Surat keterangan jalan barang
+        elseif (LetterStreetGoods::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
+            $data = LetterStreetGoods::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_admin' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
 
 
         // REJECTED FOR KETUA RT
@@ -2362,6 +2384,27 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
+        elseif (LetterStreetGoods::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterStreetGoods::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
 
 
     }
@@ -2406,7 +2449,24 @@ class LetterController extends Controller
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
+        if (LetterStreetGoods::where('uuid', $uuid)->exists()) {
+            $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
+            $data->deleted_by = Auth::user()->id;
+            $data->save();
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menghapus</em> Surat Keterangan Jalan Barang <strong>[' . $data->name . ']</strong>',
+                'category' => 'hapus',
+                'created_at' => now(),
+            ];
 
+            DB::table('logs')->insert($log);
+            $data->delete();
+
+
+            return redirect('/letters')->with('success', 'Surat berhasil dihapus');
+        }
         // HAPUS SURAT KETERANGAN CUTI TAHUNAN
         if(LetterHoliday::where('uuid', $uuid)->exists()) {
             $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
@@ -3081,6 +3141,30 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
+            //BAgian Admin
+            elseif (LetterStreetGoods::where('uuid', $uuid)->exists()) {
+                // Approve : Surat keterangan pensiun
+                $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_admin' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
             elseif (LetterBuilding::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
                 $data = LetterBuilding::get()->where('uuid', $uuid)->firstOrFail();
@@ -3520,6 +3604,29 @@ class LetterController extends Controller
                     'updated_by' => Auth::user()->id,
                     'approval_rt' => "approved",
                     'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
+            elseif (LetterStreetGoods::where('uuid', $uuid)->exists()) {
+                // Approve : Surat rekomendasi
+                $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_rt' => "approved",
+                    'rejected_notes_rt' => null,
                 ]);
 
                 // tambahkan baris kode ini di setiap controller
