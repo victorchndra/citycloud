@@ -37,73 +37,68 @@ return new class extends Migration
             //////////////////////////////////////
             ///////////////data surat////////////////
             $table->string('marriage_status')->nullable();
-            $table->string('ex_name')->nullable();
             
-            $table->string('father_option')->nullable();
+            $table->string('yesnoAyah',10)->nullable();
             $table->integer('father_id')->nullable();
-            $table->string('father_name')->nullable();
+            $table->string('father_name',30)->nullable();
             $table->string('father_bin')->nullable();
-            $table->string('father_nik')->nullable();
-            $table->string('father_place_birth')->nullable();
+            $table->string('father_nik',20)->nullable();
+            $table->string('father_place_birth',20)->nullable();
             $table->date('father_date_birth')->nullable();
-            $table->string('father_citizenship')->nullable();
-            $table->string('father_religion')->nullable();
-            $table->string('father_job')->nullable();
-            $table->string('father_address')->nullable();
+            $table->string('father_citizenship',10)->nullable();
+            $table->string('father_religion',20)->nullable();
+            $table->string('father_job',20)->nullable();
+            $table->string('father_address',30)->nullable();
 
-
-            $table->string('mother_option')->nullable();
+            $table->string('yesnoIbu',10)->nullable();
             $table->integer('mother_id')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('mother_bin')->nullable();
-            $table->string('mother_nik')->nullable();
-            $table->string('mother_place_birth')->nullable();
+            $table->string('mother_nik',30)->nullable();
+            $table->string('mother_place_birth',20)->nullable();
             $table->date('mother_date_birth')->nullable();
-            $table->string('mother_citizenship')->nullable();
-            $table->string('mother_religion')->nullable();
-            $table->string('mother_job')->nullable();
-            $table->string('mother_address')->nullable();
+            $table->string('mother_citizenship',10)->nullable();
+            $table->string('mother_religion',10)->nullable();
+            $table->string('mother_job',20)->nullable();
+            $table->string('mother_address',30)->nullable();
 
-            $table->string('couple_option')->nullable();
+            $table->string('yesnoCalon',10)->nullable();
             $table->integer('couple_id')->nullable();
             $table->string('couple_name')->nullable();
             $table->string('couple_bin')->nullable();
-            $table->string('couple_nik')->nullable();
-            $table->string('couple_place_birth')->nullable();
+            $table->string('couple_nik',30)->nullable();
+            $table->string('couple_place_birth',30)->nullable();
             $table->date('couple_date_birth')->nullable();
-            $table->string('couple_citizenship')->nullable();
-            $table->string('couple_religion')->nullable();
-            $table->string('couple_job')->nullable();
-            $table->string('couple_address')->nullable();
+            $table->string('couple_citizenship',10)->nullable();
+            $table->string('couple_religion',10)->nullable();
+            $table->string('couple_job',20)->nullable();
+            $table->string('couple_address',30)->nullable();
 
             $table->date('marriage_date')->nullable();
             $table->string('dowry')->nullable();
 
-            $table->string('move_option')->nullable();
-            $table->string('no_recomendation')->nullable();
+            $table->string('yesnoPindah',10)->nullable();
+            $table->string('letter_index_move',30)->nullable();
+            $table->string('move_village',30)->nullable();
+            $table->string('move_sub_districts',30)->nullable();
+            $table->string('move_districts',30)->nullable();
+            $table->string('move_province',30)->nullable();
 
-            $table->string('move_village')->nullable();
-            $table->string('move_sub_districts')->nullable();
-            $table->string('move_sub_districts')->nullable();
-            $table->string('move_districts')->nullable();
-            $table->string('move_province')->nullable();
-
-
-            $table->string('death_option')->nullable();
-            $table->string('death_no')->nullable();
+            $table->string('yesnoMeninggal',10)->nullable();
+            $table->string('letter_index_death',30)->nullable();
             $table->date('death_date')->nullable();
-            $table->string('death_location')->nullable();
+            $table->string('death_location',30)->nullable();
 
-            $table->string('ex_option')->nullable();
+            $table->string('yesnoMantan',10)->nullable();
             $table->string('ex_id')->nullable();
             $table->string('ex_name')->nullable();
-            $table->string('ex_nik')->nullable();
-            $table->string('ex_place_birth')->nullable();
+            $table->string('ex_nik',30)->nullable();
+            $table->string('ex_place_birth',30)->nullable();
             $table->date('ex_date_birth')->nullable();
-            $table->string('ex_citizenship')->nullable();
-            $table->string('ex_religion')->nullable();
-            $table->string('ex_job')->nullable();
-            $table->string('ex_address')->nullable();
+            $table->string('ex_citizenship',10)->nullable();
+            $table->string('ex_religion',10)->nullable();
+            $table->string('ex_job',20)->nullable();
+            $table->string('ex_address',30)->nullable();
 
             ////////////////////////////////////////
             ////////////////data wajib//////////////

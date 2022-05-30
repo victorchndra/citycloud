@@ -117,6 +117,9 @@ Route::get("/letters-citizens", [LetterController::class, 'indexcitizen'])->midd
 Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 Route::get("approve/{uid}", [LetterController::class, 'approve'])->name('approve.letters');
 
+
+//approveletters
+Route::get("/approve/letters/{uid}", [LetterController::class, 'approve'])->name('approve.datas');
 //businessletters
 Route::resource("letters-business", "App\Http\Controllers\Transactions\Letter\LetterBusinessController")->middleware('auth');
 Route::get("approve/business-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterBusinessController@approve")->name('approve.businessletters');
@@ -267,5 +270,12 @@ Route::get("approve/unite-letters/{uid}", "App\Http\Controllers\Transactions\Let
 Route::resource("letters-income", "App\Http\Controllers\Transactions\Letter\LetterIncomeController")->middleware('auth');
 Route::get("approve/income-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterIncomeController@approve")->name('auth');
 
+// Surat Keterangan jalan Citizen
+// Route::resource("letters-citizen", "App\Http\Controllers\Transactions\Letter\LetterStreetCitizenController")->middleware('auth');
+Route::get("approve/citizen-letters/{uid}", "App\Http\Controllers\Transactions\Letter\LetterStreetCitizenController@approve")->name('auth');
 // Surat Keterangan Jual Beli Tanah
 Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\Letter\LetterLandTransactionController")->middleware('auth');
+
+//surat menikah
+Route::resource("letters-marriage", "App\Http\Controllers\Transactions\Letter\LetterMarriageController")->middleware('auth');
+Route::get("approve/letters-marriage/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMarriageController@approve")->name('approve.businessletters');

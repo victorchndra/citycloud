@@ -44,9 +44,9 @@ class CitizenController extends Controller
     
             $datas = Citizens::latest()->filter(
                 request([
-                    'name', 'nik', 'kk', 'gender', 'date_birth', 'address', 'place_birth', 'religion', 'family_status', 'blood',
+                    'name', 'nik', 'kk', 'gender', 'date_birth','date_birth2','address', 'place_birth', 'religion', 'family_status', 'blood',
                     'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
-                    'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance'
+                    'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','disability'
                 ])
             )->whereNull('death_date')->whereNull('move_date')->paginate(20)->withQueryString();
 
@@ -505,6 +505,7 @@ class CitizenController extends Controller
             'province' => 'nullable',
             'address' => 'nullable',
             'dtks'=> 'nullable',
+            'disability'=> 'nullable',
             'last_education' => 'nullable',
             'move_to' => 'nullable',
             'health_assurance' => 'nullable',

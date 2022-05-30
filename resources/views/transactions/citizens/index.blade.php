@@ -12,7 +12,7 @@
                 <a href="/citizens/create" class="btn btn-sm btn-primary btn-fw"><i
                         class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
-                <a href="{{url('export/exportFamilyCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&place_birth='.
+                <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&date_birth='.$date_birth.'&date_birth2='.$date_birth2.'&place_birth='.
                     $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
@@ -88,12 +88,27 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                                <div class="col-sm-9">
-                                                    <input type="date" name="date_birth"
-                                                        class="form-control @error('date_birth') is-invalid @enderror"
-                                                        placeholder="dd/mm/yyyy"
-                                                        value="{{ old('date_birth') }}" />
+                                                <label class="col-sm-3 col-form-label">Rentang usia</label>
+                                                <div class="col-sm-9 row">
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth" id="date_birth" class="form-control col-md-7 input-min" value="0">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-form-label mySeparator">-</div>
+                                                    </div>
+                                                    <div class="col-sm-4 birth-input">
+                                                        <input type="number" name="date_birth2" id="date_birth2" class="form-control col-md-7 input-max" value="120">
+                                                    </div>
+
+                                                    {{-- Slider date birth --}}
+                                                    <div class="slider mt-3 ms-3">
+                                                        <div class="progress"></div>
+                                                    </div>
+                                                    <div class="range-input">
+                                                        <input type="range" class="range-min" min="0" max="120" value="0" class="form-control">
+                                                        <input type="range" class="range-max" min="0" max="120" value="120" class="form-control">
+                                                    </div>
+
                                                     @error('date_birth')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -558,6 +573,9 @@
                                         <span>{{ $data->job ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Agama : </b>
                                         <span>{{ $data->religion ?? '-' }}</span></span>
+                                        <span class="d-block mb-1"><b>Disabilitas : </b>
+                                        <span>{{ $data->disability ?? '-' }}</span></span>
+
 
                                 </td>
 
@@ -573,7 +591,8 @@
                                         <span>{{ $data->last_education ?? '-' }}</span></span>
                                         <span class="d-block mb-1"><b>Asuransi Kesehatan : </b>
                                         <span>{{ $data->health_assurance ?? '-' }}</span></span>
-
+                                        <span class="d-block mb-1"><b>DTKS : </b>
+                                        <span>{{ $data->dtks ?? '-' }}</span></span>
                                 @if (is_array($data->kk) || is_object($data->kk))
                                 @foreach ($data->kk as $value)
                                 {{$value->family_status}}

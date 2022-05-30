@@ -57,15 +57,10 @@
               <li class="nav-item"> <a class="nav-link" href="/death">Penduduk Meninggal</a></li>
             </ul>
           </div>
-          <li class="nav-item">
-            <a class="nav-link" href="/log">
-                <i class="mdi mdi-history menu-icon"></i>
-                <span class="menu-title">Aktivitas</span>
-            </a>
-        </li>
+    
         <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <i class="mdi mdi-account-multiple menu-icon"></i>
+            <i class="mdi mdi mdi-email menu-icon"></i>
             <span class="menu-title">Surat</span>
             <i class="menu-arrow"></i>
           </a>
@@ -108,7 +103,7 @@
     </li>
     @endif
 
-    @if ( Auth::user()->roles == 'citizens' || Auth::user()->roles == 'headrt')
+    @if ( Auth::user()->roles == 'citizens' || Auth::user()->roles == 'ketua rt')
       <ul class="nav">
         
       <li class="nav-item sidebar-category">
