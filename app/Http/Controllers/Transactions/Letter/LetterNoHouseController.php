@@ -177,7 +177,7 @@ class LetterNoHouseController extends Controller
 
             LetterNoHouse::create($validatedData);
 
-            return redirect('/letters-nohouse')->with('success','Surat berhasil ditambahkan');
+            return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }

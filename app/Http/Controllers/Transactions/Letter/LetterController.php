@@ -722,7 +722,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat permohonan kartu keluarga <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Mencetak</em> data surat keterangan permohonan kartu keluarga <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'cetak',
                 'created_at' => now(),
             ];
@@ -1544,6 +1544,27 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
+        elseif (LetterDomicile::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
+            $data = LetterDomicile::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_admin' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
         // Rejected : Surat belum menerima bpjs
         elseif (LetterNotBPJS::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterNotBPJS::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1940,8 +1961,50 @@ class LetterController extends Controller
             // selesai
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
-        }
+        }elseif (LetterPoor::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
+            $data = LetterPoor::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_admin' => "rejected",
+            ]);
 
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        elseif (LetterNeedy::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
+            $data = LetterNeedy::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_admin' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+                    
+        
 
         // REJECTED FOR KETUA RT
         $uuidValidated = $request->input('uuidValidatert');
@@ -1991,6 +2054,92 @@ class LetterController extends Controller
         // Rejected : Surat belum menerima bpjs
         elseif (LetterNotBPJS::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterNotBPJS::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        elseif (LetterDomicile::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterDomicile::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+
+        elseif (LetterNeedy::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterNeedy::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+
+        elseif (LetterPoor::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterPoor::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        elseif (LetterBirth::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterBirth::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
             $data->update([
                 'updated_by' => Auth::user()->id,
@@ -3141,6 +3290,52 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
+            elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
+                // Approve : Surat rekomendasi
+                $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_admin' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
+            elseif (LetterBirth::where('uuid', $uuid)->exists()) {
+                // Approve : Surat rekomendasi
+                $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_admin' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
             //BAgian Admin
             elseif (LetterStreetGoods::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -3603,6 +3798,28 @@ class LetterController extends Controller
                 $data->update([
                     'updated_by' => Auth::user()->id,
                     'approval_rt' => "approved",
+                    'rejected_notes_rt' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            } elseif (LetterBirth::where('uuid', $uuid)->exists()) {
+                // Approve : Surat rekomendasi
+                $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_rt' => "approved",
                     'rejected_notes_admin' => null,
                 ]);
 
@@ -3669,6 +3886,29 @@ class LetterController extends Controller
             elseif (LetterDeath::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
                 $data = LetterDeath::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_rt' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
+            elseif (LetterPension::where('uuid', $uuid)->exists()) {
+                // Approve : Surat keterangan pensiun
+                $data = LetterPension::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
                     'updated_by' => Auth::user()->id,
                     'approval_rt' => "approved",

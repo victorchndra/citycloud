@@ -142,7 +142,7 @@
                 <td class="justify" style="text-align: justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Ternyata yang bersangkutan ”
                     <strong>
-                        @if ($data->status_prilaku == 'BERKELAKUAN BAIK')
+                        @if ($data->status_prilaku == 'Berkelakuan Baik')
                             <span class="badge badge-pill badge-primary"><i class="mdi mdi-check-circle"></i>Tidak Pernah
                                 Terlibat Partai Terlarang, Tidak Terlibat Dalam Tindakan Kriminal, Serta Tidak Pernah
                                 Membuat Keributan Di Lingkungan Tempat Tinggalnya</span>
