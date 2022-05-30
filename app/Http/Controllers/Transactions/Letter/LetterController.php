@@ -1501,6 +1501,7 @@ class LetterController extends Controller
     public function update(Request $request, $uuid)
     {
         $uuidValidated = $request->input('uuidValidate');
+
         // Rejected : Surat keterangan usaha
         if (LetterBusiness::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterBusiness::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1877,9 +1878,33 @@ class LetterController extends Controller
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
 
+
+        // REJECTED FOR KETUA RT
         $uuidValidated = $request->input('uuidValidatert');
         if (LetterBusiness::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterBusiness::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        // Rejected : Surat belum menikah
+        elseif (LetterNotMarriedYet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterNotMarriedYet::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
             $data->update([
                 'updated_by' => Auth::user()->id,
@@ -2232,6 +2257,28 @@ class LetterController extends Controller
         // Rejected : Surat keterangan jalan citizen
         elseif (LetterStreetCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterStreetCitizen::get()->where('uuid', $uuidValidated)->firstOrFail();
+            $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
+            $data->update([
+                'updated_by' => Auth::user()->id,
+                'approval_rt' => "rejected",
+            ]);
+
+            $log = [
+                'uuid' => Uuid::uuid4()->getHex(),
+                'user_id' => Auth::user()->id,
+                'description' => '<em>Menolak </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                'category' => 'tolak',
+                'created_at' => now(),
+            ];
+
+            DB::table('logs')->insert($log);
+            // selesai
+
+            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+        }
+        // Rejected : Surat keterangan jalan citizen
+        elseif (LetterNotMarriedYet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
+            $data = LetterNotMarriedYet::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
             $data->update([
                 'updated_by' => Auth::user()->id,
@@ -3308,8 +3355,31 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
+            elseif (LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
+                // Approve : Surat belum menikah
+                $data = LetterNotMarriedYet::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_admin' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
 
-        } 
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
+
+                // tambahkan baris kode ini di setiap controlle
         // setuju bagian RT
         else {
 
@@ -3718,6 +3788,29 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
+            elseif (LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
+                $data = LetterNotMarriedYet::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_rt' => "approved",
+                    'rejected_notes_admin' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
         }
     }
+}
 }
