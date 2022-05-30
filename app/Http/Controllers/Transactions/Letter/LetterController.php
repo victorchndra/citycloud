@@ -3814,7 +3814,32 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            } elseif (LetterBirth::where('uuid', $uuid)->exists()) {
+            }
+            elseif (LetterInheritance::where('uuid', $uuid)->exists()) {
+                // Approve : Surat rekomendasi
+                $data = LetterInheritance::get()->where('uuid', $uuid)->firstOrFail();
+                $data->update([
+                    'updated_by' => Auth::user()->id,
+                    'approval_rt' => "approved",
+                    'rejected_notes_rt' => null,
+                ]);
+
+                // tambahkan baris kode ini di setiap controller
+                $log = [
+                    'uuid' => Uuid::uuid4()->getHex(),
+                    'user_id' => Auth::user()->id,
+                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
+                    'category' => 'setuju',
+                    'created_at' => now(),
+                ];
+
+                DB::table('logs')->insert($log);
+                // selesai
+
+                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+            }
+            
+            elseif (LetterBirth::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
                 $data = LetterBirth::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
