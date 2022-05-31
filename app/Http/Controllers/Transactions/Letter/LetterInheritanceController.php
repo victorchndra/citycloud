@@ -156,6 +156,8 @@ class LetterInheritanceController extends Controller
             $validatedData['province'] = $citizen->province;
 
             $validatedData['letter_family_status'] = $citizen->family_status;
+            
+            $validatedData['letter_death_date'] = $citizen->death_date;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";

@@ -3851,79 +3851,11 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            elseif (LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
-                // Approve : Surat karantina mandiri
-                $data = LetterSelfQuarantine::get()->where('uuid', $uuid)->firstOrFail();
-                $data->update([
-                    'updated_by' => Auth::user()->id,
-                    'approval_admin' => "approved",
-                    'rejected_notes_admin' => null,
-                ]);
 
-                // tambahkan baris kode ini di setiap controller
-                $log = [
-                    'uuid' => Uuid::uuid4()->getHex(),
-                    'user_id' => Auth::user()->id,
-                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
-                    'category' => 'setuju',
-                    'created_at' => now(),
-                ];
-
-                DB::table('logs')->insert($log);
-                // selesai
-
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterDifferenceName::where('uuid', $uuid)->exists()) {
-                // Approve : Surat karantina mandiri
-                $data = LetterDifferenceName::get()->where('uuid', $uuid)->firstOrFail();
-                $data->update([
-                    'updated_by' => Auth::user()->id,
-                    'approval_admin' => "approved",
-                    'rejected_notes_admin' => null,
-                ]);
-
-                // tambahkan baris kode ini di setiap controller
-                $log = [
-                    'uuid' => Uuid::uuid4()->getHex(),
-                    'user_id' => Auth::user()->id,
-                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
-                    'category' => 'setuju',
-                    'created_at' => now(),
-                ];
-
-                DB::table('logs')->insert($log);
-                // selesai
-
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
-            elseif (LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
-                // Approve : Surat karantina mandiri
-                $data = LetterDifferenceBirth::get()->where('uuid', $uuid)->firstOrFail();
-                $data->update([
-                    'updated_by' => Auth::user()->id,
-                    'approval_admin' => "approved",
-                    'rejected_notes_admin' => null,
-                ]);
-
-                // tambahkan baris kode ini di setiap controller
-                $log = [
-                    'uuid' => Uuid::uuid4()->getHex(),
-                    'user_id' => Auth::user()->id,
-                    'description' => '<em>Menyetujui </em> ' . $data->letter_name . ' <strong>[' . $data->name . ']</strong>',
-                    'category' => 'setuju',
-                    'created_at' => now(),
-                ];
-
-                DB::table('logs')->insert($log);
-                // selesai
-
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            }
 
                 // tambahkan baris kode ini di setiap controlle
-        // APPROVE FOR KETUA RT
-        else {
+             // setuju bagian RT
+        }else {
 
             if (LetterBusiness::where('uuid', $uuid)->exists()) {
                 $data = LetterBusiness::get()->where('uuid', $uuid)->firstOrFail();
@@ -3946,7 +3878,8 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            } elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
+            }
+            elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
                 $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
@@ -4560,4 +4493,4 @@ class LetterController extends Controller
         }
     }
 }
-}
+
