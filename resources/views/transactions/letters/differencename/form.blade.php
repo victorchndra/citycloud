@@ -150,7 +150,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-differencebirth" method="POST">
+                        <form class="form form-horizontal" action="/letters-difference-name" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
