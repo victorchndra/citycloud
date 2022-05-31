@@ -230,9 +230,7 @@ class LetterInheritanceController extends Controller
                 'letter_grave_loc' => 'required',                
             ]);
             $position           = User::findOrFail($request->get('positions'));
-            $validatedData['letter_date']   = $request->get('letter_date');            
-            $validatedData['letter_death_loc']   = $request->get('letter_date');
-            $validatedData['letter_grave_loc']   = $request->get('letter_date');
+            $validatedData['letter_date']   = $request->get('letter_date');
 
 
             $validatedData['signed_by']     = $position->id;
