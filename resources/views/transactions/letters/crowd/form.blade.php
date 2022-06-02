@@ -78,25 +78,25 @@
                                             <label>Mulai Acara</label>
                                             <input type="text" name="start"
                                                 class="form-control @error('start') is-invalid @enderror"
-                                                placeholder="Tanggal Acara" value="{{Carbon\Carbon::now()->format('Y-m-d')." ".Carbon\Carbon::now()->format('H:i')}}">
+                                                placeholder="Mulai Acara">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Nama Acara</label>
                                             <input type="text" name="acara"
                                                 class="form-control @error('acara') is-invalid @enderror"
-                                                placeholder="Tanggal Acara">
+                                                placeholder="Nama Acara">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Undangan</label>
                                             <input type="text" name="invitation"
                                                 class="form-control @error('invitation') is-invalid @enderror"
-                                                placeholder="Tanggal Acara">
+                                                placeholder="Undangan">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Hiburan</label>
                                             <input type="text" name="entertainment"
                                                 class="form-control @error('entertainment') is-invalid @enderror"
-                                                placeholder="Tanggal Acara">
+                                                placeholder="Hiburan">
                                         </div>
 
                                       
@@ -197,25 +197,25 @@
                                             <label>Mulai Acara</label>
                                             <input type="text" name="start"
                                                 class="form-control @error('start') is-invalid @enderror"
-                                                placeholder="Tanggal Acara" value="{{Carbon\Carbon::now()->format('Y-m-d')." ".Carbon\Carbon::now()->format('H:i')}}">
+                                                placeholder="Mulai Acara">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Nama Acara</label>
                                             <input type="text" name="acara"
                                                 class="form-control @error('acara') is-invalid @enderror"
-                                                placeholder="Tanggal Acara">
+                                                placeholder="Nama Acara">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Undangan</label>
                                             <input type="text" name="invitation"
                                                 class="form-control @error('invitation') is-invalid @enderror"
-                                                placeholder="Tanggal Acara">
+                                                placeholder="Undangan">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Hiburan</label>
                                             <input type="text" name="entertainment"
                                                 class="form-control @error('entertainment') is-invalid @enderror"
-                                                placeholder="Tanggal Acara">
+                                                placeholder="Hiburan">
                                         </div>
 
                                       

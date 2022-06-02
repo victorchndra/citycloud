@@ -154,11 +154,9 @@
                                         <label>Pilih Penduduk</label>
                                         <select id="citizens" class="form-control select2" name="citizens"
                                             style="width: 100%;" required>
-                                            <option selected="selected" value="">Ketik Nama atau NIK</option>
-                                            @foreach($citizen as $citizens)
-                                            <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
-                                                {{ $citizens->name }}</option>
-                                            @endforeach
+
+                                            <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+
                                         </select>
                                         </select>
                                     </div>
@@ -196,7 +194,7 @@
                                         <label>Ditandatangani Oleh</label>
                                         <select id="positions" class="form-control" name="positions"
                                             style="width: 100%;" required>
-                                            <option value="">Pilih Jabatan</option>
+
                                             @foreach($position as $positions)
                                             <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
                                                 {{ $positions->position }}</option>
@@ -207,6 +205,7 @@
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         </div>
                                     </div>
+
 
                                    
 
