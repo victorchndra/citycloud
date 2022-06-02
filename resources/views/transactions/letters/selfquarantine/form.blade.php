@@ -148,6 +148,20 @@
                                             </select>
                                         </div>
 
+                                        <div class="col-md-6 form-group">
+                                            <label>Dari tanggal</label>
+                                            <input type="date" name="start_date"
+                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Mulai">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Sampai tanggal</label>
+                                            <input type="date" name="finish_date"
+                                                class="form-control @error('finish_date') is-invalid @enderror"
+                                                placeholder="Selesai">
+                                        </div>
+
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"

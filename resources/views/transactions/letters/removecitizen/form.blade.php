@@ -110,7 +110,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-not-bpjs" method="POST">
+                        <form class="form form-horizontal" action="/letters-removecitizen" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
