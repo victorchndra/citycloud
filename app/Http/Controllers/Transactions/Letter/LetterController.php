@@ -239,8 +239,9 @@ class LetterController extends Controller
             $letterincome = LetterIncome::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $letterstreetcitizen = LetterStreetCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
 
-            $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreet)->
+            $datas = $businessletters->concat($letterstreetgoods)->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreet)->
             concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)
             ->concat($birthletters)->concat($holidayletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)
             ->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)
