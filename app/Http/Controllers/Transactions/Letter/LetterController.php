@@ -593,7 +593,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mencetak</em> data surat skck <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Mencetak</em> data surat Keterangan Rekomendasi SKCK <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'cetak',
                 'created_at' => now(),
             ];
@@ -3159,7 +3159,7 @@ class LetterController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menghapus</em> Surat Rekomendasi <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Menghapus</em> Surat Keterangan Rekomendasi SKCK <strong>[' . $data->name . ']</strong>',
                 'category' => 'hapus',
                 'created_at' => now(),
             ];

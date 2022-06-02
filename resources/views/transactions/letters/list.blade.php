@@ -106,7 +106,7 @@
                         </tr>
                         <tr>
                             <td>5</td>
-                            <td>Surat Keterangan Rekomendasi</td>
+                            <td>Surat Keterangan Rekomendasi SKCK</td>
                             <td>
                                     <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                         <div class="btn-group">
