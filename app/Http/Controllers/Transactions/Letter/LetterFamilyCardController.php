@@ -177,7 +177,7 @@ class LetterFamilyCardController extends Controller
 
             LetterFamilyCard::create($validatedData);
 
-            return redirect('/letters-familycard')->with('success','Surat berhasil ditambahkan');
+            return redirect('/letters-citizens')->with('success','Surat berhasil ditambahkan');
 
 
         }

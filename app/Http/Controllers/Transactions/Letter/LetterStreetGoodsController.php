@@ -69,7 +69,7 @@ class LetterStreetGoodsController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "Surat Keterangan Jalan";
+            $validatedData['letter_name']     = "Surat Keterangan Jalan Barang";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -131,7 +131,7 @@ class LetterStreetGoodsController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "Surat Keterangan Jalan";
+            $validatedData['letter_name']     = "Surat Keterangan Jalan Barang";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -305,7 +305,7 @@ class LetterStreetGoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         //
         $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();

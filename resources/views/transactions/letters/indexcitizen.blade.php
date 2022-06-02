@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
 
-            
+
                 <h3>Indexcitizenniwoi</h3>
                 <p class="text-subtitle text-muted">For user to check they list</p>
             </div>
@@ -31,9 +31,9 @@
                     <i class="bi bi-plus text-white"></i> Tambah Surat</a>
                     @endif
             </div>
-            
+
             <div class="card-body">
-                
+
                           <!-- success message -->
                           @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -95,7 +95,7 @@
                 @endforeach
                         <!-- success message end -->
 
-                      
+
                 <table class="table table-striped" id="letters" >
                     <thead>
                         <tr>
@@ -103,7 +103,7 @@
                             <th>Nama</th>
                             <th>Jenis Surat</th>
                             <th>Ditambahkan pada</th>
-                          
+
                             <th>Status RT</th>
                             <th>Status Admin</th>
                             <th>Keterangan</th>
@@ -126,9 +126,9 @@
                                                 <br>
                                                 Diubah Oleh: <b> {{$data->updatedUser->name}}
                                                 </b><br>{{$data->updated_at, 'd M Y'}}
-                                                @endif    
+                                                @endif
                             </td>
-                            
+
                                 <td>
                                         @if($data->approval_rt == 'approved')
                                         <span class="badge bg-success">Setuju</span>
@@ -145,8 +145,8 @@
                                         </span>
                                         @endif
                                 </td>
-                                
-                                <td>   
+
+                                <td>
                                     @if($data->approval_admin == 'approved')
                                         <span class="badge bg-success">Setuju</span>
                                         </span>
@@ -163,8 +163,8 @@
                                         @endif
                                 </td>
 
-                                  
-                                <td>   
+
+                                <td>
                                         @if($data->approval_admin == 'rejected')
                                         <span class="badge bg-danger"> </i>Admin: {{ $data->rejected_notes_admin }}</span>
                                         </span>
@@ -176,11 +176,11 @@
                                         @endif
 
 
-                                        
 
-                                        
+
+
                                 </td>
-                                
+
 
                                 @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
                             <td>
@@ -188,7 +188,7 @@
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                             <div class="dropdown-menu">
 
-                                            
+
                                             <a href="{{ route('approve.datas', [ $data->uuid ]) }}"
                                                     class="dropdown-item"  type="submit" onclick="return confirm('Setujui Surat?')"><i class="mdi mdi-tooltip-edit"></i> Setujui</a>
                                                     <div class="dropdown-divider"></div>
@@ -201,12 +201,12 @@
                                                     <div class="dropdown-divider"></div>
 
 
-                                          
+
                                             <a href="/letters/{{ $data->uuid }}"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Cetak</a>
                                                     <div class="dropdown-divider"></div>
-                              
-    
+
+
                                             <a href="/letters/{{ $data->uuid }}/edit"
                                                     class="dropdown-item"><i class="mdi mdi-tooltip-edit"></i> Edit</a>
                                                     <div class="dropdown-divider"></div>
@@ -227,9 +227,9 @@
                                                         onclick="return confirm('Hapus data?')">Hapus</button>
                                                 </form>
                                             </div>
-                              
+
                                 </td>
-                                @endif 
+                                @endif
 
                                 @if (Auth::user()->roles == 'ketua rt')
                             <td>
@@ -237,8 +237,8 @@
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                             <div class="dropdown-menu">
 
-                                            
-                                          
+
+
                                             <a href="{{ route('approve.datas', [ $data->uuid ]) }}"
                                                     class="dropdown-item"  type="submit" onclick="return confirm('Setujui Surat?')"><i class="mdi mdi-tooltip-edit"></i> Setujui</a>
                                                     <div class="dropdown-divider"></div>
@@ -246,12 +246,12 @@
                                                     {{-- Death Button --}}
                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rejectrt" data-id="{{ $data->uuid }}" onclick="$('#uuidValidatert').val($(this).data('id')); $('#rejectrt').modal('show');"><i class="mdi mdi-account-minus"></i> Tolak</button>
                                                     {{-- data-bs-target="#deathModal" --}}
-                                          
-                                       
+
+
                                             </div>
-                              
+
                                 </td>
-                                @endif 
+                                @endif
 
                                 @endforeach
                     </tbody>

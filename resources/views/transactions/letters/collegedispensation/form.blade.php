@@ -205,6 +205,80 @@
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
 
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-7 form-group">
+                                            <label>Surat Ditujukan Kepada</label>
+                                            <input type="text" name="receiver"
+                                                class="form-control @error('receiver') is-invalid @enderror"
+                                                placeholder="Nama Penerima">
+                                        </div>
+
+                                        <div class="col-md-5 form-group">
+                                            <label>Perguruan Tinggi</label>
+                                            <input type="text" name="college"
+                                                class="form-control @error('college') is-invalid @enderror"
+                                                placeholder="Nama Perguruan Tinggi">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>NIM</label>
+                                            <input type="text" name="nim"
+                                                class="form-control @error('nim') is-invalid @enderror"
+                                                placeholder="NIM">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Jurusan</label>
+                                            <input type="text" name="major"
+                                                class="form-control @error('major') is-invalid @enderror"
+                                                placeholder="Jurusan">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Semester</label>
+                                            <input type="number" name="semester"
+                                                class="form-control @error('semester') is-invalid @enderror"
+                                                placeholder="0">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Pembayaran tahap ke</label>
+                                            <input type="number" name="stage"
+                                                class="form-control @error('stage') is-invalid @enderror"
+                                                placeholder="0">
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label>Tahun Ajaran</label>
+                                            <input type="text" name="academic_year"
+                                                class="form-control @error('academic_year') is-invalid @enderror"
+                                                placeholder="(cth : 2022/2023)">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Nominal Pembayaran</label>
+                                            <input type="number" name="nominal"
+                                                class="form-control @error('nominal') is-invalid @enderror"
+                                                placeholder="(cth : Rp 1500000)">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label>Waktu Pembayaran</label>
+                                            <select class="form-control select2" name="pay_month" style="width: 100%;" required>
+                                                <option selected="selected" value="">Pilih Waktu Pembayaran</option>
+                                                <option value="Januari">Januari</option>
+                                                <option value="Februari">Februari</option>
+                                                <option value="Maret">Maret</option>
+                                                <option value="April">April</option>
+                                                <option value="Mei">Mei</option>
+                                                <option value="Juni">Juni</option>
+                                                <option value="Juli">Juli</option>
+                                                <option value="Agustus">Agustus</option>
+                                                <option value="September">September</option>
+                                                <option value="Oktober">Oktober</option>
+                                                <option value="November">November</option>
+                                                <option value="Desember">Desember</option>
                                             </select>
                                         </div>
 

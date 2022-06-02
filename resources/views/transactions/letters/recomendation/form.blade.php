@@ -144,22 +144,12 @@
 
                                     <div class="col-md-6 form-group">
                                         <label>Pilih Status</label>
-                                        <select class="form-control" name="status_prilaku">
-                                            <option value="Tidak ada">Tidak Ada</option>
+                                        <select class="form-control" name="status_prilaku">                                                
                                             <option value="Berkelakuan Baik">Berkelakuan Baik</option>
                                             <option value="Berkelakuan Tidak Baik">Berkelakuan Tidak Baik</option>
                                         </select>
-                                    </div>
-
-                                    <div class="col-md-6 form-group">
-                                        <label>Tgl Surat</label>
-                                        <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
-                                            @error('letter_date')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                    </div>
+                                    </div> 
+                                    
 
                                     <div class="col-md-12 form-group">
                                         <label>Ditandatangani Oleh</label>

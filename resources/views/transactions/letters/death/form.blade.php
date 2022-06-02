@@ -55,7 +55,6 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
-                                            </select>
                                         </div>
 
                                         <div class="col-md-4 form-group">
@@ -153,6 +152,27 @@
 
                                             </select>
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label>Tanggal Meninggal</label>
+                                            <input type="date" name="death_date"
+                                                class="form-control @error('death_date') is-invalid @enderror"
+                                                placeholder="Tanggal Meninggal">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label>Waktu Meninggal</label>
+                                            <input type="time" name="death_time"
+                                                class="form-control @error('death_time') is-invalid @enderror"
+                                                placeholder="Waktu Meninggal">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label>Tempat</label>
+                                            <input type="text" name="death_place"
+                                                class="form-control @error('death_place') is-invalid @enderror"
+                                                placeholder="Tempat Meninggal">
                                         </div>
 
                                         <div class="col-md-12 form-group">

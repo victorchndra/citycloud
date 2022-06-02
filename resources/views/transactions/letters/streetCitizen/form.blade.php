@@ -142,7 +142,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-street" method="POST">
+                        <form class="form form-horizontal" action="/letters-citizen" method="POST">
                             @csrf
                             <div class="form-body">
                                 <div class="row">
@@ -168,41 +168,35 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-6 form-group">
-                                        <label>Barang yang di angkut</label>
-                                        <input type="text" name="goods"
-                                            class="form-control @error('goods') is-invalid @enderror"
-                                            placeholder="Barang yang di angkut">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Jumlah Barang yang di angkut</label>
-                                        <input type="text" name="count_goods"
-                                            class="form-control @error('count_goods') is-invalid @enderror"
-                                            placeholder="Jumlah Barang yang di angkut">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Tujuan</label>
-                                        <input type="text" name="purpose"
-                                            class="form-control @error('purpose') is-invalid @enderror"
-                                            placeholder="Tujuan">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Berangkat</label>
-                                        <input type="date" name="depart"
-                                            class="form-control @error('depart') is-invalid @enderror"
-                                            placeholder="Berangkat">
-                                    </div>
-
-                                  
-
                                     <div class="col-md-12 form-group">
-                                        <label>Tgl Surat</label>
-                                        <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
-                                            @error('letter_date')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                        <label>Pengikut</label>
+                                        <select id="follower_id" class="form-control select2" name="follower_id"
+                                            style="width: 100%;" required>
+                                            <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                            @foreach($citizen as $citizens)
+                                            <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                {{ $citizens->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 form-group">
+                                        <label>Alamat yang dituju</label>
+                                        <input type="text" name="purpose_address"
+                                            class="form-control @error('purpose_address') is-invalid @enderror"
+                                            placeholder="Alamat yang dituju">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Keperluan</label>
+                                        <input type="text" name="need"
+                                            class="form-control @error('need') is-invalid @enderror"
+                                            placeholder="Keperluan">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Tanggal Berangkat</label>
+                                        <input type="date" name="date_depart"
+                                            class="form-control @error('date_depart') is-invalid @enderror"
+                                            placeholder="Tanggal Berangkat">
                                     </div>
 
                                     <div class="col-md-12 form-group">

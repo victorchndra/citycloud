@@ -117,7 +117,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-nohouse" method="POST">
+                        <form class="form form-horizontal" action="/letters-familycard" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -141,22 +141,13 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group">
+                                        <div class="col-md-12 form-group">
                                             <label>Peruntukan Surat</label>
                                             <input type="text" name="letter_for"
                                                 class="form-control @error('letter_for') is-invalid @enderror"
                                                 placeholder="Peruntukan Surat cth Untuk Pemasangan KWH">
                                         </div>   
-                                        
-                                        <div class="col-md-6 form-group">
-                                            <label>Tgl Surat</label>
-                                            <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
-                                                @error('letter_date')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                        </div>
+                                                                                
 
                                       
                                         <div class="col-md-12 form-group">

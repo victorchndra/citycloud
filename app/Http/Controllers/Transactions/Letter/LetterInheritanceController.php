@@ -129,6 +129,8 @@ class LetterInheritanceController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',                
+                'letter_death_loc' => 'required',
+                'letter_grave_loc' => 'required',  
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -154,6 +156,8 @@ class LetterInheritanceController extends Controller
             $validatedData['province'] = $citizen->province;
 
             $validatedData['letter_family_status'] = $citizen->family_status;
+            
+            $validatedData['letter_death_date'] = $citizen->death_date;
 
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = "wet";
@@ -221,11 +225,14 @@ class LetterInheritanceController extends Controller
         //
         if( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin'){
             $validatedData = $request->validate([
-                'letter_index' => 'required',                
+                'letter_index' => 'required',
+                'letter_death_loc' => 'required',
+                'letter_grave_loc' => 'required',                
             ]);
             $position           = User::findOrFail($request->get('positions'));
             $validatedData['letter_date']   = $request->get('letter_date');
-            $validatedData['valid_until']   = $request->get('letter_date');
+
+
             $validatedData['signed_by']     = $position->id;
             $validatedData['signature']     = $request->get('signature');
 

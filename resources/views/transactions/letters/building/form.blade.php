@@ -137,7 +137,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-building" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -163,28 +163,32 @@
 
 
                                         <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
-                                            </select>
+                                            <label>Lokasi Pembangunan</label>
+                                            <input type="text" name="place_build" id="place_build"
+                                                class="form-control @error('place_build') is-invalid @enderror"
+                                                placeholder="Lokasi Pembangunan">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
-                                            </select>
+                                            <label>Bangunan Digunakan Sebagai</label>
+                                            <input type="text" name="use_build" id="use_build"
+                                                class="form-control @error('use_build') is-invalid @enderror"
+                                                placeholder="Bangunan Digunakan Sebagai">
                                         </div>
 
-                                      
+                                        <div class="col-md-6 form-group">
+                                            <label>Pemilik Bangunan</label>
+                                            <input type="text" name="building_owner" id="building_owner"
+                                                class="form-control @error('building_owner') is-invalid @enderror"
+                                                placeholder="Isi Bagian Kosong">
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Bukti Penguasaan Tanah</label>
+                                            <input type="text" name="proof_mastery" id="proof_mastery"
+                                                class="form-control @error('proof_mastery') is-invalid @enderror"
+                                                placeholder="Isi Bagian Kosong">
+                                        </div>
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"

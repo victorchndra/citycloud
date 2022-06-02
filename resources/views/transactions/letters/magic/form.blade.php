@@ -143,67 +143,62 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-pension" method="POST">
+                        <form class="form form-horizontal" action="/letters-magic" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
-                                        <div class="col-md-12 form-group ">
+                                        <div class="col-md-12 form-group">
                                             <label>No Surat</label>
                                             @foreach($informations as $information)
-                                            <input readonly type="text" name="letter_index"
+                                            <input type="text" name="letter_index"
                                                 class="form-control @error('letter_index') is-invalid @enderror"
                                                 placeholder="No Surat" value="  {{ $information->letter_index  }}">
                                             @endforeach
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                            <label>Pilih Suami</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-
-                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
                                             </select>
                                             </select>
                                         </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Age</label>
-                                            <input type="text" name="age_letter"
-                                                class="form-control @error('age_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Job</label>
-                                            <input type="text" name="job_letter"
-                                                class="form-control @error('job_letter') is-invalid @enderror"
-                                                placeholder="Umur Anda">
-                                        </div>
-
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Tanah</label>
-                                            <select class="form-control" name="agrarian_status">
-                                                <option value="Tidak ada">Tidak Ada</option>
-                                                <option value="Sertifikat Hak Milik">Sertifikat Hak Milik</option>
-                                                <option value="HGB">HGB</option>
-                                                <option value="SKRT">SKRT</option>
-                                                <option value="SKGK">SKGK</option>
+                                        
+                                        <div class="col-md-12 form-group">
+                                            <label>Pilih Istri</label>
+                                            <select id="citizen_couple_id" class="form-control select2" name="citizen_couple_id"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
                                             </select>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Status Kepemilikan</label>
-                                            <select class="form-control" name="self_status">
-                                                <option value="Sewa">Sewa</option>
-                                                <option value="Pinjam Pakai">Pinjam Pakai</option>
-                                                <option value="Milik Sendiri">Milik Sendiri</option>
-                                                <option value="Milik Orang Tua">Milik Orang Tua</option>
-                                                <option value="Milik Perusahaan">Milik Perusahaan</option>
                                             </select>
+                                        </div>                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Jumlah Anak</label>
+                                            <input type="text" name="children"
+                                                class="form-control @error('children') is-invalid @enderror"
+                                                placeholder="Jumlah Anak" value="{{ old('children') }}">
                                         </div>
-
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Menikah</label>
+                                            <input type="date" name="date_marriage"
+                                                class="form-control @error('date_marriage') is-invalid @enderror"
+                                                placeholder="Jumlah Anak" value="{{ old('date_marriage') }}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Tanggal Sejak Menghilang</label>
+                                            <input type="date" name="date_gone"
+                                                class="form-control @error('date_gone') is-invalid @enderror"
+                                                placeholder="Jumlah Anak" value="{{ old('date_gone') }}">
+                                        </div>
 
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

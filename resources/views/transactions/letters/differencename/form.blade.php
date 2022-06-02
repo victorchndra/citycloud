@@ -55,7 +55,6 @@
                                                     {{ $citizens->name }}</option>
                                                 @endforeach
                                             </select>
-                                            </select>
                                         </div>
 
                                         <div class="col-md-6 form-group">
@@ -151,7 +150,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-differencebirth" method="POST">
+                        <form class="form form-horizontal" action="/letters-difference-name" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -175,17 +174,29 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Tanggal Lahir Lama</label>
+                                            <label>Nama Salah</label>
                                             <input type="text" name="old_name"
                                                 class="form-control @error('old_name') is-invalid @enderror"
-                                                placeholder="Tanggal Lahir Lama">
+                                                placeholder="Nama Lama">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Letak Salah</label>
+                                            <input type="text" name="mistake_loc"
+                                                class="form-control @error('mistake_loc') is-invalid @enderror"
+                                                placeholder="(cth : Buku Nikah / ...)">
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label>Tanggal Lahir Baru</label>
+                                            <label>Nama Benar</label>
                                             <input type="text" name="new_name"
                                                 class="form-control @error('new_name') is-invalid @enderror"
-                                                placeholder="Tanggal Lahir Baru">
+                                                placeholder="Nama Baru">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Letak Benar</label>
+                                            <input type="text" name="valid_loc"
+                                                class="form-control @error('valid_loc') is-invalid @enderror"
+                                                placeholder="(cth: KTP / KK / ...)">
                                         </div>
 
                                         <div class="col-md-12 form-group">
@@ -193,6 +204,14 @@
                                             <input type="text" name="used_for"
                                                 class="form-control @error('used_for') is-invalid @enderror"
                                                 placeholder="Kepentingan Surat">
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Warga Negara</label>
+                                            <select id="citizenStatus" class="form-control select2" name="citizen_status" style="width: 100%;" required>
+                                                <option value="WNI">WNI</option>
+                                                <option value="WNA">WNA</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-md-12 form-group">
