@@ -105,6 +105,13 @@ class LetterLandOwnershipCard extends Model
     //         set: fn ($value) => strtolower($value),
     //     );
     // }
+    // public function letterRt(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => strtoupper($value),
+    //         set: fn ($value) => strtolower($value),
+    //     );
+    // }
 
     public function letterVilage(): Attribute
     {
