@@ -67,7 +67,7 @@ class LetterProcessKtpController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan KTP Dalam Proses";
+            $validatedData['letter_name']     = "SURAT KETERANGAN KARTU TANDA PENDUDUK (KTP) DALAM PROSES";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -127,7 +127,7 @@ class LetterProcessKtpController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan KTP Dalam Proses";
+            $validatedData['letter_name']     = "SURAT KETERANGAN KARTU TANDA PENDUDUK (KTP) DALAM PROSES";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -253,7 +253,7 @@ class LetterProcessKtpController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Surat Keterangan Ktp Dalam Proses <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Mengubah</em> Surat Keterangan KTP Dalam Proses <strong>[' . $data->name . ']</strong>',
             'category' => 'edit',
             'created_at' => now(),
         ];

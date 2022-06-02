@@ -66,7 +66,7 @@ class LetterProcessActController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan akte kelahiran dalam pengurusan";
+            $validatedData['letter_name']     = "SURAT KETERANGAN AKTE KELAHIRAN DALAM PENGURUSAN";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -103,7 +103,7 @@ class LetterProcessActController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan akte kelahiran dalam pengurusan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Akte Dalam Proses<strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -125,7 +125,7 @@ class LetterProcessActController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
 
-            $validatedData['letter_name']     = "surat keterangan akte kelahiran dalam pengurusan";
+            $validatedData['letter_name']     = "SURAT KETERANGAN AKTE KELAHIRAN DALAM PENGURUSAN";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -160,7 +160,7 @@ class LetterProcessActController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat keterangan akte kelahiran dalam pengurusan <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Akte Dalam Proses<strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -256,7 +256,7 @@ class LetterProcessActController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat keterangan akte kelahiran dalam pengurusan <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Akte Dalam Proses<strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -303,7 +303,7 @@ class LetterProcessActController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat keterangan akte kelahiran dalam pengurusan <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat Keterangan Akte Dalam Proses<strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];
