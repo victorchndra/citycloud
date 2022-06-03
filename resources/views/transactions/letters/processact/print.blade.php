@@ -75,8 +75,8 @@
             <tr>
                 <td>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Kepala Desa
-                    {{ $informations->village_name }} Kecamatan {{ $informations->sub_district_name }} Kabupaten
-                    {{ $informations->district_name }}, dengan ini menerangkan bahwa :
+                    {{ $informations->village_name }}, Kecamatan {{ $informations->sub_district_name }}, Kabupaten
+                    {{ $informations->district_name }} Provinsi {{ $informations->province_name }}, dengan ini menerangkan bahwa :
                 </td>
             </tr>
         </table>

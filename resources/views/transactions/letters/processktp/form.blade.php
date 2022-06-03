@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Surat Keterangan KTP Dalam Proses</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan KTP Dalam Proses you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -124,7 +124,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-holiday" method="POST">
+                        <form class="form form-horizontal" action="/letters-processktp" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -148,25 +148,18 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Mulai</label>
-                                            <input type="date" name="start_date"
-                                                class="form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Tanggal Mulai Cuti">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Hingga</label>
-                                            <input type="date" name="end_date"
-                                                class="form-control @error('end_date') is-invalid @enderror"
-                                                placeholder="Tanggal Akhir Cuti">
-                                        </div>
-
                                         <div class="col-md-12 form-group">
-                                            <label>Alamat Selama Cuti</label>
-                                            <input type="text" name="address_letter"
-                                                class="form-control @error('address_letter') is-invalid @enderror"
-                                                placeholder="Alamat Selama Cuti">
+                                            <label>Tempat Pengurusan KTP</label>
+                                            <input type="text" name="process_address"
+                                                class="form-control @error('process_address') is-invalid @enderror"
+                                                placeholder="Cth : Dinas Kependudukan">
+                                        </div>
+                                        
+                                        <div class="col-md-12 form-group">
+                                            <label>Keperluan dibuatnya Surat</label>
+                                            <input type="text" name="need_for"
+                                                class="form-control @error('need_for') is-invalid @enderror"
+                                                placeholder="Cth : proses pengambilan Dana Bantuan Sosial Tunai memalui PT. POS INDONESIA">
                                         </div>
                                         
                                         {{-- <div class="col-md-12 form-group">
