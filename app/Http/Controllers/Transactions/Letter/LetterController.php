@@ -231,8 +231,6 @@ class LetterController extends Controller
             $uniteletters = LetterUnite::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $missingletters = LetterMissing::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $movecitizenletters = LetterMoveCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            
-            $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->
             $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
 
             $datas = $businessletters->concat($letterstreetgoods)->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreet)->
