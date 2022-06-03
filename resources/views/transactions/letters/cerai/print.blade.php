@@ -87,7 +87,7 @@
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
                 <td width="2">: </td>
-                <td>{{$data->place_birth}}, {{$data->age}}</td>
+                <td>{{ \Carbon\Carbon::parse($data->date_birth)->diff(\Carbon\Carbon::now())->y }} Tahun</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
@@ -134,7 +134,7 @@
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Umur</td>
                 <td width="2">: </td>
-                <td>{{$data->place_birth}}, {{$data->wifeUser->age}}</td>
+                <td>{{ \Carbon\Carbon::parse($data->date_birth)->diff(\Carbon\Carbon::now())->y }} Tahun</td>
             </tr>
             <tr>
                 <td width="180"><span style="display:inline-block; width: 35 px;"></span>Agama</td>
