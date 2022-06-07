@@ -58,7 +58,7 @@
             </ul>
           </div>
     </li>
-    @endif
+
                     <li class="nav-item sidebar-category">
                         <p>Menu Utama</p>
                         <span></span>
