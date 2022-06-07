@@ -153,7 +153,8 @@ class LetterController extends Controller
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $lettermagic = LetterMagic::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $streetgoodsletter = LetterStreetGoods::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            // $streetgoodsletter = LetterStreetGoods::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $letterincome = LetterIncome::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $collegedispensationletters = LetterCollegeDispensation::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
@@ -175,7 +176,7 @@ class LetterController extends Controller
             $missingletters = LetterMissing::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $movecitizenletters = LetterMoveCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             
-            $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($streetgoodsletter)->
+            $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreetgoods)->
             concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)
             ->concat($birthletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)
             ->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)
@@ -221,6 +222,7 @@ class LetterController extends Controller
             $letterincome = LetterIncome::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $letterstreetcitizen = LetterStreetCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
+            $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $processktpletters = LetterProcessKtp::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
@@ -272,7 +274,8 @@ class LetterController extends Controller
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $lettermagic = LetterMagic::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $streetgoodsletter = LetterStreetGoods::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            // $streetgoodsletter = LetterStreetGoods::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
+            $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $letterincome = LetterIncome::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $letterstreetcitizen = LetterStreetCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
@@ -287,7 +290,7 @@ class LetterController extends Controller
             $missingletters = LetterMissing::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $movecitizenletters = LetterMoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             
-            $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($streetgoodsletter)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($landownerletters)->concat($collegedispensationletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($landtransactionletters)
+            $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreetgoods)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($landownerletters)->concat($collegedispensationletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($landtransactionletters)
             ->concat($holidayletters)->concat($processktpletters)->concat($processactletters)->concat($noactletters)->concat($moveletters)->concat($streetletters)->concat($widowletters)->concat($uniteletters)->concat($missingletters)->concat($movecitizenletters)->SortByDesc('created_at');
 
             return view('transactions.letters.indexcitizen',  compact('datas'));
