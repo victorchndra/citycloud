@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Surat Keterangan Pernyataan</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Pernyataan you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -117,7 +117,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-holiday" method="POST">
+                        <form class="form form-horizontal" action="/letters-move" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -141,33 +141,12 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label>Mulai</label>
-                                            <input type="date" name="start_date"
-                                                class="form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Tanggal Mulai Cuti">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label>Hingga</label>
-                                            <input type="date" name="end_date"
-                                                class="form-control @error('end_date') is-invalid @enderror"
-                                                placeholder="Tanggal Akhir Cuti">
-                                        </div>
-
                                         <div class="col-md-12 form-group">
-                                            <label>Alamat Selama Cuti</label>
-                                            <input type="text" name="address_letter"
-                                                class="form-control @error('address_letter') is-invalid @enderror"
-                                                placeholder="Alamat Selama Cuti">
+                                            <label>Pindah ke -</label>
+                                            <input type="text" name="move_to"
+                                                class="form-control @error('move_to') is-invalid @enderror"
+                                                placeholder="Alamat Sekarang">
                                         </div>
-                                        
-                                        {{-- <div class="col-md-12 form-group">
-                                            <label>Cuti Selama</label>
-                                            <input type="text" name="day"
-                                                class="form-control @error('day') is-invalid @enderror"
-                                                placeholder="Cuti Selama">
-                                        </div> --}}
                                       
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>

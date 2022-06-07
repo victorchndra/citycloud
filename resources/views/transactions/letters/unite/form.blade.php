@@ -7,14 +7,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>	Surat Keterangan Rujuk</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <h3>Surat Keterangan Rujuk/Cerai</h3>
+                <p class="text-subtitle text-muted">Multiple Surat Keterangan Rujuk/Cerai you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/list">Surat</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">	Surat Keterangan Rujuk</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surat Keterangan Rujuk/Cerai</li>
                     </ol>
                 </nav>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tambah 	Surat Keterangan Rujuk</h4>
+                        <h4 class="card-title">Tambah Surat Keterangan Rujuk/Cerai</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -143,7 +143,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-noact" method="POST">
+                        <form class="form form-horizontal" action="/letters-unite" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -156,8 +156,8 @@
                                             @endforeach
                                         </div>
 
-                                        <div class="col-md-12 form-group">
-                                            <label>Pilih Penduduk</label>
+                                        <div class="col-md-6 form-group">
+                                            <label>Pilih Suami</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                               
@@ -165,6 +165,37 @@
                                   
                                             </select>
                                             </select>
+                                        </div>
+                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Pilih Istri</label>
+                                            <select id="citizens" class="form-control select2" name="couple_id"
+                                                style="width: 100%;" required>
+                                              
+                                                <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+                                  
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Saksi 1</label>
+                                            <input type="text" name="witness1" class="form-control @error('witness1') is-invalid @enderror" placeholder="Nama Saksi 1" required value="{{ old('witness1') }}"/>
+                                                @error('witness1')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Saksi 2</label>
+                                            <input type="text" name="witness2" class="form-control @error('witness2') is-invalid @enderror" placeholder="Nama Saksi 2" required value="{{ old('witness2') }}"/>
+                                                @error('witness2')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                         </div>
                                       
                                         <div class="col-md-12 form-group">

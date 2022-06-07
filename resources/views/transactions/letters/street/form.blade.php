@@ -143,10 +143,10 @@
                             @csrf
                             <div class="form-body">
                                 <div class="row">
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-12 form-group ">
                                         <label>No Surat</label>
                                         @foreach($informations as $information)
-                                        <input type="text" name="letter_index"
+                                        <input readonly type="text" name="letter_index"
                                             class="form-control @error('letter_index') is-invalid @enderror"
                                             placeholder="No Surat" value="  {{ $information->letter_index  }}">
                                         @endforeach
@@ -156,57 +156,46 @@
                                         <label>Pilih Penduduk</label>
                                         <select id="citizens" class="form-control select2" name="citizens"
                                             style="width: 100%;" required>
-                                            <option selected="selected" value="">Ketik Nama atau NIK</option>
-                                            @foreach($citizen as $citizens)
-                                            <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
-                                                {{ $citizens->name }}</option>
-                                            @endforeach
+                                          
+                                            <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
+                              
                                         </select>
                                         </select>
                                     </div>
-
-                                    <div class="col-md-6 form-group">
-                                        <label>Barang yang di angkut</label>
-                                        <input type="text" name="goods"
-                                            class="form-control @error('goods') is-invalid @enderror"
-                                            placeholder="Barang yang di angkut">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Jumlah Barang yang di angkut</label>
-                                        <input type="text" name="count_goods"
-                                            class="form-control @error('count_goods') is-invalid @enderror"
-                                            placeholder="Jumlah Barang yang di angkut">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Tujuan</label>
-                                        <input type="text" name="purpose"
-                                            class="form-control @error('purpose') is-invalid @enderror"
-                                            placeholder="Tujuan">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Berangkat</label>
-                                        <input type="date" name="depart"
-                                            class="form-control @error('depart') is-invalid @enderror"
-                                            placeholder="Berangkat">
-                                    </div>
-
-                                  
 
                                     <div class="col-md-12 form-group">
-                                        <label>Tgl Surat</label>
-                                        <input type="date" name="letter_date" class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d" required value="{{ old('letter_date') }}"/>
-                                            @error('letter_date')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                        <label>Tanggal Berangkat</label>
+                                        <input type="date" name="dates_go"
+                                            class="form-control @error('dates_go') is-invalid @enderror"
+                                            placeholder="Tanggal Berangkat">
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label>Alamat Yang Dituju</label>
+                                        <input type="text" name="address_go"
+                                            class="form-control @error('address_go') is-invalid @enderror"
+                                            placeholder="Alamat Yang Dituju">
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label>Keperluan</label>
+                                        <input type="text" name="necessity"
+                                            class="form-control @error('necessity') is-invalid @enderror"
+                                            placeholder="Keperluan">
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label>Pengikut</label>
+                                        <input type="text" name="followers"
+                                            class="form-control @error('followers') is-invalid @enderror"
+                                            placeholder="Contoh : Pengikut 1, Pengikut 2, Pengikut 3">
                                     </div>
 
                                     <div class="col-md-12 form-group">
                                         <label>Ditandatangani Oleh</label>
                                         <select id="positions" class="form-control" name="positions"
                                             style="width: 100%;" required>
-                                            <option value="">Pilih Jabatan</option>
+
                                             @foreach($position as $positions)
                                             <option value="{{ $positions->id  }} {{ $positions->position  }}">{{ $positions->name }} -
                                                 {{ $positions->position }}</option>
@@ -217,8 +206,6 @@
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         </div>
                                     </div>
-
-                                   
 
                                 </div>
                         </form>

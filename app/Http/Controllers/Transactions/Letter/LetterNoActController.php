@@ -104,7 +104,7 @@ class LetterNoActController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat pernyataan tidak memiliki akta kelahiran <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Belum Memiliki Akte <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -120,8 +120,6 @@ class LetterNoActController extends Controller
 
                $validatedData = $request->validate([
                 'letter_index' => 'required',
-                'ayah' => 'required',
-                'ibu' => 'required',
             ]);
     
             $citizen           = Citizens::findOrFail($request->get('citizens'));
@@ -165,7 +163,7 @@ class LetterNoActController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data surat pernyataan tidak memiliki akta kelahiran   <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Belum Memiliki Akte <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -196,7 +194,7 @@ class LetterNoActController extends Controller
                  $log = [
                     'uuid' => Uuid::uuid4()->getHex(),
                     'user_id' => Auth::user()->id,
-                    'description' => '<em>Mencetak</em> data surat pernyataan tidak memiliki akta kelahiran <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+                    'description' => '<em>Mencetak</em> data Surat Keterangan Belum Memiliki Akte<strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
                     'category' => 'cetak',
                     'created_at' => now(),
                 ];
@@ -274,7 +272,7 @@ class LetterNoActController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Mengubah</em> Surat pernyataan tidak memiliki akta kelahiran <strong>[' . $data->name . ']</strong>',
+                'description' => '<em>Mengubah</em> Surat Keterangan Belum Memiliki Akte <strong>[' . $data->name . ']</strong>',
                 'category' => 'edit',
                 'created_at' => now(),
             ];
@@ -321,7 +319,7 @@ class LetterNoActController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> Surat pernyataan tidak memiliki akta kelahiran <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Menghapus</em> Surat Keterangan Belum Memiliki Akte<strong>[' . $data->name . ']</strong>',
             'category' => 'hapus',
             'created_at' => now(),
         ];
