@@ -64,7 +64,6 @@ class LetterStreetController extends Controller
                 'address_go' => 'required',
                 'necessity' => 'required',
                 'followers' => 'required',
-                
             ]);
 
             $citizen           = Citizens::findOrFail($request->get('citizens'));

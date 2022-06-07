@@ -72,7 +72,7 @@ class LetterUniteController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan Rujuk";
+            $validatedData['letter_name']     = "Surat Pernyataan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -108,7 +108,7 @@ class LetterUniteController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data Surat Keterangan Rujuk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Rujuk/Cerai <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -125,13 +125,14 @@ class LetterUniteController extends Controller
                $validatedData = $request->validate([
                 'letter_index' => 'required',
                 'couple_id' => 'required',
-                'witness' => 'required',
+                'witness1' => 'required',
+                'witness2' => 'required',
             ]);
     
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan Rujuk";
+            $validatedData['letter_name']     = "Surat Pernyataan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -166,7 +167,7 @@ class LetterUniteController extends Controller
             $log = [
                 'uuid' => Uuid::uuid4()->getHex(),
                 'user_id' => Auth::user()->id,
-                'description' => '<em>Menambah</em> data Surat Keterangan Rujuk <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
+                'description' => '<em>Menambah</em> data Surat Keterangan Rujuk/Cerai <strong>[' . $citizen->name . ']</strong>', //name = nama tag di view (file index)
                 'category' => 'tambah',
                 'created_at' => now(),
             ];
@@ -258,7 +259,7 @@ class LetterUniteController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> Surat Keterangan Rujuk <strong>[' . $data->name . ']</strong>',
+            'description' => '<em>Mengubah</em> Surat Keterangan Rujuk/Cerai <strong>[' . $data->name . ']</strong>',
             'category' => 'edit',
             'created_at' => now(),
         ];

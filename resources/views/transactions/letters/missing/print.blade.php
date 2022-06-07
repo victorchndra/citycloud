@@ -118,7 +118,8 @@
             <tr>
                 <td class="justify">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Menyatakan dengan sebenarnya bahwa
-                    <strong>{{ $data->missing_item }}</strong> atas nama <strong>{{ $data->on_behalf }} ({{ $data->status }})</strong> telah
+                    <strong>{{ $data->missing_item }}</strong> atas nama <strong>{{ $data->on_behalf }}
+                        ({{ $data->status }})</strong> telah
                     hilang dan sampai saat ini belum ditemukan.
                 </td>
             </tr>
@@ -132,7 +133,17 @@
                 </td>
             </tr>
         </table>
+        
+        <table align="center" width="400" border="1px" style="text-align: center; margin:50px 0px;">
+            <tr style="font-weight: bolder">
+                <td width="10" style="padding-bottom: 1.5cm"">Yang Membuat Pernyataan </td>
+            </tr>
+            <tr style=" font-weight: bolder">
+                <td width="10"><u>{{ $data->name }}</u></td>
 
+            </tr>
+
+        </table>
 
         <div style="margin-bttom:10px; overflow:auto;">
             <table align="right" width="320" border="1px">
@@ -146,31 +157,35 @@
                 <tr>
                     <td style=" border-bottom: 1px solid #000; ">Pada Tanggal</td>
                     <td style=" border-bottom: 1px solid #000;">: </td>
-                    <td style=" border-bottom: 1px solid #000;">{{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
+                    <td style=" border-bottom: 1px solid #000;">
+                        {{ \Carbon\Carbon::parse($data->letter_date)->translatedFormat('d M Y') }}</td>
                     <td></td>
                 </tr>
             </table>
         </div>
 
 
+
         @if ($data->user->position == 'Kepala Desa')
             <table align="right" width="400" border="1px">
-
-
                 @if ($data->signature == 'wet')
                     <tr class="spaceUnder">
                         <td width=""> </td>
                         <td>
-                            <center> {{ strtoupper($data->user->position) }}
-                                {{ strtoupper($informations->village_name) }} </center>
+                            <center>
+                                {{ strtoupper($data->user->position) }}
+                                {{ strtoupper($informations->village_name) }}
+                            </center>
                         </td>
                 @endif
                 @if ($data->signature == 'digital')
                     <tr>
                         <td> </td>
                         <td>
-                            <center> {{ strtoupper($data->user->position) }}
-                                {{ strtoupper($informations->village_name) }} </center>
+                            <center>
+                                {{ strtoupper($data->user->position) }}
+                                {{ strtoupper($informations->village_name) }}
+                            </center>
                         </td>
                     <tr>
 
@@ -190,12 +205,13 @@
                 </tr>
             </table>
         @else
-            <table align="right" width="400" border="1px">
+            <table align="center" width="400" border="1px">
                 <tr class="spaceUnder">
                     <td width=""> </td>
                     <td>
                         <center>An. KEPALA DESA {{ strtoupper($informations->village_name) }}<BR>
-                            {{ strtoupper($data->user->position) }} {{ strtoupper($informations->village_name) }}
+                            {{ strtoupper($data->user->position) }}
+                            {{ strtoupper($informations->village_name) }}
                         </center>
 
                     </td>
@@ -206,7 +222,6 @@
                                     {{ $data->user->back_title }} </b></u></center>
                     </td>
                 </tr>
-
             </table>
         @endif
 
