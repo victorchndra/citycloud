@@ -39,26 +39,6 @@
                         </a>
                     </li>
 
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-            <i class="mdi mdi-settings menu-icon"></i>
-            <span class="menu-title">Master Data</span>
-            <i class="menu-arrow"></i>
-          </a>
-          <div class="collapse" id="auth">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/rt"> Data RT </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/rw"> Data RW </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/assistance"> Data Bantuan Sosial </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/users"> Data Pengguna </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/information"> Data Informasi </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/kb"> Jenis KB </a></li>
-              <li class="nav-item"> <a class="nav-link" href="/ims"> Jenis Imunisasi </a></li>
-            </ul>
-          </div>
-    </li>
-
                     <li class="nav-item sidebar-category">
                         <p>Menu Utama</p>
                         <span></span>
