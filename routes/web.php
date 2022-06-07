@@ -44,6 +44,8 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 //jika penggunaan resource, path harus lengkap
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
+Route::resource("ims", "App\Http\Controllers\Masters\ImmunizationController")->middleware('auth');
+
 Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('auth');
 
 Route::resource('information', "App\Http\Controllers\Masters\InformationController")->middleware('auth');

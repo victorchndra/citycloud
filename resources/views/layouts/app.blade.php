@@ -99,6 +99,7 @@
               <li class="nav-item"> <a class="nav-link" href="/information"> Data Informasi </a></li>
               <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia </a></li>
               <li class="nav-item"> <a class="nav-link" href="/kb"> Jenis KB </a></li>
+              <li class="nav-item"> <a class="nav-link" href="/ims"> Jenis Imunisasi </a></li>
             </ul>
           </div>
     </li>
