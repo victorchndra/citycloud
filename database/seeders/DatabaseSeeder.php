@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AssistanceSeeder::class);
         $this->call(InformationSeeder::class);
         $this->call(AgeRangeSeeder::class);
+        $this->call(KBSeeder::class);
     }
 }
