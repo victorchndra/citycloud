@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Surat Keterangan Hilang</h3>
-                <p class="text-subtitle text-muted">Multiple Surat Keterangan Usaha you can use</p>
+                <p class="text-subtitle text-muted">Multiple 3275046507160002 you can use</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -143,7 +143,7 @@
                             </form>
                         @else
 
-                        <form class="form form-horizontal" action="/letters-noact" method="POST">
+                        <form class="form form-horizontal" action="/letters-missing" method="POST">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -165,6 +165,39 @@
                                   
                                             </select>
                                             </select>
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <label>Barang hilang</label>
+                                            <input type="text" name="missing_item" class="form-control @error('missing_item') is-invalid @enderror" placeholder="cth : Surat Tanah" required value="{{ old('missing_item') }}"/>
+                                            @error('missing_item')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        
+                                        <div class="col-md-6 form-group">
+                                            <label>Atas Nama</label>
+                                            <select id="on_behalf" class="form-control select2" name="on_behalf"
+                                                style="width: 100%;" required>
+                                                <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                                @foreach($citizen as $citizens)
+                                                <option value="{{ $citizens->name }}">{{ $citizens->nik }} -
+                                                    {{ $citizens->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label>Status</label>
+                                            <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" placeholder="cth : Keluarga" required value="{{ old('status') }}"/>
+                                                @error('status')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                         </div>
                                       
                                         <div class="col-md-12 form-group">

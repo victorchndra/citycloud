@@ -71,7 +71,7 @@ class LetterMoveController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan Pernyataan";
+            $validatedData['letter_name']     = "Surat Pernyataan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;
@@ -130,7 +130,7 @@ class LetterMoveController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "Surat Keterangan Pernyataan";
+            $validatedData['letter_name']     = "Surat Pernyataan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;

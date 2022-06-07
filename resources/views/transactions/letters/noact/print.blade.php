@@ -175,7 +175,19 @@
         </div>
 
 
-        @if ($data->user->position == 'Kepala Desa')
+        <table align="right" width="400" border="1px">
+            <tr class="spaceUnder">
+                <td width=""> </td>
+                <td > <center>Yang membuat pernyataan </center>
+            
+            </td>
+            <tr>
+                <td width=""> </td>
+                <td > <center><u><b> {{strtoupper($data->name)}}</b></u></center></td>
+            </tr>
+           
+        </table>
+        {{-- @if ($data->user->position == 'Kepala Desa')
             <table align="right" width="400" border="1px">
 
 
@@ -230,7 +242,7 @@
                 </tr>
 
             </table>
-        @endif
+        @endif --}}
 
 
         <div style="margin-top:-50px; margin-left:70px;" class="right">

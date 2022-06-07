@@ -133,7 +133,7 @@ class LetterHolidayController extends Controller
             $citizen           = Citizens::findOrFail($request->get('citizens'));
             $position           = User::findOrFail($request->get('positions'));
     
-            $validatedData['letter_name']     = "surat keterangan usaha";
+            $validatedData['letter_name']     = "Surat Keterangan Permohonan Cuti Tahunan";
             $validatedData['citizen_id']     = $citizen->id;
             $validatedData['nik'] = $citizen->nik;
             $validatedData['name'] = $citizen->name;

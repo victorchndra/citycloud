@@ -55,7 +55,7 @@
         <hr style="border: 2px solid black;">
 
         <div style="line-height: 1;">
-            <table align="center" width="460" border="1px">
+            <table align="center" width="600" border="1px">
                 <tr>
                     <td>
                         <center>
@@ -167,42 +167,64 @@
         </div>
 
 
-        {{-- <table align="right" width="400" border="1px">
+        @if ($data->user->position == 'Kepala Desa')
+            <table align="right" width="400" border="1px">
 
 
-            @if ($data->signature == 'wet')
+                @if ($data->signature == 'wet')
+                    <tr class="spaceUnder">
+                        <td width=""> </td>
+                        <td>
+                            <center> {{ strtoupper($data->user->position) }}
+                                {{ strtoupper($informations->village_name) }} </center>
+                        </td>
+                @endif
+                @if ($data->signature == 'digital')
+                    <tr>
+                        <td> </td>
+                        <td>
+                            <center> {{ strtoupper($data->user->position) }}
+                                {{ strtoupper($informations->village_name) }} </center>
+                        </td>
+                    <tr>
+
+                        <td> </td>
+                        <td>
+                            <center> <img src="{{ asset('/storage/' . $informations->signature) }}"
+                                    class="img-fluid" width="100"></center>
+
+                    </tr>
+                @endif
+                <tr>
+                    <td width=""> </td>
+                    <td>
+                        <center><u><b> {{ $data->user->front_title }} {{ strtoupper($data->user->name) }}
+                                    {{ $data->user->back_title }} </b></u></center>
+                    </td>
+                </tr>
+            </table>
+        @else
+            <table align="right" width="400" border="1px">
                 <tr class="spaceUnder">
                     <td width=""> </td>
                     <td>
-                        <center> {{ strtoupper($data->user->position) }}
-                            {{ strtoupper($informations->village_name) }} </center>
-                    </td>
-            @endif
-            @if ($data->signature == 'digital')
-                <tr>
-                    <td> </td>
-                    <td>
-                        <center> Yang membuat pernyataan </center>
+                        <center>An. KEPALA DESA {{ strtoupper($informations->village_name) }}<BR>
+                            {{ strtoupper($data->user->position) }} {{ strtoupper($informations->village_name) }}
+                        </center>
+
                     </td>
                 <tr>
-
-                    <td> </td>
+                    <td width=""> </td>
                     <td>
-                        <center> <img src="#"
-                                class="img-fluid" width="100"></center>
-
+                        <center><u><b> {{ $data->user->front_title }} {{ strtoupper($data->user->name) }}
+                                    {{ $data->user->back_title }} </b></u></center>
+                    </td>
                 </tr>
-            @endif
-            <tr>
-                <td width=""> </td>
-                <td>
-                    <center><u><b> {{ $data->user->front_title }} {{ strtoupper($data->name) }}
-                                {{ $data->user->back_title }} </b></u></center>
-                </td>
-            </tr>
-        </table> --}}
 
-        <table align="right" width="400" border="1px">
+            </table>
+        @endif
+
+        {{-- <table align="right" width="400" border="1px">
             <tr class="spaceUnder">
                 <td width=""> </td>
                 <td>
@@ -216,7 +238,7 @@
                 </td>
             </tr>
 
-        </table>
+        </table> --}}
 
 
 
