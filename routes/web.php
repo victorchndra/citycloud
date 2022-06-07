@@ -44,8 +44,6 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 //jika penggunaan resource, path harus lengkap
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
-Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('auth');
-
 Route::resource('information', "App\Http\Controllers\Masters\InformationController")->middleware('auth');
 
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
@@ -281,3 +279,7 @@ Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\L
 //surat menikah
 Route::resource("letters-marriage", "App\Http\Controllers\Transactions\Letter\LetterMarriageController")->middleware('auth');
 Route::get("approve/letters-marriage/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMarriageController@approve")->name('approve.businessletters');
+
+
+Route::resource("motherkb", "App\Http\Controllers\Transactions\MotherKbController")->middleware('auth');
+Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('auth');
