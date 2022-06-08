@@ -43,7 +43,13 @@ Route::get("/citizens/{citizens:uuid}/show", [CitizenController::class, 'showKK'
 Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('auth');
 
 //jika penggunaan resource, path harus lengkap
+Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('auth');
+
+Route::resource("motherkb", "App\Http\Controllers\Transactions\MotherKbController")->middleware('auth');
+
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
+
+Route::resource("ims", "App\Http\Controllers\Masters\ImmunizationController")->middleware('auth');
 
 Route::resource('information', "App\Http\Controllers\Masters\InformationController")->middleware('auth');
 
@@ -282,3 +288,5 @@ Route::resource("letters-land-transaction", "App\Http\Controllers\Transactions\L
 //surat menikah
 Route::resource("letters-marriage", "App\Http\Controllers\Transactions\Letter\LetterMarriageController")->middleware('auth');
 Route::get("approve/letters-marriage/{uid}", "App\Http\Controllers\Transactions\Letter\LetterMarriageController@approve")->name('approve.businessletters');
+
+
