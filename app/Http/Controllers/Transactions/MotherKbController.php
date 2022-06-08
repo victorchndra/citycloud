@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Transactions;
 
 use App\Http\Controllers\Controller;
 use Ramsey\Uuid\Uuid;
-use App\Models\Masters\KB;
+use App\Models\Transactions\MotherKb;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +20,7 @@ class MotherKbController extends Controller
     {
         //get data dari table citizen dengan urutan ascending 10 pertama
         // $datas = RT::first()->paginate(10);
-        $datas = KB::first()->cari(request(['search']))->paginate(10);
+        $datas = MotherKb::first()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.motherkb.index', compact('datas'));
@@ -33,7 +33,9 @@ class MotherKbController extends Controller
      */
     public function create()
     {
-        //
+        $datas = MotherKb::first();
+
+        return view('transactions.motherkb.form', compact('datas'));
     }
 
     /**
