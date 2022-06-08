@@ -20,12 +20,12 @@
 <body>
   <div class="container-scroller d-flex">
 
- 
+
     <!-- partial:./partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
     @if ( Auth::user()->roles == 'god' || Auth::user()->roles == 'admin')
       <ul class="nav">
-        
+
       <li class="nav-item sidebar-category">
           <p>Dashboard</p>
           <span></span>
@@ -57,7 +57,7 @@
               <li class="nav-item"> <a class="nav-link" href="/death">Penduduk Meninggal</a></li>
             </ul>
           </div>
-    
+
         <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="mdi mdi mdi-email menu-icon"></i>
@@ -70,13 +70,19 @@
               <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a></li>
             </ul>
           </div>
-          <li class="nav-item">
+        <li class="nav-item">
+            <a class="nav-link" href="/health-care">
+                <i class="mdi mdi-history menu-icon"></i>
+                <span class="menu-title">Posyandu</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/log">
                 <i class="mdi mdi-history menu-icon"></i>
                 <span class="menu-title">Aktivitas</span>
             </a>
         </li>
-        
+
         </li>
 
         <li class="nav-item sidebar-category">
@@ -105,7 +111,7 @@
 
     @if ( Auth::user()->roles == 'citizens' || Auth::user()->roles == 'ketua rt')
       <ul class="nav">
-        
+
       <li class="nav-item sidebar-category">
           <p>Dashboard</p>
           <span></span>
@@ -134,7 +140,7 @@
               <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a></li>
             </ul>
           </div>
-    
+
         </li>
     @endif
 

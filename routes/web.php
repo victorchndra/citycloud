@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HealthCareController;
 use App\Http\Controllers\Masters\AgeRangeController;
 use App\Http\Controllers\Transactions\CitizenController;
 use App\Http\Controllers\HomeController;
@@ -49,6 +50,8 @@ Route::resource('information', "App\Http\Controllers\Masters\InformationControll
 Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController")->middleware('auth');
 
 Route::resource('log', LogController::class)->middleware('auth');
+
+Route::get('health-care', [CitizenController::class, 'indexHealthCare'])->middleware('auth');
 
 Route::resource('agerange', "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
 // Route::resource('ageRange', AgeRangeController::class)->middleware('auth');
