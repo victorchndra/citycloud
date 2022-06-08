@@ -29,8 +29,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nama Ibu</th>
-                                    <th>Nama KB</th>
-                                    <th>Alamat</th>
+                                    <th>Jenis KB</th>                                    
                                     <th>Tanggal KB</th>
                                     <th>Ditambahkan</th>
                                     <th>Aksi</th>
@@ -40,10 +39,9 @@
                                 @foreach ($datas as $key => $data)
                                     <tr>
                                         <td>{{ $data->id }} </td>
-                                        <td>{{ $data->mother_name }} </td>
-                                        <td>{{ $data->address    }} </td>
-                                        <td>{{ $data->kb_name }} </td>
-                                        <td>{{ $data->kb_date }} </td>
+                                        <td>{{ $data->mother_id }} </td>
+                                        <td>{{ $data->kb_id    }} </td>
+                                        <td>{{ $data->kb_date    }} </td>                                        
                                         
                                         <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
                                             <span>{{$data->created_at, 'd M Y'}}</span><br>
