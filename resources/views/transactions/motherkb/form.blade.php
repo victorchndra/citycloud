@@ -10,24 +10,35 @@
                         <div class="row">
 
                             <div class="col-md-12 form-group">
-                                <label>Nama Ibu</label>
-                                <input type="text" name="mother_id"
-                                    class="form-control @error('mother_id') is-invalid @enderror"
-                                    placeholder="Nama Ibu">
+                                <label>Pilih Penduduk</label>
+                                <select id="mother_id" class="form-control select2" name="mother_id" style="width: 100%;"
+                                    required>
+                                    <option selected="selected" value="">Ketik Nama atau NIK</option>
+                                    @foreach ($citizen as $citizens)
+                                        <option value="{{ $citizens->name }}">{{ $citizens->nik }} -
+                                            {{ $citizens->name }}</option>
+                                    @endforeach
+                                </select>
+                                </select>
                             </div>
-                            
+
                             <div class="col-md-6 form-group">
-                                <label>Nama KB</label>
-                                <input type="text" name="kb_id"
-                                    class="form-control @error('kb_id') is-invalid @enderror"
-                                    placeholder="KB">
+                                <label>Jenis KB</label>
+                                <div class="col-sm-12">
+                                    <select name="kb_id" id="kb_id" class="form-control">
+                                        @foreach ($kbs as $kb)
+                                            <option value="{{ $kb->name }}"
+                                                @if ($kbSelected == $kb->name) {{ 'selected' }} @endif>
+                                                {{ $kb->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-md-6 form-group">
                                 <label>Tanggal KB</label>
                                 <input type="date" name="kb_date"
-                                    class="form-control @error('kb_date') is-invalid @enderror"
-                                    placeholder="Tanggal KB">
+                                    class="form-control @error('kb_date') is-invalid @enderror" placeholder="Tanggal KB">
                             </div>
 
                             <div class="col-md-12 form-group">
