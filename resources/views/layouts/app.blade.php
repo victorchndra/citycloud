@@ -64,7 +64,7 @@
                                         Meninggal</a></li>
                             </ul>
                         </div>
-                        
+
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                             aria-controls="ui-basic">
@@ -87,11 +87,16 @@
                         </a>
                     </li>
 
-                    </li>
-                    
                     <li class="nav-item sidebar-category">
                         <p>Posyandu</p>
                         <span></span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/health-care">
+                            <i class="mdi mdi-history menu-icon"></i>
+                            <span class="menu-title">Posyandu</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/motherkb">
