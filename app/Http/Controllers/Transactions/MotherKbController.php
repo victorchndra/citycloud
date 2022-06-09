@@ -36,8 +36,14 @@ class MotherKbController extends Controller
      */
     public function create(Request $request)
     {
+        $citizen = Citizens::where([
+                                    ['gender', '=', 'perempuan'],
+                                    ['family_status', '=', 'kepala keluarga']
+                            ])->orwhere([
+                                    ['gender', '=', 'perempuan'],
+                                    ['family_status', '=', 'istri']
+                            ])->get();
         $kbs = KB::get();
-        $citizen = Citizens::get();
         $kbSelected =  $request->get('rt');
         $datas = MotherKb::first()->paginate(10);
 
@@ -58,9 +64,6 @@ class MotherKbController extends Controller
             'mother_id' => 'required',
             'kb_id' => 'required',
             'kb_date' => 'required',
-            
-
-
         ]);
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
@@ -100,9 +103,21 @@ class MotherKbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid, Request $request)
     {
-        //
+        $motherkb = MotherKb::where('uuid', $uuid)->get();
+        $citizen = Citizens::where([
+                    ['gender', '=', 'perempuan'],
+                    ['family_status', '=', 'kepala keluarga']
+            ])->orwhere([
+                    ['gender', '=', 'perempuan'],
+                    ['family_status', '=', 'istri']
+            ])->get();
+        $kbs = KB::get();
+        $kbSelected =  $request->get('rt');
+        $datas = MotherKb::first()->paginate(10);
+
+        return view('transactions.motherkb.edit',compact(['motherkb','citizen','kbs','kbSelected','datas']));
     }
 
     /**

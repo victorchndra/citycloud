@@ -26,6 +26,7 @@
                                 <label>Jenis KB</label>
                                 <div class="col-sm-12">
                                     <select name="kb_id" id="kb_id" class="form-control">
+                                        <option selected="selected" value="">Pilih Jenis KB</option>
                                         @foreach ($kbs as $kb)
                                             <option value="{{ $kb->name }}"
                                                 @if ($kbSelected == $kb->name) {{ 'selected' }} @endif>
