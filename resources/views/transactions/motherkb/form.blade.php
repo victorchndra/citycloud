@@ -18,14 +18,14 @@
                                         <option value="{{ $citizens->name }}">{{ $citizens->nik }} -
                                             {{ $citizens->name }}</option>
                                     @endforeach
-                                </select>
+                                </select> 
                                 </select>
                             </div>
 
                             <div class="col-md-6 form-group">
                                 <label>Jenis KB</label>
                                 <div class="col-sm-12">
-                                    <select name="kb_id" id="kb_id" class="form-control">
+                                    <select name="kb_name" id="kb_name" class="form-control">
                                         <option selected="selected" value="">Pilih Jenis KB</option>
                                         @foreach ($kbs as $kb)
                                             <option value="{{ $kb->name }}"
@@ -40,18 +40,6 @@
                                 <label>Tanggal KB</label>
                                 <input type="date" name="kb_date"
                                     class="form-control @error('kb_date') is-invalid @enderror" placeholder="Tanggal KB">
-                            </div>
-
-                            <div class="col-md-12 form-group">
-                                <label>Tgl Surat</label>
-                                <input type="date" name="letter_date"
-                                    class="form-control @error('letter_date') is-invalid @enderror" placeholder="Y-m-d"
-                                    required value="{{ old('letter_date') }}" />
-                                @error('letter_date')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
                             </div>
 
                             <div class="col-sm-12 d-flex justify-content-end">

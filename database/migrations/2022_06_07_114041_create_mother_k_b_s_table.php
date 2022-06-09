@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("uuid")->unique();
             $table->string("mother_id")->nullable();
-            $table->string("kb_id")->nullable();
+            $table->string("kb_name")->nullable();
             $table->string("kb_date")->nullable();
             $table->integer("created_by")->nullable();
             $table->integer("updated_by")->nullable();

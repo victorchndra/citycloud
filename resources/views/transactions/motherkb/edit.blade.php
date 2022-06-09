@@ -16,6 +16,9 @@
                         <label>Pilih Penduduk</label>
                         <select disabled id="mother_id" class="form-control select2"
                             name="mother_id" style="width: 100%;" required>
+                            @foreach ($motherkb as $motherkbs)
+                            <option selected="selected" value="{{ $motherkbs->mother_id }}"> {{ $motherkbs->mother_id }} </option>
+                            @endforeach
                             @foreach ($citizen as $citizens)
                                 <option value="{{ $citizens->id }}">{{ $citizens->nik }} -
                                     {{ $citizens->name }}</option>
@@ -23,13 +26,13 @@
                         </select>
                     </div>
 
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-12 form-group">
                         <label>Jenis KB</label>
                         <div class="col-sm-12">
                             <select name="kb_id" id="kb_id" class="form-control">
-                                @foreach ($motherkb as $motherkb)
-                                    <option selected="selected" value="{{ $motherkb->kb_id }}">{{ $motherkb->kb_id }}</option>
-                                @endforeach
+                            @foreach ($motherkb as $m)
+                                <option selected="selected" value="{{ $m->kb_name }}"> {{ $m->kb_name }} </option>
+                            @endforeach
                                 @foreach ($kbs as $kb)
                                     <option value="{{ $kb->name }}"
                                         @if ($kbSelected == $kb->name) {{ 'selected' }} @endif>
@@ -39,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-12 form-group">
                         <label>Tanggal KB</label>
 
                         <input type="date" name="kb_date"

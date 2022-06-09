@@ -388,4 +388,22 @@ class MotherKB extends Model
         // }
     }
 
+    // public function createdUser()
+    // {
+    //     return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    // }
+    // public function updatedUser()
+    // {
+    //     return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    // }
+
+    // public function user()
+    // {
+    //     return $this->belongsTo('App\Models\User', 'signed_by', 'id');
+    // }
+
+    public function motherUser()
+    {
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'mother_id', 'id');
+    }
 }

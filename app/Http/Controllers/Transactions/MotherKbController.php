@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Transactions;
 
 use App\Http\Controllers\Controller;
-use App\Models\Masters\KB;
-use App\Models\Transactions\Citizens;
 use Ramsey\Uuid\Uuid;
-use App\Models\Transactions\MotherKb;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+
+use App\Models\Masters\Information;
+use App\Models\Masters\KB;
+use App\Models\Transactions\Citizens;
+use App\Models\Transactions\MotherKb;
 
 class MotherKbController extends Controller
 {
@@ -24,6 +27,7 @@ class MotherKbController extends Controller
         $kbs = KB::get();
         $kbSelected =  $request->get('rt');
         $datas = MotherKb::first()->paginate(10);
+        // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.motherkb.index', compact('datas', 'kbs', 'kbSelected', 'citizen'));
@@ -45,10 +49,9 @@ class MotherKbController extends Controller
                             ])->get();
         $kbs = KB::get();
         $kbSelected =  $request->get('rt');
-        $datas = MotherKb::first()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.motherkb.form', compact('datas', 'kbs', 'kbSelected', 'citizen'));
+        return view('transactions.motherkb.form', compact('kbs', 'kbSelected', 'citizen'));
     }
 
     /**
@@ -62,12 +65,18 @@ class MotherKbController extends Controller
         //
         $validatedData = $request->validate([
             'mother_id' => 'required',
-            'kb_id' => 'required',
+            'kb_name' => 'required',
             'kb_date' => 'required',
         ]);
 
+        // $citizen           = Citizens::findOrFail($request->get('citizens'));
+        // $validatedData['citizen_id']     = $citizen->id;
+        // $validatedData['nik'] = $citizen->nik;
+        // $validatedData['name'] = $citizen->name;
+
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
+
         MotherKb::create($validatedData);
 
         $log = [
@@ -127,9 +136,30 @@ class MotherKbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $validatedData = $request->validate([
+            'mother_id' => 'required',
+            'kb_name' => 'required',
+            'kb_date' => 'required'
+        ]);
+        $validatedData['updated_by'] = Auth::user()->id;
+
+        MotherKb::where('uuid', $uuid)->first()->update($validatedData);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $request->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'edit',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        // selesai
+
+
+        return redirect('/motherkb')->with('success', 'Data KB Berhasil Diupdate !!');
     }
 
     /**
@@ -138,8 +168,22 @@ class MotherKbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        $data = MotherKb::get()->where('uuid', $uuid)->firstOrFail();
+        $data->deleted_by = Auth::user()->id;
+        $data->save();
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Menghapus</em> data ibu kb <strong>[' . $data->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'category' => 'hapus',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+        $data->delete();
+
+        return redirect()->route('motherkb.index')->with('success', 'Data berhasil dihapus!');
     }
 }
