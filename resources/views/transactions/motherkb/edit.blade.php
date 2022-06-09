@@ -14,6 +14,12 @@
                     
                     <div class="col-md-12 form-group">
                         <label>Pilih Penduduk</label>
+                        <select hidden id="mother_id" class="form-control select2"
+                            name="mother_id" style="width: 100%;" required>
+                            @foreach ($motherkb as $motherkbs)
+                            <option selected="selected" value="{{ $motherkbs->mother_id }}"> {{ $motherkbs->mother_id }} </option>
+                            @endforeach
+                        </select>
                         <select disabled id="mother_id" class="form-control select2"
                             name="mother_id" style="width: 100%;" required>
                             @foreach ($motherkb as $motherkbs)
@@ -29,7 +35,7 @@
                     <div class="col-md-12 form-group">
                         <label>Jenis KB</label>
                         <div class="col-sm-12">
-                            <select name="kb_id" id="kb_id" class="form-control">
+                            <select name="kb_name" id="kb_name" class="form-control">
                             @foreach ($motherkb as $m)
                                 <option selected="selected" value="{{ $m->kb_name }}"> {{ $m->kb_name }} </option>
                             @endforeach
