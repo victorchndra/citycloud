@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(InformationSeeder::class);
         $this->call(AgeRangeSeeder::class);
         $this->call(KBSeeder::class);
+        $this->call(ImunisasiSeeder::class);
     }
 }
