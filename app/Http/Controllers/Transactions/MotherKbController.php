@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Masters\Information;
 use App\Models\Masters\KB;
 use App\Models\Transactions\Citizens;
-use App\Models\Transactions\MotherKb;
+use App\Models\Transactions\MotherKB;
 
 class MotherKbController extends Controller
 {
@@ -26,7 +26,7 @@ class MotherKbController extends Controller
         $citizen = Citizens::get();
         $kbs = KB::get();
         $kbSelected =  $request->get('rt');
-        $datas = MotherKb::first()->paginate(10);
+        $datas = MotherKb::paginate(10);
         // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
