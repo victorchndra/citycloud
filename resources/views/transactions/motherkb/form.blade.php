@@ -3,6 +3,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                {{-- tes --}}
                 <h4 class="card-title">Data Ibu KB</h4>
                 <form class="form form-horizontal" action="/motherkb" method="POST">
                     @csrf

@@ -82,7 +82,7 @@ class MotherKbController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data KB <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $request->mother_id . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
