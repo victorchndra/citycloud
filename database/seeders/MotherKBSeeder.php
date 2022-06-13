@@ -16,9 +16,9 @@ class MotherKBSeeder extends Seeder
     public function run()
     {
         
-        $kb = new \App\Models\Masters\KB();
+        $kb = new \App\Models\Transactions\MotherKB();
         $kb->uuid = Uuid::uuid4()->getHex();        
-        $kb->mother_name = "Nama Ibu";        
+        $kb->mother_id = "Nama Ibu";        
         $kb->kb_name = "Nama KB";        
         $kb->kb_date = "1";        
         $kb->created_by = 1;
