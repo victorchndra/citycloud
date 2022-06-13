@@ -105,7 +105,7 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/motherkb">
+                        <a class="nav-link" href="/motherpregnant">
                           <i class="mdi mdi-chart-pie menu-icon"></i>
                           <span class="menu-title">Data Ibu Hamil</span>
                         </a>
