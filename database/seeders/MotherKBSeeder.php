@@ -18,9 +18,9 @@ class MotherKBSeeder extends Seeder
         
         $kb = new \App\Models\Masters\KB();
         $kb->uuid = Uuid::uuid4()->getHex();        
-        $kb->mother_name = "nama ibu";        
-        $kb->kb_name = "nama kb";        
-        $kb->kb_date = "";        
+        $kb->mother_name = "Nama Ibu";        
+        $kb->kb_name = "Nama KB";        
+        $kb->kb_date = "1";        
         $kb->created_by = 1;
         $kb->save();
 
