@@ -24,11 +24,11 @@ class PregnantMotherController extends Controller
     public function index()
     {
         $citizen = Citizens::get();
-        $datas = PregnantMother::first()->paginate(10);
+        $datas = PregnantMother::paginate(10);
         // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.motherpregnant.index', compact('datas', 'kbs', 'kbSelected', 'citizen'));
+        return view('transactions.motherpregnant.index', compact('datas', 'citizen'));
     }
 
     /**
@@ -40,8 +40,8 @@ class PregnantMotherController extends Controller
     {
         //
         $datas = PregnantMother::first();
-
-        return view('masters.motherpregnant.form', compact('datas'));
+        $citizen = Citizens::get();
+        return view('transactions.motherpregnant.form', compact('datas','citizen'));
     }
 
     /**
@@ -54,22 +54,22 @@ class PregnantMotherController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'citizen_id' => 'integer|required|max:255',
-            'weight' => 'integer|required|max:255',
-            'height' => 'integer|required|max:255',
-            'pregnant to' => 'integer|required|max:255',
-            'gestational_age' => 'integer|required|max:255',
-            'disease' => 'string|required|max:255',
-            'check_pregnancy' => 'string|required|max:255',
-            'lila' => 'string|required|max:255',
-            'number_lives' => 'string|required|max:255',
-            'number_death' => 'string|required|max:255',
-            'meninggal' => 'string|required|max:255',
-            'tt1' => 'string|required|max:255',
-            'tt2' => 'string|required|max:255',
-            'tt3' => 'string|required|max:255',
-            'tt4' => 'string|required|max:255',
-            'tt5' => 'string|required|max:255',
+            'citizen_id' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
+            'pregnant_to' => 'required',
+            'gestational_age' => 'required',
+            'disease' => 'required',
+            'check_pregnancy' => 'required',
+            'lila' => 'required',
+            'number_lives' => 'required',
+            'number_death' => 'required',
+            'meninggal' => 'required',
+            'tt1' => 'required',
+            'tt2' => 'required',
+            'tt3' => 'required',
+            'tt4' => 'required',
+            'tt5' => 'required',
 
         ]);
 
@@ -114,9 +114,9 @@ class PregnantMotherController extends Controller
     {
         //
         $datas = PregnantMother::where('uuid', $uuid)->get();
-
+        $citizen = Citizens::get();
         
-        return view('masters.motherpregnant.edit', compact('datas'));
+        return view('transactions.motherpregnant.edit', compact('datas','citizen'));
     }
 
     /**
@@ -129,22 +129,21 @@ class PregnantMotherController extends Controller
     public function update(Request $request, $uuid)
     {
         $validatedData = $request->validate([
-            'citizen_id' => 'integer|required|max:255',
-            'weight' => 'integer|required|max:255',
-            'height' => 'integer|required|max:255',
-            'pregnant to' => 'integer|required|max:255',
-            'gestational_age' => 'integer|required|max:255',
-            'disease' => 'string|required|max:255',
-            'check_pregnancy' => 'string|required|max:255',
-            'lila' => 'string|required|max:255',
-            'number_lives' => 'string|required|max:255',
-            'number_death' => 'string|required|max:255',
-            'meninggal' => 'string|required|max:255',
-            'tt1' => 'string|required|max:255',
-            'tt2' => 'string|required|max:255',
-            'tt3' => 'string|required|max:255',
-            'tt4' => 'string|required|max:255',
-            'tt5' => 'string|required|max:255',
+            'weight' => 'required',
+            'height' => 'required',
+            'pregnant_to' => 'required',
+            'gestational_age' => 'required',
+            'disease' => 'required',
+            'check_pregnancy' => 'required',
+            'lila' => 'required',
+            'number_lives' => 'required',
+            'number_death' => 'required',
+            'meninggal' => 'required',
+            'tt1' => 'required',
+            'tt2' => 'required',
+            'tt3' => 'required',
+            'tt4' => 'required',
+            'tt5' => 'required',
 
         ]);
         $validatedData['updated_by'] = Auth::user()->id;

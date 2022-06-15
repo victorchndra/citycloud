@@ -19,9 +19,9 @@ return new class extends Migration
             $table->integer("citizen_id")->nullable();
             $table->integer("weight")->nullable();
             $table->integer("height")->nullable();
-            $table->string("pregnant to")->nullable();
+            $table->string("pregnant_to")->nullable();
             $table->integer("gestational_age")->nullable();
-            $table->integer("disease")->nullable();
+            $table->string("disease")->nullable();
             $table->string("lila")->nullable();
             $table->string("check_pregnancy")->nullable();
             $table->string("number_lives")->nullable();

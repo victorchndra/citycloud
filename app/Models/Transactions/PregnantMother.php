@@ -21,7 +21,7 @@ class PregnantMother extends Model
     protected $dates = ['deleted_at'];
 
 
-    public function letterName(): Attribute
+    public function Mother(): Attribute
     {
         return new Attribute(
             get: fn ($value) => ucwords($value),
@@ -29,70 +29,6 @@ class PregnantMother extends Model
         );
     }   
 
-    public function name(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-
-    public function gender(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function placeBirth(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function dateBirth(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('D MMMM Y'),
-            // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-        );
-    }
-
-    public function religion(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function job(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-
-    public function address(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => strtoupper($value),
-            set: fn ($value) => strtolower($value),
-        );
-    }
-    
-    // public function letterDate(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['letter_date'])->isoFormat('D MMMM Y'),
-    //         // get: fn ($value) => Carbon::createFromFormat('Y-m-d', $this->attributes['date_birth'])->isoFormat('YYYY-MM-DD'),
-    //     );
-    // }
 
     public function createdUser()
     {
@@ -106,5 +42,9 @@ class PregnantMother extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
+    }
+    public function motherUser()
+    {
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'citizen_id', 'id');
     }
 }
