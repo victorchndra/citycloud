@@ -104,6 +104,12 @@
                         <span class="menu-title">Data Ibu KB</span>
                       </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/motherpregnant">
+                          <i class="mdi mdi-chart-pie menu-icon"></i>
+                          <span class="menu-title">Data Ibu Hamil</span>
+                        </a>
+                      </li>
 
                     <li class="nav-item sidebar-category">
                         <p>Pengaturan</p>

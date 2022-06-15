@@ -47,6 +47,8 @@ Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('
 
 Route::resource("motherkb", "App\Http\Controllers\Transactions\MotherKbController")->middleware('auth');
 
+Route::resource("motherpregnant", "App\Http\Controllers\Transactions\PregnantMotherController")->middleware('auth');
+
 Route::resource("rt", "App\Http\Controllers\Masters\RTController")->middleware('auth');
 
 Route::resource("ims", "App\Http\Controllers\Masters\ImmunizationController")->middleware('auth');
