@@ -76,7 +76,7 @@ class PregnantMotherController extends Controller
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
         PregnantMother::create($validatedData);
-        $data =  PregnantMother::join('citizens', 'pregnant_mothers.citizen_id', '=', 'citizens.id');
+        $data = PregnantMother::get()->where('citizen_id')->get();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
