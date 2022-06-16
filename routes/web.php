@@ -59,7 +59,11 @@ Route::resource("assistance", "App\Http\Controllers\Masters\AssistanceController
 
 Route::resource('log', LogController::class)->middleware('auth');
 
+// POSYANDU
 Route::get('health-care', [CitizenController::class, 'indexHealthCare'])->middleware('auth');
+Route::get('health-care/{uuid}/edit', [CitizenController::class, 'editHealthCare'])->middleware('auth');
+Route::post('health-care/{uuid}', [CitizenController::class, 'storeHealthCare'])->middleware('auth');
+Route::put('health-care/{uuid}', [CitizenController::class, 'updateHealthCare'])->middleware('auth');
 
 Route::resource('agerange', "App\Http\Controllers\Masters\AgeRangeController")->middleware('auth');
 // Route::resource('ageRange', AgeRangeController::class)->middleware('auth');

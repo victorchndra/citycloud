@@ -95,7 +95,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/health-care">
                             <i class="mdi mdi-history menu-icon"></i>
-                            <span class="menu-title">Posyandu</span>
+                            <span class="menu-title">Data Anak</span>
                         </a>
                     </li>
                     <li class="nav-item">
