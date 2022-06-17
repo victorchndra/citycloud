@@ -24,11 +24,11 @@ class PregnantMotherController extends Controller
     public function index()
     {
         $citizen = Citizens::get();
-        $datas = PregnantMother::first()->paginate(10);
+        $datas = PregnantMother::paginate(10);
         // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.motherpregnant.index', compact('datas', 'kbs', 'kbSelected', 'citizen'));
+        return view('transactions.motherpregnant.index', compact('datas', 'citizen'));
     }
 
     /**
@@ -40,8 +40,8 @@ class PregnantMotherController extends Controller
     {
         //
         $datas = PregnantMother::first();
-
-        return view('masters.motherpregnant.form', compact('datas'));
+        $citizen = Citizens::get();
+        return view('transactions.motherpregnant.form', compact('datas','citizen'));
     }
 
     /**
@@ -54,33 +54,33 @@ class PregnantMotherController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'citizen_id' => 'integer|required|max:255',
-            'weight' => 'integer|required|max:255',
-            'height' => 'integer|required|max:255',
-            'pregnant to' => 'integer|required|max:255',
-            'gestational_age' => 'integer|required|max:255',
-            'disease' => 'string|required|max:255',
-            'check_pregnancy' => 'string|required|max:255',
-            'lila' => 'string|required|max:255',
-            'number_lives' => 'string|required|max:255',
-            'number_death' => 'string|required|max:255',
-            'meninggal' => 'string|required|max:255',
-            'tt1' => 'string|required|max:255',
-            'tt2' => 'string|required|max:255',
-            'tt3' => 'string|required|max:255',
-            'tt4' => 'string|required|max:255',
-            'tt5' => 'string|required|max:255',
+            'citizen_id' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
+            'pregnant_to' => 'required',
+            'gestational_age' => 'required',
+            'disease' => 'required',
+            'check_pregnancy' => 'required',
+            'lila' => 'required',
+            'number_lives' => 'required',
+            'number_death' => 'required',
+            'meninggal' => 'required',
+            'tt1' => 'required',
+            'tt2' => 'required',
+            'tt3' => 'required',
+            'tt4' => 'required',
+            'tt5' => 'required',
 
         ]);
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
         PregnantMother::create($validatedData);
-
+        $data = PregnantMother::get()->where('citizen_id')->get();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data Ibu Hamil <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
@@ -114,9 +114,9 @@ class PregnantMotherController extends Controller
     {
         //
         $datas = PregnantMother::where('uuid', $uuid)->get();
-
+        $citizen = Citizens::get();
         
-        return view('masters.motherpregnant.edit', compact('datas'));
+        return view('transactions.motherpregnant.edit', compact('datas','citizen'));
     }
 
     /**
@@ -129,32 +129,31 @@ class PregnantMotherController extends Controller
     public function update(Request $request, $uuid)
     {
         $validatedData = $request->validate([
-            'citizen_id' => 'integer|required|max:255',
-            'weight' => 'integer|required|max:255',
-            'height' => 'integer|required|max:255',
-            'pregnant to' => 'integer|required|max:255',
-            'gestational_age' => 'integer|required|max:255',
-            'disease' => 'string|required|max:255',
-            'check_pregnancy' => 'string|required|max:255',
-            'lila' => 'string|required|max:255',
-            'number_lives' => 'string|required|max:255',
-            'number_death' => 'string|required|max:255',
-            'meninggal' => 'string|required|max:255',
-            'tt1' => 'string|required|max:255',
-            'tt2' => 'string|required|max:255',
-            'tt3' => 'string|required|max:255',
-            'tt4' => 'string|required|max:255',
-            'tt5' => 'string|required|max:255',
+            'weight' => 'required',
+            'height' => 'required',
+            'pregnant_to' => 'required',
+            'gestational_age' => 'required',
+            'disease' => 'required',
+            'check_pregnancy' => 'required',
+            'lila' => 'required',
+            'number_lives' => 'required',
+            'number_death' => 'required',
+            'meninggal' => 'required',
+            'tt1' => 'required',
+            'tt2' => 'required',
+            'tt3' => 'required',
+            'tt4' => 'required',
+            'tt5' => 'required',
 
         ]);
         $validatedData['updated_by'] = Auth::user()->id;
-
+        $data = PregnantMother::get()->where('uuid', $uuid)->firstOrFail();
         PregnantMother::where('uuid', $uuid)->first()->update($validatedData);
-
+        
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> data Hamil <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -181,7 +180,7 @@ class PregnantMotherController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> data Ibu Hamil <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data Ibu Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'hapus',
             'created_at' => now(),
         ];

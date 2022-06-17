@@ -239,9 +239,15 @@ class Citizens extends Model
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
+
     public function updatedUser()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
+    public function children()
+    {
+        return $this->hasOne(Children::class, 'citizens_id');
     }
 
 

@@ -16,12 +16,12 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Data RT</h4>
+                    <h4 class="card-title">Data Ibu Hamil</h4>
                     <p class="card-description">
                         Data Ibu Hamil
                     </p>
-                    <a href="/rt" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                    <a href="/rt/create" class="btn btn-sm btn-primary btn-fw"><i
+                    <a href="/motherpregnant" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                    <a href="/motherpregnant/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
@@ -52,7 +52,22 @@
                                 @foreach ($datas as $key => $data)
                                     <tr>
                                         <td>{{ $data->id }} </td>
-                                        <td>{{ $data->citizen_id }} </b></td>
+                                        <td>{{ $data->motherUser->citizen_id }}{{$data->motherUser->name}} </b></td>
+                                        <td>{{ $data->weight }} </b></td>
+                                        <td>{{ $data->height }} </b></td>
+                                        <td>{{ $data->pregnant_to }} </b></td>
+                                        <td>{{ $data->gestational_age }} </b></td>
+                                        <td>{{ $data->disease }} </b></td>
+                                        <td>{{ $data->check_pregnancy }} </b></td>
+                                        <td>{{ $data->lila }} </b></td>
+                                        <td>{{ $data->number_lives }} </b></td>
+                                        <td>{{ $data->number_death }} </b></td>
+                                        <td>{{ $data->meninggal }} </b></td>
+                                        <td>{{ $data->tt1 }} </b></td>
+                                        <td>{{ $data->tt2 }} </b></td>
+                                        <td>{{ $data->tt3 }} </b></td>
+                                        <td>{{ $data->tt4 }} </b></td>
+                                        <td>{{ $data->tt5 }} </b></td>
                                         
                                         <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
                                             <span>{{$data->created_at, 'd M Y'}}</span><br>
@@ -69,11 +84,11 @@
                                                         data-bs-toggle="dropdown">Aksi</button>
                                                     <div class="dropdown-menu">
 
-                                                        <a href="/rt/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
+                                                        <a href="/motherpregnant/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
 
                                                         <div class="dropdown-divider"></div>
 
-                                                        <form action="/rt/{{ $data->uuid }}" method="post"
+                                                        <form action="/motherpregnant/{{ $data->uuid }}" method="post"
                                                             class="d-inline">
                                                             @method('delete')
                                                             @csrf

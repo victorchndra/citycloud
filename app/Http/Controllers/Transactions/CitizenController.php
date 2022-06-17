@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Storage;
 
 //use import class dan storage nya utk simpan data
 use App\Imports\CitizenImport;
+use App\Models\Transactions\Children;
 use Carbon\Carbon;
 
 class CitizenController extends Controller
@@ -2266,13 +2267,101 @@ class CitizenController extends Controller
         ), 'Laporan Penduduk.xls');
     }
 
-    // Index Health Care
+    // Index Data Anak
     public function indexHealthCare() {
         $now = date('Y-m-d');
-        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->paginate(20)->withQueryString();
-        return view('transactions.citizens.healthcare', compact('datas'));
+        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->paginate(20)->withQueryString();
+        return view('transactions.children.healthcare', compact('datas'));
     }
 
+    // Edit Data Anak
+    public function editHealthCare($uuid) {
+        $datas = Citizens::where('uuid', $uuid)->with('children')->get();
+        return view('transactions.children.edit', compact('datas'));
+    }
+
+    // Store Health Care
+    public function storeHealthCare(Request $request, $uuid) {
+        // dd(Citizens::where('nik', $request->nik)->value('id'));
+        $request->validate([
+            'name' => 'required',
+            'parentName' => 'required',
+            'weight' => 'numeric|required',
+            'height' => 'numeric|required',
+            'gender' => 'required',
+            'num_of_child' => 'numeric|required',
+            'nik' => 'required',
+            'date_birth' => 'date|required',
+            'bpjs' => 'required',
+            'kms' => 'required',
+        ]);
+
+        $childrenData = [
+            'citizens_id' => Citizens::where('nik', $request->nik)->value('id'),
+            'height' => $request->height,
+            'weight' => $request->weight,
+            'num_of_child' => $request->num_of_child,
+            'kms' => $request->kms,
+            'created_by' => Auth::user()->id,
+            'uuid' => $uuid,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        DB::table('childrens')->insert($childrenData);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Mengubah</em> data anak <strong>[' . $request->name . ']</strong>',
+            'category' => 'tambah',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+        return redirect('/health-care')->with('success', 'Data anak berhasil diubah!');
+    }
+
+    // Update Health Care
+    public function updateHealthCare(Request $request, $uuid) {
+
+        // dd(DB::table('childrens')->get());
+        $request->validate([
+            'name' => 'required',
+            'parentName' => 'required',
+            'weight' => 'numeric|required',
+            'height' => 'numeric|required',
+            'gender' => 'required',
+            'num_of_child' => 'numeric|required',
+            'nik' => 'required',
+            'date_birth' => 'date|required',
+            'bpjs' => 'required',
+            'kms' => 'required',
+        ]);
+
+        $childrenData = [
+            'height' => $request->height,
+            'weight' => $request->weight,
+            'num_of_child' => $request->num_of_child,
+            'kms' => $request->kms,
+            'updated_at' => now(),
+        ];
+
+        Children::where('uuid', $uuid)->update($childrenData);
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Mengubah</em> data anak <strong>[' . $request->name . ']</strong>',
+            'category' => 'tambah',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+        return redirect('/health-care')->with('success', 'Data anak berhasil diubah!');
+    }
 
 }
 

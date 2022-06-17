@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends('layouts.app')
 @section('content')
     @if (session()->has('success'))
         <div class="alert alert-success col-lg-12" role="alert">
@@ -23,13 +23,19 @@
                     <a href="/motherkb" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                     <a href="/motherkb/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
+                    {{-- <a href="{{ url('export/exportMotherKb?mother_id=' . $mother_id . '&kb_name=' . $kb_name . '&kb_date=' . $kb_date) }}"
+                        class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel"> --}}
+                        
+                    
+                        <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
+
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nama Ibu</th>
-                                    <th>Jenis KB</th>                                    
+                                    <th>Jenis KB</th>
                                     <th>Tanggal KB</th>
                                     <th>Ditambahkan</th>
                                     <th>Aksi</th>
@@ -40,16 +46,16 @@
                                     <tr>
                                         <td>{{ $data->id }} </td>
                                         {{-- <td>{{ $data->motherUser->name }} </td> --}}
-                                        <td>{{ $data->mother_id }} </td>
-                                        <td>{{ $data->kb_name    }} </td>
-                                        <td>{{ $data->kb_date    }} </td>                                  
-                                        
-                                        <td>   <span>Ditambahkan Oleh: <b> {{$data->createdUser->name}} </b></span><br>
-                                            <span>{{$data->created_at, 'd M Y'}}</span><br>
-                                            @if($data->updated_by)
-                                            <br>
-                                            <span>Diubah Oleh: <b> {{$data->updatedUser->name}} </b></span> <br>
-                                            <span>{{$data->updated_at, 'd M Y'}}<br>
+                                        <td>{{ $data->motherUser->name }} </td>
+                                        <td>{{ $data->kb_name }} </td>
+                                        <td>{{ $data->kb_date }} </td>
+
+                                        <td> <span>Ditambahkan Oleh: <b> {{ $data->createdUser->name }} </b></span><br>
+                                            <span>{{ $data->created_at, 'd M Y' }}</span><br>
+                                            @if ($data->updated_by)
+                                                <br>
+                                                <span>Diubah Oleh: <b> {{ $data->updatedUser->name }} </b></span> <br>
+                                                <span>{{ $data->updated_at, 'd M Y' }}<br>
                                             @endif
                                         </td>
                                         <td>
@@ -59,7 +65,8 @@
                                                         data-bs-toggle="dropdown">Aksi</button>
                                                     <div class="dropdown-menu">
 
-                                                        <a href="/motherkb/{{ $data->uuid }}/edit" class="dropdown-item">Edit</a>
+                                                        <a href="/motherkb/{{ $data->uuid }}/edit"
+                                                            class="dropdown-item">Edit</a>
 
                                                         <div class="dropdown-divider"></div>
 
