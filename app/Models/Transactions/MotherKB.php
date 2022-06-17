@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 
 use Carbon\Carbon;
 
+
 class MotherKB extends Model
 {
     use HasFactory;
@@ -231,19 +232,6 @@ class MotherKB extends Model
     }
 
 
-
-
-    public function createdUser()
-    {
-        return $this->belongsTo('App\Models\User', 'created_by', 'id');
-    }
-    public function updatedUser()
-    {
-        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
-    }
-
-
-
     // gunakan scope utk query yg sering dipakai
     // contoh utk user yg aktif saja
 
@@ -386,21 +374,23 @@ class MotherKB extends Model
         //                 ->orWhere('districts', 'like', ($filters['districts']) ? ('%' . str_replace('','%20',$filters['districts']) . '%') : '')
         //                 ->orWhere('province', 'like', ($filters['province']) ? ('%' . str_replace('','%20',$filters['province']) . '%') : '');
         // }
+    
+    }
+        
+    public function createdUser()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
+    
+    public function updatedUser()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
 
-    // public function createdUser()
-    // {
-    //     return $this->belongsTo('App\Models\User', 'created_by', 'id');
-    // }
-    // public function updatedUser()
-    // {
-    //     return $this->belongsTo('App\Models\User', 'updated_by', 'id');
-    // }
-
-    // public function user()
-    // {
-    //     return $this->belongsTo('App\Models\User', 'signed_by', 'id');
-    // }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'signed_by', 'id');
+    }
 
     public function motherUser()
     {

@@ -69,20 +69,18 @@ class MotherKbController extends Controller
             'kb_date' => 'required',
         ]);
 
-        // $citizen           = Citizens::findOrFail($request->get('citizens'));
-        // $validatedData['citizen_id']     = $citizen->id;
         // $validatedData['nik'] = $citizen->nik;
         // $validatedData['name'] = $citizen->name;
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
 
-        MotherKb::create($validatedData);
+        $panggil = MotherKb::create($validatedData);
 
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $request->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $panggil->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
@@ -146,11 +144,12 @@ class MotherKbController extends Controller
         $validatedData['updated_by'] = Auth::user()->id;
 
         MotherKb::where('uuid', $uuid)->first()->update($validatedData);
+        $data = MotherKb::get()->where('uuid', $uuid)->first();
 
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $request->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -176,7 +175,7 @@ class MotherKbController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> data ibu kb <strong>[' . $data->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data ibu KB <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'hapus',
             'created_at' => now(),
         ];
@@ -191,25 +190,18 @@ class MotherKbController extends Controller
     public function exportMotherKb(Request $request)
     {
 
-        $motherkb = MotherKb::where('uuid', $uuid)->get();
-        $citizen = Citizens::where([
-                    ['gender', '=', 'perempuan'],
-                    ['family_status', '=', 'kepala keluarga']
-            ])->orwhere([
-                    ['gender', '=', 'perempuan'],
-                    ['family_status', '=', 'istri']
-            ])->get();
-        $kbs = KB::get();
-        $kbSelected =  $request->get('rt');
-        $datas = MotherKb::first()->paginate(10);
         
-
-                // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
+        $data =  MotherKB::join('citizens', 'mother_id', '=', 'citizens.id')
+        ->filter(
             request([
+                'mother_id', 'kb_name', 'kb_date',
                 'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks','disability'
             ]));
+
+        $mother_id  =  $request->get('mother_id');
+        $kb_name    =  $request->get('kb_name');
+        $kb_date    =  $request->get('kb_date');
 
         $nik =  $request->get('nik');
         $kk =  $request->get('kk');
