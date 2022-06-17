@@ -66,13 +66,13 @@
                         </div>
 
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#letter" aria-expanded="false"
+                            aria-controls="letter">
                             <i class="mdi mdi mdi-email menu-icon"></i>
                             <span class="menu-title">Surat</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="letter">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/letters">Surat Keluar</a>
                                 </li>
@@ -95,7 +95,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/health-care">
                             <i class="mdi mdi-history menu-icon"></i>
-                            <span class="menu-title">Posyandu</span>
+                            <span class="menu-title">Data Anak</span>
                         </a>
                     </li>
                     <li class="nav-item">

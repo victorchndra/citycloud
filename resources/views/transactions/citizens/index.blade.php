@@ -462,7 +462,7 @@
                         <div class="modal-content">
                             <form action="/citizens/{{ $data->uuid }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT');
+                                @method('PUT')
                                 <div class="modal-header">
                                     Penduduk Pindah
                                 </div>
