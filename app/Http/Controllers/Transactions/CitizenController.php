@@ -2048,6 +2048,7 @@ class CitizenController extends Controller
                     $villageSelected,
                     $sub_districsSelected,
                     $districtSelected,
+                    $dtks,
                     $provinceSelected,
 
                 ), 'Laporan Penduduk DTKS.xls');
