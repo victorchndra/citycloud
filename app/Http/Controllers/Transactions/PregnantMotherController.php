@@ -76,11 +76,11 @@ class PregnantMotherController extends Controller
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
         PregnantMother::create($validatedData);
-
+        $data = PregnantMother::get()->where('citizen_id')->get();
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data Ibu Hamil <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
@@ -147,13 +147,13 @@ class PregnantMotherController extends Controller
 
         ]);
         $validatedData['updated_by'] = Auth::user()->id;
-
+        $data = PregnantMother::get()->where('uuid', $uuid)->firstOrFail();
         PregnantMother::where('uuid', $uuid)->first()->update($validatedData);
-
+        
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> data Hamil <strong>[' . $request->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -180,7 +180,7 @@ class PregnantMotherController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> data Ibu Hamil <strong>[' . $data->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data Ibu Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'hapus',
             'created_at' => now(),
         ];
