@@ -100,6 +100,10 @@ Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');
 });
 
+Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportKidsWeight", "App\Http\Controllers\Transactions\KidsWeightController@exportKidsWeight")->name('exportKidsWeight');
+});
+
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
 // Route::get('/citizens/{citizens:uuid}', [CitizenController::class, 'deathCheck'])->middleware('auth');
