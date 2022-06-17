@@ -2269,7 +2269,7 @@ class CitizenController extends Controller
     // Index Data Anak
     public function indexHealthCare() {
         $now = date('Y-m-d');
-        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with('children')->paginate(20)->withQueryString();
+        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->paginate(20)->withQueryString();
         return view('transactions.children.healthcare', compact('datas'));
     }
 
