@@ -122,7 +122,7 @@ class KidsWeightController extends Controller
         
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.kidsweight.index', compact('datas','nik','name','weight','height','imdbSelected','headWidth','methodMeasureSelected','vitaminSelected','kmsSelected','imunitationSelected','boosterSelected','e1Selected','e2Selected','e3Selected','e4Selected','e5Selected','e6Selected','notes'));
+        return view('transactions.kidsweight.index', compact('data','datas','nik','name','weight','height','imdbSelected','headWidth','methodMeasureSelected','vitaminSelected','kmsSelected','imunitationSelected','boosterSelected','e1Selected','e2Selected','e3Selected','e4Selected','e5Selected','e6Selected','notes'));
     }
 
     /**
