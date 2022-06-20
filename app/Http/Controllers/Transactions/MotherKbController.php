@@ -13,6 +13,7 @@ use App\Models\Masters\Information;
 use App\Models\Masters\KB;
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\MotherKB;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Exports\MotherKbExport;
 
@@ -325,7 +326,7 @@ class MotherKbController extends Controller
 
 
         return Excel::download(new MotherKbExport(
-            $datas,
+            $datas
             // $nik,
             // $kk,
             // $name,

@@ -18,6 +18,8 @@
             <tr>
                 <th>#</th>
                 <th>Mother Id</th>
+                <th>Nama Ibu</th>
+                <th>Nama Alamat</th>
                 <th>Nama KB</th>
                 <th>Tangal KB</th>
             </tr>
@@ -28,7 +30,9 @@
                 @foreach ($datas as $key => $data)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>'{{ $data->mother_name }}</td>
+                        <td>'{{ $data->mother_id }}</td>
+                        <td>'{{ $data->motherUser->name }}</td>
+                        <td>'{{ $data->motherUser->address }}</td>
                         <td>{{ $data->kb_name }}</td>
                         <td>{{ $data->kb_date }}</td>
                 @endforeach
