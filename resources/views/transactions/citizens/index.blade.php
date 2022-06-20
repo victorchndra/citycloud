@@ -13,7 +13,7 @@
                         class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&date_birth='.$date_birth.'&date_birth2='.$date_birth2.'&place_birth='.
-                    $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
+                    $place_birth.'&address='.$address.'&newcomer='.$newcomer.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
                     .'&province='.$provinceSelected.'&health_assurance='.$healthAssurancesSelected.'&lastEducation='.$last_educationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
@@ -374,6 +374,17 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Pendatang</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="newcomer">
+                                                        <option value="tidak">Tidak</option>
+                                                        <option value="ya">Ya</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

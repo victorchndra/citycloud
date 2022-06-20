@@ -46,7 +46,7 @@ class CitizenController extends Controller
             $datas = Citizens::latest()->filter(
                 request([
                     'name', 'nik', 'kk', 'gender', 'date_birth','date_birth2','address', 'place_birth', 'religion', 'family_status', 'blood',
-                    'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                    'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date', 'newcomer',
                     'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','disability'
                 ])
             )->whereNull('death_date')->whereNull('move_date')->paginate(20)->withQueryString();
@@ -119,6 +119,7 @@ class CitizenController extends Controller
         $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
+        $newcomer =  $request->get('newcomer');
         $familyStatusSelected =  $request->get('family_status');
         $bloodSelected =  $request->get('blood');
         $job =  $request->get('job');
@@ -233,6 +234,7 @@ class CitizenController extends Controller
             'disabilitys',
             'place_birth',
             'address',
+            'newcomer',
             'religionSelected',
             'familyStatusSelected',
             'bloodSelected',
@@ -346,6 +348,8 @@ class CitizenController extends Controller
             'districts' => 'nullable',
             'province' => 'nullable',
             'address' => 'required',
+            'newcomer' => 'nullable',
+            'in_date' => 'nullable',
             'dtks'=> 'required',
             'last_education' => 'nullable',
             'health_assurance' => 'nullable',
@@ -505,6 +509,8 @@ class CitizenController extends Controller
             'districts' => 'nullable',
             'province' => 'nullable',
             'address' => 'nullable',
+            'newcomer' => 'nullable',
+            'in_date' => 'nullable',
             'dtks'=> 'nullable',
             'disability'=> 'nullable',
             'last_education' => 'nullable',
@@ -2120,7 +2126,7 @@ class CitizenController extends Controller
                 // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
         $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address','newcomer','place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks','disability'
             ]));
 
@@ -2132,6 +2138,7 @@ class CitizenController extends Controller
         $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
+        $newcomer =  $request->get('newcomer');
         $religionSelected =  $request->get('religion');
         $familyStatusSelected =  $request->get('family_status');
         $healthAssurancesSelected =  $request->get('health_assurance');
@@ -2249,6 +2256,7 @@ class CitizenController extends Controller
             $place_birth,
             $religionSelected,
             $address,
+            $newcomer,
             $familyStatusSelected,
             $healthAssurancesSelected,
             $bloodSelected,
