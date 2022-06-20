@@ -39,6 +39,7 @@ Route::resource("users", "App\Http\Controllers\UserController")->middleware('aut
 Route::get("/users/{users:uuid}/edit/password", [UserController::class, 'changePassword'])->name('users.changePassword')->middleware('auth');
 
 Route::get("/citizens/{citizens:uuid}/show", [CitizenController::class, 'showKK'])->name('citizens.view')->middleware('auth');
+Route::get("/citizens/{citizens:uuid}/showkk", [CitizenController::class, 'showKKActive'])->name('citizens.viewkk')->middleware('auth');
 
 Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('auth');
 

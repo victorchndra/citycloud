@@ -46,7 +46,7 @@ class CitizenController extends Controller
             $datas = Citizens::latest()->filter(
                 request([
                     'name', 'nik', 'kk', 'gender', 'date_birth','date_birth2','address', 'place_birth', 'religion', 'family_status', 'blood',
-                    'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date', 'newcomer',
+                    'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date','newcomer',
                     'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','disability'
                 ])
             )->whereNull('death_date')->whereNull('move_date')->paginate(20)->withQueryString();
@@ -134,6 +134,11 @@ class CitizenController extends Controller
         if ($request->has('gender')) {
             if (!empty($genderSelected))
                 $datas->where('gender', $genderSelected);
+        }
+
+        if ($request->has('newcomer')) {
+            if (!empty($newcomer))
+                $datas->where('newcomer', $newcomer);
         }
 
         if ($request->has('job')) {
@@ -572,6 +577,18 @@ class CitizenController extends Controller
 
             $data = Citizens::where('uuid', '=', $uuid)->first();
             $families = Citizens::where('kk','=',$data->kk)->orderBy('family_status','desc')->get();
+            // $families = Citizens::where('kk',$data->kk)->orderBy('family_status','desc')->get();
+
+            return view('transactions.citizens.show', compact('citizen','families','data'));
+        }
+
+        public function showKKActive($uuid)
+        {
+
+            $citizen = Citizens::where('uuid', $uuid)->whereNull('death_date')->whereNull('move_date')->get();
+
+            $data = Citizens::where('uuid', '=', $uuid)->first();
+            $families = Citizens::where('kk','=',$data->kk)->orderBy('family_status','desc')->whereNull('death_date')->whereNull('move_date')->get();
             // $families = Citizens::where('kk',$data->kk)->orderBy('family_status','desc')->get();
 
             return view('transactions.citizens.show', compact('citizen','families','data'));
