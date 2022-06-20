@@ -341,6 +341,11 @@ class Citizens extends Model
         if(isset($filters['vaccine_3'])) {
             $q->where('vaccine_3', ($filters['vaccine_3']))->get();
         }
+
+        if(isset($filters['newcomer'])) {
+            $q->where('newcomer', ($filters['newcomer']))->get();
+        }
+        
         
 
         if(isset($filters['move_date'])) {
