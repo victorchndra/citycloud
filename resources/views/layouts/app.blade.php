@@ -44,13 +44,13 @@
                         <span></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#citizens" aria-expanded="false"
+                            aria-controls="citizens">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Kependudukan</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="citizens">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk
                                         Aktif</a></li>
@@ -162,13 +162,13 @@
                         <span></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#letters" aria-expanded="false"
+                            aria-controls="letters">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Surat</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="letters">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/letters">Buat Surat</a>
                                 </li>
