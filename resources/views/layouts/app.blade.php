@@ -65,7 +65,7 @@
                             </ul>
                         </div>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#letter" aria-expanded="false"
                             aria-controls="letter">
                             <i class="mdi mdi mdi-email menu-icon"></i>
@@ -79,7 +79,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat
                                         Warga</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     <li class="nav-item">
                         <a class="nav-link" href="/log">
                             <i class="mdi mdi-history menu-icon"></i>
@@ -87,7 +87,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item sidebar-category">
+                    <!-- <li class="nav-item sidebar-category">
                         <p>Posyandu</p>
                         <span></span>
                     </li>
@@ -115,7 +115,7 @@
                             <i class="mdi mdi-chart-pie menu-icon"></i>
                             <span class="menu-title">Data Timbang Anak</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item sidebar-category">
                         <p>Pengaturan</p>
