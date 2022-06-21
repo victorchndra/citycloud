@@ -647,8 +647,7 @@
                                         </span> <br>
                                 </td>
                                 <td>
-                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
-                                        <div class="btn-group">
+                                 
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
@@ -674,8 +673,7 @@
 
 
                                             </div>
-                                        </div>
-                                    </div>
+                                
                                 </td>
                             </tr>
                             @endforeach
