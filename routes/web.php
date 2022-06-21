@@ -39,6 +39,7 @@ Route::resource("users", "App\Http\Controllers\UserController")->middleware('aut
 Route::get("/users/{users:uuid}/edit/password", [UserController::class, 'changePassword'])->name('users.changePassword')->middleware('auth');
 
 Route::get("/citizens/{citizens:uuid}/show", [CitizenController::class, 'showKK'])->name('citizens.view')->middleware('auth');
+Route::get("/citizens/{citizens:uuid}/showkk", [CitizenController::class, 'showKKActive'])->name('citizens.viewkk')->middleware('auth');
 
 Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('auth');
 
@@ -46,6 +47,8 @@ Route::resource("rw", "App\Http\Controllers\Masters\RWController")->middleware('
 Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('auth');
 
 Route::resource("motherkb", "App\Http\Controllers\Transactions\MotherKbController")->middleware('auth');
+
+Route::resource("kidsweight", "App\Http\Controllers\Transactions\KidsWeightController")->middleware('auth');
 
 Route::resource("motherpregnant", "App\Http\Controllers\Transactions\PregnantMotherController")->middleware('auth');
 
@@ -101,6 +104,14 @@ Route::prefix('export')->name('export.')->group(function () {
 
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportDTKSCitizen", "App\Http\Controllers\Transactions\CitizenController@exportDtksCitizen")->name('exportDtksCitizen');
+});
+
+Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportKidsWeight", "App\Http\Controllers\Transactions\KidsWeightController@exportKidsWeight")->name('exportKidsWeight');
+});
+
+Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportMotherKb", "App\Http\Controllers\Transactions\MotherKbController@exportMotherKb")->name('exportMotherKb');
 });
 
 //import route

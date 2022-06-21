@@ -13,7 +13,7 @@
                         class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
                 <!-- <a class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" href="{{ route('citizens.export') }}"><i class="mdi mdi-file-excel text-white"></i> Export Data</a>  -->
                 <a href="{{url('export/exportCitizen?nik='.$nik.'&kk='.$kk.'&name='.$name.'&gender='.$genderSelected.'&date_birth='.$date_birth.'&date_birth2='.$date_birth2.'&place_birth='.
-                    $place_birth.'&address='.$address.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
+                    $place_birth.'&address='.$address.'&newcomer='.$newcomer.'&religion='.$religionSelected.'&family_status='.$familyStatusSelected.'&blood='.$bloodSelected.'&job='.
                     $job.'&phone='.$phone.'&vaccine_1='.$vaccine1Selected.'&vaccine_2='.$vaccine2Selected.'&vaccine_3='.$vaccine3Selected.
                     '&rt='.$rtSelected.'&rw='.$rwSelected.'&village='.$villageSelected.'&sub_districs='.$sub_districsSelected
                     .'&province='.$provinceSelected.'&health_assurance='.$healthAssurancesSelected.'&lastEducation='.$last_educationSelected)}}" class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
@@ -377,6 +377,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Pendatang</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="newcomer">
+                                                        <option value="">-- Pilih Status --</option>
+                                                        <option value="ya">Ya</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     {{-- <p class="card-description my-3 text-muted">
                                         Status Vaksinasi
@@ -563,7 +574,14 @@
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
-                                            {!! $data->date_birth !!}</span></span>
+                                            {!! $data->date_birth !!}
+                                            @php
+                                        $birthDate = new DateTime($data->date_birth);
+                                        $today = new DateTime("today");
+                                        $y = $today->diff($birthDate)->y; 
+                                        $m = $today->diff($birthDate)->m; 
+                                        $d = $today->diff($birthDate)->d; 
+                                        @endphp <b>({{ $y }} Tahun {{ $m }} Bulan {{ $d }} hari)</b></span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
                                         <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }}<b> RT : </b>{{ $data->rt ?? '-' }}<b> RW : </b>
@@ -600,13 +618,12 @@
                                 @endif
                                 </td>
                                 <td>
-                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
-                                        <div class="btn-group">
+                                   
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
 
-                                            <a href="/citizens/{{ $data->uuid }}/show"
+                                            <a href="/citizens/{{ $data->uuid }}/showkk"
                                                     class="dropdown-item"><i class="mdi mdi-account-card-details"></i>  Lihat KK</a>
                                                 <div class="dropdown-divider"></div>
 
@@ -642,8 +659,7 @@
                                                 </form>
 
                                             </div>
-                                        </div>
-                                    </div>
+                                   
                                 </td>
                             </tr>
                             @endforeach

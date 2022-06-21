@@ -99,17 +99,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/motherkb">
-                        <i class="mdi mdi-chart-pie menu-icon"></i>
-                        <span class="menu-title">Data Ibu KB</span>
-                      </a>
+                        <a class="nav-link" href="/motherkb">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Ibu KB</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/motherpregnant">
-                          <i class="mdi mdi-chart-pie menu-icon"></i>
-                          <span class="menu-title">Data Ibu Hamil</span>
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Ibu Hamil</span>
                         </a>
-                      </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kidsweight">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Timbang Anak</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item sidebar-category">
                         <p>Pengaturan</p>
@@ -136,7 +142,8 @@
                                 <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia
                                     </a></li>
                                 <li class="nav-item"> <a class="nav-link" href="/kb"> Jenis KB </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="/ims"> Jenis Imunisasi </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/ims"> Jenis Imunisasi </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
