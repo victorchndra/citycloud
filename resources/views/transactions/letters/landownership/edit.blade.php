@@ -72,7 +72,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="col-md-6 form-group">
+                                                {{-- <div class="col-md-6 form-group">
                                                     <label>RT</label>
                                                     <select id="letter_rt" class="form-control" name="letter_rt"
                                                         style="width: 100%;" required>
@@ -82,17 +82,80 @@
                                                                 {{ $rt->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="col-md-6 form-group">
+                                                    <label>RT</label>
+                                                    <select class="form-control @error('letter_rt') is-invalid @enderror"
+                                                        name="letter_rt" id="letter_rt" required>                                                        
+                                                        <option value="001"
+                                                            @if (!empty($c) && $c->letter_rt == '001') {{ 'selected' }} @endif>
+                                                            001</option>
+                                                        <option value="002"
+                                                            @if (!empty($c) && $c->letter_rt == '002') {{ 'selected' }} @endif>
+                                                            002</option>
+                                                        <option value="003"
+                                                            @if (!empty($c) && $c->letter_rt == '003') {{ 'selected' }} @endif>
+                                                            003</option>
+                                                        <option value="004"
+                                                            @if (!empty($c) && $c->letter_rt == '004') {{ 'selected' }} @endif>
+                                                            004</option>
+                                                        <option value="005"
+                                                            @if (!empty($c) && $c->letter_rt == '005') {{ 'selected' }} @endif>
+                                                            005</option>
+                                                        <option value="006"
+                                                            @if (!empty($c) && $c->letter_rt == '006') {{ 'selected' }} @endif>
+                                                            006</option>
+                                                        <option value="007"
+                                                            @if (!empty($c) && $c->letter_rt == '007') {{ 'selected' }} @endif>
+                                                            007</option>
+                                                        <option value="008"
+                                                            @if (!empty($c) && $c->letter_rt == '008') {{ 'selected' }} @endif>
+                                                            008</option>
+                                                        <option value="009"
+                                                            @if (!empty($c) && $c->letter_rt == '009') {{ 'selected' }} @endif>
+                                                            009</option>
+                                                        <option value="010"
+                                                            @if (!empty($c) && $c->letter_rt == '010') {{ 'selected' }} @endif>
+                                                            010</option>
+                                                        <option value="011"
+                                                            @if (!empty($c) && $c->letter_rt == '011') {{ 'selected' }} @endif>
+                                                            011</option>
+                                                        <option value="012"
+                                                            @if (!empty($c) && $c->letter_rt == '012') {{ 'selected' }} @endif>
+                                                            012</option>
+                                                        <option value="013"
+                                                            @if (!empty($c) && $c->letter_rt == '013') {{ 'selected' }} @endif>
+                                                            013</option>
+                                                        <option value="014"
+                                                            @if (!empty($c) && $c->letter_rt == '014') {{ 'selected' }} @endif>
+                                                            014</option>
+                                                        <option value="015"
+                                                            @if (!empty($c) && $c->letter_rt == '015') {{ 'selected' }} @endif>
+                                                            015</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-md-6 form-group">
                                                     <label>RW</label>
-                                                    <select id="letter_rw" class="form-control" name="letter_rw"
-                                                        style="width: 100%;" required>
-                                                        @foreach ($rws as $rw)
-                                                            <option value="{{ $rw->name }}"
-                                                                @if ($rwSelected == $rw->name) value="{{ old('letter_vilage', $c->letter_vilage) }}" @endif>
-                                                                {{ $rw->name }}</option>
-                                                        @endforeach
+                                                    <select class="form-control @error('letter_rw') is-invalid @enderror"
+                                                        name="letter_rw" id="letter_rw" required>
+                                                        
+                                                        <option value="001"
+                                                            @if (!empty($c) && $c->letter_rw == '001') {{ 'selected' }} @endif>
+                                                            001</option>
+                                                        <option value="002"
+                                                            @if (!empty($c) && $c->letter_rw == '002') {{ 'selected' }} @endif>
+                                                            002</option>
+                                                        <option value="003"
+                                                            @if (!empty($c) && $c->letter_rw == '003') {{ 'selected' }} @endif>
+                                                            003</option>
+                                                        <option value="004"
+                                                            @if (!empty($c) && $c->letter_rw == '004') {{ 'selected' }} @endif>
+                                                            004</option>
+                                                        <option value="005"
+                                                            @if (!empty($c) && $c->letter_rw == '005') {{ 'selected' }} @endif>
+                                                            005</option>                                                        
                                                     </select>
                                                 </div>
 
@@ -147,7 +210,7 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                
+
 
                                                 <div class="col-md-6 form-group">
                                                     <label>Batas Sebelah Utara</label>
@@ -256,7 +319,7 @@
                                                 </div>
 
                                                 <div class="col-md-6 form-group">
-                                                   <label>Saksi 1</label>
+                                                    <label>Saksi 1</label>
                                                     <input type="text" name="letter_evidence1"
                                                         class="form-control @error('letter_evidence1') is-invalid @enderror"
                                                         placeholder="Tahun Pemberian Tanah " required
@@ -269,7 +332,7 @@
                                                 </div>
 
                                                 <div class="col-md-6 form-group">
-                                                   <label>Saksi 2</label>
+                                                    <label>Saksi 2</label>
                                                     <input type="text" name="letter_evidence2"
                                                         class="form-control @error('letter_evidence2') is-invalid @enderror"
                                                         placeholder="Tahun Pemberian Tanah " required
@@ -280,7 +343,7 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                            
+
 
                                                 <div class="col-md-12 form-group">
                                                     <label>Tgl Surat</label>
@@ -308,16 +371,17 @@
                                                         <div class="form-group">
 
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" value="wet"
-                                                                    name="signature" id="wet" checked>
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="wet" name="signature" id="wet"
+                                                                    checked>
                                                                 <label class="form-check-label" for="wet">
                                                                     Basah
                                                                 </label>
                                                             </div>
 
                                                             <div class="form-check" name="sep" id="sep">
-                                                                <input class="form-check-input" type="radio" value="digital"
-                                                                    name="signature" id="digital">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="digital" name="signature" id="digital">
                                                                 <label class="form-check-label" for="digital">
                                                                     Digital
                                                                 </label>

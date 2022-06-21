@@ -145,32 +145,41 @@
                                 <label>Jenis Imunisasi</label>
                                 <select class="form-control @error('imunitation') is-invalid @enderror" name="imunitation"
                                     id="imunitation" required>
-                                    <option value="" @if (!empty($data) && $data->imunitation == '') {{ 'selected' }} @endif>
+                                    <option value="" 
+                                    @if (!empty($data) && $data->imunitation == '') {{ 'selected' }} @endif>
                                         TIDAK ADA</option>
                                     <option value="HEPATITIS B"
                                         @if (!empty($data) && $data->imunitation == 'HEPATITIS B') {{ 'selected' }} @endif>
                                         HEPATITIS B</option>
-                                    <option value="DPT-1" @if (!empty($data) && $data->imunitation == 'DPT-1') {{ 'selected' }} @endif>
+                                    <option value="DPT-1" 
+                                    @if (!empty($data) && $data->imunitation == 'DPT-1') {{ 'selected' }} @endif>
                                         DPT-1</option>
-                                    <option value="POLIO-2" @if (!empty($data) && $data->imunitation == 'POLIO-2') {{ 'selected' }} @endif>
+                                    <option value="POLIO-2"
+                                    @if (!empty($data) && $data->imunitation == 'POLIO-2') {{ 'selected' }} @endif>
                                         POLIO-2</option>
                                     <option value="BCG (BACILLUS CALMETTE GUERIN)"
                                         @if (!empty($data) && $data->imunitation == 'BCG (BACILLUS CALMETTE GUERIN)') {{ 'selected' }} @endif>
                                         BCG (BACILLUS CALMETTE GUERIN)</option>
-                                    <option value="TDPT-2" @if (!empty($data) && $data->imunitation == 'TDPT-2') {{ 'selected' }} @endif>
+                                    <option value="TDPT-2" 
+                                    @if (!empty($data) && $data->imunitation == 'TDPT-2') {{ 'selected' }} @endif>
                                         TDPT-2</option>
-                                    <option value="POLIO-3" @if (!empty($data) && $data->imunitation == 'POLIO-3') {{ 'selected' }} @endif>
+                                    <option value="POLIO-3" 
+                                    @if (!empty($data) && $data->imunitation == 'POLIO-3') {{ 'selected' }} @endif>
                                         POLIO-3</option>
-                                    <option value="POLIO-1" @if (!empty($data) && $data->imunitation == 'POLIO-1') {{ 'selected' }} @endif>
+                                    <option value="POLIO-1" 
+                                    @if (!empty($data) && $data->imunitation == 'POLIO-1') {{ 'selected' }} @endif>
                                         POLIO-1</option>
-                                    <option value="DPT-3" @if (!empty($data) && $data->imunitation == 'DPT-3') {{ 'selected' }} @endif>
+                                    <option value="DPT-3" 
+                                    @if (!empty($data) && $data->imunitation == 'DPT-3') {{ 'selected' }} @endif>
                                         DPT-3</option>
-                                    <option value="CAMPAK" @if (!empty($data) && $data->imunitation == 'CAMPAK') {{ 'selected' }} @endif>
+                                    <option value="CAMPAK"
+                                    @if (!empty($data) && $data->imunitation == 'CAMPAK') {{ 'selected' }} @endif>
                                         CAMPAK</option>
                                     <option value="VITAMIN C"
                                         @if (!empty($data) && $data->imunitation == 'VITAMIN C') {{ 'selected' }} @endif>
                                         VITAMIN C</option>
-                                    <option value="IVP" @if (!empty($data) && $data->imunitation == 'IVP') {{ 'selected' }} @endif>
+                                    <option value="IVP"
+                                    @if (!empty($data) && $data->imunitation == 'IVP') {{ 'selected' }} @endif>
                                         IVP</option>
                                 </select>
                             </div>
