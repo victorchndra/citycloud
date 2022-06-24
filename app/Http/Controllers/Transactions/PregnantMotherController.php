@@ -13,6 +13,9 @@ use App\Models\Masters\Information;
 use App\Models\Masters\KB;
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\PregnantMother;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Exports\PregnantMotherExport;
 
 class PregnantMotherController extends Controller
 {
@@ -25,7 +28,7 @@ class PregnantMotherController extends Controller
     {
         $citizen = Citizens::get();
         $datas = PregnantMother::paginate(10);
-        // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
+        // $datas = PregnantMother::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.motherpregnant.index', compact('datas', 'citizen'));
@@ -75,12 +78,12 @@ class PregnantMotherController extends Controller
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
-        PregnantMother::create($validatedData);
-        $data = PregnantMother::get()->where('uuid')->firstOrFail();
+      
+        $panggil = PregnantMother::create($validatedData);
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data Ibu Hamil <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu Hamil <strong>[' . $panggil->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
@@ -189,5 +192,52 @@ class PregnantMotherController extends Controller
         $data->delete();
 
         return redirect('/motherpregnant')->with('success', 'Data berhasil dihapus!');
+    }
+
+    public function exportPregnantMother(Request $request)
+    { 
+        $data =  PregnantMother::latest()->filter(
+            request([
+                'citizen_id', 'weight', 'height', 'pregnant_to', 'gestational_age', 'disease', 'lila','check_pregnancy',
+                'number_live','number_death','meninggal','tt1','tt2','tt3','tt4','tt5',
+            ]));
+
+        $citizen_id  =  $request->get('citizen_id');
+        $weight    =  $request->get('weight');
+        $height    =  $request->get('height');
+        $pregnant_to = $request->get('pregnant_to');
+        $gestational_age    =  $request->get('gestational_age');
+        $disease = $request->get('disease');
+        $lila = $request->get('lila');
+        $check_pregnancy    =  $request->get('check_pregnancy');
+        $number_live = $request->get('number_live');
+        $number_death = $request->get('number_death');
+        $meninggal = $request->get('meninggal');
+        $tt1 = $request->get('tt1');
+        $tt2 = $request->get('tt2');
+        $tt3 = $request->get('tt3');
+        $tt4 = $request->get('tt4');
+        $tt5 = $request->get('tt5');
+
+
+        // $data = Citizens::orderBy('kk', 'desc');
+        $data->orderBy('id', 'desc');
+
+        $datas = $data->get();
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> semua data Ibu Hamil', //name = nama tag di view (file index)
+            'category' => 'ekspor',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+
+        return Excel::download(new PregnantMotherExport(
+            $datas
+        ), 'Laporan Ibu Hamil.xls');
     }
 }

@@ -114,6 +114,11 @@ Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportMotherKb", "App\Http\Controllers\Transactions\MotherKbController@exportMotherKb")->name('exportMotherKb');
 });
 
+
+Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportPregnantMother", "App\Http\Controllers\Transactions\PregnantMotherController@exportPregnantMother")->name('exportPregnantMother');
+});
+
 //import route
 Route::post('/citizens/import', 'App\Http\Controllers\Transactions\CitizenController@importCitizen')->name('citizens.import');
 // Route::get('/citizens/{citizens:uuid}', [CitizenController::class, 'deathCheck'])->middleware('auth');
