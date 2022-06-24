@@ -25,10 +25,6 @@ class KidsWeightMonthController extends Controller
      */
     public function index(request $request)
     {
-        // $datas = KidsWeight::select('citizens.*','kids_weights.*')
-        //                     ->join('citizens','citizens.id','=','kids_weights.citizen_id')
-        //                     // ->where('')
-        //                     ->first()->paginate(10);
         $datas = Citizens::select('citizens.*','kids_weights.*')
                             ->where('kids_weights.deleted_at', null)
                             ->join('kids_weights', 'kids_weights.citizen_id', '=', 'citizens.id')

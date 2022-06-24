@@ -10,7 +10,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th colspan=20 rowspan=2 style="vertical-align:center;text-align:center;"><strong> LAPORAN MOTHER KB</strong></th>
+                <th colspan=6 rowspan=2 style="vertical-align:center;text-align:center;"><strong> LAPORAN IBU KB</strong></th>
             </tr>
             <tr>
                 <th colspan=27>&nbsp;</th>
