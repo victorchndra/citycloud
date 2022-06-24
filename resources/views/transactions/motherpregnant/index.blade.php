@@ -23,6 +23,13 @@
                     <a href="/motherpregnant" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                     <a href="/motherpregnant/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
+                            
+                    <a href="{{ url('export/exportPregnantMother?citizen_id=' . $citizen_id . '&weight=' . $weight . '&height=' . $height .
+                     '&pregnant_to=' . $pregnant_to . '&gestational_age'. $gestational_age . '&disease=' . $disease . '&lila='. $lila . 
+                     '&check_pregnancy='. $check_pregnancy . '&number_lives=' . $number_lives . '&number_death=' . $number_death .
+                     '&meninggal=' . $meninggal . '&tt1='. $tt1 . '&tt2='. $tt2. '&tt3='. $tt3. '&tt4='. $tt4. '&tt5='. $tt5) }}"
+                            class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
+                        
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
                             <thead>
