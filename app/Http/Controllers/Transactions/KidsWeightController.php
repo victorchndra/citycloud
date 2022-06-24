@@ -26,8 +26,8 @@ class KidsWeightController extends Controller
     public function index(Request $request)
     {
         //
-        $datas = KidsWeight::first()->paginate(20);
-        $data = KidsWeight::latest()->filter(
+        $datas = KidsWeight::select()->paginate(20);
+        $data= KidsWeight::latest()->filter(
             request([
                 'nik', 'name', 'weight', 'height', 'head_width', 'imdb', 'method_measure', 'vitamin', 'kms', 'imunitation', 'booster', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'notes'
             ])
