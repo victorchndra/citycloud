@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th>#</th>
-                <th>Mother Id</th>
+                <th>NIK</th>
                 <th>Nama Ibu</th>
                 <th>Nama Alamat</th>
                 <th>Nama KB</th>
@@ -30,7 +30,7 @@
                 @foreach ($datas as $key => $data)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>'{{ $data->mother_id }}</td>
+                        <td>'{{ $data->citizensKB->nik }}</td>
                         <td>'{{ $data->motherUser->name }}</td>
                         <td>'{{ $data->motherUser->address }}</td>
                         <td>{{ $data->kb_name }}</td>

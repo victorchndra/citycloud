@@ -93,6 +93,7 @@
                                 <th>Orang Tua</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Tanggal Lahir</th>
+                                <th>Umur</th>
                                 <th>KMS</th>
                                 <th>Aksi</th>
                             </tr>
@@ -105,6 +106,15 @@
                                 <td>{{ $data->father_name }} & {{ $data->mother_name }}</td>
                                 <td>{{ ucwords($data->gender) }}</td>
                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->date_birth)->isoFormat('DD MMMM YYYY') }}</td>
+                                <td>
+                                    @php
+                                        $birthDate = new DateTime($data->date_birth);
+                                        $today = new DateTime("today");
+                                        $y = $today->diff($birthDate)->y;
+                                        $m = $today->diff($birthDate)->m;
+                                        $d = $today->diff($birthDate)->d;
+                                    @endphp <b>{{ $y }} tahun<br>{{ $m }} bulan<br>{{ $d }} hari</b></span>
+                                </td>
                                 <td>@if (isset($data->children->kms) && $data->children->kms == 1) Ya @elseif ((isset($data->children->kms) && $data->children->kms == 0)) Tidak @else - @endif</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary  dropdown-toggle"

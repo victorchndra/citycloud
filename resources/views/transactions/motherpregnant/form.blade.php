@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <label for="name">Berat Badan Sebelum Dan Sesudah Hamil</label>
+                        <label for="name">Berat Badan</label>
                         <input type="text" name="weight" class="form-control @error('weight') is-invalid @enderror" id="weight"
                             placeholder="Berat Badan Sebelum Dan Sesudah Hamil" required autofocus value="{{ old('weight') }}">
                         @error('weight')
@@ -131,8 +131,10 @@
             <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="name">tt1</label>
-                        <input type="text" name="tt1" class="form-control @error('tt1') is-invalid @enderror" id="tt1"
-                            placeholder="tt1" required autofocus value="{{ old('tt1') }}">
+                        <select name="tt1" id="tt1" class="form-control" required>
+                            <option value="ya">Ya</option>
+                            <option value="tidak">Tidak</option>
+                        </select>
                         @error('tt1')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -141,8 +143,10 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="name">tt2</label>
-                        <input type="text" name="tt2" class="form-control @error('tt2') is-invalid @enderror" id="tt2"
-                            placeholder="tt2" required autofocus value="{{ old('tt2') }}">
+                        <select name="tt2" id="tt2" class="form-control" required>
+                            <option value="ya">Ya</option>
+                            <option value="tidak">Tidak</option>
+                        </select>
                         @error('tt2')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -151,8 +155,10 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="name">tt3</label>
-                        <input type="text" name="tt3" class="form-control @error('tt3') is-invalid @enderror" id="tt3"
-                            placeholder="tt3" required autofocus value="{{ old('tt3') }}">
+                        <select name="tt3" id="tt3" class="form-control" required>
+                            <option value="ya">Ya</option>
+                            <option value="tidak">Tidak</option>
+                        </select>
                         @error('tt3')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -161,8 +167,10 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="name">tt4</label>
-                        <input type="text" name="tt4" class="form-control @error('tt4') is-invalid @enderror" id="tt4"
-                            placeholder="tt4" required autofocus value="{{ old('tt4') }}">
+                        <select name="tt4" id="tt4" class="form-control" required>
+                            <option value="ya">Ya</option>
+                            <option value="tidak">Tidak</option>
+                        </select>
                         @error('tt4')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -171,8 +179,10 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="name">tt5</label>
-                        <input type="text" name="tt5" class="form-control @error('tt5') is-invalid @enderror" id="tt5"
-                            placeholder="tt5" required autofocus value="{{ old('tt5') }}">
+                        <select name="tt5" id="tt5" class="form-control" required>
+                            <option value="ya">Ya</option>
+                            <option value="tidak">Tidak</option>
+                        </select>
                         @error('tt5')
                             <div class="invalid-feedback">
                                 {{ $message }}
