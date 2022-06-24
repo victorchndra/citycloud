@@ -48,7 +48,11 @@ Route::resource("kb", "App\Http\Controllers\Masters\KBController")->middleware('
 
 Route::resource("motherkb", "App\Http\Controllers\Transactions\MotherKbController")->middleware('auth');
 
+Route::resource("wuspus", "App\Http\Controllers\Transactions\WusPusController")->middleware('auth');
+
 Route::resource("kidsweight", "App\Http\Controllers\Transactions\KidsWeightController")->middleware('auth');
+
+Route::resource("kidsweightmonth", "App\Http\Controllers\Transactions\KidsWeightMonthController")->middleware('auth');
 
 Route::resource("motherpregnant", "App\Http\Controllers\Transactions\PregnantMotherController")->middleware('auth');
 

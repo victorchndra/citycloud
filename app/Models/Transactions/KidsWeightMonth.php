@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 
 use Carbon\Carbon;
 
-class KidsWeight extends Model
+class KidsWeightMonth extends Model
 {
     use HasFactory;
     use SoftDeletes;//add soft delete
@@ -126,7 +126,7 @@ class KidsWeight extends Model
     {
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
-
+    
     public function citizenUser()
     {
         return $this->belongsTo('App\Models\Transactions\Citizens', 'citizen_id', 'id');
@@ -219,6 +219,6 @@ class KidsWeight extends Model
         //                 ->orWhere('sub_districts', 'like', ($filters['sub_districts']) ? ('%' . str_replace('','%20',$filters['sub_districts']) . '%') : '')
         //                 ->orWhere('districts', 'like', ($filters['districts']) ? ('%' . str_replace('','%20',$filters['districts']) . '%') : '')
         //                 ->orWhere('province', 'like', ($filters['province']) ? ('%' . str_replace('','%20',$filters['province']) . '%') : '');
-        // }
+        // }    
     }
 }
