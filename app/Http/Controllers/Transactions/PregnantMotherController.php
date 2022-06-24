@@ -7,7 +7,7 @@ use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Database\Eloquent\Builder;
 
 use App\Models\Masters\Information;
 use App\Models\Masters\KB;
@@ -24,14 +24,39 @@ class PregnantMotherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $citizen = Citizens::get();
         $datas = PregnantMother::paginate(10);
         // $datas = PregnantMother::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
+        $data = PregnantMother::latest()->filter(
+            request([
+                'citizen_id', 'weight', 'height','pregnant_to','gestational_age',
+                'disease' ,'lila','check_pregnancy','number_lives','number_death',
+                'meninggal', 'tt1','tt2','tt3','tt4','tt5'
+            ])
+        );
+        
+        $citizen_id  =  $request->get('citizen_id');
+        $weight    =  $request->get('weight');
+        $height    =  $request->get('height');
+        $pregnant_to = $request->get('pregnant_to');
+        $gestational_age    =  $request->get('gestational_age');
+        $disease = $request->get('disease');
+        $lila = $request->get('lila');
+        $check_pregnancy    =  $request->get('check_pregnancy');
+        $number_lives = $request->get('number_live');
+        $number_death = $request->get('number_death');
+        $meninggal = $request->get('meninggal');
+        $tt1 = $request->get('tt1');
+        $tt2 = $request->get('tt2');
+        $tt3 = $request->get('tt3');
+        $tt4 = $request->get('tt4');
+        $tt5 = $request->get('tt5');
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.motherpregnant.index', compact('datas', 'citizen'));
+        return view('transactions.motherpregnant.index', compact('data','datas', 'citizen','citizen_id','weight','height','pregnant_to',
+    'gestational_age','disease','lila','check_pregnancy','number_lives','number_death','meninggal','tt1','tt2','tt3','tt4','tt5'));
     }
 
     /**
@@ -210,7 +235,7 @@ class PregnantMotherController extends Controller
         $disease = $request->get('disease');
         $lila = $request->get('lila');
         $check_pregnancy    =  $request->get('check_pregnancy');
-        $number_live = $request->get('number_live');
+        $number_lives = $request->get('number_live');
         $number_death = $request->get('number_death');
         $meninggal = $request->get('meninggal');
         $tt1 = $request->get('tt1');

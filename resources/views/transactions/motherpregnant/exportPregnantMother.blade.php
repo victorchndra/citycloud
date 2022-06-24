@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th>#</th>
-                <th>Citizen id</th>
+                {{-- <th>Citizen id</th> --}}
                 <th>Nama Ibu</th>
                 <th>Berat Badan</th>
                 <th>Tinggi Badan</th>
@@ -42,7 +42,7 @@
                 @foreach ($datas as $key => $data)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ $data->citizen_id }}</td>
+                        {{-- <td>{{ $data->citizen_id }}</td> --}}
                         <td>{{ $data->motherUser->name }}</td>
                         <td>{{ $data->weight }}</td>
                         <td>{{ $data->height }}</td>

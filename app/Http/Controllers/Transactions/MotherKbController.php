@@ -33,7 +33,7 @@ class MotherKbController extends Controller
         $data = MotherKB::latest()->filter(
             request([
                 'mother_id', 'kb_name', 'kb_date'
-            ])
+            ])->paginate(20)->withQueryString()
         );
 
         $mother_id  =  $request->get('mother_id');
