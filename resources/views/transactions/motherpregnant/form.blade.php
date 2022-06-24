@@ -133,7 +133,7 @@
                         <label for="name">tt1</label>
                         <select name="tt1" id="tt1" class="form-control" required>
                             <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="belum">Belum</option>
                         </select>
                         @error('tt1')
                             <div class="invalid-feedback">
@@ -145,7 +145,7 @@
                         <label for="name">tt2</label>
                         <select name="tt2" id="tt2" class="form-control" required>
                             <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="belum">Belum</option>
                         </select>
                         @error('tt2')
                             <div class="invalid-feedback">
@@ -157,7 +157,7 @@
                         <label for="name">tt3</label>
                         <select name="tt3" id="tt3" class="form-control" required>
                             <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="belum">Belum</option>
                         </select>
                         @error('tt3')
                             <div class="invalid-feedback">
@@ -169,7 +169,7 @@
                         <label for="name">tt4</label>
                         <select name="tt4" id="tt4" class="form-control" required>
                             <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="belum">Belum</option>
                         </select>
                         @error('tt4')
                             <div class="invalid-feedback">
@@ -181,7 +181,7 @@
                         <label for="name">tt5</label>
                         <select name="tt5" id="tt5" class="form-control" required>
                             <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="belum">Belum</option>
                         </select>
                         @error('tt5')
                             <div class="invalid-feedback">
