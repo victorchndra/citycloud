@@ -8,19 +8,20 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Masters\RT;
 use App\Models\Masters\RW;
 //panggil uuid library
-use App\Models\Masters\Information;
-
-//definisikan model
 use Illuminate\Http\Request;
 
-//use export class
+//definisikan model
 use App\Exports\CitizenExport;
+use App\Exports\ChildrenExport;
+
+//use export class
 use App\Exports\CitizenDTKSExport;
 use Illuminate\Support\Facades\DB;
+use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 //external model goes heree
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Transactions\Citizens;
 use Illuminate\Support\Facades\Storage;
@@ -2292,20 +2293,29 @@ class CitizenController extends Controller
         ), 'Laporan Penduduk.xls');
     }
 
-    // Index Data Anak
+    // Index Data Anak Posyandu
     public function indexHealthCare() {
         $now = date('Y-m-d');
         $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->paginate(20)->withQueryString();
-        return view('transactions.children.healthcare', compact('datas'));
+
+        // $place_births = Citizens::groupBy('place_birth')->get();
+        // $place_birthSelected =  $request->get('place_birth');
+
+        // $jobs = Citizens::groupBy('job')->get();
+        // $jobSelected =  $request->get('job');
+
+        return view('transactions.children.healthcare', compact(
+            'datas',
+        ));
     }
 
-    // Edit Data Anak
+    // Edit Data Anak Posyandu
     public function editHealthCare($uuid) {
         $datas = Citizens::where('uuid', $uuid)->with('children')->get();
         return view('transactions.children.edit', compact('datas'));
     }
 
-    // Store Health Care
+    // Store Posyandu
     public function storeHealthCare(Request $request, $uuid) {
         // dd(Citizens::where('nik', $request->nik)->value('id'));
         $request->validate([
@@ -2348,7 +2358,7 @@ class CitizenController extends Controller
         return redirect('/health-care')->with('success', 'Data anak berhasil diubah!');
     }
 
-    // Update Health Care
+    // Update Posyandu
     public function updateHealthCare(Request $request, $uuid) {
 
         // dd(DB::table('childrens')->get());
@@ -2386,6 +2396,30 @@ class CitizenController extends Controller
         DB::table('logs')->insert($log);
 
         return redirect('/health-care')->with('success', 'Data anak berhasil diubah!');
+    }
+
+    // Export Posyandu
+    public function exportChildren(Request $request)
+    {
+
+        // $data = Citizens::join('childrens', 'citizens.id', '=', 'childrens.citizens_id')->latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->filter(request([
+        //     'nik', 'kk', 'name', 'gender', 'place_birth', 'date_birth', 'address', 'religion', 'father_name', 'mother_name', 'weight', 'height', 'num_of_child', 'kms'
+        // ]));
+        // $datas = Citizens::join('childrens', 'citizens.id', '=', 'childrens.citizens_id')->latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->orderBy('citizens.created_at', 'desc')->get();
+        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->get();
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> data anak posyandu', //name = nama tag di view (file index)
+            'category' => 'ekspor',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+
+        return Excel::download(new ChildrenExport($datas), 'Laporan Data Anak.xls');
     }
 
 }

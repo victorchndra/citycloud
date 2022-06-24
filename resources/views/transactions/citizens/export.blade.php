@@ -10,7 +10,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th colspan=27 rowspan=2 style="vertical-align:center;text-align:center;"><strong> LAPORAN KEPENDUDUKAN</strong></th>
+                <th colspan=27 rowspan=2 style="vertical-align:center;text-align:center;"><strong> LAPORAN KEPENDUDUKAN TES</strong></th>
             </tr>
             <tr>
                 <th colspan=27>&nbsp;</th>
@@ -23,6 +23,7 @@
                 <th>Jenis Kelamin</th>
                 <th>Tempat Lahir</th>
                 <th>Tanggal Lahir</th>
+                <th>Umur</th>
                 <th>Alamat</th>
                 <th>Pekerjaan</th>
                 <th>No. Telp</th>
@@ -62,6 +63,19 @@
                 <td>{{ $data->gender }}</td>
                 <td>{{ $data->place_birth }}</td>
                 <td>{!! $data->date_birth !!}</td>
+                <td> 
+                                         @php
+                                        $birthDate = new DateTime($data->date_birth);
+                                        $today = new DateTime("today");
+                          
+                                        $y = $today->diff($birthDate)->y; 
+                                        $m = $today->diff($birthDate)->m; 
+                                        $d = $today->diff($birthDate)->d; 
+                                        echo $y ."Tahun ". $m ." Bulan ".  $d ." Hari";
+
+                                      @endphp 
+
+                                         </td>
                 <td>{{ $data->address }}</td>
                 <td>{{ $data->job }}</td>
                 <td>{{ $data->phone }}</td>

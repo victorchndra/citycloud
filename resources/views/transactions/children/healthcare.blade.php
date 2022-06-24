@@ -79,7 +79,12 @@
                 </div>
                 @endif
 
-                <div class="table-responsive pt-3">
+                <div class="table-responsive">
+                    <a href="/health-care" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
+                    <a href="{{url('export/exportChildren')}}" class="btn btn-sm btn-primary btn-fw mb-3 float-end cetakLaporan" title="Export Excel">
+                        <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel
+                    </a>
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -106,7 +111,7 @@
                                                 data-bs-toggle="dropdown" >Aksi</button>
                                     <div class="dropdown-menu">
                                         {{-- Info Button --}}
-                                        <button class="dropdown-item" data-bs-toggle="modal" data-mname="{{ $data->mother_name != null ? strtoupper($data->mother_name) : '-' }}" data-fname="{{ $data->father_name != null ? strtoupper($data->father_name) : '-' }}" data-address="{{ $data->address != null ? strtoupper($data->address) : '-' }}" data-weight="{{ isset($data->children->weight) ? $data->children->weight : '-' }}" data-height="{{ isset($data->children->height) ? $data->children->height : '-' }}" data-numofchild="{{ isset($data->children->num_of_child) ? $data->children->num_of_child : '-' }}" data-nik="{{ $data->nik =! null ? $data->nik : '-' }}" data-bpjs="{{ isset($data->children->bpjs) ? $data->children->bpjs : '-' }}" onclick="
+                                        <button class="dropdown-item" data-bs-toggle="modal" data-mname="{{ $data->mother_name != null ? strtoupper($data->mother_name) : '-' }}" data-fname="{{ $data->father_name != null ? strtoupper($data->father_name) : '-' }}" data-address="{{ $data->address != null ? strtoupper($data->address) : '-' }}" data-weight="{{ isset($data->children->weight) ? $data->children->weight . ' KG' : '-' }}" data-height="{{ isset($data->children->height) ? $data->children->height . ' CM' : '-' }}" data-numofchild="{{ isset($data->children->num_of_child) ? $data->children->num_of_child : '-' }}" data-nik="{{ $data->nik =! null ? $data->nik : '-' }}" data-bpjs="{{ isset($data->children->bpjs) ? $data->children->bpjs : '-' }}" onclick="
                                             $('#motherName').text($(this).data('mname'));
                                             $('#fatherName').text($(this).data('fname'));
                                             $('#address').text($(this).data('address'));

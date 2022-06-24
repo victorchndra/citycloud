@@ -90,6 +90,7 @@ Route::controller(UserController::class)->group(function(){
 //export route
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportCitizen", "App\Http\Controllers\Transactions\CitizenController@exportCitizen")->name('exportCitizen');
+    Route::get("exportChildren", "App\Http\Controllers\Transactions\CitizenController@exportChildren")->name('exportChildren');
 });
 
 Route::prefix('export')->name('export.')->group(function () {
