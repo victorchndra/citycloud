@@ -13,6 +13,9 @@ use App\Models\Masters\Information;
 use App\Models\Masters\KB;
 use App\Models\Transactions\Citizens;
 use App\Models\Transactions\MotherKB;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Exports\MotherKbExport;
 
 class MotherKbController extends Controller
 {
@@ -27,10 +30,20 @@ class MotherKbController extends Controller
         $kbs = KB::get();
         $kbSelected =  $request->get('rt');
         $datas = MotherKb::paginate(10);
+        $data = MotherKB::latest()->filter(
+            request([
+                'mother_id', 'kb_name', 'kb_date'
+            ])
+        );
+
+        $mother_id  =  $request->get('mother_id');
+        $kb_name    =  $request->get('kb_name');
+        $kb_date    =  $request->get('kb_date');
+
         // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.motherkb.index', compact('datas', 'kbs', 'kbSelected', 'citizen'));
+        return view('transactions.motherkb.index', compact('datas', 'kbs', 'kbSelected', 'citizen','data','mother_id','kb_name','kb_date'));
     }
 
     /**
@@ -69,20 +82,18 @@ class MotherKbController extends Controller
             'kb_date' => 'required',
         ]);
 
-        // $citizen           = Citizens::findOrFail($request->get('citizens'));
-        // $validatedData['citizen_id']     = $citizen->id;
         // $validatedData['nik'] = $citizen->nik;
         // $validatedData['name'] = $citizen->name;
 
         $validatedData['uuid'] = Uuid::uuid4()->getHex();
         $validatedData['created_by'] = Auth::user()->id;
 
-        MotherKb::create($validatedData);
+        $panggil = MotherKb::create($validatedData);
 
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $request->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $panggil->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
@@ -146,11 +157,12 @@ class MotherKbController extends Controller
         $validatedData['updated_by'] = Auth::user()->id;
 
         MotherKb::where('uuid', $uuid)->first()->update($validatedData);
+        $data = MotherKb::get()->where('uuid', $uuid)->first();
 
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $request->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -176,7 +188,7 @@ class MotherKbController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> data ibu kb <strong>[' . $data->mother_id . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data ibu KB <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'hapus',
             'created_at' => now(),
         ];
@@ -189,135 +201,123 @@ class MotherKbController extends Controller
 
     //EXPORT GOES HERE
     public function exportMotherKb(Request $request)
-    {
-
-        $motherkb = MotherKb::where('uuid', $uuid)->get();
-        $citizen = Citizens::where([
-                    ['gender', '=', 'perempuan'],
-                    ['family_status', '=', 'kepala keluarga']
-            ])->orwhere([
-                    ['gender', '=', 'perempuan'],
-                    ['family_status', '=', 'istri']
-            ])->get();
-        $kbs = KB::get();
-        $kbSelected =  $request->get('rt');
-        $datas = MotherKb::first()->paginate(10);
-        
-
-                // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
-        $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
+    { 
+        $data =  MotherKB::latest()->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
-                'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks','disability'
+                'mother_id', 'kb_name', 'kb_date',
             ]));
 
-        $nik =  $request->get('nik');
-        $kk =  $request->get('kk');
-        $name =  $request->get('name');
-        $genderSelected =  $request->get('gender');
-        $date_birth =  $request->get('date_birth');
-        $date_birth2 =  $request->get('date_birth2');
-        $place_birth =  $request->get('place_birth');
-        $address =  $request->get('address');
-        $religionSelected =  $request->get('religion');
-        $familyStatusSelected =  $request->get('family_status');
-        $healthAssurancesSelected =  $request->get('health_assurance');
-        $bloodSelected =  $request->get('blood');
-        $job =  $request->get('job');
-        $phone =  $request->get('phone');
-        $vaccine1Selected =  $request->get('vaccine_1');
-        $vaccine2Selected =  $request->get('vaccine_2');
-        $vaccine3Selected =  $request->get('vaccine_3');
-        $dtks =  $request->get('dtks');
-        $rtSelected =  $request->get('rt');
-        $rwSelected =  $request->get('rw');
-        $villageSelected =  $request->get('village');
-        $sub_districsSelected =  $request->get('sub_district');
-        $districtSelected =  $request->get('district');
-        $provinceSelected =  $request->get('province');
+        $mother_id  =  $request->get('mother_id');
+        $kb_name    =  $request->get('kb_name');
+        $kb_date    =  $request->get('kb_date');
+
+        // $nik =  $request->get('nik');
+        // $kk =  $request->get('kk');
+        // $name =  $request->get('name');
+        // $genderSelected =  $request->get('gender');
+        // $date_birth =  $request->get('date_birth');
+        // $date_birth2 =  $request->get('date_birth2');
+        // $place_birth =  $request->get('place_birth');
+        // $address =  $request->get('address');
+        // $religionSelected =  $request->get('religion');
+        // $familyStatusSelected =  $request->get('family_status');
+        // $healthAssurancesSelected =  $request->get('health_assurance');
+        // $bloodSelected =  $request->get('blood');
+        // $job =  $request->get('job');
+        // $phone =  $request->get('phone');
+        // $vaccine1Selected =  $request->get('vaccine_1');
+        // $vaccine2Selected =  $request->get('vaccine_2');
+        // $vaccine3Selected =  $request->get('vaccine_3');
+        // $dtks =  $request->get('dtks');
+        // $rtSelected =  $request->get('rt');
+        // $rwSelected =  $request->get('rw');
+        // $villageSelected =  $request->get('village');
+        // $sub_districsSelected =  $request->get('sub_district');
+        // $districtSelected =  $request->get('district');
+        // $provinceSelected =  $request->get('province');
 
 
-        if ($request->has('gender')) {
-            if (!empty($genderSelected))
-                $data->where('gender', $genderSelected);
-        }
+        // if ($request->has('gender')) {
+        //     if (!empty($genderSelected))
+        //         $data->where('gender', $genderSelected);
+        // }
 
-        if ($request->has('religion')) {
-            if (!empty($religionSelected))
-                $data->where('religion', $religionSelected);
-        }
+        // if ($request->has('religion')) {
+        //     if (!empty($religionSelected))
+        //         $data->where('religion', $religionSelected);
+        // }
 
-        if ($request->has('health_assurance')) {
-            if (!empty($healthAssurancesSelected))
-                $data->where('health_assurance', $healthAssurancesSelected);
-        }
+        // if ($request->has('health_assurance')) {
+        //     if (!empty($healthAssurancesSelected))
+        //         $data->where('health_assurance', $healthAssurancesSelected);
+        // }
 
-        if ($request->has('family_status')) {
-            if (!empty($familyStatusSelected))
-                $data->where('family_status', $familyStatusSelected);
-        }
+        // if ($request->has('family_status')) {
+        //     if (!empty($familyStatusSelected))
+        //         $data->where('family_status', $familyStatusSelected);
+        // }
 
-        if ($request->has('blood')) {
-            if (!empty($bloodSelected))
-                $data->where('blood', $bloodSelected);
-        }
+        // if ($request->has('blood')) {
+        //     if (!empty($bloodSelected))
+        //         $data->where('blood', $bloodSelected);
+        // }
 
-        if ($request->has('vaccine_1')) {
-            if (!empty($vaccine1Selected))
-                $data->where('vaccine_1', $vaccine1Selected);
-        }
+        // if ($request->has('vaccine_1')) {
+        //     if (!empty($vaccine1Selected))
+        //         $data->where('vaccine_1', $vaccine1Selected);
+        // }
 
-        if ($request->has('vaccine_2')) {
-            if (!empty($vaccine2Selected))
-                $data->where('vaccine_2', $vaccine2Selected);
-        }
+        // if ($request->has('vaccine_2')) {
+        //     if (!empty($vaccine2Selected))
+        //         $data->where('vaccine_2', $vaccine2Selected);
+        // }
 
-        if ($request->has('vaccine_3')) {
-            if (!empty($vaccine3Selected))
-                $data->where('vaccine_3', $vaccine3Selected);
-        }
+        // if ($request->has('vaccine_3')) {
+        //     if (!empty($vaccine3Selected))
+        //         $data->where('vaccine_3', $vaccine3Selected);
+        // }
 
-        if ($request->has('rt')) {
-            if (!empty($rtSelected))
-                $data->where('rt', $rtSelected);
-        }
+        // if ($request->has('rt')) {
+        //     if (!empty($rtSelected))
+        //         $data->where('rt', $rtSelected);
+        // }
 
-        if ($request->has('rw')) {
-            if (!empty($rwSelected))
-                $data->where('rw', $rwSelected);
-        }
+        // if ($request->has('rw')) {
+        //     if (!empty($rwSelected))
+        //         $data->where('rw', $rwSelected);
+        // }
 
-        if ($request->has('village')) {
-            if (!empty($villageSelected))
-                $data->where('village', $villageSelected);
-        }
+        // if ($request->has('village')) {
+        //     if (!empty($villageSelected))
+        //         $data->where('village', $villageSelected);
+        // }
 
-        if ($request->has('sub_district')) {
-            if (!empty($sub_districsSelected))
-                $data->where('sub_district', $sub_districsSelected);
-        }
+        // if ($request->has('sub_district')) {
+        //     if (!empty($sub_districsSelected))
+        //         $data->where('sub_district', $sub_districsSelected);
+        // }
 
-        if ($request->has('district')) {
-            if (!empty($districtSelected))
-                $data->where('district', $districtSelected);
-        }
+        // if ($request->has('district')) {
+        //     if (!empty($districtSelected))
+        //         $data->where('district', $districtSelected);
+        // }
 
-        if ($request->has('province')) {
-            if (!empty($provinceSelected))
-                $data->where('province', $provinceSelected);
-        }
+        // if ($request->has('province')) {
+        //     if (!empty($provinceSelected))
+        //         $data->where('province', $provinceSelected);
+        // }
 
 
 
         // $data = Citizens::orderBy('kk', 'desc');
-        $data->orderBy('kk', 'desc');
+        $data->orderBy('id', 'desc');
 
         $datas = $data->get();
 
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Export</em> semua data penduduk', //name = nama tag di view (file index)
+            'description' => '<em>Export</em> semua data Ibu KB', //name = nama tag di view (file index)
             'category' => 'ekspor',
             'created_at' => now(),
         ];
@@ -325,32 +325,32 @@ class MotherKbController extends Controller
         DB::table('logs')->insert($log);
 
 
-        return Excel::download(new CitizenExport(
-            $datas,
-            $nik,
-            $kk,
-            $name,
-            $genderSelected,
-            $date_birth,
-            $date_birth2,
-            $place_birth,
-            $religionSelected,
-            $address,
-            $familyStatusSelected,
-            $healthAssurancesSelected,
-            $bloodSelected,
-            $job,
-            $phone,
-            $vaccine1Selected,
-            $vaccine2Selected,
-            $vaccine3Selected,
-            $rtSelected,
-            $rwSelected,
-            $villageSelected,
-            $sub_districsSelected,
-            $districtSelected,
-            $provinceSelected,
+        return Excel::download(new MotherKbExport(
+            $datas
+            // $nik,
+            // $kk,
+            // $name,
+            // $genderSelected,
+            // $date_birth,
+            // $date_birth2,
+            // $place_birth,
+            // $religionSelected,
+            // $address,
+            // $familyStatusSelected,
+            // $healthAssurancesSelected,
+            // $bloodSelected,
+            // $job,
+            // $phone,
+            // $vaccine1Selected,
+            // $vaccine2Selected,
+            // $vaccine3Selected,
+            // $rtSelected,
+            // $rwSelected,
+            // $villageSelected,
+            // $sub_districsSelected,
+            // $districtSelected,
+            // $provinceSelected,
 
-        ), 'Laporan Penduduk.xls');
+        ), 'Laporan Ibu KB.xls');
     }
 }

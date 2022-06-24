@@ -16,8 +16,9 @@
                                     required>
                                     <option selected="selected" value="">Ketik Nama atau NIK</option>
                                     @foreach ($citizen as $citizens)
-                                        <option value="{{ $citizens->name }}">{{ $citizens->nik }} -
-                                            {{ $citizens->name }}</option>
+                                        <option value="{{ $citizens->id }}">
+                                            {{ $citizens->nik }} - {{ $citizens->name }}
+                                        </option>
                                     @endforeach
                                 </select> 
                                 </select>

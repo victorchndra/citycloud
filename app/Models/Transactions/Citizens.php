@@ -318,6 +318,7 @@ class Citizens extends Model
         if(isset($filters['gender'])) {
             $q->where('gender', 'like', str_replace('','%20',$filters['gender']))->get();
         }
+        
         if(isset($filters['blood'])) {
             $q->where('blood', 'like', str_replace('','%20',$filters['blood']))->get();
         }
@@ -340,6 +341,12 @@ class Citizens extends Model
         if(isset($filters['vaccine_3'])) {
             $q->where('vaccine_3', ($filters['vaccine_3']))->get();
         }
+
+        if(isset($filters['newcomer'])) {
+            $q->where('newcomer', ($filters['newcomer']))->get();
+        }
+        
+        
 
         if(isset($filters['move_date'])) {
             $q->where('move_date', 'like', ($filters['move_date']) ? ('%' . str_replace('','%20',$filters['move_date']) . '%') : '')->get();

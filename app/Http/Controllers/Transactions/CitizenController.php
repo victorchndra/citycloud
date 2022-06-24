@@ -8,19 +8,20 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Masters\RT;
 use App\Models\Masters\RW;
 //panggil uuid library
-use App\Models\Masters\Information;
-
-//definisikan model
 use Illuminate\Http\Request;
 
-//use export class
+//definisikan model
 use App\Exports\CitizenExport;
+use App\Exports\ChildrenExport;
+
+//use export class
 use App\Exports\CitizenDTKSExport;
 use Illuminate\Support\Facades\DB;
+use App\Models\Masters\Information;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 //external model goes heree
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Transactions\Citizens;
 use Illuminate\Support\Facades\Storage;
@@ -46,7 +47,7 @@ class CitizenController extends Controller
             $datas = Citizens::latest()->filter(
                 request([
                     'name', 'nik', 'kk', 'gender', 'date_birth','date_birth2','address', 'place_birth', 'religion', 'family_status', 'blood',
-                    'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                    'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date','newcomer',
                     'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','disability'
                 ])
             )->whereNull('death_date')->whereNull('move_date')->paginate(20)->withQueryString();
@@ -119,6 +120,7 @@ class CitizenController extends Controller
         $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
+        $newcomer =  $request->get('newcomer');
         $familyStatusSelected =  $request->get('family_status');
         $bloodSelected =  $request->get('blood');
         $job =  $request->get('job');
@@ -133,6 +135,11 @@ class CitizenController extends Controller
         if ($request->has('gender')) {
             if (!empty($genderSelected))
                 $datas->where('gender', $genderSelected);
+        }
+
+        if ($request->has('newcomer')) {
+            if (!empty($newcomer))
+                $datas->where('newcomer', $newcomer);
         }
 
         if ($request->has('job')) {
@@ -233,6 +240,7 @@ class CitizenController extends Controller
             'disabilitys',
             'place_birth',
             'address',
+            'newcomer',
             'religionSelected',
             'familyStatusSelected',
             'bloodSelected',
@@ -346,6 +354,8 @@ class CitizenController extends Controller
             'districts' => 'nullable',
             'province' => 'nullable',
             'address' => 'required',
+            'newcomer' => 'nullable',
+            'in_date' => 'nullable',
             'dtks'=> 'required',
             'last_education' => 'nullable',
             'health_assurance' => 'nullable',
@@ -505,6 +515,8 @@ class CitizenController extends Controller
             'districts' => 'nullable',
             'province' => 'nullable',
             'address' => 'nullable',
+            'newcomer' => 'nullable',
+            'in_date' => 'nullable',
             'dtks'=> 'nullable',
             'disability'=> 'nullable',
             'last_education' => 'nullable',
@@ -566,6 +578,18 @@ class CitizenController extends Controller
 
             $data = Citizens::where('uuid', '=', $uuid)->first();
             $families = Citizens::where('kk','=',$data->kk)->orderBy('family_status','desc')->get();
+            // $families = Citizens::where('kk',$data->kk)->orderBy('family_status','desc')->get();
+
+            return view('transactions.citizens.show', compact('citizen','families','data'));
+        }
+
+        public function showKKActive($uuid)
+        {
+
+            $citizen = Citizens::where('uuid', $uuid)->whereNull('death_date')->whereNull('move_date')->get();
+
+            $data = Citizens::where('uuid', '=', $uuid)->first();
+            $families = Citizens::where('kk','=',$data->kk)->orderBy('family_status','desc')->whereNull('death_date')->whereNull('move_date')->get();
             // $families = Citizens::where('kk',$data->kk)->orderBy('family_status','desc')->get();
 
             return view('transactions.citizens.show', compact('citizen','families','data'));
@@ -2049,6 +2073,7 @@ class CitizenController extends Controller
                     $villageSelected,
                     $sub_districsSelected,
                     $districtSelected,
+                    $dtks,
                     $provinceSelected,
 
                 ), 'Laporan Penduduk DTKS.xls');
@@ -2119,7 +2144,7 @@ class CitizenController extends Controller
                 // ,'nik','kk','gender','date_birth','place_birth','religion','family_status','blood','job','phone','marriage','vaccine_1','vaccine_2','vaccine_3','move_date','death_date','rt','rw','village','sub_districts','districts','province'
         $data = Citizens::latest()->whereNull('death_date')->whereNull('move_date')->filter(
             request([
-                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address', 'place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
+                'name', 'nik', 'kk', 'gender', 'date_birth', 'date_birth2', 'address','newcomer','place_birth', 'religion', 'family_status', 'blood', 'job', 'phone', 'marriage', 'vaccine_1', 'vaccine_2', 'vaccine_3', 'move_date', 'death_date',
                 'rt', 'rw', 'village', 'sub_districts', 'districts', 'province', 'last_education', 'health_assurance','dtks','disability'
             ]));
 
@@ -2131,6 +2156,7 @@ class CitizenController extends Controller
         $date_birth2 =  $request->get('date_birth2');
         $place_birth =  $request->get('place_birth');
         $address =  $request->get('address');
+        $newcomer =  $request->get('newcomer');
         $religionSelected =  $request->get('religion');
         $familyStatusSelected =  $request->get('family_status');
         $healthAssurancesSelected =  $request->get('health_assurance');
@@ -2248,6 +2274,7 @@ class CitizenController extends Controller
             $place_birth,
             $religionSelected,
             $address,
+            $newcomer,
             $familyStatusSelected,
             $healthAssurancesSelected,
             $bloodSelected,
@@ -2266,20 +2293,29 @@ class CitizenController extends Controller
         ), 'Laporan Penduduk.xls');
     }
 
-    // Index Data Anak
+    // Index Data Anak Posyandu
     public function indexHealthCare() {
         $now = date('Y-m-d');
-        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with('children')->paginate(20)->withQueryString();
-        return view('transactions.children.healthcare', compact('datas'));
+        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->paginate(20)->withQueryString();
+
+        // $place_births = Citizens::groupBy('place_birth')->get();
+        // $place_birthSelected =  $request->get('place_birth');
+
+        // $jobs = Citizens::groupBy('job')->get();
+        // $jobSelected =  $request->get('job');
+
+        return view('transactions.children.healthcare', compact(
+            'datas',
+        ));
     }
 
-    // Edit Data Anak
+    // Edit Data Anak Posyandu
     public function editHealthCare($uuid) {
         $datas = Citizens::where('uuid', $uuid)->with('children')->get();
         return view('transactions.children.edit', compact('datas'));
     }
 
-    // Store Health Care
+    // Store Posyandu
     public function storeHealthCare(Request $request, $uuid) {
         // dd(Citizens::where('nik', $request->nik)->value('id'));
         $request->validate([
@@ -2322,7 +2358,7 @@ class CitizenController extends Controller
         return redirect('/health-care')->with('success', 'Data anak berhasil diubah!');
     }
 
-    // Update Health Care
+    // Update Posyandu
     public function updateHealthCare(Request $request, $uuid) {
 
         // dd(DB::table('childrens')->get());
@@ -2360,6 +2396,30 @@ class CitizenController extends Controller
         DB::table('logs')->insert($log);
 
         return redirect('/health-care')->with('success', 'Data anak berhasil diubah!');
+    }
+
+    // Export Posyandu
+    public function exportChildren(Request $request)
+    {
+
+        // $data = Citizens::join('childrens', 'citizens.id', '=', 'childrens.citizens_id')->latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->filter(request([
+        //     'nik', 'kk', 'name', 'gender', 'place_birth', 'date_birth', 'address', 'religion', 'father_name', 'mother_name', 'weight', 'height', 'num_of_child', 'kms'
+        // ]));
+        // $datas = Citizens::join('childrens', 'citizens.id', '=', 'childrens.citizens_id')->latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->orderBy('citizens.created_at', 'desc')->get();
+        $datas = Citizens::latest()->whereRaw('timestampdiff(year, date_birth, now()) < 5')->with(['children'])->get();
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> data anak posyandu', //name = nama tag di view (file index)
+            'category' => 'ekspor',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+
+        return Excel::download(new ChildrenExport($datas), 'Laporan Data Anak.xls');
     }
 
 }

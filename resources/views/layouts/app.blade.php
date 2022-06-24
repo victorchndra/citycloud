@@ -44,13 +44,13 @@
                         <span></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#citizens" aria-expanded="false"
+                            aria-controls="citizens">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Kependudukan</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="citizens">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk
                                         Aktif</a></li>
@@ -66,13 +66,13 @@
                         </div>
 
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#letter" aria-expanded="false"
+                            aria-controls="letter">
                             <i class="mdi mdi mdi-email menu-icon"></i>
                             <span class="menu-title">Surat</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="letter">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/letters">Surat Keluar</a>
                                 </li>
@@ -99,17 +99,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/motherkb">
-                        <i class="mdi mdi-chart-pie menu-icon"></i>
-                        <span class="menu-title">Data Ibu KB</span>
-                      </a>
+                        <a class="nav-link" href="/motherkb">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Ibu KB</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/motherpregnant">
-                          <i class="mdi mdi-chart-pie menu-icon"></i>
-                          <span class="menu-title">Data Ibu Hamil</span>
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Ibu Hamil</span>
                         </a>
-                      </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kidsweight">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Timbang Anak</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item sidebar-category">
                         <p>Pengaturan</p>
@@ -136,7 +142,8 @@
                                 <li class="nav-item"> <a class="nav-link" href="/agerange"> Rentang Usia
                                     </a></li>
                                 <li class="nav-item"> <a class="nav-link" href="/kb"> Jenis KB </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="/ims"> Jenis Imunisasi </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/ims"> Jenis Imunisasi </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -162,13 +169,13 @@
                         <span></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#letters" aria-expanded="false"
+                            aria-controls="letters">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Surat</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="ui-basic">
+                        <div class="collapse" id="letters">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/letters">Buat Surat</a>
                                 </li>

@@ -28,4 +28,9 @@ class Children extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
+
+    public function citizen()
+    {
+        return $this->belongsTo(Citizens::class, 'citizens_id', 'id');
+    }
 }

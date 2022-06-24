@@ -589,7 +589,14 @@
                                 <td>
 
                                     <span class="d-block mb-1"><b>TTL : </b> <span>{{ $data->place_birth ?? '-' }},
-                                            {!! $data->date_birth !!}</span></span>
+                                            {!! $data->date_birth !!}
+                                            @php
+                                        $birthDate = new DateTime($data->date_birth);
+                                        $today = new DateTime("today");
+                                        $y = $today->diff($birthDate)->y; 
+                                        $m = $today->diff($birthDate)->m; 
+                                        $d = $today->diff($birthDate)->d; 
+                                        @endphp <b>({{ $y }} Tahun {{ $m }} Bulan {{ $d }} hari)</b></span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
                                     <span class="d-block mb-1"><b>Alamat : </b> <span>{{ $data->address ?? '-' }} <b>RT :
@@ -640,8 +647,7 @@
                                         </span> <br>
                                 </td>
                                 <td>
-                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
-                                        <div class="btn-group">
+                                 
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
@@ -667,8 +673,7 @@
 
 
                                             </div>
-                                        </div>
-                                    </div>
+                                
                                 </td>
                             </tr>
                             @endforeach
