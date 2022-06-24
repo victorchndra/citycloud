@@ -111,9 +111,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/wuspus">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data WUS/PUS</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/kidsweight">
                             <i class="mdi mdi-chart-pie menu-icon"></i>
                             <span class="menu-title">Data Timbang Anak</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kidsweightmonth">
+                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <span class="menu-title">Data Timbang Anak Bulan</span>
                         </a>
                     </li>
 
