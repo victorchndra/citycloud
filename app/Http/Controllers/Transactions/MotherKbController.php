@@ -32,18 +32,18 @@ class MotherKbController extends Controller
         $datas = MotherKb::paginate(10);
         $data = MotherKB::latest()->filter(
             request([
-                'mother_id', 'kb_name', 'kb_date'
-            ])->paginate(20)->withQueryString()
-        );
+                'citizen_id', 'kb_name', 'kb_date'
+            ])
+        )->paginate(10)->withQueryString();
 
-        $mother_id  =  $request->get('mother_id');
+        $citizen_id  =  $request->get('citizen_id');
         $kb_name    =  $request->get('kb_name');
         $kb_date    =  $request->get('kb_date');
 
         // $datas = MotherKb::where('uuid', $uuid)->firstOrFail()->paginate(10);
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
-        return view('transactions.motherkb.index', compact('datas', 'kbs', 'kbSelected', 'citizen','data','mother_id','kb_name','kb_date'));
+        return view('transactions.motherkb.index', compact('datas', 'kbs', 'kbSelected', 'citizen','data','citizen_id','kb_name','kb_date'));
     }
 
     /**
@@ -77,7 +77,7 @@ class MotherKbController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'mother_id' => 'required',
+            'citizen_id' => 'required',
             'kb_name' => 'required',
             'kb_date' => 'required',
         ]);
@@ -93,7 +93,7 @@ class MotherKbController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $panggil->motherUser->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menambah</em> data Ibu KB <strong>[' . $panggil->citizenUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'tambah',
             'created_at' => now(),
         ];
@@ -103,7 +103,7 @@ class MotherKbController extends Controller
 
 
 
-        return redirect('/motherkb')->with('success', 'Data KB Berhasil Ditambah!!');
+        return redirect('/motherkb')->with('success', 'Data KB Berhasil Ditambah !');
     }
 
     /**
@@ -150,7 +150,7 @@ class MotherKbController extends Controller
     public function update(Request $request, $uuid)
     {
         $validatedData = $request->validate([
-            'mother_id' => 'required',
+            'citizen_id' => 'required',
             'kb_name' => 'required',
             'kb_date' => 'required'
         ]);
@@ -162,7 +162,7 @@ class MotherKbController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Mengubah</em> data Ibu KB <strong>[' . $data->citizenUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'edit',
             'created_at' => now(),
         ];
@@ -171,7 +171,7 @@ class MotherKbController extends Controller
         // selesai
 
 
-        return redirect('/motherkb')->with('success', 'Data KB Berhasil Diupdate !!');
+        return redirect('/motherkb')->with('success', 'Data KB Berhasil Diupdate !');
     }
 
     /**
@@ -188,7 +188,7 @@ class MotherKbController extends Controller
         $log = [
             'uuid' => Uuid::uuid4()->getHex(),
             'user_id' => Auth::user()->id,
-            'description' => '<em>Menghapus</em> data ibu KB <strong>[' . $data->motherUser->name . ']</strong>', //name = nama tag di view (file index)
+            'description' => '<em>Menghapus</em> data ibu KB <strong>[' . $data->citizenUser->name . ']</strong>', //name = nama tag di view (file index)
             'category' => 'hapus',
             'created_at' => now(),
         ];
@@ -204,10 +204,10 @@ class MotherKbController extends Controller
     { 
         $data =  MotherKB::latest()->filter(
             request([
-                'mother_id', 'kb_name', 'kb_date',
+                'citizen_id', 'kb_name', 'kb_date',
             ]));
 
-        $mother_id  =  $request->get('mother_id');
+        $citizen_id  =  $request->get('citizen_id');
         $kb_name    =  $request->get('kb_name');
         $kb_date    =  $request->get('kb_date');
 

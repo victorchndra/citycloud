@@ -376,8 +376,8 @@ class MotherKB extends Model
         return $this->belongsTo('App\Models\User', 'signed_by', 'id');
     }
 
-    public function motherUser()
+    public function citizenUser()
     {
-        return $this->belongsTo('App\Models\Transactions\Citizens', 'mother_id', 'id');
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'citizen_id', 'id');
     }
 }

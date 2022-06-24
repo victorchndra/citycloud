@@ -14,11 +14,11 @@
 
                         <div class="col-md-12 form-group">
                             <label>Pilih Penduduk</label>
-                            <select id="mother_id" class="form-control select2" name="mother_id" style="width: 100%;"
+                            <select id="citizen_id" class="form-control select2" name="citizen_id" style="width: 100%;"
                                 required>
                                 @foreach ($motherkb as $motherkbs)
-                                    <option selected="selected" value="{{ $motherkbs->mother_id }}">
-                                        {{ $motherkbs->motherUser->nik }} - {{ $motherkbs->motherUser->name }} 
+                                    <option selected="selected" value="{{ $motherkbs->citizen_id }}">
+                                        {{ $motherkbs->citizenUser->nik }} - {{ $motherkbs->citizenUser->name }} 
                                     </option>
                                 @endforeach
                             </select>

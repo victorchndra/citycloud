@@ -30,9 +30,9 @@
                 @foreach ($datas as $key => $data)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>'{{ $data->citizensKB->nik }}</td>
-                        <td>'{{ $data->motherUser->name }}</td>
-                        <td>'{{ $data->motherUser->address }}</td>
+                        <td>'{{ $data->citizenUser->nik }}</td>
+                        <td>'{{ $data->citizenUser->name }}</td>
+                        <td>'{{ $data->citizenUser->address }}</td>
                         <td>{{ $data->kb_name }}</td>
                         <td>{{ $data->kb_date }}</td>
                 @endforeach

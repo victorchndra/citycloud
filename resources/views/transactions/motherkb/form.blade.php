@@ -12,7 +12,7 @@
 
                             <div class="col-md-12 form-group">
                                 <label>Pilih Penduduk</label>
-                                <select id="mother_id" class="form-control select2" name="mother_id" style="width: 100%;"
+                                <select id="citizen_id" class="form-control select2" name="citizen_id" style="width: 100%;"
                                     required>
                                     <option selected="selected" value="">Ketik Nama atau NIK</option>
                                     @foreach ($citizen as $citizens)

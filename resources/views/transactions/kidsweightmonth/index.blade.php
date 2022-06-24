@@ -21,8 +21,8 @@
                         Data Timbang Anak
                     </p>
                     <a href="/kidsweight" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
-                    <a href="/kidsweight/create" class="btn btn-sm btn-primary btn-fw"><i
-                            class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
+                    {{-- <a href="/kidsweight/create" class="btn btn-sm btn-primary btn-fw"><i
+                            class="mdi mdi-plus-outline text-white"></i> Tambah Data</a> --}}
 
                     <a href="{{ url('export/exportKidsWeight?nik=' . $nik . '&name=' . $name . '&weight=' . $weight . '&height=' . $height . '&imdb=' . $imdbSelected . '&head_width=' . $headWidth . '&method_measure=' . $methodMeasureSelected . '&vitamin=' . $vitaminSelected . '&kms=' . $kmsSelected . '&imunitation=' . $imunitationSelected . '&booster=' . $boosterSelected . '&e1=' . $e1Selected . '&e2=' . $e2Selected . '&e3=' . $e3Selected . '&e4=' . $e4Selected . '&e5=' . $e5Selected . '&e6=' . $e6Selected . '&notes=' . $notes) }}"
                         class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">

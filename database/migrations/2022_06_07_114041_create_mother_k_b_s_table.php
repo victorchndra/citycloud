@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('mother_k_b_s', function (Blueprint $table) {
             $table->id();
             $table->string("uuid")->unique();
-            $table->string("mother_id")->nullable();
+            $table->string("citizen_id")->nullable();
             $table->string("kb_name")->nullable();
             $table->string("kb_date")->nullable();
             $table->integer("created_by")->nullable();

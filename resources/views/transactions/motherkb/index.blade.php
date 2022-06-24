@@ -23,7 +23,7 @@
                     <a href="/motherkb" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                     <a href="/motherkb/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a>
-                    <a href="{{ url('export/exportMotherKb?mother_id=' . $mother_id . '&kb_name=' . $kb_name . '&kb_date=' . $kb_date) }}"
+                    <a href="{{ url('export/exportMotherKb?citizen_id=' . $citizen_id . '&kb_name=' . $kb_name . '&kb_date=' . $kb_date) }}"
                         class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
                         
                     
@@ -46,7 +46,7 @@
                                     <tr>
                                         <td>{{ $data->id }} </td>
                                         {{-- <td>{{ $data->motherUser->name }} </td> --}}
-                                        <td>{{ $data->motherUser->name }} </td>
+                                        <td>{{ $data->citizenUser->name }} </td>
                                         <td>{{ $data->kb_name }} </td>
                                         <td>{{ $data->kb_date }} </td>
 
