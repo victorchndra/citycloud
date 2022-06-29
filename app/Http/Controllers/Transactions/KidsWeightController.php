@@ -134,7 +134,7 @@ class KidsWeightController extends Controller
     {
         $imuns = Immunization::get();
         $imunSelected =  $request->get('imuns');
-        $citizen = Citizens::orderBy('name', 'asc')->get();
+        $citizen = Citizens::orderBy('name', 'asc')->whereRaw('timestampdiff(year, date_birth, now()) < 5')->get();
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.kidsweight.form', compact('citizen', 'imuns', 'imunSelected'));
