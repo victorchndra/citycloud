@@ -131,6 +131,16 @@ class KidsWeightMonth extends Model
     {
         return $this->belongsTo('App\Models\Transactions\Citizens', 'citizen_id', 'id');
     }
+    
+    public function fatherUser()
+    {
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'father_name', 'name');
+    }
+    
+    public function motherUser()
+    {
+        return $this->belongsTo('App\Models\Transactions\Citizens', 'mother_name', 'name');
+    }
 
     public function scopeFilter($query, array $filters) {
         $q = $query;

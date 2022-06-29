@@ -23,10 +23,8 @@
                     <a href="/wuspus" class="btn btn-sm btn-secondary btnReload"><i class="mdi mdi-refresh"></i></a>
                     {{-- <a href="/wuspus/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a> --}}
-                    {{-- <a href="{{ url('export/exportMotherKb?mother_id=' . $mother_id . '&kb_name=' . $kb_name . '&kb_date=' . $kb_date) }}"
-                        class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel"> --}}
-                        
-                    
+                    <a href="{{ url('export/exportWusPus?citizen_id=' . $citizen_id . '&date_birth=' . $date_birth. '&number_lives=' . $number_lives. '&number_death=' . $number_death. '&lila=' . $lila. '&tt1Selected=' . $tt1Selected. '&tt2Selected=' . $tt2Selected. '&tt3Selected=' . $tt3Selected. '&tt4Selected=' . $tt4Selected. '&tt5Selected=' . $tt5Selected. '&kb_nameSelected=' . $kb_nameSelected. '&kb_date=' . $kb_date) }}"
+                        class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
                         <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
 
                     <div class="table-responsive pt-3" >
@@ -45,7 +43,7 @@
                                     <th style="width: 100mm">Jenis Kontrasepsi</th>
                                     <th>Kesertaan JKN</th>
                                     {{-- <th>Ditambahkan</th> --}}
-                                    <th>Aksi</th>
+                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,11 +52,11 @@
                                         <td>{{ $data->id }} </td>
                                         <td>
                                             <strong>{{ $data->name }}</strong> <br>
-                                            umur : {{ \Carbon\Carbon::parse($data->date_birth)->age }}
+                                            umur : <strong>{{ \Carbon\Carbon::parse($data->date_birth)->age }} tahun</strong>
                                         </td> 
                                         <td>
                                             <strong>{{ $data->name }}</strong> <br>
-                                            {{-- umur : {{ \Carbon\Carbon::parse($data->coupleUser->date_birth)->age }} --}}
+                                            umur : <strong>{{ \Carbon\Carbon::parse($data->date_birth)->age }} tahun</strong>
                                         </td>
                                         <td> {{ $data->marriage }} </td>
                                         <td> klp dawasima belum</td>
@@ -87,7 +85,7 @@
                                                 <span>{{ $data->updated_at, 'd M Y' }}<br>
                                             @endif
                                         </td> --}}
-                                        <td>
+                                        {{-- <td>
                                             <div class="btn-group-vertical" role="group" aria-label="Basic example">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-primary dropdown-toggle"
@@ -109,7 +107,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

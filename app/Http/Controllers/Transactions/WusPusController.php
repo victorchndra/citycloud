@@ -33,78 +33,65 @@ class WusPusController extends Controller
         $datas = Citizens::select('citizens.*','mother_k_b_s.*','pregnant_mothers.*')
                     ->where('citizens.gender','perempuan')
                     ->where('mother_k_b_s.deleted_at',null)
-                    ->join('mother_k_b_s', 'mother_k_b_s.mother_id', '=', 'citizens.id')
+                    ->join('mother_k_b_s', 'mother_k_b_s.citizen_id', '=', 'citizens.id')
                     ->join('pregnant_mothers','pregnant_mothers.citizen_id', '=', 'citizens.id')
                     // ->join('citizens','citizens.nik', '=', 'citizens.nik')
                     ->paginate(10);
 
-                    // dd($datas);
+        // dd($datas);
         $kbs = KB::get();
         $kbSelected =  $request->get('rt');
-        $datass = Citizens::
-                        // where('gender','perempuan')
-                        // ->with('citizens') // bring along details of the friend
-                        // ->join('mother_k_b_s', 'mother_k_b_s.mother_id', '=', 'citizens.id')
-                        // ->get(['mother_k_b_s.*','citizens.*']) // exclude extra details from friends table
-                        paginate(10);
 
-                        // dd($datas);
-        // $data = Citizens::latest()->filter(
-        //     request([
-        //         'wuspus_id', 'couple_id', 'klp_dawasima', 'alive', 'death','size', 
-        //         'immune1', 'immune2', 'immune3', 'immune4', 'immune5',
-        //         'contraception_type', 'contraception_date', 'jkn'
-        //     ])
-        // );
+        $citizen_id  =  $request->get('citizen_id');
+        $name  =  $request->get('name');
+        $date_birth  =  $request->get('date_birth');
+        $number_lives  =  $request->get('number_lives');
+        $number_death  =  $request->get('number_death');
+        $lila  =  $request->get('lila');
+        $tt1Selected    =  $request->get('tt1');
+        $tt2Selected    =  $request->get('tt2');
+        $tt3Selected    =  $request->get('tt3');
+        $tt4Selected    =  $request->get('tt4');
+        $tt5Selected    =  $request->get('tt5');
+        $contraception_typeSelected    =  $request->get('contraception_type');
+        $kb_nameSelected    =  $request->get('kb_name');
+        $kb_date    =  $request->get('kb_date');
+        $jkn    =  $request->get('jkn');
 
-        // $wuspus_id  =  $request->get('wuspus_id');
-        // $couple_id    =  $request->get('couple_id');
-        // $status_kk    =  $request->get('status_kk');
-        // $klp_dawasima    =  $request->get('klp_dawasima');
-        // $alive    =  $request->get('alive');
-        // $death    =  $request->get('death');
-        // $size    =  $request->get('size');
-        // $immune1Selected    =  $request->get('immune1');
-        // $immune2Selected    =  $request->get('immune2');
-        // $immune3Selected    =  $request->get('immune3');
-        // $immune4Selected    =  $request->get('immune4');
-        // $immune5Selected    =  $request->get('immune5');
-        // $contraception_typeSelected    =  $request->get('contraception_type');
-        // $contraception_date    =  $request->get('contraception_date');
-        // $jkn    =  $request->get('jkn');
-
-        // if ($request->has('immune1')) {
-        //     if (!empty($immune1Selected))
-        //         $datas->where('immune1', $immune1Selected);
-        // }
+        if ($request->has('tt1')) {
+            if (!empty($tt1Selected))
+                $datas->where('tt1', $tt1Selected);
+        }
         
-        // if ($request->has('immune2')) {
-        //     if (!empty($immune2Selected))
-        //         $datas->where('immune2', $immune2Selected);
-        // }
+        if ($request->has('tt2')) {
+            if (!empty($tt2Selected))
+                $datas->where('tt2', $tt2Selected);
+        }
         
-        // if ($request->has('immune3')) {
-        //     if (!empty($immune3Selected))
-        //         $datas->where('immune3', $immune3Selected);
-        // }
+        if ($request->has('tt3')) {
+            if (!empty($tt3Selected))
+                $datas->where('tt3', $tt3Selected);
+        }
         
-        // if ($request->has('immune4')) {
-        //     if (!empty($immune4Selected))
-        //         $datas->where('immune4', $immune4Selected);
-        // }
+        if ($request->has('tt4')) {
+            if (!empty($tt4Selected))
+                $datas->where('tt4', $tt4Selected);
+        }
         
-        // if ($request->has('immune5')) {
-        //     if (!empty($immune5Selected))
-        //         $datas->where('immune5', $immune5Selected);
-        // }
+        if ($request->has('tt5')) {
+            if (!empty($tt5Selected))
+                $datas->where('tt5', $tt5Selected);
+        }
         
-        // if ($request->has('contraception_type')) {
-        //     if (!empty($contraception_typeSelected))
-        //         $datas->where('contraception_type', $contraception_typeSelected);
-        // }
+        if ($request->has('kb_name')) {
+            if (!empty($kb_nameSelected))
+                $datas->where('kb_name', $kb_nameSelected);
+        }
 
         //render view dengan variable yang ada menggunakan 'compact', method bawaan php
         return view('transactions.wuspus.index', compact('citizen','kbs','kbSelected','datas',
+                                                        'citizen_id','name','date_birth','number_lives','number_death','lila',
+                                                        'tt1Selected','tt2Selected','tt3Selected','tt4Selected','tt5Selected','kb_nameSelected','kb_date'
                                                         // 'wuspus_id','couple_id','status_kk','klp_dawasima','alive','death','size'
                                                         // ,'immune1Selected','immune2Selected','immune3Selected','immune4Selected','immune5Selected'
                                                         // ,'contraception_typeSelected','contraception_date'
@@ -186,5 +173,89 @@ return view('transactions.wuspus.form', compact('citizen','couple','kbs', 'kbSel
     public function destroy($id)
     {
         //
+    }
+
+    public function exportWusPus(Request $request)
+    {
+
+        $data = Citizens::select('citizens.*','mother_k_b_s.*','pregnant_mothers.*')
+                    ->where('citizens.gender','perempuan')
+                    ->where('mother_k_b_s.deleted_at',null)
+                    ->join('mother_k_b_s', 'mother_k_b_s.citizen_id', '=', 'citizens.id')
+                    ->join('pregnant_mothers','pregnant_mothers.citizen_id', '=', 'citizens.id');
+        // $data = Citizens::select('citizens.*','kids_weights.*','childrens.*')
+        //                     ->where('kids_weights.deleted_at', null)
+        //                     ->join('kids_weights', 'kids_weights.citizen_id', '=', 'citizens.id')
+        //                     ->join('childrens', 'childrens.citizens_id', '=', 'citizens.id');
+        // $data = KidsWeight::latest()->filter(
+        //     request([
+        //         'nik', 'name', 'weight', 'height', 'head_width', 'imdb', 'method_measure', 'vitamin', 'kms', 'imunitation', 'booster', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'notes'
+        //     ])
+        // );
+
+        $citizen_id  =  $request->get('citizen_id');
+        $name  =  $request->get('name');
+        $date_birth  =  $request->get('date_birth');
+        $number_lives  =  $request->get('number_lives');
+        $number_death  =  $request->get('number_death');
+        $lila  =  $request->get('lila');
+        $tt1Selected    =  $request->get('tt1');
+        $tt2Selected    =  $request->get('tt2');
+        $tt3Selected    =  $request->get('tt3');
+        $tt4Selected    =  $request->get('tt4');
+        $tt5Selected    =  $request->get('tt5');
+        $contraception_typeSelected    =  $request->get('contraception_type');
+        $kb_nameSelected    =  $request->get('kb_name');
+        $kb_date    =  $request->get('kb_date');
+        $jkn    =  $request->get('jkn');
+
+        if ($request->has('tt1')) {
+            if (!empty($tt1Selected))
+                $datas->where('tt1', $tt1Selected);
+        }
+        
+        if ($request->has('tt2')) {
+            if (!empty($tt2Selected))
+                $datas->where('tt2', $tt2Selected);
+        }
+        
+        if ($request->has('tt3')) {
+            if (!empty($tt3Selected))
+                $datas->where('tt3', $tt3Selected);
+        }
+        
+        if ($request->has('tt4')) {
+            if (!empty($tt4Selected))
+                $datas->where('tt4', $tt4Selected);
+        }
+        
+        if ($request->has('tt5')) {
+            if (!empty($tt5Selected))
+                $datas->where('tt5', $tt5Selected);
+        }
+        
+        if ($request->has('kb_name')) {
+            if (!empty($kb_nameSelected))
+                $datas->where('kb_name', $kb_nameSelected);
+        }
+       
+        // $data->orderBy('id', 'desc');
+
+        $datas = $data->get();
+
+        $log = [
+            'uuid' => Uuid::uuid4()->getHex(),
+            'user_id' => Auth::user()->id,
+            'description' => '<em>Export</em> semua data WUS/PUS', //name = nama tag di view (file index)
+            'category' => 'ekspor',
+            'created_at' => now(),
+        ];
+
+        DB::table('logs')->insert($log);
+
+        return Excel::download(new WusPusExport(
+            $datas,    
+
+        ), 'Laporan Data WUS dan PUS.xls');
     }
 }

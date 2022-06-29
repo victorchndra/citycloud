@@ -115,9 +115,16 @@ Route::prefix('export')->name('export.')->group(function () {
 });
 
 Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportKidsWeightMonth", "App\Http\Controllers\Transactions\KidsWeightMonthController@exportKidsWeightMonth")->name('exportKidsWeightMonth');
+});
+
+Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportMotherKb", "App\Http\Controllers\Transactions\MotherKbController@exportMotherKb")->name('exportMotherKb');
 });
 
+Route::prefix('export')->name('export.')->group(function () {
+    Route::get("exportWusPus", "App\Http\Controllers\Transactions\WusPusController@exportWusPus")->name('exportWusPus');
+});
 
 Route::prefix('export')->name('export.')->group(function () {
     Route::get("exportPregnantMother", "App\Http\Controllers\Transactions\PregnantMotherController@exportPregnantMother")->name('exportPregnantMother');

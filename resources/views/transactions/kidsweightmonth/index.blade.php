@@ -24,7 +24,7 @@
                     {{-- <a href="/kidsweight/create" class="btn btn-sm btn-primary btn-fw"><i
                             class="mdi mdi-plus-outline text-white"></i> Tambah Data</a> --}}
 
-                    <a href="{{ url('export/exportKidsWeight?nik=' . $nik . '&name=' . $name . '&weight=' . $weight . '&height=' . $height . '&imdb=' . $imdbSelected . '&head_width=' . $headWidth . '&method_measure=' . $methodMeasureSelected . '&vitamin=' . $vitaminSelected . '&kms=' . $kmsSelected . '&imunitation=' . $imunitationSelected . '&booster=' . $boosterSelected . '&e1=' . $e1Selected . '&e2=' . $e2Selected . '&e3=' . $e3Selected . '&e4=' . $e4Selected . '&e5=' . $e5Selected . '&e6=' . $e6Selected . '&notes=' . $notes) }}"
+                    <a href="{{ url('export/exportKidsWeightMonth?name=' . $name . '&nik=' . $nik . '&weight=' . $weight . '&height=' . $height) }}"
                         class="btn btn-sm btn-primary btn-fw float-end cetakLaporan" title="Export Excel">
 
                         <i class="mdi mdi-file-excel text-white"></i> Ekspor Excel</a>
@@ -35,10 +35,19 @@
                                 <tr>
                                     <th>#</th>
                                     <th>No. KK</th>
-                                    <th>Anak Ke</th>
+                                    <th>Orang Tua</th>
                                     <th>Data Anak</th>
-                                    <th>Data Lahir</th>
-                                    <th>Data Orang Tua</th>
+                                    <th>Anak Ke</th>
+                                    <th>
+                                        Tinggi Badan | Berat Badan <br>
+                                        Lingkar Kepala
+                                    </th>
+                                    {{-- <th>Lingkar Kepala</th> --}}
+                                    <th>KMS</th>
+                                    <th>IMDB</th>
+                                    <th>Vitamin</th>
+                                    <th>Imunisasi</th>
+                                    <th>Booster</th>
                                     {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
@@ -47,25 +56,31 @@
                                     <tr style="text-align: center">
                                     <th>#</th>
                                     <td> {{ $data->kk }}</td>
-                                    <td> -- Anak Ke</td>
+                                    <td align="left"> 
+                                        Ayah : <strong>{{ $data->father_name }}</strong> <br>
+                                        {{-- nik : <strong>{{ $data->fatherUser->name }}</strong> <br><br> --}}
+                                        
+                                        Ibu : <strong>{{ $data->mother_name }}</strong> 
+                                        {{-- nik : <strong>{{ $data->motherUser->name }}</strong> <br><br> --}}
+                                    </td>
                                     <td align="left"> 
                                         <strong>{{ $data->name }}</strong> <br>
                                         NIK : {{ $data->nik }} <br>
-                                        Umur : {{ \Carbon\Carbon::parse($data->date_birth)->age }} <br>
-                                        Kelamin :{{ $data->gender }}
+                                        Tgl. Lahir : {{ $data->date_birth }} <strong>[{{ \Carbon\Carbon::parse($data->date_birth)->age }} tahun]</strong> <br>
+                                        Gender : {{ $data->gender }}
                                     </td>
-                                    <td align="left"> 
-                                        Tgl. Lahir : {{ $data->date_birth }} <br>
-                                        Berat : <strong>{{ $data->weight }} kg</strong><br>
+                                    <td> {{ $data->num_of_child }}</td>
+                                    <td > 
+                                        Berat : <strong>{{ $data->weight }} kg</strong> |
                                         Tinggi : <strong>{{ $data->height }} cm</strong><br>
                                         Lingkar Kepala : <strong>{{ $data->head_width }} cm</strong>
                                     </td>
-                                    <td align="left"> 
-                                        Ayah : <strong>{{ $data->father_name }}</strong> <br>
-                                        NIK : {{ $data->father_name }} <br><br>
-                                        Ibu : <strong>{{ $data->mother_name }}</strong> <br>
-                                        NIK : {{ $data->mother_name }} 
-                                    </td>
+                                    {{-- <td> {{ $data->head_width }} cm </td> --}}
+                                    <td>@if ($data->kms == 1) Ya @elseif ($data->kms == 0)) Tidak @else - @endif</td> 
+                                    <td> {{ $data->imdb }} </td>
+                                    <td> {{ $data->vitamin }} </td>
+                                    <td> {{ $data->imunitation }} </td>
+                                    <td> {{ $data->booster }} </td>
 
                                         {{-- <td> <span>Ditambahkan Oleh: <b> {{ $data->createdUser->name }} </b></span><br>
                                             <span>{{ $data->created_at, 'd M Y' }}</span><br>
