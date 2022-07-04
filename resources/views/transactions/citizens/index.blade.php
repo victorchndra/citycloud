@@ -4,7 +4,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Penduduk</h4>
+                <h4 class="card-title">Data Penduduk Lembah Sari</h4>
                 <p class="card-description">
                     Data Penduduk Kelurahan Lembah Sari
                 </p>
@@ -578,9 +578,9 @@
                                             @php
                                         $birthDate = new DateTime($data->date_birth);
                                         $today = new DateTime("today");
-                                        $y = $today->diff($birthDate)->y; 
-                                        $m = $today->diff($birthDate)->m; 
-                                        $d = $today->diff($birthDate)->d; 
+                                        $y = $today->diff($birthDate)->y;
+                                        $m = $today->diff($birthDate)->m;
+                                        $d = $today->diff($birthDate)->d;
                                         @endphp <b>({{ $y }} Tahun {{ $m }} Bulan {{ $d }} hari)</b></span></span>
                                     <span class="d-block mb-1"><b>Telp : </b>
                                         <span>{{ $data->phone ?? '-' }}</span></span>
@@ -618,7 +618,7 @@
                                 @endif
                                 </td>
                                 <td>
-                                   
+
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown">Aksi</button>
                                             <div class="dropdown-menu">
@@ -659,7 +659,7 @@
                                                 </form>
 
                                             </div>
-                                   
+
                                 </td>
                             </tr>
                             @endforeach
