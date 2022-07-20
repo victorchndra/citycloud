@@ -44,16 +44,14 @@
                         <span></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#citizens" aria-expanded="false"
-                            aria-controls="citizens">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#citizens">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Kependudukan</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="citizens">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk
-                                        Aktif</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk Aktif</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="/family">Kartu Keluarga</a>
                                 </li>
                                 <li class="nav-item"> <a class="nav-link" href="/dtks">Penduduk DTKS</a>
@@ -66,8 +64,7 @@
                         </div>
 
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#letter" aria-expanded="false"
-                            aria-controls="letter">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#letter">
                             <i class="mdi mdi mdi-email menu-icon"></i>
                             <span class="menu-title">Surat</span>
                             <i class="menu-arrow"></i>
@@ -76,8 +73,8 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/letters">Surat Keluar</a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat
-                                        Warga</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a>
+                                </li>
                             </ul>
                         </div>
                     <li class="nav-item">

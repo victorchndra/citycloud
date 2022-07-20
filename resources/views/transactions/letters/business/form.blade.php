@@ -47,7 +47,7 @@
 
                                         <div class="col-md-12 form-group">
                                             <label>Pilih Penduduk</label>
-                                            <select id="citizens" class="form-control select2" name="citizens"
+                                            <select id="citizensselect2" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 <option selected="selected" value="">Ketik Nama atau NIK</option>
                                                 @foreach($citizen as $citizens)
@@ -178,9 +178,9 @@
                                             <label>Pilih Penduduk</label>
                                             <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
-                                              
+
                                                 <option value="{{ Auth::user()->citizens_id}}">{{ Auth::user()->name}} - {{ Auth::user()->username}}</option>
-                                  
+
                                             </select>
                                             </select>
                                         </div>
@@ -236,7 +236,7 @@
                                             </select>
                                         </div>
 
-                                      
+
                                         <div class="col-md-12 form-group">
                                             <label>Ditandatangani Oleh</label>
                                             <select id="positions" class="form-control" name="positions"
@@ -253,7 +253,7 @@
                                             </div>
                                         </div>
 
-                                      
+
                                     </div>
 
                                     </div>
@@ -272,7 +272,7 @@
 <script>
     $(document).ready(function () {
 
-        $("#citizens").select2({
+        $("#citizensselect2").select2({
             maximumSelectionLength: 3
         });
 

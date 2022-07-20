@@ -99,12 +99,12 @@ class LetterController extends Controller
             $processktpletters = LetterProcessKtp::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $processactletters = LetterProcessAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $noactletters = LetterNoAct::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            $moveletters = LetterMove::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();            
+            $moveletters = LetterMove::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $widowletters = LetterWidow::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $uniteletters = LetterUnite::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $missingletters = LetterMissing::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $movecitizenletters = LetterMoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
+
             $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($streetgoodsletter)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->
             concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($nohouseletters)->concat($letterstreets)->
             concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->
@@ -168,12 +168,12 @@ class LetterController extends Controller
             $processktpletters = LetterProcessKtp::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $processactletters = LetterProcessAct::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $noactletters = LetterNoAct::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $moveletters = LetterMove::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();            
+            $moveletters = LetterMove::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $widowletters = LetterWidow::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $uniteletters = LetterUnite::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $missingletters = LetterMissing::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $movecitizenletters = LetterMoveCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            
+
             $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreetgoods)->
             concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)
             ->concat($birthletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)
@@ -215,10 +215,10 @@ class LetterController extends Controller
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $differencenameletters = LetterDifferenceName::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $lettermagic = LetterMagic::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();            
+            $inheritanceletters = LetterInheritance::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $letterincome = LetterIncome::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $landtransactionletters = LetterLandTransaction::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
-            $letterstreetcitizen = LetterStreetCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();            
+            $letterstreetcitizen = LetterStreetCitizen::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $letterstreetgoods = LetterStreetGoods::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $holidayletters = LetterHoliday::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
             $processktpletters = LetterProcessKtp::orderBy('created_at', 'desc')->whereNot('created_by', '=', Auth::user()->id)->get();
@@ -285,11 +285,12 @@ class LetterController extends Controller
             $uniteletters = LetterUnite::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $missingletters = LetterMissing::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
             $movecitizenletters = LetterMoveCitizen::orderBy('created_at', 'desc')->where('created_by', '=', Auth::user()->id)->get();
-            
+
             $datas = $businessletters->concat($letterstreetcitizen)->concat($letterincome)->concat($letterstreetgoods)->concat($lettermagic)->concat($lettertax)->concat($notbpjsletters)->concat($pensionletters)->concat($recomendationletters)->concat($birthletters)->concat($nohouseletters)->concat($buildingletter)->concat($divorceletter)->concat($notmarriedyetletters)->concat($deathletters)->concat($poorletters)->concat($needyletters)->concat($domicileletters)->concat($familycardletters)->concat($removecitizenletters)->concat($selfquarantineletters)->concat($differencebirthletters)->concat($recomendationwork)->concat($landownerletters)->concat($collegedispensationletters)->concat($crowd)->concat($differencenameletters)->concat($inheritanceletters)->concat($landtransactionletters)
             ->concat($holidayletters)->concat($processktpletters)->concat($processactletters)->concat($noactletters)->concat($moveletters)->concat($streetletters)->concat($widowletters)->concat($uniteletters)->concat($missingletters)->concat($movecitizenletters)->SortByDesc('created_at');
 
             return view('transactions.letters.indexcitizen',  compact('datas'));
+        } else {
         }
     }
 
@@ -364,7 +365,7 @@ class LetterController extends Controller
 
             DB::table('logs')->insert($log);
             // selesai
-            
+
             return view('transactions.letters.notmarriedyet.print', compact('data', 'informations'));
         }
 
@@ -559,7 +560,7 @@ class LetterController extends Controller
             return view('transactions.letters.movecitizen.print',compact('data','informations'));
         }
 
-        
+
 
         //surat Pensiun
         if (LetterPension::where('uuid', $uuid)->exists()) {
@@ -1734,7 +1735,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN
         elseif (LetterHoliday::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterHoliday::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1757,7 +1758,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN KTP DALAM PROSES
         elseif (LetterProcessKtp::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterProcessKtp::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1780,7 +1781,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN AKTE DALAM PROSES
         elseif (LetterProcessAct::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterProcessAct::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1803,7 +1804,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN BELUM MEMILIKI AKTE
         elseif (LetterNoAct::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterNoAct::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1826,7 +1827,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN PERNYATAAN
         elseif (LetterMove::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterMove::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1849,7 +1850,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN JALAN
         elseif (LetterStreet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterStreet::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1872,7 +1873,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN JANDA/DUDA
         elseif (LetterWidow::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterWidow::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1895,7 +1896,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN RUJUK/CERAI
         elseif (LetterUnite::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterUnite::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1918,7 +1919,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN HILANG
         elseif (LetterMissing::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterMissing::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1941,7 +1942,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED ADMIN SURAT KETERANGAN PINDAH
         elseif (LetterMoveCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterMoveCitizen::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2510,7 +2511,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN KTP DALAM PROSES
         elseif (LetterProcessKtp::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterProcessKtp::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2533,7 +2534,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN AKTE DALAM PROSES
         elseif (LetterProcessAct::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterProcessAct::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2556,8 +2557,8 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
-        // REJECTED RT SURAT KETERANGAN BELUM MEMILIKI AKTE 
+
+        // REJECTED RT SURAT KETERANGAN BELUM MEMILIKI AKTE
         elseif (LetterNoAct::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterNoAct::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
@@ -2579,7 +2580,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN PERNYATAAN
         elseif (LetterMove::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterMove::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2602,7 +2603,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN JALAN
         elseif (LetterStreet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterStreet::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2625,7 +2626,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN JANDA/DUDA
         elseif (LetterWidow::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterWidow::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2648,7 +2649,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN RUJUK/CERAI
         elseif (LetterUnite::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterUnite::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2671,7 +2672,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN HILANG
         elseif (LetterMissing::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterMissing::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2694,7 +2695,7 @@ class LetterController extends Controller
 
             return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
         }
-        
+
         // REJECTED RT SURAT KETERANGAN PINDAH
         elseif (LetterMoveCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterMoveCitizen::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3369,7 +3370,7 @@ class LetterController extends Controller
 
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
-        
+
         if (LetterStreetGoods::where('uuid', $uuid)->exists()) {
             $data = LetterStreetGoods::get()->where('uuid', $uuid)->firstOrFail();
             $data->deleted_by = Auth::user()->id;
@@ -3469,7 +3470,7 @@ class LetterController extends Controller
             return redirect('/letters')->with('success', 'Surat berhasil dihapus');
         }
 
-        
+
 
         // HAPUS SURAT KETERANGAN PERNYATAAN
         if(LetterMove::where('uuid', $uuid)->exists()) {
@@ -3591,7 +3592,7 @@ class LetterController extends Controller
             return redirect('/letters')->with('success','Surat berhasil dihapus');
         }
 
-        
+
 
         // HAPUS SURAT KETERANGAN JALAN BARANG
         if(LetterStreetGoods::where('uuid', $uuid)->exists()) {
@@ -4043,8 +4044,8 @@ class LetterController extends Controller
                 // selesai
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
-            } 
-            
+            }
+
             elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
                 $data = LetterRecomendation::get()->where('uuid', $uuid)->firstOrFail();
@@ -4092,7 +4093,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN KTP DALAM PROSES
             elseif (LetterProcessKtp::where('uuid', $uuid)->exists()) {
                 $data = LetterProcessKtp::get()->where('uuid', $uuid)->firstOrFail();
@@ -4116,7 +4117,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN AKTE DALAM PROSES
             elseif (LetterProcessAct::where('uuid', $uuid)->exists()) {
                 $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
@@ -4140,7 +4141,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN BELUM MEMILIKI AKTE
             elseif (LetterNoAct::where('uuid', $uuid)->exists()) {
                 $data = LetterNoAct::get()->where('uuid', $uuid)->firstOrFail();
@@ -4164,7 +4165,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN PERNYATAAN
             elseif (LetterMove::where('uuid', $uuid)->exists()) {
                 $data = LetterMove::get()->where('uuid', $uuid)->firstOrFail();
@@ -4188,7 +4189,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN JALAN
             elseif (LetterStreet::where('uuid', $uuid)->exists()) {
                 $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
@@ -4212,7 +4213,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN JANDA/DUDA
             elseif (LetterWidow::where('uuid', $uuid)->exists()) {
                 $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
@@ -4236,7 +4237,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN RUJUK/CERAI
             elseif (LetterUnite::where('uuid', $uuid)->exists()) {
                 $data = LetterUnite::get()->where('uuid', $uuid)->firstOrFail();
@@ -4260,7 +4261,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN HILANG
             elseif (LetterMissing::where('uuid', $uuid)->exists()) {
                 $data = LetterMissing::get()->where('uuid', $uuid)->firstOrFail();
@@ -4284,7 +4285,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE ADMIN SURAT KETERANGAN PINDAH
             elseif (LetterMoveCitizen::where('uuid', $uuid)->exists()) {
                 $data = LetterMoveCitizen::get()->where('uuid', $uuid)->firstOrFail();
@@ -5630,8 +5631,8 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
-            // APPROVE RT SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN 
+
+            // APPROVE RT SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN
             elseif (LetterHoliday::where('uuid', $uuid)->exists()) {
                 $data = LetterHoliday::get()->where('uuid', $uuid)->firstOrFail();
                 $data->update([
@@ -5654,7 +5655,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN KTP DALAM PROSES
             elseif (LetterProcessKtp::where('uuid', $uuid)->exists()) {
                 $data = LetterProcessKtp::get()->where('uuid', $uuid)->firstOrFail();
@@ -5678,7 +5679,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN AKTE DALAM PROSES
             elseif (LetterProcessAct::where('uuid', $uuid)->exists()) {
                 $data = LetterProcessAct::get()->where('uuid', $uuid)->firstOrFail();
@@ -5702,7 +5703,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN BELUM MEMILIKI AKTE
             elseif (LetterNoAct::where('uuid', $uuid)->exists()) {
                 $data = LetterNoAct::get()->where('uuid', $uuid)->firstOrFail();
@@ -5726,7 +5727,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN PERNYATAAN
             elseif (LetterMove::where('uuid', $uuid)->exists()) {
                 $data = LetterMove::get()->where('uuid', $uuid)->firstOrFail();
@@ -5750,7 +5751,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN JALAN
             elseif (LetterStreet::where('uuid', $uuid)->exists()) {
                 $data = LetterStreet::get()->where('uuid', $uuid)->firstOrFail();
@@ -5774,7 +5775,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN JANDA/DUDA
             elseif (LetterWidow::where('uuid', $uuid)->exists()) {
                 $data = LetterWidow::get()->where('uuid', $uuid)->firstOrFail();
@@ -5798,7 +5799,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN RUJUK/CERAI
             elseif (LetterUnite::where('uuid', $uuid)->exists()) {
                 $data = LetterUnite::get()->where('uuid', $uuid)->firstOrFail();
@@ -5822,7 +5823,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN HILANG
             elseif (LetterMissing::where('uuid', $uuid)->exists()) {
                 $data = LetterMissing::get()->where('uuid', $uuid)->firstOrFail();
@@ -5846,7 +5847,7 @@ class LetterController extends Controller
 
                 return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
             }
-            
+
             // APPROVE RT SURAT KETERANGAN PINDAH
             elseif (LetterMoveCitizen::where('uuid', $uuid)->exists()) {
                 $data = LetterMoveCitizen::get()->where('uuid', $uuid)->firstOrFail();
