@@ -44,12 +44,12 @@
                         <span></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#citizens">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#citizensmenu">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Kependudukan</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="citizens">
+                        <div class="collapse" id="citizensmenu">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk Aktif</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="/family">Kartu Keluarga</a>

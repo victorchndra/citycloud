@@ -47,7 +47,7 @@
 
                                         <div class="col-md-12 form-group">
                                             <label>Pilih Penduduk</label>
-                                            <select id="citizensselect2" class="form-control select2" name="citizens"
+                                            <select id="citizens" class="form-control select2" name="citizens"
                                                 style="width: 100%;" required>
                                                 <option selected="selected" value="">Ketik Nama atau NIK</option>
                                                 @foreach($citizen as $citizens)
@@ -272,7 +272,7 @@
 <script>
     $(document).ready(function () {
 
-        $("#citizensselect2").select2({
+        $("#citizens").select2({
             maximumSelectionLength: 3
         });
 
