@@ -52,14 +52,10 @@
                         <div class="collapse" id="citizensmenu">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/citizens">Penduduk Aktif</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="/family">Kartu Keluarga</a>
-                                </li>
-                                <li class="nav-item"> <a class="nav-link" href="/dtks">Penduduk DTKS</a>
-                                </li>
-                                <li class="nav-item"> <a class="nav-link" href="/move">Penduduk Pindah</a>
-                                </li>
-                                <li class="nav-item"> <a class="nav-link" href="/death">Penduduk
-                                        Meninggal</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/family">Kartu Keluarga</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/dtks">Penduduk DTKS</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/move">Penduduk Pindah</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/death">Penduduk Meninggal</a></li>
                             </ul>
                         </div>
 
@@ -73,7 +69,7 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/letters">Surat Keluar</a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link" href="/letters-citizens">Surat Warga</a>
+                                <li class="nav-item"> <a class="nav-link" href="/approval">Surat Warga</a>
                                 </li>
                             </ul>
                         </div>
@@ -91,37 +87,46 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="/health-care">
-                            <i class="mdi mdi-history menu-icon"></i>
+                            <i class="mdi mdi-human-child menu-icon"></i>
                             <span class="menu-title">Data Anak</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/motherkb">
-                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <i class="mdi mdi-account-child menu-icon"></i>
                             <span class="menu-title">Data Ibu KB</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/motherpregnant">
-                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            {{-- <i class="mdi mdi-chart-pie menu-icon"></i> --}}
+                            <i class="menu-icon">
+                                <svg style="width:18px;height:18px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2C13.66 2 15 3.34 15 5S13.66 8 12 8 9 6.66 9 5 10.34 2 12 2M20 18L18 12.56C17.65 11.57 17.34 10.71 16 10C14.63 9.3 13.63 9 12 9C10.39 9 9.39 9.3 8 10C6.68 10.71 6.37 11.57 6 12.56L4 18C3.77 19.13 6.38 20.44 8.13 21.19C9.34 21.72 10.64 22 12 22C13.38 22 14.67 21.72 15.89 21.19C17.64 20.44 20.25 19.13 20 18M15.42 17.5L12 21L8.58 17.5C8.22 17.12 8 16.61 8 16.05C8 14.92 8.9 14 10 14C10.55 14 11.06 14.23 11.42 14.61L12 15.2L12.58 14.6C12.94 14.23 13.45 14 14 14C15.11 14 16 14.92 16 16.05C16 16.61 15.78 17.13 15.42 17.5Z" />
+                                </svg>
+                            </i>
                             <span class="menu-title">Data Ibu Hamil</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/wuspus">
-                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <i class="menu-icon">
+                                <svg style="width:18px;height:18px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M13.75 13C13.75 12.31 14.31 11.75 15 11.75S16.25 12.31 16.25 13 15.69 14.25 15 14.25 13.75 13.69 13.75 13M22 12V22H2V12C2 6.5 6.5 2 12 2S22 6.5 22 12M4 12C4 16.41 7.59 20 12 20S20 16.41 20 12C20 11.21 19.88 10.45 19.67 9.74C18.95 9.91 18.2 10 17.42 10C14.05 10 11.07 8.33 9.26 5.77C8.28 8.16 6.41 10.09 4.05 11.14C4 11.42 4 11.71 4 12M9 14.25C9.69 14.25 10.25 13.69 10.25 13S9.69 11.75 9 11.75 7.75 12.31 7.75 13 8.31 14.25 9 14.25Z" />
+                                </svg>
+                            </i>
                             <span class="menu-title">Data WUS/PUS</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/kidsweight">
-                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <i class="mdi mdi-scale menu-icon"></i>
                             <span class="menu-title">Data Timbang Anak</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/kidsweightmonth">
-                            <i class="mdi mdi-chart-pie menu-icon"></i>
+                            <i class="mdi mdi-scale-bathroom menu-icon"></i>
                             <span class="menu-title">Data Timbang Anak Bulan</span>
                         </a>
                     </li>

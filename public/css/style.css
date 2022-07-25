@@ -21835,7 +21835,8 @@ dl li {
   position: absolute;
   margin-top: 17px;
   border-radius: 50%;
-  background: #ffffff;
+  /* Customize by Victor */
+  /* background: #ffffff; */
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
@@ -21853,8 +21854,11 @@ dl li {
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
-  color: #93a8ff;
-  background: transparent;
+    /* Customize by Victor */
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  width: 90%;
+  border-radius: 20px;
 }
 
 .sidebar .nav.sub-menu .nav-item:hover {

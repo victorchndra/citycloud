@@ -156,7 +156,7 @@ Route::resource("letters", "App\Http\Controllers\Transactions\Letter\LetterContr
 
 //letterspension
 
-Route::get("/letters-citizens", [LetterController::class, 'indexcitizen'])->middleware('auth');
+Route::get("/approval", [LetterController::class, 'indexcitizen'])->middleware('auth');
 Route::get("list", [LetterController::class, 'list'])->middleware('auth');
 Route::get("approve/{uid}", [LetterController::class, 'approve'])->name('approve.letters');
 
