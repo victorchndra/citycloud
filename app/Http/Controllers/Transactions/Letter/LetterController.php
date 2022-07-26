@@ -1538,7 +1538,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDomicile::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterDomicile::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -1559,7 +1559,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat belum menerima bpjs
         elseif (LetterNotBPJS::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -1581,7 +1581,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // Rejected : Surat Permohonan Cerai
@@ -1604,7 +1604,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan pensiun
         elseif (LetterPension::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -1626,7 +1626,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan rekomendasi
         elseif (LetterRecomendation::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -1648,7 +1648,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan kelahiran
         elseif (LetterBirth::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -1670,7 +1670,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         } elseif (LetterBuilding::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterBuilding::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
@@ -1690,7 +1690,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         } elseif (LetterRecomendationWork::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterRecomendationWork::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
@@ -1710,7 +1710,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //letter blm pnya rmh
@@ -1733,7 +1733,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN
@@ -1756,7 +1756,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN KTP DALAM PROSES
@@ -1779,7 +1779,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN AKTE DALAM PROSES
@@ -1802,7 +1802,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN BELUM MEMILIKI AKTE
@@ -1825,7 +1825,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN PERNYATAAN
@@ -1848,7 +1848,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN JALAN
@@ -1871,7 +1871,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN JANDA/DUDA
@@ -1894,7 +1894,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN RUJUK/CERAI
@@ -1917,7 +1917,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN HILANG
@@ -1940,7 +1940,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED ADMIN SURAT KETERANGAN PINDAH
@@ -1963,7 +1963,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //letter crowd
@@ -1986,7 +1986,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //surat npwp
@@ -2009,7 +2009,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //surat magic
@@ -2032,7 +2032,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat permohonan kk
         elseif (LetterFamilyCard::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2054,7 +2054,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan kepemilikan tanah
         elseif (LetterLandOwnershipCard::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2076,7 +2076,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan ahli waris
         elseif (LetterInheritance::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2098,7 +2098,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan penghasilan
         elseif (LetterIncome::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2120,7 +2120,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan jalan citizen
         elseif (LetterStreetCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2142,7 +2142,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan kematian
         elseif (LetterDeath::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2164,7 +2164,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan jalan barang
         elseif (LetterStreetGoods::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
@@ -2186,7 +2186,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }elseif (LetterPoor::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterPoor::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_admin']   = $request->get('rejected_notes_admin');
@@ -2206,7 +2206,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterNeedy::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterNeedy::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2227,7 +2227,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterNotMarriedYet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterNotMarriedYet::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2248,7 +2248,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterSelfQuarantine::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterSelfQuarantine::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2269,7 +2269,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDifferenceName::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterDifferenceName::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2290,7 +2290,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDifferenceBirth::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterDifferenceBirth::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2311,7 +2311,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDifferenceName::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterDifferenceName::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2332,7 +2332,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterRemoveCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterRemoveCitizen::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2353,7 +2353,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterCollegeDispensation::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterCollegeDispensation::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2374,7 +2374,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterLandTransaction::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_admin')) {
             $data = LetterLandTransaction::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2395,7 +2395,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
 
@@ -2421,7 +2421,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat belum menikah
         elseif (LetterNotMarriedYet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2443,7 +2443,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat belum menerima bpjs
         elseif (LetterNotBPJS::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2465,7 +2465,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDomicile::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterDomicile::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -2486,7 +2486,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN
@@ -2509,7 +2509,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN KTP DALAM PROSES
@@ -2532,7 +2532,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN AKTE DALAM PROSES
@@ -2555,7 +2555,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN BELUM MEMILIKI AKTE
@@ -2578,7 +2578,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN PERNYATAAN
@@ -2601,7 +2601,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN JALAN
@@ -2624,7 +2624,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN JANDA/DUDA
@@ -2647,7 +2647,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN RUJUK/CERAI
@@ -2670,7 +2670,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN HILANG
@@ -2693,7 +2693,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         // REJECTED RT SURAT KETERANGAN PINDAH
@@ -2716,7 +2716,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         elseif (LetterNeedy::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2738,7 +2738,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         elseif (LetterPoor::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2760,7 +2760,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         elseif (LetterBirth::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2782,7 +2782,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat PErmohonan Cerai
         elseif (LetterDivorce::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2804,7 +2804,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan pensiun
         elseif (LetterPension::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2826,7 +2826,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan rekomendasi
         elseif (LetterRecomendation::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2848,7 +2848,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan kelahiran
         elseif (LetterBirth::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -2870,7 +2870,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         } elseif (LetterBuilding::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterBuilding::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
@@ -2890,7 +2890,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         } elseif (LetterRecomendationWork::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterRecomendationWork::get()->where('uuid', $uuidValidated)->firstOrFail();
             $data['rejected_notes_rt']   = $request->get('rejected_notes_rt');
@@ -2910,7 +2910,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //letter blm pnya rmh
@@ -2933,7 +2933,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //letter crowd
@@ -2956,7 +2956,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //surat npwp
@@ -2979,7 +2979,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
         //surat magic
@@ -3002,7 +3002,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat permohonan kk
         elseif (LetterFamilyCard::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3024,7 +3024,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan kepemilikan tanah
         elseif (LetterLandOwnershipCard::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3046,7 +3046,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan ahli waris
         elseif (LetterInheritance::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3068,7 +3068,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan penghasilan
         elseif (LetterIncome::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3090,7 +3090,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan jalan citizen
         elseif (LetterStreetCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3112,7 +3112,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan jalan citizen
         elseif (LetterNotMarriedYet::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3134,7 +3134,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         // Rejected : Surat keterangan kematian
         elseif (LetterDeath::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
@@ -3156,7 +3156,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterStreetGoods::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterStreetGoods::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3177,7 +3177,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDifferenceName::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterDifferenceName::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3198,7 +3198,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDifferenceBirth::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterDifferenceBirth::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3219,7 +3219,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterSelfQuarantine::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterSelfQuarantine::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3240,7 +3240,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterDifferenceName::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterDifferenceName::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3261,7 +3261,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterRemoveCitizen::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterRemoveCitizen::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3282,7 +3282,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterCollegeDispensation::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterCollegeDispensation::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3303,7 +3303,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
         elseif (LetterLandTransaction::where('uuid', $uuidValidated)->exists() && $request->get('rejected_notes_rt')) {
             $data = LetterLandTransaction::get()->where('uuid', $uuidValidated)->firstOrFail();
@@ -3324,7 +3324,7 @@ class LetterController extends Controller
             DB::table('logs')->insert($log);
             // selesai
 
-            return redirect('/letters-citizens')->with('success', 'Surat berhasil ditolak');
+            return redirect('/approval')->with('success', 'Surat berhasil ditolak');
         }
 
 
@@ -4043,7 +4043,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
@@ -4067,7 +4067,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN
@@ -4091,7 +4091,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN KTP DALAM PROSES
@@ -4115,7 +4115,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN AKTE DALAM PROSES
@@ -4139,7 +4139,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN BELUM MEMILIKI AKTE
@@ -4163,7 +4163,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN PERNYATAAN
@@ -4187,7 +4187,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN JALAN
@@ -4211,7 +4211,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN JANDA/DUDA
@@ -4235,7 +4235,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN RUJUK/CERAI
@@ -4259,7 +4259,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN HILANG
@@ -4283,7 +4283,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE ADMIN SURAT KETERANGAN PINDAH
@@ -4307,7 +4307,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
              elseif (LetterPension::where('uuid', $uuid)->exists()) {
@@ -4334,7 +4334,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -4357,7 +4357,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterBirth::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -4380,7 +4380,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             //BAgian Admin
             elseif (LetterStreetGoods::where('uuid', $uuid)->exists()) {
@@ -4404,7 +4404,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterBuilding::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -4427,7 +4427,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDivorce::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -4450,7 +4450,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterStreetCitizen::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -4473,7 +4473,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterNotBPJS::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -4496,7 +4496,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterDeath::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan kematian
                 $data = LetterDeath::get()->where('uuid', $uuid)->firstOrFail();
@@ -4518,7 +4518,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterNoHouse::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterNoHouse::get()->where('uuid', $uuid)->firstOrFail();
@@ -4540,7 +4540,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterPoor::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterPoor::get()->where('uuid', $uuid)->firstOrFail();
@@ -4562,7 +4562,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterNeedy::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterNeedy::get()->where('uuid', $uuid)->firstOrFail();
@@ -4584,7 +4584,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterDomicile::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterDomicile::get()->where('uuid', $uuid)->firstOrFail();
@@ -4606,7 +4606,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterFamilyCard::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterFamilyCard::get()->where('uuid', $uuid)->firstOrFail();
@@ -4628,7 +4628,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterCrowd::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
@@ -4650,7 +4650,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterTax::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
@@ -4672,7 +4672,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterMagic::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -4695,7 +4695,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterLandOwnershipCard::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -4718,7 +4718,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterInheritance::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -4741,7 +4741,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterIncome::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -4764,7 +4764,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterRecomendationWork::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -4787,7 +4787,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menikah
@@ -4810,7 +4810,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDifferenceName::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menikah
@@ -4833,7 +4833,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterRemoveCitizen::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menikah
@@ -4856,7 +4856,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menikah
@@ -4879,7 +4879,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterLandTransaction::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menikah
@@ -4902,7 +4902,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
 
@@ -4930,7 +4930,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterRecomendation::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -4953,7 +4953,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterInheritance::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -4976,7 +4976,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             elseif (LetterBirth::where('uuid', $uuid)->exists()) {
@@ -5000,7 +5000,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterStreetGoods::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -5023,7 +5023,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterBuilding::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -5046,7 +5046,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDeath::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -5069,7 +5069,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterPension::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -5092,7 +5092,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDivorce::where('uuid', $uuid)->exists()) {
                 // Approve : Surat rekomendasi
@@ -5115,7 +5115,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterPension::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -5138,7 +5138,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterStreetCitizen::where('uuid', $uuid)->exists()) {
                 // Approve : Surat keterangan pensiun
@@ -5161,7 +5161,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterNotBPJS::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -5184,7 +5184,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterNoHouse::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterNoHouse::get()->where('uuid', $uuid)->firstOrFail();
@@ -5206,7 +5206,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterPoor::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterPoor::get()->where('uuid', $uuid)->firstOrFail();
@@ -5228,7 +5228,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterNeedy::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterNeedy::get()->where('uuid', $uuid)->firstOrFail();
@@ -5250,7 +5250,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterDomicile::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterDomicile::get()->where('uuid', $uuid)->firstOrFail();
@@ -5272,7 +5272,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterFamilyCard::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterFamilyCard::get()->where('uuid', $uuid)->firstOrFail();
@@ -5294,7 +5294,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterCrowd::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterCrowd::get()->where('uuid', $uuid)->firstOrFail();
@@ -5316,7 +5316,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             } elseif (LetterTax::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
                 $data = LetterTax::get()->where('uuid', $uuid)->firstOrFail();
@@ -5338,7 +5338,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterMagic::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -5361,7 +5361,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterLandOwnershipCard::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -5384,7 +5384,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterInheritance::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -5407,7 +5407,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterIncome::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -5430,7 +5430,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterRecomendationWork::where('uuid', $uuid)->exists()) {
                 // Approve : Surat belum menerima bpjs
@@ -5453,7 +5453,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterNotMarriedYet::where('uuid', $uuid)->exists()) {
                 $data = LetterNotMarriedYet::get()->where('uuid', $uuid)->firstOrFail();
@@ -5475,7 +5475,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterSelfQuarantine::where('uuid', $uuid)->exists()) {
                 $data = LetterSelfQuarantine::get()->where('uuid', $uuid)->firstOrFail();
@@ -5497,7 +5497,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDifferenceName::where('uuid', $uuid)->exists()) {
                 $data = LetterDifferenceName::get()->where('uuid', $uuid)->firstOrFail();
@@ -5519,7 +5519,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDifferenceBirth::where('uuid', $uuid)->exists()) {
                 $data = LetterDifferenceBirth::get()->where('uuid', $uuid)->firstOrFail();
@@ -5541,7 +5541,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterDifferenceName::where('uuid', $uuid)->exists()) {
                 $data = LetterDifferenceName::get()->where('uuid', $uuid)->firstOrFail();
@@ -5563,7 +5563,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterRemoveCitizen::where('uuid', $uuid)->exists()) {
                 $data = LetterRemoveCitizen::get()->where('uuid', $uuid)->firstOrFail();
@@ -5585,7 +5585,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterCollegeDispensation::where('uuid', $uuid)->exists()) {
                 $data = LetterCollegeDispensation::get()->where('uuid', $uuid)->firstOrFail();
@@ -5607,7 +5607,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
             elseif (LetterLandTransaction::where('uuid', $uuid)->exists()) {
                 $data = LetterLandTransaction::get()->where('uuid', $uuid)->firstOrFail();
@@ -5629,7 +5629,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN PERMOHONAN CUTI TAHUNAN
@@ -5653,7 +5653,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN KTP DALAM PROSES
@@ -5677,7 +5677,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN AKTE DALAM PROSES
@@ -5701,7 +5701,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN BELUM MEMILIKI AKTE
@@ -5725,7 +5725,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN PERNYATAAN
@@ -5749,7 +5749,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN JALAN
@@ -5773,7 +5773,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN JANDA/DUDA
@@ -5797,7 +5797,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN RUJUK/CERAI
@@ -5821,7 +5821,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN HILANG
@@ -5845,7 +5845,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
 
             // APPROVE RT SURAT KETERANGAN PINDAH
@@ -5869,7 +5869,7 @@ class LetterController extends Controller
                 DB::table('logs')->insert($log);
                 // selesai
 
-                return redirect('/letters-citizens')->with('success', 'Surat berhasil disetujui');
+                return redirect('/approval')->with('success', 'Surat berhasil disetujui');
             }
         }
     }
